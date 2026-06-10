@@ -1,0 +1,118 @@
+CLUBS = [
+    {"id": 1, "name": "Реал Мадрид", "budget": 200_000_000, "team_strength": 92, "country": "Іспанія"},
+    {"id": 2, "name": "Барселона", "budget": 150_000_000, "team_strength": 88, "country": "Іспанія"},
+    {"id": 3, "name": "Манчестер Сіті", "budget": 220_000_000, "team_strength": 91, "country": "Англія"},
+    {"id": 4, "name": "Арсенал", "budget": 130_000_000, "team_strength": 85, "country": "Англія"},
+    {"id": 5, "name": "ПСЖ", "budget": 180_000_000, "team_strength": 87, "country": "Франція"},
+    {"id": 6, "name": "Мілан", "budget": 100_000_000, "team_strength": 82, "country": "Італія"},
+    {"id": 7, "name": "Динамо Київ", "budget": 40_000_000, "team_strength": 72, "country": "Україна"},
+    {"id": 8, "name": "Шахтар", "budget": 50_000_000, "team_strength": 75, "country": "Україна"},
+]
+
+PLAYERS = [
+    # Реал Мадрид (club_id=1)
+    {"name": "Тубо Куртуа", "position": "ВРТ", "rating": 90, "value": 60_000_000, "salary": 300_000, "club_id": 1},
+    {"name": "Карвахаль", "position": "ЗАХ", "rating": 85, "value": 30_000_000, "salary": 200_000, "club_id": 1},
+    {"name": "Рюдігер", "position": "ЗАХ", "rating": 87, "value": 40_000_000, "salary": 220_000, "club_id": 1},
+    {"name": "Начо", "position": "ЗАХ", "rating": 80, "value": 15_000_000, "salary": 150_000, "club_id": 1},
+    {"name": "Мендi", "position": "ЗАХ", "rating": 82, "value": 25_000_000, "salary": 180_000, "club_id": 1},
+    {"name": "Камавінга", "position": "ПВ", "rating": 84, "value": 80_000_000, "salary": 250_000, "club_id": 1},
+    {"name": "Кроос", "position": "ПВ", "rating": 88, "value": 20_000_000, "salary": 350_000, "club_id": 1},
+    {"name": "Модріч", "position": "ПВ", "rating": 87, "value": 15_000_000, "salary": 400_000, "club_id": 1},
+    {"name": "Вальверде", "position": "ПВ", "rating": 86, "value": 100_000_000, "salary": 280_000, "club_id": 1},
+    {"name": "Вінісіус", "position": "НАП", "rating": 91, "value": 180_000_000, "salary": 500_000, "club_id": 1},
+    {"name": "Беллінгем", "position": "НАП", "rating": 92, "value": 200_000_000, "salary": 600_000, "club_id": 1},
+
+    # Барселона (club_id=2)
+    {"name": "Тер Штеген", "position": "ВРТ", "rating": 88, "value": 40_000_000, "salary": 280_000, "club_id": 2},
+    {"name": "Кунде", "position": "ЗАХ", "rating": 86, "value": 60_000_000, "salary": 250_000, "club_id": 2},
+    {"name": "Аранго", "position": "ЗАХ", "rating": 84, "value": 50_000_000, "salary": 220_000, "club_id": 2},
+    {"name": "Кубарсі", "position": "ЗАХ", "rating": 82, "value": 40_000_000, "salary": 180_000, "club_id": 2},
+    {"name": "Педрі", "position": "ПВ", "rating": 88, "value": 120_000_000, "salary": 350_000, "club_id": 2},
+    {"name": "Гаві", "position": "ПВ", "rating": 87, "value": 100_000_000, "salary": 300_000, "club_id": 2},
+    {"name": "Де Йонг", "position": "ПВ", "rating": 86, "value": 70_000_000, "salary": 280_000, "club_id": 2},
+    {"name": "Рафіньо", "position": "НАП", "rating": 85, "value": 50_000_000, "salary": 260_000, "club_id": 2},
+    {"name": "Ямаль", "position": "НАП", "rating": 86, "value": 150_000_000, "salary": 200_000, "club_id": 2},
+    {"name": "Левандовський", "position": "НАП", "rating": 89, "value": 30_000_000, "salary": 500_000, "club_id": 2},
+
+    # Манчестер Сіті (club_id=3)
+    {"name": "Едерсон", "position": "ВРТ", "rating": 90, "value": 50_000_000, "salary": 250_000, "club_id": 3},
+    {"name": "Вокер", "position": "ЗАХ", "rating": 84, "value": 20_000_000, "salary": 200_000, "club_id": 3},
+    {"name": "Рубен Діаш", "position": "ЗАХ", "rating": 89, "value": 80_000_000, "salary": 300_000, "club_id": 3},
+    {"name": "Аке", "position": "ЗАХ", "rating": 83, "value": 40_000_000, "salary": 200_000, "club_id": 3},
+    {"name": "Родрі", "position": "ПВ", "rating": 91, "value": 150_000_000, "salary": 350_000, "club_id": 3},
+    {"name": "Де Брейне", "position": "ПВ", "rating": 91, "value": 60_000_000, "salary": 450_000, "club_id": 3},
+    {"name": "Фоден", "position": "ПВ", "rating": 88, "value": 120_000_000, "salary": 300_000, "club_id": 3},
+    {"name": "Доку", "position": "НАП", "rating": 84, "value": 70_000_000, "salary": 200_000, "club_id": 3},
+    {"name": "Гааланд", "position": "НАП", "rating": 93, "value": 200_000_000, "salary": 700_000, "club_id": 3},
+    {"name": "Бернарду Сілва", "position": "НАП", "rating": 87, "value": 70_000_000, "salary": 280_000, "club_id": 3},
+
+    # Арсенал (club_id=4)
+    {"name": "Рая", "position": "ВРТ", "rating": 85, "value": 30_000_000, "salary": 150_000, "club_id": 4},
+    {"name": "Уайт", "position": "ЗАХ", "rating": 84, "value": 50_000_000, "salary": 200_000, "club_id": 4},
+    {"name": "Саліба", "position": "ЗАХ", "rating": 87, "value": 80_000_000, "salary": 220_000, "club_id": 4},
+    {"name": "Магалайс", "position": "ЗАХ", "rating": 85, "value": 50_000_000, "salary": 200_000, "club_id": 4},
+    {"name": "Оденгор", "position": "ПВ", "rating": 83, "value": 40_000_000, "salary": 180_000, "club_id": 4},
+    {"name": "Жоржіньо", "position": "ПВ", "rating": 82, "value": 5_000_000, "salary": 200_000, "club_id": 4},
+    {"name": "Райс", "position": "ПВ", "rating": 87, "value": 100_000_000, "salary": 280_000, "club_id": 4},
+    {"name": "Мартінеллі", "position": "НАП", "rating": 85, "value": 70_000_000, "salary": 200_000, "club_id": 4},
+    {"name": "Сака", "position": "НАП", "rating": 88, "value": 120_000_000, "salary": 300_000, "club_id": 4},
+    {"name": "Жезус", "position": "НАП", "rating": 83, "value": 40_000_000, "salary": 220_000, "club_id": 4},
+
+    # ПСЖ (club_id=5)
+    {"name": "Доннарумма", "position": "ВРТ", "rating": 89, "value": 50_000_000, "salary": 200_000, "club_id": 5},
+    {"name": "Аклюзе", "position": "ЗАХ", "rating": 80, "value": 20_000_000, "salary": 150_000, "club_id": 5},
+    {"name": "Маркіньос", "position": "ЗАХ", "rating": 85, "value": 30_000_000, "salary": 250_000, "club_id": 5},
+    {"name": "Бернальдо", "position": "ЗАХ", "rating": 81, "value": 25_000_000, "salary": 150_000, "club_id": 5},
+    {"name": "Fabian Ruiz", "position": "ПВ", "rating": 84, "value": 40_000_000, "salary": 200_000, "club_id": 5},
+    {"name": "Угарте", "position": "ПВ", "rating": 83, "value": 50_000_000, "salary": 180_000, "club_id": 5},
+    {"name": "Майк-Амері", "position": "ПВ", "rating": 82, "value": 60_000_000, "salary": 160_000, "club_id": 5},
+    {"name": "Демеле", "position": "НАП", "rating": 86, "value": 50_000_000, "salary": 250_000, "club_id": 5},
+    {"name": "Мбаппе", "position": "НАП", "rating": 92, "value": 180_000_000, "salary": 800_000, "club_id": 5},
+    {"name": "Мусса Хакумі", "position": "ЗАХ", "rating": 85, "value": 60_000_000, "salary": 220_000, "club_id": 5},
+
+    # Мілан (club_id=6)
+    {"name": "Мандзукін", "position": "ВРТ", "rating": 84, "value": 25_000_000, "salary": 150_000, "club_id": 6},
+    {"name": "Емерсон", "position": "ЗАХ", "rating": 80, "value": 15_000_000, "salary": 130_000, "club_id": 6},
+    {"name": "Томорі", "position": "ЗАХ", "rating": 84, "value": 35_000_000, "salary": 180_000, "club_id": 6},
+    {"name": "Трав", "position": "ЗАХ", "rating": 81, "value": 20_000_000, "salary": 150_000, "club_id": 6},
+    {"name": "Рейнірс", "position": "ПВ", "rating": 79, "value": 20_000_000, "salary": 140_000, "club_id": 6},
+    {"name": "Форана", "position": "ПВ", "rating": 82, "value": 35_000_000, "salary": 160_000, "club_id": 6},
+    {"name": "Пулісіч", "position": "ПВ", "rating": 84, "value": 30_000_000, "salary": 180_000, "club_id": 6},
+    {"name": "Леао", "position": "НАП", "rating": 87, "value": 80_000_000, "salary": 250_000, "club_id": 6},
+    {"name": "Абрагам", "position": "НАП", "rating": 80, "value": 25_000_000, "salary": 150_000, "club_id": 6},
+    {"name": "Жиру", "position": "НАП", "rating": 82, "value": 5_000_000, "salary": 200_000, "club_id": 6},
+
+    # Динамо Київ (club_id=7)
+    {"name": "Бущан", "position": "ВРТ", "rating": 76, "value": 8_000_000, "salary": 50_000, "club_id": 7},
+    {"name": "Кендзьора", "position": "ЗАХ", "rating": 72, "value": 3_000_000, "salary": 30_000, "club_id": 7},
+    {"name": "Забарний", "position": "ЗАХ", "rating": 78, "value": 25_000_000, "salary": 80_000, "club_id": 7},
+    {"name": "Попов", "position": "ЗАХ", "rating": 71, "value": 2_000_000, "salary": 25_000, "club_id": 7},
+    {"name": "Миколенко", "position": "ЗАХ", "rating": 76, "value": 12_000_000, "salary": 60_000, "club_id": 7},
+    {"name": "Шапаренко", "position": "ПВ", "rating": 77, "value": 15_000_000, "salary": 70_000, "club_id": 7},
+    {"name": "Сидорчук", "position": "ПВ", "rating": 73, "value": 3_000_000, "salary": 35_000, "club_id": 7},
+    {"name": "Циганков", "position": "ПВ", "rating": 74, "value": 5_000_000, "salary": 40_000, "club_id": 7},
+    {"name": "Яремчук", "position": "НАП", "rating": 75, "value": 8_000_000, "salary": 50_000, "club_id": 7},
+    {"name": "Довбик", "position": "НАП", "rating": 79, "value": 30_000_000, "salary": 90_000, "club_id": 7},
+
+    # Шахтар (club_id=8)
+    {"name": "Трубін", "position": "ВРТ", "rating": 78, "value": 15_000_000, "salary": 60_000, "club_id": 8},
+    {"name": "Конопля", "position": "ЗАХ", "rating": 74, "value": 5_000_000, "salary": 35_000, "club_id": 8},
+    {"name": "Матвієнко", "position": "ЗАХ", "rating": 76, "value": 8_000_000, "salary": 45_000, "club_id": 8},
+    {"name": "Бондаренко", "position": "ЗАХ", "rating": 72, "value": 3_000_000, "salary": 30_000, "club_id": 8},
+    {"name": "Судаков", "position": "ПВ", "rating": 82, "value": 35_000_000, "salary": 100_000, "club_id": 8},
+    {"name": "Степаненко", "position": "ПВ", "rating": 75, "value": 4_000_000, "salary": 40_000, "club_id": 8},
+    {"name": "Мудрик", "position": "НАП", "rating": 82, "value": 40_000_000, "salary": 80_000, "club_id": 8},
+    {"name": "Зубков", "position": "НАП", "rating": 76, "value": 8_000_000, "salary": 45_000, "club_id": 8},
+    {"name": "Ракицький", "position": "ЗАХ", "rating": 74, "value": 3_000_000, "salary": 40_000, "club_id": 8},
+    {"name": "Педріньо", "position": "НАП", "rating": 78, "value": 12_000_000, "salary": 60_000, "club_id": 8},
+
+    # Вільні агенти
+    {"name": "Хамес Родрігес", "position": "ПВ", "rating": 80, "value": 8_000_000, "salary": 100_000, "club_id": None, "is_free_agent": 1},
+    {"name": "Гарет Бейл", "position": "НАП", "rating": 78, "value": 5_000_000, "salary": 80_000, "club_id": None, "is_free_agent": 1},
+    {"name": "Іско", "position": "ПВ", "rating": 81, "value": 6_000_000, "salary": 90_000, "club_id": None, "is_free_agent": 1},
+    {"name": "Уго Лоріс", "position": "НАП", "rating": 77, "value": 3_000_000, "salary": 70_000, "club_id": None, "is_free_agent": 1},
+    {"name": "Леандро Пареде", "position": "ПВ", "rating": 79, "value": 10_000_000, "salary": 120_000, "club_id": None, "is_free_agent": 1},
+    {"name": "Андрій Шевченко", "position": "НАП", "rating": 75, "value": 2_000_000, "salary": 50_000, "club_id": None, "is_free_agent": 1},
+    {"name": "Карлос Тевес", "position": "НАП", "rating": 74, "value": 2_000_000, "salary": 50_000, "club_id": None, "is_free_agent": 1},
+]

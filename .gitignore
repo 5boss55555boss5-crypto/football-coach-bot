@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+*.db
+*.log
+*.exe
+run_bot.bat
+run.py
+ЗАПУСТИ_БОТА.bat
