@@ -15846,6 +15846,22 @@ let selectedLeague=null;
 function getLeagueForClub(c){
   return LEAGUES.find(l=>l.filter(c))||LEAGUES[3];
 }
+function getLeagueIdsForClubId(clubId){
+  if(EPL_IDS.includes(clubId)) return EPL_IDS;
+  if(LALIGA_IDS.includes(clubId)) return LALIGA_IDS;
+  if(UPL_IDS.includes(clubId)) return UPL_IDS;
+  if(SERIEA_IDS.includes(clubId)) return SERIEA_IDS;
+  if(BUNDESLIGA_IDS.includes(clubId)) return BUNDESLIGA_IDS;
+  return OTHER_IDS;
+}
+function getLeaguePrestigeForClubId(clubId){
+  if(EPL_IDS.includes(clubId)) return 1.0;
+  if(LALIGA_IDS.includes(clubId)) return 0.95;
+  if(BUNDESLIGA_IDS.includes(clubId)) return 0.93;
+  if(SERIEA_IDS.includes(clubId)) return 0.90;
+  if(UPL_IDS.includes(clubId)) return 0.55;
+  return 0.65;
+}
 function leagueIconHtml(league,size='22px'){
   const icon=(league&&league.emoji)||'🏅';
   if(String(icon).trim().startsWith('<img')){
@@ -20113,10 +20129,7 @@ function updateCareerReputation(){
   const userClubId=G.club.id;
 
   // 1) Current league position
-  let leagueIds=EPL_IDS.includes(userClubId)?EPL_IDS:
-    LALIGA_IDS.includes(userClubId)?LALIGA_IDS:
-    UPL_IDS.includes(userClubId)?UPL_IDS:
-    SERIEA_IDS.includes(userClubId)?SERIEA_IDS:OTHER_IDS;
+  let leagueIds=getLeagueIdsForClubId(userClubId);
   const leagueSize=leagueIds.length;
   const sorted=leagueIds
     .map(id=>G.tableStats&&G.tableStats[id]?{id,...G.tableStats[id]}:null)
@@ -20125,11 +20138,7 @@ function updateCareerReputation(){
   const myPos=sorted.findIndex(c=>c.id===userClubId)+1||Math.ceil(leagueSize/2);
 
   // 2) League prestige (1st in EPL >> 1st in UPL)
-  const leaguePrestige=
-    EPL_IDS.includes(userClubId)?1.0:
-    LALIGA_IDS.includes(userClubId)?0.95:
-    SERIEA_IDS.includes(userClubId)?0.90:
-    UPL_IDS.includes(userClubId)?0.55:0.65;
+  const leaguePrestige=getLeaguePrestigeForClubId(userClubId);
 
   // 3) Overperformance bonus — how much better did we do vs club strength?
   const clubStr=STR[userClubId]||G.club.strength||70;
@@ -20181,10 +20190,7 @@ function updateCareerReputation(){
 // 60% career (persistent) + 40% current season form
 function getManagerReputation(){
   const userClubId=G.club.id;
-  let leagueIds=EPL_IDS.includes(userClubId)?EPL_IDS:
-    LALIGA_IDS.includes(userClubId)?LALIGA_IDS:
-    UPL_IDS.includes(userClubId)?UPL_IDS:
-    SERIEA_IDS.includes(userClubId)?SERIEA_IDS:OTHER_IDS;
+  let leagueIds=getLeagueIdsForClubId(userClubId);
   const leagueSize=leagueIds.length;
   const sorted=leagueIds
     .map(id=>G.tableStats&&G.tableStats[id]?{id,...G.tableStats[id]}:null)
@@ -20193,11 +20199,7 @@ function getManagerReputation(){
   const myPos=sorted.findIndex(c=>c.id===userClubId)+1||Math.ceil(leagueSize/2);
   const posScore=(leagueSize-myPos)/(leagueSize-1)*100;
 
-  const leaguePrestige=
-    EPL_IDS.includes(userClubId)?1.0:
-    LALIGA_IDS.includes(userClubId)?0.95:
-    SERIEA_IDS.includes(userClubId)?0.90:
-    UPL_IDS.includes(userClubId)?0.55:0.65;
+  const leaguePrestige=getLeaguePrestigeForClubId(userClubId);
 
   const recentMatches=(G.journal||[])
     .filter(e=>e.club===G.club.id&&(e.type==='match_win'||e.type==='match_draw'||e.type==='match_loss'))
@@ -20243,14 +20245,17 @@ function checkManagerOffers(period){
   }
   if(!count) return;
 
-  const rep=getManagerReputation();
-  const maxStr=getMaxOfferableStrength(rep);
   const userStr=STR[G.club.id]||G.club.strength||70;
-  const minStr=Math.max(55, userStr-15);
+  const recentTrophies=(G.trophyHistory||[]).slice(-6);
+  const recentUclWin=recentTrophies.some(t=>t.type==='ucl');
+  const recentLeagueWin=recentTrophies.some(t=>t.type==='league');
+  const rep=Math.max(getManagerReputation(), recentUclWin?88:recentLeagueWin?70:0);
+  const maxStr=Math.max(getMaxOfferableStrength(rep), recentUclWin?96:userStr+6);
+  const minStr=Math.max(55, userStr-(recentUclWin?5:10));
 
   let pool;
   if(period==='winter'){
-    const currentLeague=LEAGUES.find(l=>l.id===G.leagueId)||LEAGUES[3];
+    const currentLeague=LEAGUES.find(l=>l.id===G.leagueId)||getLeagueForClub(G.club);
     pool=CLUBS.filter(c=>currentLeague.filter(c));
   } else {
     pool=CLUBS;
@@ -20265,7 +20270,7 @@ function checkManagerOffers(period){
 
   if(candidates.length<count){
     const fallback=pool.filter(c=>c.id!==G.club.id&&c.strength)
-      .sort((a,b)=>(STR[a.id]||a.strength)-(STR[b.id]||b.strength));
+      .sort((a,b)=>Math.abs((STR[a.id]||a.strength)-userStr)-Math.abs((STR[b.id]||b.strength)-userStr));
     candidates=[...new Set([...candidates,...fallback])].slice(0,count+3);
   }
 
@@ -20278,11 +20283,7 @@ function checkManagerOffers(period){
 
 function getClubLeaguePos(clubId){
   if(!G.tableStats||!G.tableStats[clubId]) return '—';
-  let leagueIds=null;
-  if(EPL_IDS.includes(clubId)) leagueIds=EPL_IDS;
-  else if(LALIGA_IDS.includes(clubId)) leagueIds=LALIGA_IDS;
-  else if(UPL_IDS.includes(clubId)) leagueIds=UPL_IDS;
-  else leagueIds=OTHER_IDS;
+  let leagueIds=getLeagueIdsForClubId(clubId);
   const sorted=leagueIds
     .map(id=>G.tableStats[id]?{id,...G.tableStats[id]}:null)
     .filter(Boolean)
@@ -20295,6 +20296,7 @@ function getClubLeagueName(clubId){
   if(EPL_IDS.includes(clubId)) return '🇬🇧 АПЛ';
   if(LALIGA_IDS.includes(clubId)) return '🇪🇸 Ла Ліга';
   if(UPL_IDS.includes(clubId)) return '🇺🇦 УПЛ';
+  if(BUNDESLIGA_IDS.includes(clubId)) return '🇩🇪 Бундесліга';
   if(SERIEA_IDS.includes(clubId)) return '🇮🇹 Серія А';
   return '🌍 Ліга';
 }
@@ -20320,7 +20322,7 @@ function showManagerOffers(clubs, period, rep=50, maxStr=80){
 
   // ── LIST VIEW ──
   function renderList(){
-    const repVal=G.managerRep||10;
+    const repVal=Math.max(G.managerRep||10, rep||0);
     const repColor=repVal>=70?'var(--grn)':repVal>=40?'var(--gold)':'var(--red)';
     const repLabel=repVal>=80?'Топ-тренер':repVal>=60?'Досвідчений':repVal>=40?'Перспективний':repVal>=20?'Початківець':'Маловідомий';
 
