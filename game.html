@@ -14828,7 +14828,11 @@ function finalizeUefaSuperCupResult(rd, match, hg, ag, playedByUser=false){
 
 function processUefaSuperCupRound(rd){
   const match=getUefaSuperCupMatch(rd);
-  if(!match || match.result) return;
+  if(!match) return null;
+  if(match.result){
+    const sp=scoreParts(match.result);
+    return finalizeUefaSuperCupResult(rd, match, sp.hg, sp.ag, false);
+  }
   const s=simScore((STR[match.home]||75)+(Math.random()*12-6),(STR[match.away]||75)+(Math.random()*12-6));
   const res=finalizeUefaSuperCupResult(rd, match, s.hg, s.ag, false);
   if(res) recordRandomMatchScorers(match.home, match.away, res.hg, res.ag, 'uefa_supercup');
@@ -18762,7 +18766,10 @@ function renderNextMatch(){
       <div style="font-size:38px;margin-bottom:8px">🏆</div>
       <div style="font-size:15px;font-weight:800;margin-bottom:4px">${rd.label||'Суперкубок УЄФА'}</div>
       <div style="font-size:12px;color:var(--mut);margin-bottom:12px">${hc?.name||'Команда'} ${m?.result?scoreParts(m.result).hg:''} : ${m?.result?scoreParts(m.result).ag:''} ${ac?.name||'Команда'}</div>
-      <button onclick="continuePastUefaSuperCupRound()" style="background:linear-gradient(135deg,#92400e,#f5a623);color:#fff;border:none;border-radius:12px;padding:12px 28px;font-size:14px;font-weight:800;cursor:pointer">Продовжити</button>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <button onclick="showUefaSuperCupCeremony(processUefaSuperCupRound(G.schedule[G.currentRound]))" style="background:linear-gradient(135deg,#7c2d12,#f5a623);color:#fff;border:none;border-radius:12px;padding:12px 18px;font-size:13px;font-weight:900;cursor:pointer">Показати церемонію</button>
+        <button onclick="continuePastUefaSuperCupRound()" style="background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 18px;font-size:13px;font-weight:800;cursor:pointer">Продовжити</button>
+      </div>
     </div>`;
     btn.disabled=false;
     btn.textContent='▶ Продовжити';
