@@ -24289,6 +24289,11 @@ function leagueTrophyImg(key=G?.leagueId, size='24px', style=''){
   return `<span style="font-size:${size};line-height:1;${style}">&#127942;</span>`;
 }
 
+const ENGLAND_CUP_B64 = EPL_LEAGUE_TROPHY_B64;
+const SPAIN_CUP_B64 = LALIGA_LEAGUE_TROPHY_B64;
+const OTHER_CUP_B64 = OTHER_LEAGUE_TROPHY_B64;
+const UKRAINE_CUP_B64 = UPL_LEAGUE_TROPHY_B64;
+
 function cupTrophyImg(key=G?.leagueId, size='24px', style=''){
   const raw=String(key||'').toLowerCase();
   let src='';
