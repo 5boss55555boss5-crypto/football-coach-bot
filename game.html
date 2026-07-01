@@ -187,7 +187,31 @@
   .fm-pack-name{font-size:13px}
   .fm-pack-price{font-size:14px}
   .fm-pack-sub{font-size:10px}
-}</style>
+}
+
+/* CASE OPENING V25 - FIFA Mobile style */
+@keyframes fmCaseBackdropIn{from{opacity:0;filter:blur(8px)}to{opacity:1;filter:blur(0)}}
+@keyframes fmCasePackFloat{0%,100%{transform:translateY(0) scale(1);filter:drop-shadow(0 18px 34px rgba(0,0,0,.55))}50%{transform:translateY(-9px) scale(1.025);filter:drop-shadow(0 26px 46px rgba(0,0,0,.65))}}
+@keyframes fmCasePackShine{0%{transform:translateX(-150%) rotate(18deg)}100%{transform:translateX(180%) rotate(18deg)}}
+@keyframes fmCaseAura{0%,100%{opacity:.45;transform:scale(.96)}50%{opacity:.9;transform:scale(1.06)}}
+@keyframes fmCaseMeter{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes fmCaseFlash{0%{opacity:0}18%{opacity:.9}100%{opacity:0}}
+@keyframes fmCaseCardIn{0%{opacity:0;transform:translateY(42px) scale(.82) rotateX(24deg)}58%{opacity:1;transform:translateY(-4px) scale(1.035) rotateX(0)}100%{opacity:1;transform:translateY(0) scale(1) rotateX(0)}}
+@keyframes fmCaseCardOut{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-32px) scale(.92)}}
+@keyframes fmCaseFinalIn{0%{opacity:0;transform:translateY(70px) scale(.72)}62%{opacity:1;transform:translateY(-8px) scale(1.035)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes fmCaseRing{0%{transform:scale(.72);opacity:.72}100%{transform:scale(1.48);opacity:0}}
+@keyframes fmCaseConfetti{0%{transform:translateY(-16px) rotate(0);opacity:1}100%{transform:translateY(110vh) rotate(760deg);opacity:0}}
+#caseOverlay.fm-case-v25{position:fixed;inset:0;z-index:9800;overflow:hidden;background:#02050a;color:#fff;font-family:Inter,system-ui,sans-serif;animation:fmCaseBackdropIn .28s ease both}
+#caseOverlay .fm-case-bg{position:absolute;inset:0;background:radial-gradient(circle at 50% 18%,rgba(59,130,246,.22),transparent 34%),radial-gradient(circle at 50% 100%,rgba(16,185,129,.14),transparent 38%),linear-gradient(180deg,#07101c,#02050a 68%);pointer-events:none}
+#caseOverlay .fm-case-grid{position:absolute;inset:0;background:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(180deg,transparent,black 18%,black 72%,transparent);opacity:.25;pointer-events:none}
+#caseOverlay .fm-case-sweep{position:absolute;inset:-20%;background:conic-gradient(from 210deg at 50% 42%,transparent,rgba(255,255,255,.13),transparent 26%);animation:fmCaseAura 3.1s ease-in-out infinite;pointer-events:none}
+#caseProgressDots.fm-case-steps{position:fixed;top:18px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:3}
+.fm-case-step{width:28px;height:4px;border-radius:999px;background:rgba(255,255,255,.16);overflow:hidden}.fm-case-step span{display:block;width:100%;height:100%;transform:scaleX(0);transform-origin:left;background:var(--case-c,#fbbf24)}.fm-case-step.done span,.fm-case-step.active span{animation:fmCaseMeter .45s ease forwards}
+#caseCardWrap.fm-case-card-wrap{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);display:none;z-index:4;perspective:900px;width:min(330px,82vw)}
+#caseCard{width:100%;transform-style:preserve-3d}.ci{animation:fmCaseCardIn .48s cubic-bezier(.2,.78,.22,1) both}.co{animation:fmCaseCardOut .26s ease both}
+#caseConfirmScreen.fm-case-final{position:fixed;inset:0;display:none;z-index:5;align-items:flex-end;justify-content:center;padding:0 18px 32px}
+.fi{animation:fmCaseFinalIn .62s cubic-bezier(.2,.78,.22,1) both}
+</style>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap');
@@ -1084,6 +1108,49 @@ body.theme-light .fatigue-sheet-bar{ background:rgba(0,0,0,.06); }
 /* ── SORT SHEET (global) ── */
 #sortSheet{position:fixed;inset:0;z-index:600;display:flex;flex-direction:column;justify-content:flex-end;background:rgba(0,0,0,0);pointer-events:none;transition:background .25s;}
 #sortSheetInner{background:var(--surf);border-radius:22px 22px 0 0;border-top:1px solid rgba(255,255,255,.08);padding:0 0 env(safe-area-inset-bottom);transform:translateY(100%);transition:transform .3s cubic-bezier(.32,1,.5,1);}
+</style>
+
+<style id="case-v25-final-overrides">
+#caseOverlay.fm-case-v25 .ci{animation:fmCaseCardIn .48s cubic-bezier(.2,.78,.22,1) both!important}
+#caseOverlay.fm-case-v25 .co{animation:fmCaseCardOut .26s ease both!important}
+#caseOverlay.fm-case-v25 #caseCardWrap.fm-case-card-wrap{position:fixed!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;width:min(330px,82vw)!important;display:none;z-index:4!important}
+#caseOverlay.fm-case-v25 #caseProgressDots.fm-case-steps{position:fixed!important;top:18px!important;left:50%!important;transform:translateX(-50%)!important;display:flex;gap:7px;z-index:3}
+#caseOverlay.fm-case-v25 #caseConfirmScreen.fm-case-final{position:fixed!important;inset:0!important;display:none;z-index:5;align-items:flex-end;justify-content:center;padding:0 18px 32px!important}
+</style>
+
+<style id="pack-market-v27">
+.fm-pack-panel{margin:10px 0 14px!important}
+.fm-pack-title{display:flex!important;align-items:center!important;justify-content:space-between!important;margin:0 2px 8px!important;padding:0!important;color:rgba(226,232,240,.7)!important;font-size:10px!important;font-weight:950!important;letter-spacing:1.6px!important;text-transform:uppercase!important}
+.fm-pack-title:after{content:"\041f\0430\043a\0438";font-size:9px;font-weight:900;color:#38bdf8;background:rgba(56,189,248,.09);border:1px solid rgba(56,189,248,.18);border-radius:999px;padding:4px 9px;letter-spacing:.8px}
+.fm-pack-list{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important;overflow:visible!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.fm-pack-card{--pack-c:#fbbf24;--pack-rgb:251,191,36;position:relative!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:space-between!important;gap:0!important;min-height:184px!important;padding:10px 8px!important;overflow:hidden!important;border:1px solid rgba(var(--pack-rgb),.28)!important;border-radius:16px!important;background:radial-gradient(circle at 50% 18%,rgba(var(--pack-rgb),.24),transparent 38%),linear-gradient(180deg,rgba(15,23,42,.98),rgba(2,6,23,.98))!important;box-shadow:0 12px 28px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.07)!important;transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease!important}
+.fm-pack-card:before{content:""!important;position:absolute!important;inset:auto 0 0 0!important;width:auto!important;height:3px!important;background:linear-gradient(90deg,transparent,var(--pack-c),transparent)!important;opacity:.9!important}
+.fm-pack-card:after{content:""!important;position:absolute!important;top:-40%;bottom:-40%;left:-52%;width:42%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);transform:rotate(18deg);transition:left .45s ease;pointer-events:none}
+.fm-pack-card:hover{transform:translateY(-2px)!important;border-color:rgba(var(--pack-rgb),.52)!important;box-shadow:0 16px 36px rgba(0,0,0,.36),0 0 30px rgba(var(--pack-rgb),.16)!important}
+.fm-pack-card:hover:after{left:112%}
+.fm-pack-card.bronze{--pack-c:#cd7f32;--pack-rgb:205,127,50}.fm-pack-card.silver{--pack-c:#c8d3df;--pack-rgb:200,211,223}.fm-pack-card.gold{--pack-c:#fbbf24;--pack-rgb:251,191,36}
+.fm-pack-object{height:82px;position:relative;display:grid;place-items:center;margin-bottom:7px}
+.fm-pack-object:before{content:"";position:absolute;width:72px;height:72px;border-radius:50%;background:rgba(var(--pack-rgb),.22);filter:blur(18px)}
+.fm-pack-body{position:relative;width:56px;height:76px;border-radius:13px;background:linear-gradient(160deg,rgba(var(--pack-rgb),.95),rgba(15,23,42,.96));box-shadow:0 16px 26px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.38);overflow:hidden}
+.fm-pack-body:before{content:"";position:absolute;inset:7px;border:1px solid rgba(255,255,255,.28);border-radius:10px}
+.fm-pack-body:after{content:"";position:absolute;left:50%;top:12px;transform:translateX(-50%);width:30px;height:26px;clip-path:polygon(0 0,35% 0,50% 70%,65% 0,100% 0,70% 100%,30% 100%);background:linear-gradient(90deg,#22d3ee,#fff,#22c55e)}
+.fm-pack-core{position:absolute;left:50%;top:35px;transform:translateX(-50%);width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 34% 24%,#fff7cc,var(--pack-c),#5c2c06);border:2px solid rgba(255,255,255,.48);color:#0f172a;font-size:15px;font-weight:1000}
+.fm-pack-copy{display:block!important;min-width:0!important;text-align:center!important;flex:0!important}.fm-pack-name-row{display:flex!important;align-items:center!important;justify-content:center!important;gap:4px!important;min-width:0!important}.fm-pack-name{font-size:12px!important;font-weight:950!important;line-height:1.08!important;color:#f8fafc!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important}.fm-pack-sub{margin-top:4px!important;font-size:9px!important;line-height:1.18!important;color:rgba(203,213,225,.52)!important;font-weight:800!important}.fm-pack-price{margin-top:9px!important;height:30px!important;border-radius:10px!important;display:flex!important;align-items:center!important;justify-content:center!important;background:rgba(var(--pack-rgb),.13)!important;border:1px solid rgba(var(--pack-rgb),.24)!important;color:var(--pack-c)!important;font-size:14px!important;font-weight:1000!important;text-shadow:0 0 12px rgba(var(--pack-rgb),.26)!important}.fm-pack-arrow{display:none!important}.fm-pack-top{height:14px!important;padding:0 5px!important;border-radius:4px!important;background:linear-gradient(180deg,#fde047,#f59e0b)!important;color:#111827!important;font-size:7px!important;font-weight:1000!important;letter-spacing:.4px!important}
+@media (max-width:390px){.fm-pack-list{gap:6px!important}.fm-pack-card{min-height:172px!important;padding:9px 6px!important}.fm-pack-object{height:76px}.fm-pack-body{width:50px;height:70px}.fm-pack-name{font-size:11px!important}.fm-pack-sub{font-size:8px!important}.fm-pack-price{font-size:13px!important}}
+</style>
+
+<style id="pack-button-v28">
+.tr-tabs .tr-pack-tab{position:relative;display:flex;align-items:center;justify-content:center;gap:5px;color:#fbbf24!important}
+.tr-tabs .tr-pack-tab:before{content:"";width:7px;height:7px;border-radius:50%;background:#fbbf24;box-shadow:0 0 12px rgba(251,191,36,.75)}
+.tr-tabs .tr-pack-tab:hover{background:rgba(251,191,36,.12)!important}
+.packPickerOverlay{position:fixed;inset:0;z-index:9790;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);display:flex;align-items:flex-end;justify-content:center}
+.packPickerSheet{width:100%;max-width:560px;border-radius:24px 24px 0 0;background:linear-gradient(180deg,#101827,#050913);border-top:1px solid rgba(255,255,255,.1);box-shadow:0 -20px 60px rgba(0,0,0,.42);padding:10px 16px 24px;animation:devSlideUp .24s cubic-bezier(.32,1,.5,1)}
+.packPickerHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.packPickerGrab{width:40px;height:4px;border-radius:999px;background:rgba(255,255,255,.16);margin:0 auto 12px}.packPickerTitle{font-size:12px;font-weight:950;letter-spacing:1.6px;text-transform:uppercase;color:#e2e8f0}.packPickerClose{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);font-size:18px}
+.packPickerGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.packPickerCard{--pack-c:#fbbf24;--pack-rgb:251,191,36;min-height:188px;border-radius:18px;border:1px solid rgba(var(--pack-rgb),.30);background:radial-gradient(circle at 50% 16%,rgba(var(--pack-rgb),.24),transparent 38%),linear-gradient(180deg,rgba(15,23,42,.98),rgba(2,6,23,.98));padding:11px 8px;position:relative;overflow:hidden;cursor:pointer;box-shadow:0 14px 32px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.07)}
+.packPickerCard:active{transform:scale(.985)}.packPickerCard.bronze{--pack-c:#cd7f32;--pack-rgb:205,127,50}.packPickerCard.silver{--pack-c:#c8d3df;--pack-rgb:200,211,223}.packPickerCard.gold{--pack-c:#fbbf24;--pack-rgb:251,191,36}
+.packPickerObject{height:84px;position:relative;display:grid;place-items:center}.packPickerObject:before{content:"";position:absolute;width:76px;height:76px;border-radius:50%;background:rgba(var(--pack-rgb),.22);filter:blur(18px)}.packPickerBody{position:relative;width:58px;height:78px;border-radius:14px;background:linear-gradient(160deg,rgba(var(--pack-rgb),.95),rgba(15,23,42,.96));box-shadow:0 16px 26px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.38);overflow:hidden}.packPickerBody:before{content:"";position:absolute;inset:7px;border:1px solid rgba(255,255,255,.28);border-radius:10px}.packPickerBody:after{content:"";position:absolute;left:50%;top:12px;transform:translateX(-50%);width:31px;height:26px;clip-path:polygon(0 0,35% 0,50% 70%,65% 0,100% 0,70% 100%,30% 100%);background:linear-gradient(90deg,#22d3ee,#fff,#22c55e)}.packPickerCore{position:absolute;left:50%;top:36px;transform:translateX(-50%);width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 34% 24%,#fff7cc,var(--pack-c),#5c2c06);border:2px solid rgba(255,255,255,.48);color:#0f172a;font-size:15px;font-weight:1000}
+.packPickerName{text-align:center;font-size:12px;font-weight:950;color:#fff;margin-top:8px;line-height:1.1}.packPickerSub{text-align:center;font-size:9px;font-weight:800;color:rgba(203,213,225,.55);margin-top:5px;line-height:1.15}.packPickerPrice{height:30px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-top:10px;background:rgba(var(--pack-rgb),.13);border:1px solid rgba(var(--pack-rgb),.24);color:var(--pack-c);font-size:14px;font-weight:1000}
+@media (max-width:390px){.packPickerGrid{gap:7px}.packPickerCard{min-height:174px;padding:9px 6px}.packPickerObject{height:76px}.packPickerBody{width:50px;height:70px}.packPickerName{font-size:11px}.packPickerSub{font-size:8px}.packPickerPrice{font-size:13px}}
 </style>
 </head>
 <body onpointerup="onPointerUpGlobal();onPrePointerUpGlobal()">
@@ -2726,64 +2793,21 @@ body.theme-light .fatigue-sheet-bar{ background:rgba(0,0,0,.06); }
       </div>
     </div>
     <!-- Tabs -->
-    <div class="tr-tabs" style="margin-bottom:12px">
+    <div class="tr-tabs" style="margin-bottom:12px;grid-template-columns:repeat(4,1fr)">
       <div class="tr-tab active" id="tt-market" onclick="switchTrTab('market')">Ринок</div>
       <div class="tr-tab" id="tt-squad" onclick="switchTrTab('squad')">Склад</div>
       <div class="tr-tab" id="tt-history" onclick="switchTrTab('history')">Історія</div>
+      <div class="tr-tab tr-pack-tab" id="tt-packs" onclick="openPackPicker()">Паки</div>
     </div>
     <div id="trMarketHint" style="display:none;font-size:10px;color:rgba(148,163,184,.35);margin-bottom:8px;align-items:center;gap:4px;letter-spacing:.3px"></div>
     <div class="tfilter" id="trFilter"></div>
     <div id="trAdvFilters" style="display:none"></div>
+    
     <div id="trContent"></div>
-        <!-- Pack banners вЂ” FIFA Mobile style -->
-    <div class="fm-pack-panel">
-      <div class="fm-pack-title">РџР°РєРё РіСЂР°РІС†С–РІ</div>
-      <div class="fm-pack-list">
-
-        <!-- Р‘Р РћРќР—РћР’РР™ -->
-        <div class="fm-pack-card bronze" onclick="openPlayerCase('bronze')">
-          <div class="fm-pack-medal" aria-hidden="true"><span>B</span></div>
-          <div class="fm-pack-copy">
-            <div class="fm-pack-name-row">
-              <span class="fm-pack-name">Р‘СЂРѕРЅР·РѕРІРёР№ РїР°Рє</span>
-            </div>
-            <div class="fm-pack-sub">Р›РµРіРµРЅРґР° 2% В· Р•Р»С–С‚ 6%</div>
-          </div>
-          <div class="fm-pack-price">в‚¬5M</div>
-          <div class="fm-pack-arrow" aria-hidden="true">вЂє</div>
-        </div>
-
-        <!-- РЎР Р†Р‘РќРР™ -->
-        <div class="fm-pack-card silver" onclick="openPlayerCase('silver')">
-          <div class="fm-pack-medal" aria-hidden="true"><span>S</span></div>
-          <div class="fm-pack-copy">
-            <div class="fm-pack-name-row">
-              <span class="fm-pack-name">РЎСЂС–Р±РЅРёР№ РїР°Рє</span>
-            </div>
-            <div class="fm-pack-sub">Р›РµРіРµРЅРґР° 6% В· Р•Р»С–С‚ 14%</div>
-          </div>
-          <div class="fm-pack-price">в‚¬11M</div>
-          <div class="fm-pack-arrow" aria-hidden="true">вЂє</div>
-        </div>
-
-        <!-- Р—РћР›РћРўРР™ -->
-        <div class="fm-pack-card gold" onclick="openPlayerCase('gold')">
-          <div class="fm-pack-medal" aria-hidden="true"><span>G</span></div>
-          <div class="fm-pack-copy">
-            <div class="fm-pack-name-row">
-              <span class="fm-pack-name">Р—РѕР»РѕС‚РёР№ РїР°Рє</span>
-              <span class="fm-pack-top">РўРћРџ</span>
-            </div>
-            <div class="fm-pack-sub">Р›РµРіРµРЅРґР° 15% В· Р•Р»С–С‚ 30%</div>
-          </div>
-          <div class="fm-pack-price">в‚¬25M</div>
-          <div class="fm-pack-arrow" aria-hidden="true">вЂє</div>
-        </div>
-
-      </div>
-    </div>
+            
 
   </div>
+
   <div class="screen" id="s-salary"><!-- salary content injected by JS --></div>
 
   <div class="screen" id="s-journal"><!-- journal injected by JS --></div>
@@ -7674,6 +7698,12 @@ let trSortBy='rating'; // rating | price_asc | price_desc | age
 let trNatFilter='ALL';
 let trLoanOnly=false; // фільтр тільки оренда
 
+function _syncPackMarketVisibility(){
+  document.querySelectorAll('.fm-pack-panel').forEach(el=>{
+    el.style.display = trTab === 'market' ? '' : 'none';
+  });
+}
+
 function switchTrTab(t){
   trTab=t;
   ['market','squad','history'].forEach(x=>{
@@ -7681,6 +7711,7 @@ function switchTrTab(t){
   });
   trFilter='ALL';trPriceMin=0;trPriceMax=250;trNatFilter='ALL';trRatingMin=50;trRatingMax=99;trAgeMin=16;trAgeMax=40;trSortBy='rating';trLoanOnly=false;
   renderTrContent();
+  _syncPackMarketVisibility();
 }
 
 function renderTransfers(){
@@ -27494,523 +27525,184 @@ writeSaveGame = function(){
 //  🎰 КЕЙС ГРАВЦЯ — PRO v5
 // ════════════════════════════════════════════════════════════════
 // ═══ 3 ТИПИ КЕЙСІВ ═══
+
+
 const CASES = {
   bronze: {
-    id:'bronze', price:5_000_000,
-    label:'БРОНЗОВИЙ', icon:'🥉',
-    desc:'Бюджетний пак · більше стандартів',
-    color:'#cd7f32', grad:'linear-gradient(135deg,#3d1f00,#6b3a0f,#cd7f32)',
-    border:'rgba(205,127,50,.4)', glow:'rgba(205,127,50,.35)',
-    // weights per mv bracket: <8, 8-20, 20-50, 50-80, 80+
-    weights:[50, 28, 14, 6, 2]
+    id: 'bronze', price: 5_000_000, label: '\u0411\u0420\u041e\u041d\u0417\u041e\u0412\u0418\u0419', icon: '3',
+    desc: '\u0411\u044e\u0434\u0436\u0435\u0442\u043d\u0438\u0439 \u043f\u0430\u043a \u00b7 \u0448\u0430\u043d\u0441 \u043d\u0430 \u044f\u043a\u0456\u0441\u043d\u0438\u0439 \u0441\u043a\u043b\u0430\u0434',
+    color: '#cd7f32', grad: 'linear-gradient(135deg,#4b2410,#9a5a27,#d28a45)',
+    border: 'rgba(205,127,50,.5)', glow: 'rgba(205,127,50,.42)', weights: [62, 24, 8, 4, 2]
   },
   silver: {
-    id:'silver', price:11_000_000,
-    label:'СРІБНИЙ', icon:'🥈',
-    desc:'Стандартний пак · збалансований',
-    color:'#94a3b8', grad:'linear-gradient(135deg,#1e293b,#334155,#94a3b8)',
-    border:'rgba(148,163,184,.4)', glow:'rgba(148,163,184,.35)',
-    weights:[25, 30, 25, 14, 6]
+    id: 'silver', price: 11_000_000, label: '\u0421\u0420\u0406\u0411\u041d\u0418\u0419', icon: '2',
+    desc: '\u0417\u0431\u0430\u043b\u0430\u043d\u0441\u043e\u0432\u0430\u043d\u0438\u0439 \u043f\u0430\u043a \u00b7 \u043a\u0440\u0430\u0449\u0438\u0439 \u0448\u0430\u043d\u0441 \u043d\u0430 \u0435\u043b\u0456\u0442\u0443',
+    color: '#c8d3df', grad: 'linear-gradient(135deg,#334155,#94a3b8,#e2e8f0)',
+    border: 'rgba(203,213,225,.5)', glow: 'rgba(148,163,184,.45)', weights: [40, 24, 16, 14, 6]
   },
   gold: {
-    id:'gold', price:25_000_000,
-    label:'ЗОЛОТИЙ', icon:'🥇',
-    desc:'Преміум пак · більше зірок',
-    color:'#fbbf24', grad:'linear-gradient(135deg,#78350f,#b45309,#d97706,#fbbf24)',
-    border:'rgba(251,191,36,.5)', glow:'rgba(251,191,36,.5)',
-    weights:[5, 18, 32, 30, 15]
+    id: 'gold', price: 25_000_000, label: '\u0417\u041e\u041b\u041e\u0422\u0418\u0419', icon: '1',
+    desc: '\u041f\u0440\u0435\u043c\u0456\u0443\u043c \u043f\u0430\u043a \u00b7 \u0432\u0438\u0441\u043e\u043a\u0438\u0439 \u0448\u0430\u043d\u0441 \u043d\u0430 \u0437\u0456\u0440\u043a\u0443',
+    color: '#fbbf24', grad: 'linear-gradient(135deg,#78350f,#d97706,#fbbf24)',
+    border: 'rgba(251,191,36,.58)', glow: 'rgba(251,191,36,.52)', weights: [5, 18, 32, 30, 15]
   }
 };
-let _activeCaseTier = 'silver'; // default
-
-let _casePlayer = null, _caseFromClub = null, _tunnelRAF = null;
+const CASE_TXT = {
+  packPlayers:'\u041f\u0430\u043a \u0433\u0440\u0430\u0432\u0446\u0456\u0432',
+  open:'\u0412\u0406\u0414\u041a\u0420\u0418\u0422\u0418',
+  budgetAfter:'\u0411\u044e\u0434\u0436\u0435\u0442 \u043f\u0456\u0441\u043b\u044f \u0432\u0456\u0434\u043a\u0440\u0438\u0442\u0442\u044f',
+  need:'\u041f\u043e\u0442\u0440\u0456\u0431\u043d\u043e',
+  blocked:'\u0422\u0440\u0430\u043d\u0441\u0444\u0435\u0440\u0438 \u0437\u0430\u0431\u043b\u043e\u043a\u043e\u0432\u0430\u043d\u0456.',
+  noPlayers:'\u041d\u0435\u043c\u0430\u0454 \u0433\u0440\u0430\u0432\u0446\u0456\u0432',
+  nationality:'\u041d\u0430\u0446\u0456\u043e\u043d\u0430\u043b\u044c\u043d\u0456\u0441\u0442\u044c',
+  position:'\u041f\u043e\u0437\u0438\u0446\u0456\u044f',
+  age:'\u0412\u0456\u043a',
+  years:'\u0440\u043e\u043a\u0456\u0432',
+  rating:'\u0420\u0415\u0419\u0422\u0418\u041d\u0413',
+  newPlayer:'\u041d\u043e\u0432\u0438\u0439 \u0433\u0440\u0430\u0432\u0435\u0446\u044c',
+  sign:'\u041f\u0456\u0434\u043f\u0438\u0441\u0430\u0442\u0438',
+  sellFor:'\u041f\u0440\u043e\u0434\u0430\u0442\u0438 \u0437\u0430',
+  sold:'\u043f\u0440\u043e\u0434\u0430\u043d\u043e \u0437\u0430',
+  dropped:'\u0432\u0438\u043f\u0430\u0432 \u0437 \u043f\u0430\u043a\u0443 \u0456 \u043f\u0435\u0440\u0435\u0439\u0448\u043e\u0432 \u0434\u043e',
+  rarLegend:'\u041b\u0415\u0413\u0415\u041d\u0414\u0410',
+  rarElite:'\u0415\u041b\u0406\u0422\u041d\u0418\u0419',
+  rarRare:'\u0420\u0406\u0414\u041a\u0406\u0421\u041d\u0418\u0419',
+  rarGood:'\u042f\u041a\u0406\u0421\u041d\u0418\u0419',
+  rarStd:'\u0421\u0422\u0410\u041d\u0414\u0410\u0420\u0422',
+};
+let _activeCaseTier = 'silver';
+let _casePlayer = null, _caseFromClub = null, _tunnelRAF = null, _caseRevealLock = false;
 
 function openPlayerCase(tier='silver'){
   _activeCaseTier = tier;
-  const cdef = CASES[tier];
+  const cdef = CASES[tier] || CASES.silver;
   if(!G.club) return;
-  if(G.salary.salaryBlocked){ showTrMsg('⛔ Трансфери заблоковані.'); return; }
-  if(G.budget < cdef.price){ showTrMsg(`❌ Потрібно ${fmtPrice(cdef.price)}`); return; }
+  if(G.salary.salaryBlocked){ showTrMsg('\u26d4 ' + CASE_TXT.blocked); return; }
+  if(G.budget < cdef.price){ showTrMsg(`\u274c ${CASE_TXT.need} ${fmtPrice(cdef.price)}`); return; }
   document.getElementById('caseOverlay')?.remove();
+  _caseRevealLock = false;
 
-  // Odds chips (compact horizontal)
   const wTotal = cdef.weights.reduce((a,b)=>a+b,0);
-  const colors=['#64748b','#3b82f6','#ef4444','#8b5cf6','#f59e0b'];
-  const labels=['STD','ЯК','РІД','ЕЛ','ЛЕГ'];
-  const oddsChips = cdef.weights.map((w,i)=>{
-    const pct=(w/wTotal*100).toFixed(0);
-    return `<div style="display:flex;flex-direction:column;align-items:center;gap:2px;background:rgba(255,255,255,.04);border:1px solid ${colors[i]}33;border-radius:8px;padding:5px 7px;min-width:42px">
-      <span style="font-size:7px;font-weight:700;color:${colors[i]};letter-spacing:.5px">${labels[i]}</span>
-      <span style="font-size:11px;font-weight:800;color:${colors[i]}">${pct}%</span>
-    </div>`;
-  }).join('');
+  const odds = [
+    ['STD','#64748b',cdef.weights[0]], ['\u042f\u041a','#3b82f6',cdef.weights[1]], ['\u0420\u0406\u0414','#ef4444',cdef.weights[2]], ['\u0415\u041b','#8b5cf6',cdef.weights[3]], ['\u041b\u0415\u0413','#f59e0b',cdef.weights[4]]
+  ].map(([label,color,w]) => `<div style="flex:1;min-width:0;border:1px solid ${color}33;background:rgba(255,255,255,.045);border-radius:10px;padding:7px 4px;text-align:center"><div style="font-size:8px;font-weight:900;letter-spacing:.6px;color:${color}">${label}</div><div style="font-size:12px;font-weight:950;color:#fff;margin-top:2px">${Math.round(w/wTotal*100)}%</div></div>`).join('');
 
   const ov = document.createElement('div');
   ov.id = 'caseOverlay';
-  ov.style.cssText='position:fixed;inset:0;z-index:9800;background:transparent';
+  ov.className = 'fm-case-v25';
+  ov.style.setProperty('--case-c', cdef.color);
   ov.innerHTML = `
-    <div id="caseTunnel" style="display:none;position:fixed;inset:0"><canvas id="tunnelCanvas"></canvas></div>
-    <div id="caseProgressDots" style="position:fixed;top:22px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2"></div>
-    <div id="caseCardWrap" style="position:fixed;left:50%;top:50%;transform:translate(-50%,-52%);display:none;flex-direction:column;align-items:center;perspective:1000px"><div id="caseCard" style="width:min(240px,66vw);transform-style:preserve-3d"></div></div>
-
-    <!-- Dimmed backdrop (tap to cancel) -->
-    <div onclick="document.getElementById('caseOverlay').remove()" style="position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(3px)"></div>
-
-    <!-- Bottom sheet intro -->
-    <div id="caseIntroBox" style="position:fixed;bottom:0;left:0;right:0;z-index:2;animation:slideUp .3s cubic-bezier(.22,.68,.38,1.1)">
-      <div style="background:#111518;border-radius:24px 24px 0 0;border-top:1px solid rgba(255,255,255,.08);padding:20px 20px 36px">
-
-        <!-- Handle + close -->
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
-          <div style="width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,.12);margin:0 auto"></div>
-          <button onclick="document.getElementById('caseOverlay').remove()" style="position:absolute;right:16px;top:16px;background:rgba(255,255,255,.08);border:none;color:rgba(255,255,255,.5);width:30px;height:30px;border-radius:50%;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">✕</button>
-        </div>
-
-        <!-- Header row: icon + name + price -->
-        <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
-          <!-- Pack icon compact -->
-          <div style="width:52px;height:52px;border-radius:14px;background:#0d0f12;border:1.5px solid ${cdef.border};display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;animation:packPulse 2.5s ease-in-out infinite">
-            <div style="position:absolute;inset:0;background:linear-gradient(135deg,${cdef.glow.replace('.35','.08')},transparent)"></div>
-            <span style="font-size:24px;position:relative">${cdef.icon}</span>
-          </div>
-          <div style="flex:1;min-width:0">
-            <div style="font-size:8px;font-weight:800;letter-spacing:2.5px;color:${cdef.color};text-transform:uppercase;margin-bottom:2px;opacity:.7">${cdef.label} ПАК</div>
-            <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:1px">${cdef.desc}</div>
-            <div style="font-size:12px;color:rgba(255,255,255,.35)">Залишок після: <span style="color:rgba(255,255,255,.55)">${fmtPrice(G.budget - cdef.price)}</span></div>
-          </div>
-          <div style="text-align:right;flex-shrink:0">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:${cdef.color};line-height:1;letter-spacing:1px">${fmtPrice(cdef.price)}</div>
+    <div class="fm-case-bg"></div><div class="fm-case-grid"></div><div class="fm-case-sweep"></div>
+    <div id="caseTunnel" style="display:none;position:fixed;inset:0;z-index:1"><canvas id="tunnelCanvas" style="position:absolute;inset:0;width:100%;height:100%"></canvas></div>
+    <div id="caseProgressDots" class="fm-case-steps" style="display:none"></div>
+    <div id="caseCardWrap" class="fm-case-card-wrap"><div id="caseCard"></div></div>
+    <button onclick="document.getElementById('caseOverlay')?.remove()" style="position:fixed;right:16px;top:14px;z-index:8;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.07);color:rgba(255,255,255,.72);font-size:18px;line-height:1;cursor:pointer">\u00d7</button>
+    <div id="caseIntroBox" style="position:fixed;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;padding:24px">
+      <div style="width:min(380px,92vw);text-align:center">
+        <div style="position:relative;width:190px;height:210px;margin:0 auto 20px;display:grid;place-items:center">
+          <div style="position:absolute;width:170px;height:170px;border-radius:50%;background:${cdef.glow};filter:blur(32px);animation:fmCaseAura 2.4s ease-in-out infinite"></div>
+          <div style="position:absolute;width:176px;height:176px;border-radius:50%;border:1px solid ${cdef.border};animation:fmCaseRing 1.8s ease-out infinite"></div>
+          <div style="position:relative;width:132px;height:166px;border-radius:22px;background:${cdef.grad};box-shadow:0 18px 60px ${cdef.glow},inset 0 1px 0 rgba(255,255,255,.38);overflow:hidden;animation:fmCasePackFloat 2.2s ease-in-out infinite">
+            <div style="position:absolute;inset:10px;border:1px solid rgba(255,255,255,.28);border-radius:17px"></div>
+            <div style="position:absolute;top:0;bottom:0;width:42%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.34),transparent);animation:fmCasePackShine 2.2s ease-in-out infinite"></div>
+            <div style="position:absolute;left:50%;top:26px;transform:translateX(-50%);width:50px;height:44px;clip-path:polygon(0 0,36% 0,50% 70%,64% 0,100% 0,70% 100%,30% 100%);background:linear-gradient(90deg,#22d3ee,#fff,#22c55e)"></div>
+            <div style="position:absolute;left:50%;top:60px;transform:translateX(-50%);width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 34% 24%,#fff7cc,var(--case-c),#5c2c06);border:3px solid rgba(255,255,255,.48);font-size:24px;font-weight:1000;color:#101827">${cdef.icon}</div>
+            <div style="position:absolute;left:16px;right:16px;bottom:20px;font-size:10px;font-weight:1000;letter-spacing:1.6px;color:rgba(0,0,0,.58);text-transform:uppercase">${cdef.label}</div>
           </div>
         </div>
-
-        <!-- Odds chips row -->
-        <div style="display:flex;gap:5px;justify-content:space-between;margin-bottom:18px">
-          ${oddsChips}
-        </div>
-
-        <!-- CTA button -->
-        <button onclick="startCaseReveal()" style="width:100%;background:${cdef.grad};color:#000;border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:900;cursor:pointer;letter-spacing:.4px;box-shadow:0 4px 24px ${cdef.glow};position:relative;overflow:hidden">
-          <div style="position:absolute;top:0;left:-100%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);animation:packShine 2.5s ease-in-out infinite"></div>
-          <span style="position:relative">🎰 Відкрити</span>
-        </button>
-
+        <div style="font-size:10px;font-weight:900;letter-spacing:3px;color:${cdef.color};text-transform:uppercase;margin-bottom:7px">${CASE_TXT.packPlayers}</div>
+        <div style="font-size:24px;font-weight:950;color:#fff;line-height:1.08;margin-bottom:8px">${cdef.label} \u041f\u0410\u041a</div>
+        <div style="font-size:13px;color:rgba(226,232,240,.62);font-weight:650;margin-bottom:16px">${cdef.desc}</div>
+        <div style="display:flex;gap:6px;margin-bottom:18px">${odds}</div>
+        <button onclick="startCaseReveal()" style="width:100%;height:54px;border:none;border-radius:16px;background:${cdef.grad};color:#071018;font-size:15px;font-weight:1000;letter-spacing:.5px;box-shadow:0 14px 44px ${cdef.glow};cursor:pointer">${CASE_TXT.open} \u00b7 ${fmtPrice(cdef.price)}</button>
+        <div style="margin-top:10px;font-size:11px;color:rgba(255,255,255,.34)">${CASE_TXT.budgetAfter}: ${fmtPrice(G.budget - cdef.price)}</div>
       </div>
     </div>
-
-    <div id="caseConfirmScreen" style="position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 20px 40px">
-      <div class="fi" id="caseFinalCard" style="width:100%;max-width:340px;border-radius:20px;overflow:hidden;margin-bottom:16px"></div>
-      <div style="width:100%;max-width:340px;display:flex;flex-direction:column;gap:8px">
-        <button onclick="confirmCasePlayer()" id="caseConfirmBtn" style="width:100%;background:#10b981;color:#fff;border:none;border-radius:16px;padding:17px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.3px"></button>
-        <button onclick="sellCasePlayer()" id="caseSellBtn" style="width:100%;background:rgba(255,255,255,.04);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:13px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.2px;display:flex;align-items:center;justify-content:center"></button>
-      </div>
-    </div>`;
+    <div id="caseConfirmScreen" class="fm-case-final"><div style="width:100%;max-width:360px"><div class="fi" id="caseFinalCard" style="width:100%;border-radius:24px;overflow:hidden;margin-bottom:12px"></div><button onclick="confirmCasePlayer()" id="caseConfirmBtn" style="width:100%;height:54px;background:#10b981;color:#fff;border:none;border-radius:16px;font-size:15px;font-weight:900;cursor:pointer;margin-bottom:8px"></button><button onclick="sellCasePlayer()" id="caseSellBtn" style="width:100%;height:46px;background:rgba(255,255,255,.055);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.12);border-radius:14px;font-size:13px;font-weight:800;cursor:pointer"></button></div></div>`;
   document.body.appendChild(ov);
 }
 
-/* ── TUNNEL ── */
 function _initTunnel(rarColor){
   const canvas = document.getElementById('tunnelCanvas');
   if(!canvas) return;
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  const W=canvas.width, H=canvas.height, ctx=canvas.getContext('2d');
-  const cx=W/2, cy=H/2;
-  const t0=performance.now();
-  // Parse rarity color into r,g,b components
-  const rc = rarColor || '#f59e0b';
-  let r=251,g=191,b=36; // gold default
-  if(rc.startsWith('#')&&rc.length===7){
-    r=parseInt(rc.slice(1,3),16); g=parseInt(rc.slice(3,5),16); b=parseInt(rc.slice(5,7),16);
-  }
-
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = Math.floor(window.innerWidth * dpr); canvas.height = Math.floor(window.innerHeight * dpr);
+  canvas.style.width = window.innerWidth + 'px'; canvas.style.height = window.innerHeight + 'px';
+  const ctx = canvas.getContext('2d'), W=canvas.width, H=canvas.height, cx=W/2, cy=H/2;
+  let r=251,g=191,b=36;
+  if(/^#[0-9a-f]{6}$/i.test(rarColor||'')){ r=parseInt(rarColor.slice(1,3),16); g=parseInt(rarColor.slice(3,5),16); b=parseInt(rarColor.slice(5,7),16); }
+  const stars = Array.from({length:70},()=>({a:Math.random()*Math.PI*2,z:Math.random(),w:.6+Math.random()*2.8}));
+  const t0 = performance.now();
   function frame(now){
-    const ms = now - t0;
-    ctx.clearRect(0,0,W,H);
-
-    // Deep black bg
-    ctx.fillStyle='#000';
-    ctx.fillRect(0,0,W,H);
-
-    // Speed ramps up over 4 seconds for tension
-    const spd = Math.min(50 + ms * 0.04, 160);
-    const N=24;
-    const off=(ms*spd/1000) % (H*0.06);
-
-    for(let i=N;i>=1;i--){
-      const z=Math.max(0, (i - off/(H*0.06)) / N);
-      const sc=Math.pow(z, 1.2);
-      if(sc<0.012) continue;
-      const rw=W*sc*0.92, rh=H*sc*0.96;
-      const a=sc*0.28;
-      // Color subtly shifts from gold → rarity color as speed increases
-      const mix = Math.min(ms/3000, 1);
-      const cr=Math.round(251+(r-251)*mix), cg=Math.round(191+(g-191)*mix), cb=Math.round(36+(b-36)*mix);
-      ctx.strokeStyle=`rgba(${cr},${cg},${cb},${a})`;
-      ctx.lineWidth=Math.max(0.4, sc*1.6);
-      ctx.strokeRect(cx-rw/2, cy-rh/2, rw, rh);
-
-      // Corner diagonals
-      if(i<N){
-        const zp=Math.max(0,(i+1-off/(H*0.06))/N);
-        const sp=Math.pow(zp,1.2);
-        const pw=W*sp*0.92, ph=H*sp*0.96;
-        ctx.strokeStyle=`rgba(${cr},${cg},${cb},${a*0.35})`;
-        ctx.lineWidth=0.5;
-        [
-          [cx-rw/2,cy-rh/2, cx-pw/2,cy-ph/2],
-          [cx+rw/2,cy-rh/2, cx+pw/2,cy-ph/2],
-          [cx-rw/2,cy+rh/2, cx-pw/2,cy+ph/2],
-          [cx+rw/2,cy+rh/2, cx+pw/2,cy+ph/2],
-        ].forEach(([x1,y1,x2,y2])=>{
-          ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
-        });
-      }
-    }
-
-    // Pulsing center glow with rarity color
-    const glowA = 0.07 + Math.sin(ms/350)*0.04;
-    const gr=ctx.createRadialGradient(cx,cy,0,cx,cy,W*.28);
-    gr.addColorStop(0,`rgba(${r},${g},${b},${glowA})`);
-    gr.addColorStop(0.6,`rgba(${r},${g},${b},${glowA*0.3})`);
-    gr.addColorStop(1,'transparent');
-    ctx.fillStyle=gr; ctx.fillRect(0,0,W,H);
-
-    _tunnelRAF=requestAnimationFrame(frame);
+    const t = now - t0;
+    ctx.clearRect(0,0,W,H); ctx.fillStyle = '#02050a'; ctx.fillRect(0,0,W,H);
+    const grd = ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(W,H)*.62);
+    grd.addColorStop(0,`rgba(${r},${g},${b},.28)`); grd.addColorStop(.34,'rgba(59,130,246,.10)'); grd.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle = grd; ctx.fillRect(0,0,W,H);
+    for(let i=0;i<18;i++){ const sc=((i*70+t*.16)%(Math.max(W,H)*1.1))/(Math.max(W,H)*1.1); const ring=Math.max(0,Math.min(1,sc)); const rad=ring*Math.max(W,H)*.68; ctx.strokeStyle=`rgba(${r},${g},${b},${(1-ring)*.24})`; ctx.lineWidth=Math.max(.25,(1-ring)*5*dpr); ctx.beginPath(); ctx.arc(cx,cy,rad,0,Math.PI*2); ctx.stroke(); }
+    stars.forEach(st=>{ const z=(st.z+t*.00033)%1, dist=z*Math.max(W,H)*.62, x=cx+Math.cos(st.a)*dist, y=cy+Math.sin(st.a)*dist; ctx.fillStyle=`rgba(255,255,255,${z*.75})`; ctx.beginPath(); ctx.arc(x,y,st.w*dpr*z,0,Math.PI*2); ctx.fill(); });
+    _tunnelRAF = requestAnimationFrame(frame);
   }
-  _tunnelRAF=requestAnimationFrame(frame);
+  _tunnelRAF = requestAnimationFrame(frame);
 }
-function _stopTunnel(){ cancelAnimationFrame(_tunnelRAF); _tunnelRAF=null; }
+function _stopTunnel(){ if(_tunnelRAF) cancelAnimationFrame(_tunnelRAF); _tunnelRAF=null; }
 
-/* ── DRAW PLAYER (з врахуванням ваг тіру) ── */
 function _drawCasePlayer(){
   const cdef = CASES[_activeCaseTier] || CASES.silver;
-  // weights per mv bracket: [<8, 8-20, 20-50, 50-80, 80+]
-  const brackets = [
-    {min:0,  max:8,   w: cdef.weights[0]},
-    {min:8,  max:20,  w: cdef.weights[1]},
-    {min:20, max:50,  w: cdef.weights[2]},
-    {min:50, max:80,  w: cdef.weights[3]},
-    {min:80, max:999, w: cdef.weights[4]},
-  ];
-
-  // Gather all eligible players from other clubs
+  const brackets = [{min:0,max:8,w:cdef.weights[0]},{min:8,max:20,w:cdef.weights[1]},{min:20,max:50,w:cdef.weights[2]},{min:50,max:80,w:cdef.weights[3]},{min:80,max:999,w:cdef.weights[4]}];
   const pool = [];
-  Object.keys(G.clubSquads||{}).forEach(cid=>{
-    const c=CLUBS.find(x=>x.id===parseInt(cid));
-    if(!c||c.id===G.club.id) return;
-    (G.clubSquads[cid]||[]).forEach(p=>{
-      const mv=p.mv||0;
-      if(mv>=1&&mv<=150) pool.push({player:p,club:c});
-    });
-  });
+  Object.keys(G.clubSquads||{}).forEach(cid=>{ const c=CLUBS.find(x=>x.id===parseInt(cid)); if(!c||c.id===G.club.id) return; (G.clubSquads[cid]||[]).forEach(p=>{ const mv=p.mv||0; if(mv>=1&&mv<=150) pool.push({player:p,club:c}); }); });
   if(!pool.length) return null;
-
-  // Step 1: pick bracket by tier weights
-  const totW = brackets.reduce((s,b)=>s+b.w,0);
-  let rnd = Math.random()*totW;
-  let chosenBracket = brackets[brackets.length-1];
+  let rnd=Math.random()*brackets.reduce((s,b)=>s+b.w,0), chosenBracket=brackets[brackets.length-1];
   for(const b of brackets){ rnd-=b.w; if(rnd<=0){chosenBracket=b;break;} }
-
-  // Step 2: filter players in that mv bracket
-  const inBracket = pool.filter(x=>{
-    const mv=x.player.mv||0;
-    return mv>=chosenBracket.min && mv<chosenBracket.max;
-  });
-
-  // If no players in chosen bracket — fallback to full pool with uniform weights
+  const inBracket = pool.filter(x=>{ const mv=x.player.mv||0; return mv>=chosenBracket.min && mv<chosenBracket.max; });
   const src = inBracket.length ? inBracket : pool;
-
-  // Step 3: within bracket, weight by mv (higher mv = slightly rarer)
   const wArr = src.map(x=>{const mv=x.player.mv||1;return{x,w:Math.max(1,30-mv*0.1)};});
-  const tot = wArr.reduce((s,x)=>s+x.w,0);
-  let r = Math.random()*tot;
+  let r = Math.random()*wArr.reduce((s,x)=>s+x.w,0);
   for(const{x,w} of wArr){r-=w;if(r<=0) return x;}
   return wArr[wArr.length-1].x;
 }
 
-/* ── RARITY — clean palette ── */
 function _rar(mv){
-  if(mv>=80) return{t:'ЛЕГЕНДА',   c:'#f59e0b', b:'rgba(245,158,11,.12)', br:'rgba(245,158,11,.5)'};
-  if(mv>=50) return{t:'ЕЛІТНИЙ',   c:'#8b5cf6', b:'rgba(139,92,246,.12)', br:'rgba(139,92,246,.5)'};
-  if(mv>=20) return{t:'РІДКІСНИЙ', c:'#ef4444', b:'rgba(239,68,68,.1)',   br:'rgba(239,68,68,.45)'};
-  if(mv>=8)  return{t:'ЯКІСНИЙ',   c:'#3b82f6', b:'rgba(59,130,246,.1)',  br:'rgba(59,130,246,.4)'};
-  return           {t:'СТАНДАРТ',  c:'#64748b', b:'rgba(100,116,139,.08)',br:'rgba(100,116,139,.3)'};
+  if(mv>=80) return{t:CASE_TXT.rarLegend,c:'#f59e0b',b:'rgba(245,158,11,.14)',br:'rgba(245,158,11,.58)'};
+  if(mv>=50) return{t:CASE_TXT.rarElite,c:'#8b5cf6',b:'rgba(139,92,246,.14)',br:'rgba(139,92,246,.55)'};
+  if(mv>=20) return{t:CASE_TXT.rarRare,c:'#ef4444',b:'rgba(239,68,68,.12)',br:'rgba(239,68,68,.48)'};
+  if(mv>=8) return{t:CASE_TXT.rarGood,c:'#3b82f6',b:'rgba(59,130,246,.12)',br:'rgba(59,130,246,.45)'};
+  return{t:CASE_TXT.rarStd,c:'#64748b',b:'rgba(100,116,139,.10)',br:'rgba(100,116,139,.35)'};
 }
-
-/* ── STEP CARD HTML — stark, minimal ── */
-function _stepCard(topLabel, bigText, smallText, accent){
-  return `
-    <div style="background:linear-gradient(145deg,rgba(15,10,2,.99),rgba(8,6,1,.99));border:1.5px solid ${accent}44;border-radius:22px;overflow:hidden;box-shadow:0 0 40px ${accent}22">
-      <div style="height:2px;background:linear-gradient(90deg,transparent,${accent},transparent)"></div>
-      <div style="padding:10px 0;text-align:center;border-bottom:1px solid ${accent}15">
-        <span style="font-size:8px;font-weight:800;letter-spacing:4px;color:${accent}88;text-transform:uppercase">${topLabel}</span>
-      </div>
-      <div style="padding:32px 24px 30px;text-align:center">
-        <div style="font-size:84px;line-height:1;margin-bottom:16px;filter:drop-shadow(0 0 20px ${accent}44)">${bigText}</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:3px;color:#fff;line-height:1;text-shadow:0 0 30px ${accent}55">${smallText}</div>
-      </div>
-      <div style="height:1px;background:linear-gradient(90deg,transparent,${accent}22,transparent)"></div>
-    </div>`;
-}
-
-function _ratingCard(r, rar){
-  const isLegend = rar.t === 'ЛЕГЕНДА';
-  const isElite = rar.t === 'ЕЛІТНИЙ';
-  const animStyle = isLegend
-    ? `animation:legendBurst .7s cubic-bezier(.25,.46,.45,.94) forwards,rarityGlow 1.5s ease-in-out 0.7s infinite;--rar-c:${rar.c}`
-    : isElite
-    ? `animation:rarityGlow 1.2s ease-in-out infinite;--rar-c:${rar.c}`
-    : '';
-  const numAnim = isLegend
-    ? `animation:caseRatingShake .6s ease-in-out 0.8s,rarityGlow 1.5s ease-in-out 1.2s infinite;--rar-c:${rar.c}`
-    : '';
-  return `
-    <div style="background:linear-gradient(145deg,${rar.b},rgba(5,4,2,.99));border:2px solid ${rar.br};border-radius:22px;overflow:hidden;box-shadow:0 0 60px ${rar.c}33,0 0 120px ${rar.c}15;${animStyle}">
-      <div style="height:2px;background:linear-gradient(90deg,transparent,${rar.c},transparent)"></div>
-      <div style="padding:10px 0;text-align:center;border-bottom:1px solid ${rar.c}18">
-        <span style="font-size:8px;font-weight:800;letter-spacing:4px;color:${rar.c}80;text-transform:uppercase">РЕЙТИНГ</span>
-      </div>
-      <div style="padding:36px 24px 30px;text-align:center">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:110px;color:${rar.c};line-height:1;letter-spacing:-4px;text-shadow:0 0 60px ${rar.c}88,0 0 120px ${rar.c}33;display:inline-block;${numAnim}">${r}</div>
-        ${isLegend ? `<div style="font-size:22px;margin-top:6px;letter-spacing:3px;animation:sparkle 0.8s ease-in-out 1s infinite">✦ ✦ ✦</div>` : ''}
-        <div style="margin-top:${isLegend?'12':'18'}px;display:inline-flex;align-items:center;gap:8px;background:${rar.b};border:1.5px solid ${rar.br};border-radius:24px;padding:6px 18px">
-          <div style="width:6px;height:6px;border-radius:50%;background:${rar.c};flex-shrink:0;box-shadow:0 0 8px ${rar.c}"></div>
-          <span style="font-size:12px;font-weight:800;color:${rar.c};letter-spacing:1px">${rar.t}</span>
-        </div>
-      </div>
-      <div style="height:1px;background:linear-gradient(90deg,transparent,${rar.c}33,transparent)"></div>
-    </div>`;
-}
-
-function _playerCard(p, club, rar){
-  const rc=p.r>=85?'#10b981':p.r>=75?'#60a5fa':p.r>=65?'#f59e0b':'#94a3b8';
-  return `
-    <div style="background:#0a0a0a;border:1px solid rgba(255,255,255,.08);border-radius:18px;overflow:hidden">
-      <div style="height:3px;background:linear-gradient(90deg,transparent,${rar.c},transparent)"></div>
-      <div style="padding:20px 18px 18px">
-        <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
-          <div style="width:74px;height:74px;border-radius:50%;background:#111;border:2px solid ${rc}55;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-            <span style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:${rc}">${p.r||'?'}</span>
-          </div>
-          <div style="flex:1;min-width:0">
-            <div style="font-size:10px;color:rgba(255,255,255,.3);margin-bottom:4px">${p.nat||''}</div>
-            <div style="font-size:20px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.3px">${p.n}</div>
-            <div style="margin-top:6px;display:flex;align-items:center;gap:6px">
-              <span style="font-size:10px;font-weight:700;color:${rc};background:${rc}15;border:1px solid ${rc}30;border-radius:5px;padding:2px 8px">${p.p}</span>
-              <span style="font-size:11px;color:rgba(255,255,255,.25)">${p.age||'?'} р.</span>
-            </div>
-          </div>
-        </div>
-        <div style="height:1px;background:rgba(255,255,255,.06);margin-bottom:14px"></div>
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div style="display:flex;align-items:center;gap:9px">
-            <div style="width:32px;height:32px;border-radius:8px;background:${club.bg||'#1a1a1a'};display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">${club.emoji||'⚽'}</div>
-            <span style="font-size:13px;color:rgba(255,255,255,.5);font-weight:500">${club.name}</span>
-          </div>
-          <span style="font-family:'Bebas Neue',sans-serif;font-size:26px;color:${rar.c};letter-spacing:.5px">${fmtPrice((p.mv||0)*1_000_000)}</span>
-        </div>
-      </div>
-    </div>`;
-}
-
-/* ── SHOW CARD IN TUNNEL ── */
-function _showCard(html, holdMs, onDone){
-  const wrap=document.getElementById('caseCardWrap');
-  const el=document.getElementById('caseCard');
-  if(!wrap||!el) return;
-  wrap.style.display='flex';
-  el.innerHTML=html;
-  el.className=''; el.offsetHeight; el.className='ci';
-
-  setTimeout(()=>{
-    el.className='co';
-    setTimeout(()=>{ wrap.style.display='none'; onDone(); }, 320);
-  }, holdMs);
-}
-
-/* ── CHAIN ── */
+function _casePanel(label,value,sub,accent,icon=''){return `<div style="border-radius:24px;overflow:hidden;background:linear-gradient(160deg,rgba(15,23,42,.96),rgba(2,6,23,.98));border:1px solid ${accent}55;box-shadow:0 24px 80px ${accent}26"><div style="height:3px;background:linear-gradient(90deg,transparent,${accent},transparent)"></div><div style="padding:14px 18px;text-align:center;border-bottom:1px solid rgba(255,255,255,.06);font-size:9px;font-weight:950;letter-spacing:3px;text-transform:uppercase;color:${accent}">${label}</div><div style="padding:30px 22px 32px;text-align:center"><div style="font-size:58px;line-height:1;margin-bottom:12px;filter:drop-shadow(0 0 24px ${accent}55)">${icon||value}</div><div style="font-family:'Bebas Neue',Inter,sans-serif;font-size:48px;line-height:.95;letter-spacing:1px;color:#fff;text-shadow:0 0 34px ${accent}55">${value}</div>${sub?`<div style="margin-top:10px;font-size:12px;font-weight:750;color:rgba(226,232,240,.55)">${sub}</div>`:''}</div></div>`;}
+function _stepCard(topLabel,bigText,smallText,accent){return _casePanel(topLabel,smallText,'',accent,bigText);}
+function _ratingCard(r,rar){return `<div style="border-radius:26px;overflow:hidden;background:linear-gradient(160deg,${rar.b},rgba(2,6,23,.99));border:2px solid ${rar.br};box-shadow:0 0 90px ${rar.c}42"><div style="height:3px;background:linear-gradient(90deg,transparent,${rar.c},transparent)"></div><div style="padding:16px;text-align:center;font-size:9px;font-weight:950;letter-spacing:3px;color:${rar.c}">${CASE_TXT.rating}</div><div style="padding:20px 20px 32px;text-align:center"><div style="font-family:'Bebas Neue',Inter,sans-serif;font-size:118px;line-height:.82;color:${rar.c};text-shadow:0 0 70px ${rar.c}88">${r}</div><div style="margin-top:20px;display:inline-flex;align-items:center;gap:8px;border:1px solid ${rar.br};background:${rar.b};border-radius:999px;padding:8px 18px"><span style="width:7px;height:7px;border-radius:50%;background:${rar.c};box-shadow:0 0 12px ${rar.c}"></span><span style="font-size:12px;font-weight:950;color:${rar.c};letter-spacing:1px">${rar.t}</span></div></div></div>`;}
+function _playerCard(p,club,rar){return `<div style="border-radius:26px;overflow:hidden;background:linear-gradient(160deg,rgba(15,23,42,.98),rgba(2,6,23,.99));border:2px solid ${rar.br};box-shadow:0 0 90px ${rar.c}35"><div style="height:3px;background:linear-gradient(90deg,transparent,${rar.c},transparent)"></div><div style="padding:20px"><div style="display:flex;align-items:center;gap:15px"><div style="width:82px;height:82px;border-radius:22px;background:${rar.b};border:1px solid ${rar.br};display:grid;place-items:center;flex-shrink:0"><div style="font-family:'Bebas Neue',Inter,sans-serif;font-size:44px;color:${rar.c};line-height:1">${p.r||'?'}</div><div style="font-size:10px;font-weight:950;color:rgba(255,255,255,.62);margin-top:-10px">${p.p||''}</div></div><div style="min-width:0;flex:1"><div style="font-size:11px;color:rgba(226,232,240,.48);font-weight:800;margin-bottom:5px">${p.nat||'\ud83c\udf0d'} · ${p.age||'?'} ${CASE_TXT.years}</div><div style="font-size:22px;font-weight:950;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.n}</div><div style="margin-top:8px;font-size:12px;color:rgba(226,232,240,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${club.emoji||'\u26bd'} ${club.name}</div></div></div></div></div>`;}
+function _showCard(html,holdMs,onDone){const wrap=document.getElementById('caseCardWrap'),el=document.getElementById('caseCard');if(!wrap||!el)return;wrap.style.display='block';el.innerHTML=html;el.className='';el.offsetHeight;el.className='ci';setTimeout(()=>{el.className='co';setTimeout(()=>{wrap.style.display='none';onDone&&onDone();},260);},holdMs);}
 function startCaseReveal(){
-  SFX.caseOpen?.();
-  G.budget=Math.max(0,G.budget-(CASES[_activeCaseTier]?.price||11_000_000)); updateHeader();
-  const drawn=_drawCasePlayer();
-  if(!drawn){ document.getElementById('caseOverlay').remove(); showTrMsg('❌ Немає гравців'); return; }
+  if(_caseRevealLock) return; _caseRevealLock=true; SFX.caseOpen?.();
+  const cdef=CASES[_activeCaseTier]||CASES.silver; G.budget=Math.max(0,G.budget-cdef.price); updateHeader();
+  const drawn=_drawCasePlayer(); if(!drawn){document.getElementById('caseOverlay')?.remove();showTrMsg('\u274c '+CASE_TXT.noPlayers);return;}
   _casePlayer=drawn.player; _caseFromClub=drawn.club;
-
-  document.getElementById('caseIntroBox').style.display='none';
-  // Set overlay to solid black for tunnel
-  const ov=document.getElementById('caseOverlay');
-  if(ov) ov.style.background='#000';
-  // Hide backdrop dim
-  const backdrop=ov?.querySelector('[onclick*="caseOverlay"]');
-  if(backdrop) backdrop.style.display='none';
-  document.getElementById('caseTunnel').style.display='block';
-
-  const p=drawn.player, club=drawn.club, mv=p.mv||2, rar=_rar(mv);
-  // Pass rarity color to tunnel for color-shift effect
-  _initTunnel(rar.c);
-
-  const gold='#10b981';
-
-  // dots
-  const dotsEl=document.getElementById('caseProgressDots');
-  dotsEl.innerHTML=[0,1,2,3,4].map(i=>`<div class="cpd" id="cpd${i}"></div>`).join('');
-  const dot=i=>[0,1,2,3,4].forEach(d=>{ const e=document.getElementById('cpd'+d); if(e) e.className='cpd'+(d<i?' done':d===i?' active':''); });
-
+  const p=drawn.player,club=drawn.club,rar=_rar(p.mv||2),ov=document.getElementById('caseOverlay'); if(ov)ov.style.setProperty('--case-c',rar.c);
+  document.getElementById('caseIntroBox').style.display='none'; document.getElementById('caseTunnel').style.display='block'; _initTunnel(rar.c);
+  const dotsEl=document.getElementById('caseProgressDots'); dotsEl.style.display='flex'; dotsEl.innerHTML=[0,1,2,3,4].map(i=>`<div class="fm-case-step" id="cpd${i}"><span></span></div>`).join('');
+  const dot=i=>[0,1,2,3,4].forEach(d=>{const e=document.getElementById('cpd'+d);if(e)e.className='fm-case-step '+(d<i?'done':d===i?'active':'');});
+  const posIcon=p.p==='ВРТ'?'🧤':['ЦЗ','ЛЗ','ПЗ'].includes(p.p)?'🛡️':['ЦП','ОПЗ','АПЗ'].includes(p.p)?'⚙️':'⚡';
   const chain=[
-    ()=>{ dot(0); SFX.caseReveal?.(); _showCard(_stepCard('НАЦІОНАЛЬНІСТЬ', p.nat||'🌍', p.nat||'???', gold), 1600, chain[1]); },
-    ()=>{ dot(1); SFX.caseReveal?.(); _showCard(_stepCard('ПОЗИЦІЯ',
-      p.p==='ВРТ'?'🧤':['ЦЗ','ЛЗ','РБ'].includes(p.p)?'🛡️':['ПЗ','ОПЗ','АПЗ'].includes(p.p)?'⚙️':'⚡',
-      p.p, gold), 1500, chain[2]); },
-    ()=>{ dot(2); SFX.caseReveal?.(); _showCard(_stepCard('ВІК', '📅', `${p.age||'?'} РОКІВ`, gold), 1500, chain[3]); },
-    ()=>{ dot(3); SFX.caseRating?.(); _showCard(_ratingCard(p.r||'?', rar), 2000, chain[4]); },
-    ()=>{ dot(4); SFX.casePlayer?.(); _showCard(_playerCard(p, club, rar), 2400, ()=>{
-      _stopTunnel();
-      dotsEl.style.display='none';
-      document.getElementById('caseCardWrap').style.display='none';
-      _showFinal(p, club, rar);
-    }); },
-  ];
-
-  setTimeout(chain[0], 500);
+    ()=>{dot(0);SFX.caseReveal?.();_showCard(_stepCard(CASE_TXT.nationality,p.nat||'🌍',p.nat||'???',rar.c),1050,chain[1]);},
+    ()=>{dot(1);SFX.caseReveal?.();_showCard(_stepCard(CASE_TXT.position,posIcon,p.p||'???',rar.c),1050,chain[2]);},
+    ()=>{dot(2);SFX.caseReveal?.();_showCard(_stepCard(CASE_TXT.age,'📅',`${p.age||'?'} ${CASE_TXT.years}`,rar.c),1000,chain[3]);},
+    ()=>{dot(3);SFX.caseRating?.();_showCard(_ratingCard(p.r||'?',rar),1350,chain[4]);},
+    ()=>{dot(4);SFX.casePlayer?.();_showCard(_playerCard(p,club,rar),1500,()=>{_stopTunnel();dotsEl.style.display='none';_showFinal(p,club,rar);});},
+  ]; setTimeout(chain[0],360);
 }
-
-/* ── FINAL ── */
-/* ── CONFETTI (for ЛЕГЕНДА) ── */
-function _spawnConfetti(color){
-  const ov=document.getElementById('caseOverlay');
-  if(!ov) return;
-  const colors=[color,'#ffffff','#fbbf24','#a78bfa','#f87171'];
-  for(let i=0;i<55;i++){
-    setTimeout(()=>{
-      const el=document.createElement('div');
-      const c=colors[Math.floor(Math.random()*colors.length)];
-      const sz=4+Math.random()*7;
-      const startX=10+Math.random()*80;
-      const dur=1.5+Math.random()*1.5;
-      const delay=Math.random()*0.8;
-      el.style.cssText=`position:fixed;top:-20px;left:${startX}%;width:${sz}px;height:${sz}px;background:${c};border-radius:${Math.random()>.5?'50%':'2px'};z-index:9900;pointer-events:none;animation:confettiRain ${dur}s ease-in ${delay}s forwards;opacity:0`;
-      ov.appendChild(el);
-      setTimeout(()=>el.remove(), (dur+delay)*1000+200);
-    }, i*30);
-  }
+function _spawnConfetti(color){const ov=document.getElementById('caseOverlay');if(!ov)return;const colors=[color,'#fff','#fbbf24','#60a5fa','#a78bfa'];for(let i=0;i<42;i++){const el=document.createElement('div'),c=colors[Math.floor(Math.random()*colors.length)];el.style.cssText=`position:fixed;top:-16px;left:${Math.random()*100}%;width:${4+Math.random()*6}px;height:${4+Math.random()*8}px;background:${c};border-radius:${Math.random()>.55?'50%':'2px'};z-index:9900;pointer-events:none;animation:fmCaseConfetti ${1.4+Math.random()*1.8}s ease-in ${Math.random()*.35}s forwards`;ov.appendChild(el);setTimeout(()=>el.remove(),3600);}}
+function _showFinal(p,club,rar){
+  const isLegend=rar.t===CASE_TXT.rarLegend; if(isLegend)_spawnConfetti(rar.c);
+  const cs=document.getElementById('caseConfirmScreen'); cs.style.display='flex'; cs.style.background=`radial-gradient(circle at 50% 22%,${rar.c}30,transparent 42%),linear-gradient(180deg,transparent,rgba(0,0,0,.55))`;
+  const fc=document.getElementById('caseFinalCard'); if(fc){fc.style.cssText=`width:100%;border-radius:24px;overflow:hidden;margin-bottom:12px;border:2px solid ${rar.br};box-shadow:0 0 ${isLegend?'130':'88'}px ${rar.c}50,0 22px 70px rgba(0,0,0,.68)`;fc.innerHTML=`<div style="background:linear-gradient(160deg,${rar.b},rgba(2,6,23,.98));padding:18px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px"><div style="font-size:9px;font-weight:950;letter-spacing:2.6px;color:rgba(255,255,255,.32);text-transform:uppercase">${CASE_TXT.newPlayer}</div><div style="border:1px solid ${rar.br};background:${rar.b};border-radius:999px;padding:5px 12px;font-size:10px;font-weight:950;color:${rar.c}">${rar.t}</div></div><div style="display:flex;gap:17px;align-items:center"><div style="width:96px;height:122px;border-radius:20px;background:linear-gradient(180deg,${rar.c}44,rgba(255,255,255,.04));border:1px solid ${rar.br};display:grid;place-items:center"><div style="text-align:center"><div style="font-family:'Bebas Neue',Inter,sans-serif;font-size:58px;color:${rar.c};line-height:.86">${p.r||'?'}</div><div style="font-size:11px;font-weight:950;color:#fff">${p.p||''}</div></div></div><div style="min-width:0;flex:1"><div style="font-size:12px;color:rgba(226,232,240,.5);font-weight:800">${p.nat||'🌍'} · ${p.age||'?'} ${CASE_TXT.years}</div><div style="font-size:25px;font-weight:1000;color:#fff;line-height:1.05;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.n}</div><div style="margin-top:12px;display:flex;align-items:center;gap:8px;color:rgba(226,232,240,.62);font-size:13px;font-weight:750">${club.emoji||'⚽'} <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${club.name}</span></div><div style="margin-top:12px;font-family:'Bebas Neue',Inter,sans-serif;font-size:28px;color:${rar.c}">${fmtPrice((p.mv||0)*1_000_000)}</div></div></div></div>`;}
+  const btn=document.getElementById('caseConfirmBtn'); if(btn) btn.textContent=`${CASE_TXT.sign} ${p.n}`;
+  const sellPrice=Math.round((p.mv||1)*1_000_000),sellBtn=document.getElementById('caseSellBtn'); if(sellBtn)sellBtn.innerHTML=`${CASE_TXT.sellFor} <strong style="margin-left:5px;color:#fff">${fmtPrice(sellPrice)}</strong>`;
 }
-
-function _showFinal(p, club, rar){
-  const rc=p.r>=85?'#fbbf24':p.r>=78?'#a78bfa':p.r>=68?'#f87171':'#60a5fa';
-  const isLegend = rar.t === 'ЛЕГЕНДА';
-  const cs=document.getElementById('caseConfirmScreen');
-  cs.style.background=`radial-gradient(ellipse 80% 60% at 50% 30%,${rar.c}${isLegend?'22':'12'} 0%,transparent 70%)`;
-  cs.style.display='flex';
-
-  // Confetti for ЛЕГЕНДА!
-  if(isLegend){
-    _spawnConfetti(rar.c);
-  }
-
-  const fc=document.getElementById('caseFinalCard');
-  if(fc){
-    const entryAnim = isLegend
-      ? 'animation:legendBurst .8s cubic-bezier(.25,.46,.45,.94) forwards'
-      : 'animation:uscCard .55s cubic-bezier(.22,.68,.38,1.1) forwards';
-    fc.style.cssText=`width:100%;max-width:340px;border-radius:22px;overflow:hidden;margin-bottom:16px;border:2px solid ${rar.br};box-shadow:0 0 ${isLegend?'120':'80'}px ${rar.c}${isLegend?'55':'35'},0 4px 40px rgba(0,0,0,.6);${entryAnim}`;
-    fc.style.setProperty('--rg', rar.c);
-    fc.innerHTML=`
-      <!-- Top shimmer line -->
-      <div style="height:2.5px;background:linear-gradient(90deg,transparent,${rar.c},${rar.c}88,transparent)"></div>
-      <!-- Header: tier + rarity -->
-      <div style="background:linear-gradient(135deg,${rar.b},rgba(5,3,1,.98));padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid ${rar.c}18">
-        <span style="font-size:8px;font-weight:800;letter-spacing:3px;color:rgba(255,255,255,.2);text-transform:uppercase">КЕЙС ГРАВЦЯ</span>
-        <div style="display:inline-flex;align-items:center;gap:5px;background:${rar.b};border:1.5px solid ${rar.br};border-radius:20px;padding:3px 12px">
-          <div style="width:5px;height:5px;border-radius:50%;background:${rar.c};box-shadow:0 0 6px ${rar.c}"></div>
-          <span style="font-size:9px;font-weight:800;color:${rar.c};letter-spacing:.8px">${rar.t}</span>
-        </div>
-      </div>
-      <!-- Main content -->
-      <div style="background:linear-gradient(160deg,rgba(12,8,2,.99),rgba(5,3,1,.99));padding:20px 18px 18px">
-        <!-- FIFA-style: rating left + info right -->
-        <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:18px">
-          <!-- Rating block (FIFA style) -->
-          <div style="text-align:center;flex-shrink:0;background:${rar.b};border:2px solid ${rar.br};border-radius:16px;padding:10px 14px;min-width:62px">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:${rar.c};line-height:1;letter-spacing:-2px;text-shadow:0 0 20px ${rar.c}66">${p.r||'?'}</div>
-            <div style="font-size:10px;font-weight:800;color:${rar.c}88;text-transform:uppercase;letter-spacing:.5px;margin-top:2px">${p.p}</div>
-          </div>
-          <!-- Player info -->
-          <div style="flex:1;min-width:0">
-            <div style="font-size:13px;color:rgba(255,255,255,.3);margin-bottom:5px">${p.nat||''}</div>
-            <div style="font-size:22px;font-weight:900;color:#fff;letter-spacing:-.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1;margin-bottom:8px">${p.n}</div>
-            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-              <span style="font-size:11px;font-weight:700;color:${rc};background:${rc}18;border:1px solid ${rc}33;border-radius:6px;padding:2px 9px">${p.p}</span>
-              <span style="font-size:11px;color:rgba(255,255,255,.28)">${p.age||'?'} р.</span>
-            </div>
-          </div>
-        </div>
-        <!-- Divider -->
-        <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.08),transparent);margin-bottom:16px"></div>
-        <!-- Club + market value -->
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <div style="display:flex;align-items:center;gap:10px">
-            <div style="width:36px;height:36px;border-radius:10px;background:${club.bg||'#111'};display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;border:1px solid rgba(255,255,255,.08)">${club.logo||`<span style="font-size:20px">${club.emoji||'⚽'}</span>`}</div>
-            <span style="font-size:13px;color:rgba(255,255,255,.45);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px">${club.name}</span>
-          </div>
-          <div style="text-align:right">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:${rar.c};letter-spacing:.5px;line-height:1">${fmtPrice((p.mv||0)*1_000_000)}</div>
-            <div style="font-size:8px;color:rgba(255,255,255,.2);letter-spacing:.5px">РИНКОВА</div>
-          </div>
-        </div>
-      </div>
-      <!-- Bottom shimmer -->
-      <div style="height:1.5px;background:linear-gradient(90deg,transparent,${rar.c}44,transparent)"></div>`;
-  }
-  const btn=document.getElementById('caseConfirmBtn');
-  if(btn){
-    btn.textContent='';
-    btn.innerHTML=`<span style="font-size:16px">✅</span><span style="margin-left:8px">Підписати ${p.n}</span>`;
-    btn.style.cssText=`width:100%;background:linear-gradient(135deg,#064e3b,#059669,#10b981);color:#fff;border:none;border-radius:16px;padding:17px;font-size:15px;font-weight:900;cursor:pointer;letter-spacing:.3px;box-shadow:0 4px 28px rgba(16,185,129,.45),0 2px 8px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center`;
-  }
-  // Sell button — sell price = mv * 1M * 0.7 (70% від ринкової)
-  const sellPrice = Math.round((p.mv||1) * 1_000_000 * 0.7);
-  const sellBtn=document.getElementById('caseSellBtn');
-  if(sellBtn){
-    sellBtn.innerHTML=`💸 Продати за <strong style="color:rgba(255,255,255,.8);margin-left:4px">${fmtPrice(sellPrice)}</strong>`;
-    sellBtn.style.cssText=`width:100%;background:rgba(255,255,255,.04);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:13px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.2px;display:flex;align-items:center;justify-content:center;gap:4px`;
-  }
-}
-
-/* ── SELL ── */
-function sellCasePlayer(){
-  if(!_casePlayer||!_caseFromClub) return;
-  const p=_casePlayer, club=_caseFromClub;
-  const sellPrice = Math.round((p.mv||1) * 1_000_000 * 0.7);
-  // Add money, do NOT add player to squad
-  G.budget = (G.budget||0) + sellPrice;
-  const _cPrice = CASES[_activeCaseTier]?.price||11_000_000;
-  G.transfers.history.push({name:p.n,pos:p.p,club:club.name,price:-sellPrice,type:'case_sell',round:G.currentRound});
-  addJournalEntry('transfer_sell',{name:p.n,pos:p.p,price:sellPrice,to:club.name});
-  document.getElementById('caseOverlay').remove();
-  _casePlayer=null; _caseFromClub=null;
-  SFX.caseSign?.();
-  renderTrContent(); updateHeader(); saveGame();
-  showTrMsg(`💸 ${p.nat||''} ${p.n} (${p.r}) продано за ${fmtPrice(sellPrice)}!`);
-}
-
-
-/* ── CONFIRM ── */
-function confirmCasePlayer(){
-  if(!_casePlayer||!_caseFromClub) return;
-  const p=_casePlayer, club=_caseFromClub;
-  const newP=assignDefaultContract({n:p.n,p:p.p,r:p.r,mv:p.mv,age:p.age,nat:p.nat,...(p.ballonAwards?{ballonAwards:p.ballonAwards.slice()}:{})},G.seasonStartYear||2025);
-  if(!G.players.some(gp=>gp.n===newP.n)) G.players.push(newP);
-  syncUserSquad(); removeFromClub(p.n,club.id);
-  const _cPrice = CASES[_activeCaseTier]?.price||11_000_000;
-  G.transfers.history.push({name:p.n,pos:p.p,club:club.name,price:_cPrice,type:'case',round:G.currentRound});
-  addJournalEntry('transfer_buy',{name:p.n,pos:p.p,price:_cPrice,from:club.name});
-  G.transfers.lastRefresh=-1; G.transfers.marketPlayers=[];
-  document.getElementById('caseOverlay').remove();
-  _casePlayer=null; _caseFromClub=null;
-  SFX.caseSign?.();
-  renderTrContent(); updateHeader(); saveGame();
-  showTrMsg(`🎰 ${p.nat||''} ${p.n} (${p.r}) випав з кейсу і перейшов до ${G.club.name}! 🎉`);
-}
+function sellCasePlayer(){if(!_casePlayer||!_caseFromClub)return;const p=_casePlayer,club=_caseFromClub,sellPrice=Math.round((p.mv||1)*1_000_000);G.budget=(G.budget||0)+sellPrice;G.transfers.history.push({name:p.n,pos:p.p,club:club.name,price:-sellPrice,type:'case_sell',round:G.currentRound});addJournalEntry('transfer_sell',{name:p.n,pos:p.p,price:sellPrice,to:club.name});document.getElementById('caseOverlay')?.remove();_casePlayer=null;_caseFromClub=null;SFX.caseSign?.();renderTrContent();updateHeader();saveGame();showTrMsg(`💸 ${p.nat||''} ${p.n} (${p.r}) ${CASE_TXT.sold} ${fmtPrice(sellPrice)}!`);}
+function confirmCasePlayer(){if(!_casePlayer||!_caseFromClub)return;const p=_casePlayer,club=_caseFromClub,newP=assignDefaultContract({n:p.n,p:p.p,r:p.r,mv:p.mv,age:p.age,nat:p.nat,...(p.ballonAwards?{ballonAwards:p.ballonAwards.slice()}:{})},G.seasonStartYear||2025);if(!G.players.some(gp=>gp.n===newP.n))G.players.push(newP);syncUserSquad();removeFromClub(p.n,club.id);const _cPrice=CASES[_activeCaseTier]?.price||11_000_000;G.transfers.history.push({name:p.n,pos:p.p,club:club.name,price:_cPrice,type:'case',round:G.currentRound});addJournalEntry('transfer_buy',{name:p.n,pos:p.p,price:_cPrice,from:club.name});G.transfers.lastRefresh=-1;G.transfers.marketPlayers=[];document.getElementById('caseOverlay')?.remove();_casePlayer=null;_caseFromClub=null;SFX.caseSign?.();renderTrContent();updateHeader();saveGame();showTrMsg(`🎰 ${p.nat||''} ${p.n} (${p.r}) ${CASE_TXT.dropped} ${G.club.name}!`);}
 
 
 // Переконуємось що fatigue є у кожного гравця після load
@@ -28050,5 +27742,44 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 
+
+<script id="pack-picker-v28">
+function openPackPicker(){
+  document.getElementById('packPickerOverlay')?.remove();
+  const ov=document.createElement('div');
+  ov.id='packPickerOverlay';
+  ov.className='packPickerOverlay';
+  ov.innerHTML=`
+    <div class="packPickerSheet">
+      <div class="packPickerGrab"></div>
+      <div class="packPickerHead">
+        <div class="packPickerTitle">&#1055;&#1072;&#1082;&#1080; &#1075;&#1088;&#1072;&#1074;&#1094;&#1110;&#1074;</div>
+        <button class="packPickerClose" onclick="document.getElementById('packPickerOverlay')?.remove()">×</button>
+      </div>
+      <div class="packPickerGrid">
+        <div class="packPickerCard bronze" onclick="document.getElementById('packPickerOverlay')?.remove();openPlayerCase('bronze')">
+          <div class="packPickerObject"><div class="packPickerBody"><div class="packPickerCore">3</div></div></div>
+          <div class="packPickerName">&#1041;&#1088;&#1086;&#1085;&#1079;&#1086;&#1074;&#1080;&#1081;</div>
+          <div class="packPickerSub">&#1051;&#1077;&#1075;&#1077;&#1085;&#1076;&#1072; 2% · &#1045;&#1083;&#1110;&#1090; 6%</div>
+          <div class="packPickerPrice">€5M</div>
+        </div>
+        <div class="packPickerCard silver" onclick="document.getElementById('packPickerOverlay')?.remove();openPlayerCase('silver')">
+          <div class="packPickerObject"><div class="packPickerBody"><div class="packPickerCore">2</div></div></div>
+          <div class="packPickerName">&#1057;&#1088;&#1110;&#1073;&#1085;&#1080;&#1081;</div>
+          <div class="packPickerSub">&#1051;&#1077;&#1075;&#1077;&#1085;&#1076;&#1072; 6% · &#1045;&#1083;&#1110;&#1090; 14%</div>
+          <div class="packPickerPrice">€11M</div>
+        </div>
+        <div class="packPickerCard gold" onclick="document.getElementById('packPickerOverlay')?.remove();openPlayerCase('gold')">
+          <div class="packPickerObject"><div class="packPickerBody"><div class="packPickerCore">1</div></div></div>
+          <div class="packPickerName">&#1047;&#1086;&#1083;&#1086;&#1090;&#1080;&#1081;</div>
+          <div class="packPickerSub">&#1051;&#1077;&#1075;&#1077;&#1085;&#1076;&#1072; 15% · &#1045;&#1083;&#1110;&#1090; 30%</div>
+          <div class="packPickerPrice">€25M</div>
+        </div>
+      </div>
+    </div>`;
+  ov.addEventListener('click',e=>{ if(e.target===ov) ov.remove(); });
+  document.body.appendChild(ov);
+}
+</script>
 </body>
 </html>
