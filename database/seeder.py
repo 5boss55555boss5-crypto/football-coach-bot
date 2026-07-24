@@ -1,7 +1,9 @@
+import os
+
 import aiosqlite
 from data.seed_data import CLUBS, PLAYERS
 
-DB_PATH = "football_coach.db"
+DB_PATH = os.getenv("DB_PATH", "football_coach.db")
 
 
 async def seed_database():

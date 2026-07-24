@@ -1,6 +1,8 @@
+import os
+
 import aiosqlite
 
-DB_PATH = "football_coach.db"
+DB_PATH = os.getenv("DB_PATH", "football_coach.db")
 
 
 def get_db():
