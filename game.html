@@ -18628,6 +18628,30 @@ function generateFreeAgent(pos, minR, maxR, clubId){
 }
 
 const PLAYER_DATABASE_VERSION='2026-07-26';
+// ── Хмарна синхронізація прогресу між пристроями (той самий Telegram-акаунт) ──
+// Кожне writeSaveGame() ще й тихо надсилає той самий JSON на сервер (fire-and-forget).
+// На новому пристрої, де localStorage порожній, _pullSavesFromServer() підтягує
+// збереження назад ДО того, як спрацює звичайна auto-load логіка зі слотів.
+function _pushSaveToServer(slot, json){
+  if(!_tgUserId) return;
+  fetch('/api/save-game', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({user_id:_tgUserId, slot, data:json}),
+  }).catch(()=>{});
+}
+
+async function _pullSavesFromServer(){
+  if(!_tgUserId) return;
+  for(const slot of [1,2,3]){
+    try{
+      const res = await fetch(`/api/load-game?user_id=${_tgUserId}&slot=${slot}`);
+      const j = await res.json();
+      if(j?.ok && j.data) localStorage.setItem(getSlotKey(slot), j.data);
+    }catch(e){}
+  }
+}
+
 function writeSaveGame(){
   normalizeUCLScheduleLabels();
   if(!G.club) return;
@@ -18684,7 +18708,9 @@ function writeSaveGame(){
       achievements:G.achievements||{},
       aiAcademyDrift:G.aiAcademyDrift||{}
     };
-    localStorage.setItem(getSlotKey(ACTIVE_SLOT), JSON.stringify(data));
+    const _json = JSON.stringify(data);
+    localStorage.setItem(getSlotKey(ACTIVE_SLOT), _json);
+    _pushSaveToServer(ACTIVE_SLOT, _json);
   }catch(e){
     // FIX P4: notify user if save fails (e.g. localStorage quota exceeded)
     console.warn('saveGame failed:',e);
@@ -28795,7 +28821,20 @@ function renderAdminLogs(){
   setTimeout(() => {
     setProgress(100, 'Готово!');
 
-    setTimeout(() => {
+    setTimeout(async () => {
+      // Новий пристрій під тим самим Telegram-акаунтом — локально ще нічого немає,
+      // тож пробуємо підтягти прогрес із сервера перед звичайною auto-load логікою.
+      try{
+        const _hasAnyLocal = [1,2,3].some(n=>localStorage.getItem(getSlotKey(n)));
+        if(!_hasAnyLocal && _tgUserId){
+          setProgress(95, 'Синхронізація прогресу...');
+          await Promise.race([
+            _pullSavesFromServer(),
+            new Promise(r=>setTimeout(r, 3500)),
+          ]);
+        }
+      }catch(e){}
+
       // Auto-load saved game on startup
       const _hasAnySave = [1,2,3].some(n=>localStorage.getItem(getSlotKey(n)));
       const _hasActiveSave = localStorage.getItem(getSlotKey(ACTIVE_SLOT));

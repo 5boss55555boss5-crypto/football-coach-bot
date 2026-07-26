@@ -67,5 +67,13 @@ async def init_db():
                 played_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (user_id) REFERENCES users(id)
             );
+
+            CREATE TABLE IF NOT EXISTS game_saves (
+                tg_id INTEGER NOT NULL,
+                slot INTEGER NOT NULL,
+                data TEXT NOT NULL,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (tg_id, slot)
+            );
         """)
         await db.commit()

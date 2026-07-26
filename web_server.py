@@ -3,12 +3,15 @@ import os
 
 from aiohttp import web
 
+from database.models import get_db
+
 logger = logging.getLogger(__name__)
 
 ADMIN_TG_ID = int(os.getenv("ADMIN_TG_ID", "766751955"))
 NOTIFY_TEXT_MAX_LEN = 4000
 CHANNEL_ID = os.getenv("CHANNEL_ID", "").strip()
 SUBSCRIBED_STATUSES = {"member", "administrator", "creator"}
+SAVE_DATA_MAX_LEN = 4_000_000
 
 
 async def serve_game(request):
@@ -74,11 +77,63 @@ async def check_subscription(request):
     return web.json_response({"ok": True, "subscribed": subscribed})
 
 
+async def save_game(request):
+    try:
+        data = await request.json()
+        user_id = int(data.get("user_id"))
+        slot = int(data.get("slot"))
+        payload = data.get("data")
+    except Exception:
+        return web.json_response({"ok": False, "error": "invalid request"}, status=400)
+
+    if slot not in (1, 2, 3) or not isinstance(payload, str) or not payload:
+        return web.json_response({"ok": False, "error": "invalid payload"}, status=400)
+    if len(payload) > SAVE_DATA_MAX_LEN:
+        return web.json_response({"ok": False, "error": "payload too large"}, status=413)
+
+    try:
+        async with get_db() as db:
+            await db.execute(
+                """INSERT INTO game_saves (tg_id, slot, data, updated_at)
+                   VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+                   ON CONFLICT(tg_id, slot) DO UPDATE SET data=excluded.data, updated_at=CURRENT_TIMESTAMP""",
+                (user_id, slot, payload),
+            )
+            await db.commit()
+    except Exception as e:
+        logger.warning(f"save_game failed for user {user_id} slot {slot}: {e}")
+        return web.json_response({"ok": False}, status=500)
+
+    return web.json_response({"ok": True})
+
+
+async def load_game(request):
+    try:
+        user_id = int(request.query.get("user_id"))
+        slot = int(request.query.get("slot"))
+    except Exception:
+        return web.json_response({"ok": False, "error": "invalid request"}, status=400)
+
+    try:
+        async with get_db() as db:
+            async with db.execute(
+                "SELECT data FROM game_saves WHERE tg_id = ? AND slot = ?", (user_id, slot)
+            ) as cursor:
+                row = await cursor.fetchone()
+    except Exception as e:
+        logger.warning(f"load_game failed for user {user_id} slot {slot}: {e}")
+        return web.json_response({"ok": False}, status=500)
+
+    return web.json_response({"ok": True, "data": row[0] if row else None})
+
+
 def create_app(bot=None):
-    app = web.Application()
+    app = web.Application(client_max_size=SAVE_DATA_MAX_LEN + 1024)
     app["bot"] = bot
     app.router.add_get('/', serve_game)
     app.router.add_get('/game', serve_game)
     app.router.add_post('/api/notify', notify)
     app.router.add_post('/api/check-subscription', check_subscription)
+    app.router.add_post('/api/save-game', save_game)
+    app.router.add_get('/api/load-game', load_game)
     return app
