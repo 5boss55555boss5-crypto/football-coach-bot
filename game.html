@@ -19389,10 +19389,14 @@ function generateAIYouthIntake(){
 }
 
 function processRetirements(prevScorers) {
-  if (!G.club) return { userRetired: [], aiCount: 0 };
+  if (!G.club) return { userRetired: [], aiCount: 0, retiredLegends: [] };
 
   const userRetired = [];
   let aiCount = 0;
+  // Легендарні гравці (свої і ШІ), що завершили кар'єру цього сезону —
+  // джерело для майбутнього поповнення пулу тренерів (див. processLegendCoachPipeline).
+  const retiredLegends = [];
+  const isLegendPlayer = p => (p.r || 0) >= 85 || ((p.r || 0) >= 80 && (p.age || 0) >= 34);
 
   // ── AI клуби: тихе видалення ──
   CLUBS.forEach(c => {
@@ -19406,7 +19410,11 @@ function processRetirements(prevScorers) {
     });
     toRemove.forEach(name => {
       const idx = squad.findIndex(x => x.n === name);
-      if (idx >= 0) { squad.splice(idx, 1); aiCount++; }
+      if (idx >= 0) {
+        const p = squad[idx];
+        if (isLegendPlayer(p)) retiredLegends.push({ name: p.n, nat: p.nat, r: p.r });
+        squad.splice(idx, 1); aiCount++;
+      }
     });
     if (toRemove.length) recalcClubSTR(c.id);
   });
@@ -19438,12 +19446,13 @@ function processRetirements(prevScorers) {
       goals: sc.goals || 0, assists: sc.assists || 0, apps: sc.apps || 0
     });
 
+    if (isLegendPlayer(p)) retiredLegends.push({ name: p.n, nat: p.nat, r: p.r });
     userRetired.push({ ...p, _sc: sc });
   });
 
   if (toRetire.length) syncUserSquad();
 
-  return { userRetired, aiCount };
+  return { userRetired, aiCount, retiredLegends };
 }
 
 // Визначає зірковість гравця для красивого відображення в модалі
@@ -19750,6 +19759,9 @@ function _doNewSeason(){
 
   // ── Система завершення кар'єри ──
   const retirementResult = processRetirements(_prevScorers);
+  // ── Тренери: вихід на пенсію + конвеєр «легенда стає тренером» ──
+  if(typeof processCoachRetirements==='function') processCoachRetirements();
+  if(typeof processLegendCoachPipeline==='function') processLegendCoachPipeline(retirementResult.retiredLegends);
   // ── Щорічне поповнення академій AI-клубів молодими гравцями ──
   generateAIYouthIntake();
   // Відразу поповнюємо склади після виходу на пенсію
@@ -28992,18 +29004,31 @@ const EXTRA_COACHES= {
 function coachState(){
  if(!G.coaches||typeof G.coaches!=='object')G.coaches={};const s=G.coaches;
  s.ratings=s.ratings||{};s.stats=s.stats||{};s.assignments=s.assignments||{};s.freeAgents=Array.isArray(s.freeAgents)?s.freeAgents:[];s.nationalJobs=s.nationalJobs||{};s.clubForm=s.clubForm||{};s.pressure=s.pressure||{};s.tenure=s.tenure||{};s.history=Array.isArray(s.history)?s.history:[];
+ // v5.58 — обмежена частота звільнень (20-40% клубів/сезон), вихід тренерів на
+ // пенсію, і конвеєр «легендарний гравець за кілька сезонів стає тренером
+ // слабкого клубу, зазвичай на батьківщині».
+ s.retired=s.retired||{};s.playerCoaches=s.playerCoaches||{};s.futureLegends=Array.isArray(s.futureLegends)?s.futureLegends:[];
  if(s.databaseVersion!==COACH_DB_VERSION){
   s.assignments={};Object.keys(COACH_DB).forEach(id=>{s.assignments[id]='club:'+id;s.ratings['club:'+id]=COACH_DB[id].base;});
   s.freeAgents=Object.keys(EXTRA_COACHES);s.nationalJobs={};s.databaseVersion=COACH_DB_VERSION;
  }else{
   Object.keys(COACH_DB).forEach(id=>{if(!s.assignments[id])s.assignments[id]='club:'+id;});
-  Object.entries(EXTRA_COACHES).forEach(([k,c])=>{if(c.status==='free'&&!s.freeAgents.includes(k)&&!Object.values(s.assignments).includes(k))s.freeAgents.push(k);});
+  Object.entries(EXTRA_COACHES).forEach(([k,c])=>{if(c.status==='free'&&!s.retired[k]&&!s.freeAgents.includes(k)&&!Object.values(s.assignments).includes(k))s.freeAgents.push(k);});
  }
- const employed=new Set(Object.values(s.assignments));s.freeAgents=s.freeAgents.filter(k=>EXTRA_COACHES[k]&&!employed.has(k));
+ const employed=new Set(Object.values(s.assignments));
+ s.freeAgents=s.freeAgents.filter(k=>(EXTRA_COACHES[k]||s.playerCoaches[k])&&!employed.has(k)&&!s.retired[k]);
+ // Сезонний ліміт звільнень — рахуємо не більше 20-40% клубів за сезон
+ const seasonKey=G.seasonStartYear||2025;
+ if(s.seasonKey!==seasonKey){
+  s.seasonKey=seasonKey;s.seasonFireCount=0;
+  s.seasonFireLimit=Math.round(CLUBS.length*(0.20+Math.random()*0.20));
+ }
+ if(!Number.isFinite(s.seasonFireCount))s.seasonFireCount=0;
+ if(!Number.isFinite(s.seasonFireLimit))s.seasonFireLimit=Math.round(CLUBS.length*0.3);
  return s;
 }
 function userCoachName(){const u=window.Telegram?.WebApp?.initDataUnsafe?.user;return (u?.first_name||u?.username||'Ви').slice(0,28);}
-function coachByKey(key){if(String(key).startsWith('club:'))return COACH_DB[String(key).slice(5)]||null;return EXTRA_COACHES[key]||null;}
+function coachByKey(key){if(String(key).startsWith('club:'))return COACH_DB[String(key).slice(5)]||null;return EXTRA_COACHES[key]||coachState().playerCoaches[key]||null;}
 function realCoach(id){const s=coachState(),key=s.assignments[String(id)]||('club:'+id),c=coachByKey(key)||COACH_DB[id];return c?{...c,coachKey:key}:{clubId:+id,name:'Тренер команди',nation:'—',flag:'🌍',born:1980,base:70,coachKey:key};}
 function currentCoach(id){if(G.club&&+id===+G.club.id)return{clubId:+id,name:userCoachName(),nation:'Україна',flag:'🇺🇦',born:1990,base:68,isUser:true};return realCoach(id);}
 function coachKeyForClub(id){return G.club&&+id===+G.club.id?'user':(coachState().assignments[String(id)]||('club:'+id));}
@@ -29045,25 +29070,79 @@ function injectCoachHubButton(){document.querySelectorAll('#settingsContent .coa
 function clubExpectation(id){const str=STR[id]||clubById(id)?.strength||70;return Math.max(.65,Math.min(2.35,.68+(str-60)*.047));}
 function recentPPG(form){if(!form?.length)return 0;return form.reduce((n,r)=>n+(r==='win'?3:r==='draw'?1:0),0)/form.length;}
 function coachCandidateScore(key,clubId){const c=coachByKey(key);if(!c)return-999;const s=coachState(),rating=Number.isFinite(+s.ratings[key])?+s.ratings[key]:c.base,clubStr=STR[clubId]||70,elite=rating>=88;
+ // Легенда-новачок у тренерстві: свідомо йде в слабший клуб, з перевагою батьківщини.
+ if(c.rookie){
+  if(clubStr>78)return-999;
+  const club=clubById(clubId);const sameCountry=c.homeCountry&&club?.country&&club.country.includes(c.homeCountry);
+  return (sameCountry?45:0)+(80-clubStr)*0.6+Math.random()*10;
+ }
  if(elite&&clubStr<84)return-999;if(rating>=82&&clubStr<73)return-999;if(rating<clubStr-14)return-999;
  const national=!!s.nationalJobs[key];if(national&&clubStr<86)return-999;
  const fit=100-Math.abs((clubStr+2)-rating)*3.1;const ambition=rating<=clubStr+8?10:-8;const experience=Math.max(0,((Math.max(2026,G.seasonStartYear||2026))-c.born-38)*.16);return fit+ambition+experience+(national?-7:0)+Math.random()*9;
 }
-function appointCoach(clubId){const s=coachState(),pool=[...new Set([...s.freeAgents,...Object.keys(s.nationalJobs)])];let ranked=pool.map(k=>({k,score:coachCandidateScore(k,clubId)})).filter(x=>x.score>-900).sort((a,b)=>b.score-a.score);
- if(!ranked.length){ranked=s.freeAgents.map(k=>({k,score:(coachByKey(k)?.base||60)+Math.random()*5})).sort((a,b)=>b.score-a.score);}
- const pick=ranked[0]?.k;if(!pick)return null;s.assignments[String(clubId)]=pick;s.freeAgents=s.freeAgents.filter(k=>k!==pick);delete s.nationalJobs[pick];s.tenure[String(clubId)]=0;s.pressure[String(clubId)]=15;s.clubForm[String(clubId)]=[];return pick;
+function appointCoach(clubId){const s=coachState(),pool=[...new Set([...s.freeAgents,...Object.keys(s.nationalJobs)])].filter(k=>!s.retired[k]);let ranked=pool.map(k=>({k,score:coachCandidateScore(k,clubId)})).filter(x=>x.score>-900).sort((a,b)=>b.score-a.score);
+ if(!ranked.length){ranked=s.freeAgents.filter(k=>!s.retired[k]).map(k=>({k,score:(coachByKey(k)?.base||60)+Math.random()*5})).sort((a,b)=>b.score-a.score);}
+ const pick=ranked[0]?.k;if(!pick)return null;s.assignments[String(clubId)]=pick;s.freeAgents=s.freeAgents.filter(k=>k!==pick);delete s.nationalJobs[pick];s.tenure[String(clubId)]=0;s.pressure[String(clubId)]=15;s.clubForm[String(clubId)]=[];
+ if(s.playerCoaches[pick])s.playerCoaches[pick].rookie=false; // перша робота відпрацьована — далі звичайні правила кар'єри
+ return pick;
 }
-function fireAndHire(clubId,reason){const s=coachState(),oldKey=s.assignments[String(clubId)]||('club:'+clubId),oldCoach=coachByKey(oldKey)||realCoach(clubId);if(oldKey!=='user'&&!s.freeAgents.includes(oldKey))s.freeAgents.push(oldKey);delete s.assignments[String(clubId)];const newKey=appointCoach(clubId);if(!newKey){s.assignments[String(clubId)]=oldKey;s.freeAgents=s.freeAgents.filter(k=>k!==oldKey);return;}
+function fireAndHire(clubId,reason,countsAgainstBudget=true){const s=coachState(),oldKey=s.assignments[String(clubId)]||('club:'+clubId),oldCoach=coachByKey(oldKey)||realCoach(clubId);if(oldKey!=='user'&&!s.retired[oldKey]&&!s.freeAgents.includes(oldKey))s.freeAgents.push(oldKey);delete s.assignments[String(clubId)];const newKey=appointCoach(clubId);if(!newKey){if(!s.retired[oldKey])s.assignments[String(clubId)]=oldKey;s.freeAgents=s.freeAgents.filter(k=>k!==oldKey);return;}
  const club=clubById(clubId),next=coachByKey(newKey);s.history.unshift({round:G.currentRound||0,season:G.seasonStartYear||2025,clubId,club:club?.name||'',out:oldCoach?.name||'',incoming:next?.name||'',reason});if(s.history.length>80)s.history.length=80;
+ if(countsAgainstBudget)s.seasonFireCount=(s.seasonFireCount||0)+1;
  const leagueIds=typeof getLeagueClubs==='function'?getLeagueClubs().map(c=>c.id):[];if((STR[clubId]||0)>=84||leagueIds.includes(+clubId))showToast?.(`🧥 ${club?.name}: ${oldCoach?.name} звільнений · новий тренер — ${next?.name}`,'rgba(124,58,237,.38)',4500);
 }
 function simulateCoachWorldRound(exclude){const done=new Set(exclude||[]),s=coachState();CLUBS.forEach(club=>{if(done.has(club.id)||club.id===G.club?.id)return;const strength=STR[club.id]||70,roll=Math.random(),win=.20+(strength-60)*.012,draw=.28,result=roll<win?'win':roll<win+draw?'draw':'loss';const rivals=CLUBS.filter(c=>c.id!==club.id&&Math.abs((STR[c.id]||70)-strength)<8),opp=rivals[Math.floor(Math.random()*rivals.length)]||G.club;updateCoach(club.id,result,opp.id);});}
 function evaluateAICoaches(){const s=coachState(),round=G.currentRound||0;if(s.lastEvalRound===round)return;s.lastEvalRound=round;
- CLUBS.forEach(club=>{const id=club.id;if(id===G.club?.id)return;const form=s.clubForm[String(id)]||[],tenure=s.tenure[String(id)]||0;if(form.length<6||tenure<6)return;const ppg=recentPPG(form),expected=clubExpectation(id),under=expected-ppg,losses=form.slice(-5).filter(x=>x==='loss').length,wins=form.slice(-5).filter(x=>x==='win').length,str=STR[id]||70;let pressure=s.pressure[String(id)]||0;
+ if((s.seasonFireCount||0)>=(s.seasonFireLimit||99))return; // сезонний ліміт звільнень вичерпано (20-40% клубів)
+ CLUBS.forEach(club=>{if((s.seasonFireCount||0)>=(s.seasonFireLimit||99))return;const id=club.id;if(id===G.club?.id)return;const form=s.clubForm[String(id)]||[],tenure=s.tenure[String(id)]||0;if(form.length<6||tenure<6)return;const ppg=recentPPG(form),expected=clubExpectation(id),under=expected-ppg,losses=form.slice(-5).filter(x=>x==='loss').length,wins=form.slice(-5).filter(x=>x==='win').length,str=STR[id]||70;let pressure=s.pressure[String(id)]||0;
  pressure+=under>0?under*(str>=86?20:15):-Math.abs(under)*10;pressure+=losses>=4?24:losses===3?9:0;pressure-=wins>=4?18:0;pressure=Math.max(0,Math.min(130,pressure));s.pressure[String(id)]=pressure;
  const league=getLeagueClubs?.()||[],ordered=league.filter(c=>G.tableStats?.[c.id]).sort((a,b)=>(G.tableStats[b.id]?.pts||0)-(G.tableStats[a.id]?.pts||0)),pos=ordered.findIndex(c=>c.id===id)+1,target=str>=88?2:str>=82?4:str>=75?8:12;if(pos>0&&form.length>=8&&pos>target+3)s.pressure[String(id)]=Math.min(130,s.pressure[String(id)]+(pos-target)*1.8);
  const threshold=str>=88?68:str>=80?78:str>=70?90:98;const crisis=losses===5&&ppg<.55;const disaster=form.length>=8&&ppg<expected*.42;if((pressure>=threshold||crisis||disaster)&&Math.random()<(crisis ? 0.90 : 0.58))fireAndHire(id,crisis?'серія поразок':disaster?'результати значно нижчі очікувань':'втрата довіри керівництва');
  });
+}
+// ── Вихід тренерів на пенсію (раз на сезон) ──────────────────────────────
+function processCoachRetirements(){
+ const s=coachState(),season=G.seasonStartYear||2025;
+ const retireChance=age=>age<60?0:age<64?.08:age<68?.18:age<72?.35:age<76?.55:.75;
+ const allKeys=new Set([...Object.values(s.assignments),...s.freeAgents]);
+ allKeys.forEach(key=>{
+  if(key==='user'||s.retired[key])return;
+  const c=coachByKey(key);if(!c)return;
+  const age=coachAge(c);
+  if(Math.random()>=retireChance(age))return;
+  s.retired[key]=true;
+  const employedClubId=Object.keys(s.assignments).find(cid=>s.assignments[cid]===key);
+  if(employedClubId!=null){
+   fireAndHire(+employedClubId,'вихід на пенсію',false);
+  }else{
+   s.freeAgents=s.freeAgents.filter(k=>k!==key);
+  }
+ });
+}
+// ── Конвеєр «легендарний гравець стає тренером» ──────────────────────────
+// Викликається щосезону з переліком гравців (свої + ШІ), що завершили кар'єру.
+function processLegendCoachPipeline(retiredLegends){
+ const s=coachState(),season=G.seasonStartYear||2025;
+ const poolSize=CLUBS.length+s.freeAgents.length;
+ const legendChance=poolSize<120?0.55:poolSize>140?0.15:0.35;
+ (retiredLegends||[]).forEach(p=>{
+  if(Math.random()>=legendChance)return;
+  const key='legend_'+p.name.replace(/\s+/g,'_').toLowerCase()+'_'+season;
+  if(s.playerCoaches[key]||s.retired[key])return;
+  s.futureLegends.push({key,name:p.name,nat:p.nat||'',rating:p.r||75,availableSeason:season+2+Math.floor(Math.random()*3)});
+ });
+ // Ті, чий час прийшов — заходять у пул вільних агентів як тренери-новачки
+ const stillWaiting=[];
+ s.futureLegends.forEach(entry=>{
+  if(season<entry.availableSeason){stillWaiting.push(entry);return;}
+  s.playerCoaches[entry.key]={
+   name:entry.name,nation:'',flag:entry.nat||'🌍',born:season-38,
+   base:Math.max(60,Math.min(84,Math.round(entry.rating*0.78))),
+   status:'free',rookie:true,homeCountry:entry.nat||''
+  };
+  if(!s.freeAgents.includes(entry.key))s.freeAgents.push(entry.key);
+ });
+ s.futureLegends=stillWaiting;
 }
 
 const oldRenderNext=renderNextMatch;renderNextMatch=function(){const x=oldRenderNext.apply(this,arguments);decorateNextCoach();return x;};
