@@ -17988,7 +17988,7 @@ function pickClub(id){
 function confirmClub(){
   if(!pendingClub)return;
   G.club=pendingClub;G.players=(PLAYERS[pendingClub.id]||[]).map(p=>({...p}));
-  G.budget=pendingClub.budget;G.tactic='balanced';G.currentRound=0;G.suspended=[];G.suspensionBans={};G.formation='4-3-3';G.injuredPlayers={};G.cup=null;G.ucl=null;G.uclInUCL=false;G.uclParticipants=[];G._seasonPrizeGiven=false;G._winterBreakNotified=false;G._tvPayments=[];G.salary={salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0};G.academy={level:1,totalInvested:0};G._academyRound=null;
+  G.budget=pendingClub.budget;G.tactic='balanced';G.currentRound=0;G.suspended=[];G.suspensionBans={};G.formation='4-3-3';G.injuredPlayers={};G.cup=null;G.ucl=null;G.uclInUCL=false;G.uclParticipants=[];G._seasonPrizeGiven=false;G._winterBreakNotified=false;G._tvPayments=[];G.salary={salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0};G.academy={level:1,totalInvested:0};G._academyRound=null;G.aiAcademyDrift={};
   G.captainName=null; autoAssignCaptain();
   G._channelBonusClaimed=false; // FIX16: reset channel bonus on new club so it can be earned again
   G._channelBonusWarned=false;
@@ -18667,7 +18667,8 @@ function writeSaveGame(){
       careerLog:G.careerLog||[],
       managerRep:G.managerRep||10,
       captainName:G.captainName||null,
-      achievements:G.achievements||{}
+      achievements:G.achievements||{},
+      aiAcademyDrift:G.aiAcademyDrift||{}
     };
     localStorage.setItem(getSlotKey(ACTIVE_SLOT), JSON.stringify(data));
   }catch(e){
@@ -18786,6 +18787,7 @@ function loadGame(rawData){
     G._channelBonusClaimed=!!d._channelBonusClaimed;
     G._channelBonusWarned=!!d._channelBonusWarned;
     G.academy=(d.academy&&typeof d.academy==='object')?{level:Math.max(1,Math.min(7,d.academy.level||1)),totalInvested:d.academy.totalInvested||0}:{level:1,totalInvested:0};
+    G.aiAcademyDrift=(d.aiAcademyDrift&&typeof d.aiAcademyDrift==='object')?d.aiAcademyDrift:{};
     G._tvPayments=Array.isArray(d._tvPayments)?d._tvPayments.slice(-80):[];
     // FIX: Restore clubs not in saved delta from default PLAYERS data
     const savedSquads = d.clubSquads||{};
@@ -19107,10 +19109,43 @@ function generateAcademyName(nat) {
   return f + ' ' + l;
 }
 
+// ── Динамічний розвиток академій ШІ-клубів ──────────────────────────────────
+// База (ACADEMY_LEVEL) лишається фіксованою "стелею традицій" клубу, а
+// aiAcademyDrift — повільна надбавка/спад (0..+2), яка реагує на реальні
+// успіхи клубу цього сезону. Стабільна серія трофеїв може за 8-12 сезонів
+// підняти аутсайдера на 1-2 рівні академії; без нових успіхів надбавка
+// тане назад до 0 — щоб один випадковий кубок не закріплював перевагу навіки.
+function updateAIAcademyDrift(){
+  if(typeof simulateAllAISeasons==='function') simulateAllAISeasons();
+  const res = G._aiSeasonResults;
+  if(!res || !Array.isArray(res.leagues)) return;
+
+  if(!G.aiAcademyDrift || typeof G.aiAcademyDrift!=='object') G.aiAcademyDrift={};
+  const winners = new Set();
+  res.leagues.forEach(lg=>{
+    if(lg.champId!=null) winners.add(lg.champId);
+    if(lg.cupWinnerId!=null) winners.add(lg.cupWinnerId);
+  });
+  if(res.ucl?.winnerId!=null) winners.add(res.ucl.winnerId);
+  if(res.uel?.winnerId!=null) winners.add(res.uel.winnerId);
+
+  CLUBS.forEach(c=>{
+    if(c.id===G.club?.id) return; // академія гравця розвивається окремо, через власний апгрейд
+    const cur = G.aiAcademyDrift[c.id]||0;
+    if(winners.has(c.id)){
+      G.aiAcademyDrift[c.id] = Math.min(2, cur + 1); // +1 за трофейний сезон, стеля +2 рівні
+    } else if(cur>0){
+      G.aiAcademyDrift[c.id] = cur - 1; // без нових трофеїв надбавка тане на 1 рівень за сезон
+    } else if(cur===0){
+      delete G.aiAcademyDrift[c.id];
+    }
+  });
+}
+
 // Генерує одного вихованця академії (з урахуванням рівня апгрейду)
 function generateAcademyPlayer(clubId) {
-  // Фінальний рівень = базовий клубу + бонус від апгрейду гравця
-  const baseLevel  = ACADEMY_LEVEL[clubId] || ACADEMY_LEVEL['_default'] || 3;
+  // Фінальний рівень = базовий клубу + бонус від апгрейду гравця + дрейф успіху
+  const baseLevel  = (ACADEMY_LEVEL[clubId] || ACADEMY_LEVEL['_default'] || 3) + (clubId===G.club?.id ? 0 : (G.aiAcademyDrift?.[clubId]||0));
   const userUpgrade = (clubId === G.club?.id) ? (G.academy?.level || 1) : baseLevel;
   // Для AI клубів використовуємо базовий рівень
   const tier = (clubId === G.club?.id)
@@ -19789,6 +19824,9 @@ function _doNewSeason(){
   // ВАЖЛИВО: зберігаємо scorers для модалу завершення кар'єри,
   // скидаємо тільки ПІСЛЯ processRetirements()
   const _prevScorers = {...(G.scorers||{})};
+  // Дрейф академій ШІ-клубів рахуємо ДО скидання G.cup/G.ucl/G.uel нижче —
+  // simulateAllAISeasons() читає переможців щойно завершеного сезону.
+  if(typeof updateAIAcademyDrift==='function') updateAIAcademyDrift();
   const _nextUefaSuperCup = makeUefaSuperCupForNewSeason(G.ucl?.winner, G.uel?.winner, newYear);
   G.scorers={};
   G.cup=null;
@@ -20933,6 +20971,7 @@ function renderNextMatch(){
       ucl:         _uclStatus,
       ballonWinner: _seasonBallonWinner ? {name:_seasonBallonWinner.name, club:_seasonBallonWinner.club} : null,
       budget:      G.budget||0,
+      rating:      typeof getClubRating==='function' ? getClubRating() : (G.club?.strength||0),
     };
     // Avoid duplicates
     if(!G.careerLog.find(e=>e.season===_seasonLabel && e.club.id===G.club.id)) {
@@ -24778,6 +24817,31 @@ function openCareerModal(){
     <div style="font-size:12px">Завершіть перший сезон,<br>щоб побачити статистику</div>
   </div>`;
 
+  // ── Рекорди кар'єри — постійні показники, що оновлюються з кожним сезоном,
+  // а не одноразові анлоки (на відміну від досягнень). Мета для довгих
+  // кар'єр (15-30+ сезонів), коли список ачівок уже вичерпано.
+  const recordsHTML = fullLog.length ? (()=>{
+    const bestRating = Math.max(0, ...fullLog.map(e=>e.rating||0));
+    const bestPts    = Math.max(0, ...fullLog.map(e=>e.pts||0));
+    const bestGf      = Math.max(0, ...fullLog.map(e=>e.gf||0));
+    const careerGoals = typeof _achCareerGoals==='function' ? _achCareerGoals() : fullLog.reduce((s,e)=>s+(e.gf||0),0);
+    const stats = [
+      {v:bestRating||'—', l:'Рейтинг клубу',  c:'var(--acc)'},
+      {v:bestPts,          l:'Очок за сезон',  c:'var(--grn)'},
+      {v:bestGf,           l:'Голів за сезон', c:'var(--gold)'},
+      {v:careerGoals,      l:'Голів за кар\'єру', c:'var(--txt)'},
+    ];
+    return `<div style="margin-bottom:14px">
+      <div style="font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--mut);margin-bottom:7px;padding-left:2px">🏅 Рекорди кар'єри</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+        ${stats.map(s=>`<div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:9px 4px;text-align:center">
+          <div style="font-size:16px;font-weight:900;color:${s.c};line-height:1">${s.v}</div>
+          <div style="font-size:8px;color:var(--mut);margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:.3px">${s.l}</div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  })() : '';
+
   const cardsHTML = fullLog.map(e=>{
     const posColor = e.pos===1?'var(--gold)':e.pos===2?'#c0c0c0':e.pos===3?'#cd7f32':e.pos<=6?'var(--acc)':'var(--mut)';
     const posIcon  = e.pos===1?'🥇':e.pos===2?'🥈':e.pos===3?'🥉':`${e.pos}`;
@@ -24860,7 +24924,7 @@ function openCareerModal(){
       </div>
       <!-- Scrollable content -->
       <div style="overflow-y:auto;padding:14px 16px 24px;-webkit-overflow-scrolling:touch">
-        ${summaryHTML + cardsHTML}
+        ${summaryHTML + recordsHTML + cardsHTML}
       </div>
     </div>`;
 
@@ -30098,6 +30162,10 @@ const ACHIEVEMENTS = [
   {id:'season_2',icon:'📆',name:'Другий сезон',desc:'Розпочніть другий сезон',cat:'season',tier:1,bonus:500000,check:()=>(G.careerLog||[]).length>=1},
   {id:'season_5',icon:'🎖️',name:'Ветеран',desc:'Зіграйте 5 сезонів',cat:'season',tier:3,bonus:5000000,check:()=>(G.careerLog||[]).length>=5},
   {id:'season_10',icon:'👴',name:'Династія',desc:'Зіграйте 10 сезонів',cat:'season',tier:4,bonus:10000000,check:()=>(G.careerLog||[]).length>=10},
+  {id:'season_15',icon:'🕰️',name:'Довгожитель',desc:'Зіграйте 15 сезонів',cat:'season',tier:4,bonus:15000000,check:()=>(G.careerLog||[]).length>=15},
+  {id:'season_20',icon:'🏺',name:'Історична епоха',desc:'Зіграйте 20 сезонів',cat:'season',tier:5,bonus:25000000,check:()=>(G.careerLog||[]).length>=20},
+  {id:'season_25',icon:'⏳',name:'Чверть століття',desc:'Зіграйте 25 сезонів',cat:'season',tier:5,bonus:40000000,check:()=>(G.careerLog||[]).length>=25},
+  {id:'season_30',icon:'🗿',name:'Жива легенда',desc:'Зіграйте 30 сезонів',cat:'season',tier:5,bonus:60000000,check:()=>(G.careerLog||[]).length>=30},
   {id:'champion_repeat',icon:'🔁',name:'Захист титулу',desc:'Виграйте лігу 2 рази поспіль',cat:'season',tier:4,bonus:5000000,check:()=>{const log=G.careerLog||[];for(let i=1;i<log.length;i++){if(log[i].champion&&log[i-1].champion)return true;}return false;}},
   {id:'unbeaten_season',icon:'🛡️',name:'Непереможний сезон',desc:'Завершіть сезон без поразок',cat:'season',tier:5,bonus:10000000,check:()=>{const log=G.careerLog||[];return log.some(e=>(e.l||e.losses||0)===0&&(e.m||e.matches||0)>0);}},
 
@@ -30115,6 +30183,8 @@ const ACHIEVEMENTS = [
   {id:'perfect_season',icon:'💎',name:'Ідеальний сезон',desc:'Виграйте ВСІ матчі ліги',cat:'legendary',tier:5,bonus:20000000,check:()=>{const log=G.careerLog||[];return log.some(e=>{const m=e.m||e.matches||0;const w=e.w||e.wins||0;return m>0&&w===m;});}},
   {id:'rep_max',icon:'🌟',name:'Легенда тренерства',desc:'Репутація 90+',cat:'legendary',tier:4,bonus:5000000,check:()=>(G.managerRep||0)>=90},
   {id:'trophy_10',icon:'🏛️',name:'Музей трофеїв',desc:'Зберіть 10 трофеїв',cat:'legendary',tier:4,bonus:8000000,check:()=>(G.trophyHistory||[]).length>=10},
+  {id:'trophy_20',icon:'💠',name:'Скарбниця трофеїв',desc:'Зберіть 20 трофеїв',cat:'legendary',tier:5,bonus:15000000,check:()=>(G.trophyHistory||[]).length>=20},
+  {id:'trophy_30',icon:'🔱',name:'Імперія трофеїв',desc:'Зберіть 30 трофеїв',cat:'legendary',tier:5,bonus:25000000,check:()=>(G.trophyHistory||[]).length>=30},
 ];
 
 const ACH_CATEGORIES={
@@ -30338,8 +30408,11 @@ const ACH_PROGRESS={
   budget_50m:()=>[G.budget||0,50000000],budget_200m:()=>[G.budget||0,200000000],budget_500m:()=>[G.budget||0,500000000],
   salary_paid_all:()=>[(G.salary?.history||[]).filter(h=>h.paid).length,4],season_2:()=>[(G.careerLog||[]).length+1,2],
   season_5:()=>[(G.careerLog||[]).length,5],season_10:()=>[(G.careerLog||[]).length,10],
+  season_15:()=>[(G.careerLog||[]).length,15],season_20:()=>[(G.careerLog||[]).length,20],
+  season_25:()=>[(G.careerLog||[]).length,25],season_30:()=>[(G.careerLog||[]).length,30],
   ucl_winner_2:()=>[(G.trophyHistory||[]).filter(t=>t.type==='ucl').length,2],
-  rep_max:()=>[G.managerRep||0,90],trophy_10:()=>[(G.trophyHistory||[]).length,10]
+  rep_max:()=>[G.managerRep||0,90],trophy_10:()=>[(G.trophyHistory||[]).length,10],
+  trophy_20:()=>[(G.trophyHistory||[]).length,20],trophy_30:()=>[(G.trophyHistory||[]).length,30]
 };
 function _achProgress(a){
   if(G.achievements?.[a.id])return{value:1,target:1,pct:100,label:'Виконано'};
