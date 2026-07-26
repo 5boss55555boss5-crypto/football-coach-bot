@@ -1,3 +1,5 @@
+import json
+
 from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import Command
@@ -18,14 +20,19 @@ async def cmd_stats(message: Message):
             total = (await cur.fetchone())[0]
 
         async with db.execute(
+            "SELECT COUNT(*) FROM users WHERE last_seen >= datetime('now', '-1 hours')"
+        ) as cur:
+            online_1h = (await cur.fetchone())[0]
+
+        async with db.execute(
             "SELECT COUNT(*) FROM users WHERE date(last_seen) = date('now')"
         ) as cur:
             today = (await cur.fetchone())[0]
 
         async with db.execute(
-            "SELECT COUNT(*) FROM users WHERE last_seen >= datetime('now', '-1 hours')"
+            "SELECT COUNT(*) FROM users WHERE last_seen >= datetime('now', '-7 days')"
         ) as cur:
-            online_1h = (await cur.fetchone())[0]
+            active_7d = (await cur.fetchone())[0]
 
         async with db.execute(
             "SELECT COUNT(*) FROM users WHERE created_at >= datetime('now', '-3 days')"
@@ -37,123 +44,76 @@ async def cmd_stats(message: Message):
         ) as cur:
             new_7d = (await cur.fetchone())[0]
 
-        async with db.execute(
-            "SELECT COUNT(*) FROM users WHERE last_seen >= datetime('now', '-7 days')"
-        ) as cur:
-            active_7d = (await cur.fetchone())[0]
+        async with db.execute("SELECT tg_id, data FROM game_saves") as cur:
+            save_rows = await cur.fetchall()
 
-        async with db.execute(
-            "SELECT COUNT(*) FROM users WHERE club_id IS NOT NULL"
-        ) as cur:
-            with_club = (await cur.fetchone())[0]
+        usernames: dict[int, str] = {}
+        async with db.execute("SELECT id, username FROM users") as cur:
+            async for uid, uname in cur:
+                usernames[uid] = uname or "Гравець"
 
-        async with db.execute(
-            "SELECT COUNT(*) FROM users WHERE club_id IS NULL"
-        ) as cur:
-            no_club = (await cur.fetchone())[0]
+    careers: dict[int, dict] = {}
+    for tg_id, raw in save_rows:
+        try:
+            d = json.loads(raw)
+        except Exception:
+            continue
+        career_log = d.get("careerLog") or []
+        seasons = len(career_log)
+        trophies = len(d.get("trophyHistory") or [])
+        achievements = len(d.get("achievements") or {})
+        club_name = None
+        if career_log:
+            club_name = (career_log[-1].get("club") or {}).get("name")
+        if not club_name:
+            club_name = f"клуб #{d.get('clubId', '?')}"
 
-        async with db.execute(
-            "SELECT AVG(coach_rating) FROM users"
-        ) as cur:
-            avg_rating = (await cur.fetchone())[0]
+        prev = careers.get(tg_id)
+        # Кожен користувач може мати до 3 слотів — беремо найпрогресованіший
+        if not prev or (seasons, trophies) > (prev["seasons"], prev["trophies"]):
+            careers[tg_id] = {
+                "seasons": seasons,
+                "trophies": trophies,
+                "achievements": achievements,
+                "budget": d.get("budget") or 0,
+                "club": club_name,
+            }
 
-        async with db.execute(
-            "SELECT MAX(coach_rating) FROM users"
-        ) as cur:
-            max_rating = (await cur.fetchone())[0]
+    players_active = len(careers)
+    total_seasons = sum(c["seasons"] for c in careers.values())
+    total_trophies = sum(c["trophies"] for c in careers.values())
+    total_achievements = sum(c["achievements"] for c in careers.values())
 
-        async with db.execute("SELECT COUNT(*) FROM matches") as cur:
-            total_matches = (await cur.fetchone())[0]
+    leaderboard = sorted(
+        careers.items(),
+        key=lambda kv: (kv[1]["trophies"], kv[1]["seasons"]),
+        reverse=True,
+    )[:5]
 
-        async with db.execute(
-            "SELECT COUNT(*) FROM matches WHERE date(played_at) = date('now')"
-        ) as cur:
-            matches_today = (await cur.fetchone())[0]
+    def fmt_entry(tg_id, c):
+        name = usernames.get(tg_id, "Гравець")
+        return f"{name} — {c['club']} · {c['seasons']} сез. · 🏆{c['trophies']}"
 
-        async with db.execute(
-            "SELECT COUNT(*) FROM matches WHERE result = 'win'"
-        ) as cur:
-            total_wins = (await cur.fetchone())[0]
-
-        async with db.execute(
-            "SELECT COUNT(*) FROM matches WHERE result = 'draw'"
-        ) as cur:
-            total_draws = (await cur.fetchone())[0]
-
-        async with db.execute(
-            "SELECT COUNT(*) FROM matches WHERE result = 'loss'"
-        ) as cur:
-            total_losses = (await cur.fetchone())[0]
-
-        async with db.execute(
-            "SELECT AVG(user_score), AVG(opponent_score) FROM matches"
-        ) as cur:
-            row = await cur.fetchone()
-            avg_user_score = round(row[0] or 0, 1)
-            avg_opp_score = round(row[1] or 0, 1)
-
-        async with db.execute(
-            """SELECT c.name, COUNT(u.id) as cnt
-               FROM clubs c JOIN users u ON u.club_id = c.id
-               GROUP BY c.id ORDER BY cnt DESC LIMIT 3"""
-        ) as cur:
-            top_clubs = await cur.fetchall()
-
-        async with db.execute(
-            """SELECT username, wins, losses, draws, coach_rating
-               FROM users ORDER BY coach_rating DESC LIMIT 5"""
-        ) as cur:
-            top_rating = await cur.fetchall()
-
-        async with db.execute(
-            """SELECT username, wins, losses, draws, coach_rating
-               FROM users ORDER BY wins DESC LIMIT 5"""
-        ) as cur:
-            top_wins = await cur.fetchall()
-
-    def fmt_user(r):
-        return f"{r[0] or 'Гравець'} — {r[1]}В/{r[2]}П/{r[3]}Н · ⭐{r[4]}"
-
-    top_rating_text = "\n".join(
-        f"  {i+1}. {fmt_user(r)}" for i, r in enumerate(top_rating)
-    ) or "  —"
-
-    top_wins_text = "\n".join(
-        f"  {i+1}. {fmt_user(r)}" for i, r in enumerate(top_wins)
-    ) or "  —"
-
-    top_clubs_text = "\n".join(
-        f"  {i+1}. {r[0]} — {r[1]} гравців" for i, r in enumerate(top_clubs)
-    ) or "  —"
-
-    winrate = round(total_wins / total_matches * 100) if total_matches else 0
+    top_text = "\n".join(
+        f"  {i + 1}. {fmt_entry(tg_id, c)}" for i, (tg_id, c) in enumerate(leaderboard)
+    ) or "  — Ще ніхто не завершив сезон"
 
     text = (
         f"📊 <b>Статистика бота</b>\n"
         f"━━━━━━━━━━━━━━━━━━━\n"
-        f"👥 Всього гравців: <b>{total}</b>\n"
+        f"👥 Всього запустили бота: <b>{total}</b>\n"
         f"🟢 Онлайн зараз (1г): <b>{online_1h}</b>\n"
         f"☀️ Заходили сьогодні: <b>{today}</b>\n"
         f"📅 Активних за 7 днів: <b>{active_7d}</b>\n"
         f"🆕 Нових за 3 дні: <b>{new_3d}</b>\n"
         f"🆕 Нових за 7 днів: <b>{new_7d}</b>\n"
-        f"⚽ Обрали клуб: <b>{with_club}</b>\n"
-        f"👤 Без клубу: <b>{no_club}</b>\n"
         f"━━━━━━━━━━━━━━━━━━━\n"
-        f"🎮 Матчів всього: <b>{total_matches}</b>\n"
-        f"🎯 Матчів сьогодні: <b>{matches_today}</b>\n"
-        f"🏆 Перемог: <b>{total_wins}</b> · 🤝 Нічиїх: <b>{total_draws}</b> · ❌ Поразок: <b>{total_losses}</b>\n"
-        f"📈 Вінрейт: <b>{winrate}%</b>\n"
-        f"⚽ Середній рахунок: <b>{avg_user_score}:{avg_opp_score}</b>\n"
+        f"🎮 Реально грають у грі: <b>{players_active}</b> з {total}\n"
+        f"🏆 Сезонів зіграно всього: <b>{total_seasons}</b>\n"
+        f"🏅 Трофеїв виграно всього: <b>{total_trophies}</b>\n"
+        f"⭐ Досягнень відкрито всього: <b>{total_achievements}</b>\n"
         f"━━━━━━━━━━━━━━━━━━━\n"
-        f"⭐ Середній рейтинг: <b>{round(avg_rating or 0)}</b>\n"
-        f"👑 Макс. рейтинг: <b>{max_rating or 0}</b>\n"
-        f"━━━━━━━━━━━━━━━━━━━\n"
-        f"🏟 <b>Топ клуби:</b>\n{top_clubs_text}\n"
-        f"━━━━━━━━━━━━━━━━━━━\n"
-        f"🏆 <b>Топ-5 по рейтингу:</b>\n{top_rating_text}\n"
-        f"━━━━━━━━━━━━━━━━━━━\n"
-        f"⚡ <b>Топ-5 по перемогах:</b>\n{top_wins_text}"
+        f"🏆 <b>Топ-5 кар'єр:</b>\n{top_text}"
     )
 
     await message.answer(text, parse_mode="HTML")
