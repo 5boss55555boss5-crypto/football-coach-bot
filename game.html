@@ -24521,15 +24521,48 @@ function renderClubDashboard(d){
     .theme-light .club-dash{background:radial-gradient(circle at 90% 0%,rgba(124,58,237,.08),transparent 28%)}.theme-light .club-hero{background:linear-gradient(145deg,#fff,#f1edfb 78%);border-color:#d9d0ef}.theme-light .club-head-copy p{color:#74688a}.theme-light .club-section-title strong{color:#75698a}.theme-light .club-competition,.theme-light .club-action,.theme-light .club-insight{background:linear-gradient(140deg,#fff,#f4f0fb);border-color:#ddd5ef}
     @media(max-width:390px){.club-head-copy h2{font-size:19px}.club-crest{width:54px;height:54px}.club-rep{font-size:7px}.club-action-side{gap:4px}.club-action-badge{display:none}.club-insight-card{padding-left:8px;padding-right:8px}}
 
-    /* v5.55 — колірне кодування статів «У клубі», іконки замість емодзі, тихіша дія скидання кар'єри */
+    /* v5.56 — «матчева» ідентичність: кутові прапорці замість пласких смуг,
+       іконки-медальйони як нагороди, м'яч-перемикач. Менш мінімалістично,
+       але в мові символів самої гри (прапорець кутового удару, медаль). */
     .club-insight-card{position:relative}
-    .club-insight-card:before{content:'';position:absolute;left:0;right:0;top:0;height:2px;background:var(--stat,${_clubCol});opacity:.9}
+    .club-insight-card:before{content:'';position:absolute;left:50%;right:auto;top:0;width:15px;height:11px;transform:translateX(-50%);clip-path:polygon(0 0,100% 0,100% 58%,50% 100%,0 58%);background:var(--stat,${_clubCol});box-shadow:0 3px 7px rgba(0,0,0,.3);opacity:.95}
     .club-insight-card.scorer{--stat:#f59e0b}
     .club-insight-card.squad{--stat:${_clubCol}}
     .club-insight-card.academy{--stat:#22c55e}
-    .club-insight-card.empty:before{opacity:.35}
+    .club-insight-card.empty:before{opacity:.4}
     .club-insight-card b{font-variant-numeric:tabular-nums}
-    .club-setting-icon.club-setting-emoji svg,.club-manage-icon.club-manage-emoji svg{width:22px;height:22px;display:block}
+
+    .club-action:before,.club-setting:before,.club-manage button:before,.club-competition:before{
+      top:0;bottom:auto;left:13px;width:15px;height:21px;border-radius:0 0 3px 3px;
+      clip-path:polygon(0 0,100% 0,100% 74%,50% 100%,0 74%);box-shadow:0 4px 9px rgba(0,0,0,.35);
+    }
+    .club-section-title:before{
+      top:0;bottom:auto;left:-1px;width:9px;height:13px;border-radius:0 0 2px 2px;
+      clip-path:polygon(0 0,100% 0,100% 60%,50% 100%,0 60%);box-shadow:0 2px 6px rgba(0,0,0,.3);
+    }
+
+    .club-action-icon,.club-setting-icon.club-setting-emoji,.club-manage-icon.club-manage-emoji,.club-competition-icon{
+      border-radius:50%!important;
+      background:radial-gradient(circle at 33% 26%,color-mix(in srgb,currentColor 42%,#1b2a44),color-mix(in srgb,currentColor 12%,#0a1220) 74%)!important;
+      border:2px solid color-mix(in srgb,currentColor 55%,transparent)!important;
+      box-shadow:inset 0 1px 1px rgba(255,255,255,.22),inset 0 -3px 6px rgba(0,0,0,.32),0 5px 11px rgba(0,0,0,.3)!important;
+    }
+    .club-setting-icon.club-setting-emoji{color:var(--setting)!important}
+    .club-manage-icon.club-manage-emoji{color:var(--manage)!important}
+    .club-setting-icon.club-setting-emoji svg,.club-manage-icon.club-manage-emoji svg{width:22px;height:22px;display:block;filter:drop-shadow(0 1px 1px rgba(0,0,0,.35))}
+    .club-competition-icon{color:#60a5fa}
+    .club-competition.cup .club-competition-icon{color:#f59e0b}
+    .club-competition.euro .club-competition-icon{color:#38bdf8}
+
+    .club-switch{position:relative;background:#1b2942;border:1px solid rgba(255,255,255,.06)}
+    .club-switch:before{content:'';position:absolute;left:50%;top:3px;bottom:3px;width:1px;background:rgba(255,255,255,.14);transform:translateX(-50%)}
+    .club-switch:after{background:radial-gradient(circle at 32% 28%,#fff,#cfd5df 55%,#8b93a3 100%)!important;box-shadow:0 1px 3px rgba(0,0,0,.4),inset 0 -1px 1px rgba(0,0,0,.18)!important}
+    .club-setting.on .club-switch:after{background:radial-gradient(circle at 32% 28%,#fff,color-mix(in srgb,var(--setting) 65%,white) 55%,var(--setting) 100%)!important}
+
+    .theme-light .club-action-icon,.theme-light .club-setting-icon.club-setting-emoji,.theme-light .club-manage-icon.club-manage-emoji,.theme-light .club-competition-icon{
+      background:radial-gradient(circle at 33% 26%,color-mix(in srgb,currentColor 30%,#fff),color-mix(in srgb,currentColor 8%,#f2eefb) 74%)!important;
+      box-shadow:inset 0 1px 1px rgba(255,255,255,.6),inset 0 -2px 5px rgba(76,48,128,.12),0 5px 11px rgba(76,48,128,.14)!important;
+    }
 
     .club-manage-secondary{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:9px;padding:11px 14px;border:1px dashed rgba(244,63,94,.3);border-radius:14px;background:rgba(244,63,94,.05);color:#f3a9b3;font-size:11px;font-weight:700;text-align:center;cursor:pointer}
     .club-manage-secondary svg{width:15px;height:15px;flex:0 0 auto}
