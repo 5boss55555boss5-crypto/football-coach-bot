@@ -24433,7 +24433,8 @@ function renderClubDashboard(d){
   // Один іконковий регістр замість емодзі + геометричних гліфів
   const _ico=(paths)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
   const ICON={
-    theme:_ico('<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 000 16z" fill="currentColor" stroke="none"/>'),
+    themeDark:_ico('<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 000 16z" fill="currentColor" stroke="none"/>'),
+    themeLight:_ico('<circle cx="12" cy="12" r="5"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>'),
     soundOn:_ico('<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9.5a4 4 0 010 5"/><path d="M19.5 7a7.5 7.5 0 010 10"/>'),
     soundOff:_ico('<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 10l4 4M21 10l-4 4"/>'),
     vibeOn:_ico('<rect x="8" y="3" width="8" height="18" rx="2"/><path d="M4.5 9v6M19.5 9v6"/>'),
@@ -24520,6 +24521,22 @@ function renderClubDashboard(d){
     .theme-light .club-dash{background:radial-gradient(circle at 90% 0%,rgba(124,58,237,.08),transparent 28%)}.theme-light .club-hero{background:linear-gradient(145deg,#fff,#f1edfb 78%);border-color:#d9d0ef}.theme-light .club-head-copy p{color:#74688a}.theme-light .club-section-title strong{color:#75698a}.theme-light .club-competition,.theme-light .club-action,.theme-light .club-insight{background:linear-gradient(140deg,#fff,#f4f0fb);border-color:#ddd5ef}
     @media(max-width:390px){.club-head-copy h2{font-size:19px}.club-crest{width:54px;height:54px}.club-rep{font-size:7px}.club-action-side{gap:4px}.club-action-badge{display:none}.club-insight-card{padding-left:8px;padding-right:8px}}
 
+    /* v5.55 — колірне кодування статів «У клубі», іконки замість емодзі, тихіша дія скидання кар'єри */
+    .club-insight-card{position:relative}
+    .club-insight-card:before{content:'';position:absolute;left:0;right:0;top:0;height:2px;background:var(--stat,${_clubCol});opacity:.9}
+    .club-insight-card.scorer{--stat:#f59e0b}
+    .club-insight-card.squad{--stat:${_clubCol}}
+    .club-insight-card.academy{--stat:#22c55e}
+    .club-insight-card.empty:before{opacity:.35}
+    .club-insight-card b{font-variant-numeric:tabular-nums}
+    .club-setting-icon.club-setting-emoji svg,.club-manage-icon.club-manage-emoji svg{width:22px;height:22px;display:block}
+
+    .club-manage-secondary{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:9px;padding:11px 14px;border:1px dashed rgba(244,63,94,.3);border-radius:14px;background:rgba(244,63,94,.05);color:#f3a9b3;font-size:11px;font-weight:700;text-align:center;cursor:pointer}
+    .club-manage-secondary svg{width:15px;height:15px;flex:0 0 auto}
+    .club-manage-secondary:active{background:rgba(244,63,94,.1);transform:scale(.99)}
+    .club-manage-secondary:focus-visible{outline:2px solid #fb7185;outline-offset:2px}
+    .theme-light .club-manage-secondary{background:rgba(225,29,72,.06);border-color:rgba(225,29,72,.28);color:#be123c}
+
   </style>
 
 
@@ -24577,17 +24594,17 @@ function renderClubDashboard(d){
       return `<section class="club-section">
       <div class="club-section-title"><strong>У клубі</strong><span>Сезон ${G.seasonStartYear||2025}/${String((G.seasonStartYear||2025)+1).slice(-2)}</span></div>
       <div class="club-insight">
-        <div class="club-insight-card${topSc?'':' empty'}">
+        <div class="club-insight-card scorer${topSc?'':' empty'}">
           <span>Бомбардир</span>
           <b>${topSc?topSc.n:'Поки немає'}</b>
           <small>${topSc?g+' '+_plural(g,'гол','голи','голів'):'з початку сезону'}</small>
         </div>
-        <div class="club-insight-card">
+        <div class="club-insight-card squad">
           <span>Склад</span>
           <b>⌀ ${avgR}</b>
           <small>${sq.length} ${_plural(sq.length,'гравець','гравці','гравців')}</small>
         </div>
-        <div class="club-insight-card${academyLevel>1?'':' empty'}">
+        <div class="club-insight-card academy${academyLevel>1?'':' empty'}">
           <span>Академія</span>
           <b>Рівень ${academyLevel}</b>
           <small>${grads} ${_plural(grads,'вихованець','вихованці','вихованців')}</small>
@@ -24599,17 +24616,17 @@ function renderClubDashboard(d){
       <div class="club-section-title"><strong>Налаштування гри</strong><span>Персоналізація</span></div>
       <div class="club-settings">
         <button class="club-setting theme-card ${G.theme==='light'?'on':''}" onclick="toggleTheme()" aria-pressed="${G.theme==='light'}">
-          <span class="club-setting-icon club-setting-emoji">${G.theme==='light'?'☀️':'🌙'}</span>
+          <span class="club-setting-icon club-setting-emoji">${G.theme==='light'?ICON.themeLight:ICON.themeDark}</span>
           <span class="club-setting-copy"><b>${G.theme==='light'?'Світла тема':'Темна тема'}</b><small>${G.theme==='light'?'Яскраве оформлення інтерфейсу':'Глибокі кольори для вечірньої гри'}</small></span>
           <span class="club-setting-controls"><span class="club-setting-state">${G.theme==='light'?'СВІТЛА':'ТЕМНА'}</span><span class="club-switch"></span></span>
         </button>
         <button class="club-setting sound-card ${!_muted?'on':''}" onclick="toggleMuteFromSettings()" aria-pressed="${!_muted}">
-          <span class="club-setting-icon club-setting-emoji">${_muted?'🔇':'🔊'}</span>
+          <span class="club-setting-icon club-setting-emoji">${_muted?ICON.soundOff:ICON.soundOn}</span>
           <span class="club-setting-copy"><b>Звуки гри</b><small>Матчі, натискання та атмосфера стадіону</small></span>
           <span class="club-setting-controls"><span class="club-setting-state">${_muted?'ВИМКНЕНО':'АКТИВНО'}</span><span class="club-switch"></span></span>
         </button>
         <button class="club-setting vibration-card ${G.vibration!==false?'on':''}" onclick="toggleVibration()" aria-pressed="${G.vibration!==false}">
-          <span class="club-setting-icon club-setting-emoji">${G.vibration===false?'📵':'📳'}</span>
+          <span class="club-setting-icon club-setting-emoji">${G.vibration===false?ICON.vibeOff:ICON.vibeOn}</span>
           <span class="club-setting-copy"><b>Вібровідгук</b><small>Реакція на голи, трансфери та важливі події</small></span>
           <span class="club-setting-controls"><span class="club-setting-state">${G.vibration===false?'ВИМКНЕНО':'АКТИВНО'}</span><span class="club-switch"></span></span>
         </button>
@@ -24620,16 +24637,14 @@ function renderClubDashboard(d){
       <div class="club-section-title"><strong>Керування кар’єрою</strong><span>${[1,2,3].filter(n=>getSlotPreview(n)).length}/3 слотів</span></div>
       <div class="club-manage">
         <button class="saves-card" onclick="openSlotPicker(false)">
-          <span class="club-manage-icon club-manage-emoji">🎮</span>
+          <span class="club-manage-icon club-manage-emoji">${ICON.saves}</span>
           <span class="club-manage-copy"><b>Мої кар’єри</b><small>Продовжити, змінити або видалити збереження</small><span class="club-slot-dots">${[1,2,3].map(n=>`<i class="${getSlotPreview(n)?'filled':''}"></i>`).join('')}</span></span>
           <span class="club-manage-arrow">›</span>
         </button>
-        <button class="danger" onclick="resetAll()">
-          <span class="club-manage-icon club-manage-emoji">🏁</span>
-          <span class="club-manage-copy"><b>Нова тренерська кар’єра</b><small>Обрати інший клуб і розпочати нову історію</small></span>
-          <span class="club-manage-arrow">›</span>
-        </button>
       </div>
+      <button class="club-manage-secondary" onclick="resetAll()">
+        <span>${ICON.reset}</span>Почати нову кар’єру з іншим клубом
+      </button>
     </section>
 
 
