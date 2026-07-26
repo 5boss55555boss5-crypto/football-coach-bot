@@ -8271,7 +8271,7 @@ function renderSalaryScreen(){
           </div>
         </div>
         <div style="display:flex;gap:8px">
-          <a href="https://t.me/football_manager26" target="_blank"
+          <a href="https://t.me/+4htinJkj_6EyNTIy" target="_blank"
             style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:11px;background:linear-gradient(135deg,#0088cc,#229ed9);color:#fff;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(0,136,204,.3)">
             <span style="font-size:16px">✈️</span> Підписатись
           </a>
@@ -11366,37 +11366,61 @@ function closeTrModalDirect(){
   trNegotiation=null;
 }
 
-function claimChannelBonus(){
+function _channelBonusToast(html, colorFrom, colorTo, duration){
+  const toast = document.createElement('div');
+  toast.innerHTML = html;
+  Object.assign(toast.style,{
+    position:'fixed',bottom:'90px',left:'50%',transform:'translateX(-50%)',
+    background:`linear-gradient(135deg,${colorFrom},${colorTo})`,color:'#fff',
+    padding:'12px 20px',borderRadius:'20px',fontWeight:'700',fontSize:'14px',
+    zIndex:'9999',boxShadow:'0 4px 20px rgba(0,0,0,.35)',
+    textAlign:'center',lineHeight:'1.4',
+    opacity:'1',transition:'opacity .4s'
+  });
+  document.body.appendChild(toast);
+  setTimeout(()=>{ toast.style.opacity='0'; setTimeout(()=>toast.remove(),400); }, duration);
+}
+
+async function claimChannelBonus(){
   if(G._channelBonusClaimed){ return; }
 
-  // Перший клік — попереджаємо, відкриваємо канал і запам'ятовуємо
+  // Перший клік — відкриваємо канал і запам'ятовуємо
   if(!G._channelBonusWarned){
     G._channelBonusWarned = true;
-    // Відкриваємо канал у Telegram
     if(window.Telegram?.WebApp?.openTelegramLink){
-      window.Telegram.WebApp.openTelegramLink('https://t.me/football_manager26');
+      window.Telegram.WebApp.openTelegramLink('https://t.me/+4htinJkj_6EyNTIy');
     } else {
-      window.open('https://t.me/football_manager26','_blank');
+      window.open('https://t.me/+4htinJkj_6EyNTIy','_blank');
     }
-    // Показуємо повідомлення
-    const toast = document.createElement('div');
-    toast.innerHTML = '❌ Ви ще не підписані!<br><span style="font-size:11px;font-weight:400">Підпишіться та натисніть ще раз</span>';
-    Object.assign(toast.style,{
-      position:'fixed',bottom:'90px',left:'50%',transform:'translateX(-50%)',
-      background:'linear-gradient(135deg,#7f1d1d,#ef4444)',color:'#fff',
-      padding:'12px 20px',borderRadius:'20px',fontWeight:'700',fontSize:'14px',
-      zIndex:'9999',boxShadow:'0 4px 20px rgba(239,68,68,.4)',
-      textAlign:'center',lineHeight:'1.4',
-      opacity:'1',transition:'opacity .4s',whiteSpace:'nowrap'
-    });
-    document.body.appendChild(toast);
-    setTimeout(()=>{ toast.style.opacity='0'; setTimeout(()=>toast.remove(),400); }, 3000);
-    // Перемальовуємо кнопку щоб показати новий стан
+    _channelBonusToast('❌ Ви ще не підписані!<br><span style="font-size:11px;font-weight:400">Підпишіться та натисніть ще раз</span>','#7f1d1d','#ef4444',3000);
     renderSalaryScreen();
     return;
   }
 
-  // Другий клік — видаємо бонус
+  // Другий клік — реальна перевірка підписки на сервері (токен бота лишається на бекенді)
+  const tgUserId = window.Telegram?.WebApp?.initDataUnsafe?.user?.id;
+  if(!tgUserId){
+    _channelBonusToast('⚠️ Не вдалось визначити Telegram-акаунт','#7f1d1d','#ef4444',3000);
+    return;
+  }
+
+  _channelBonusToast('⏳ Перевіряю підписку...','#1e3a5f','#3b82f6',2000);
+  let subscribed = false;
+  try{
+    const res = await fetch('/api/check-subscription', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({user_id: tgUserId}),
+    });
+    const data = await res.json();
+    subscribed = !!data?.subscribed;
+  }catch(e){ subscribed = false; }
+
+  if(!subscribed){
+    _channelBonusToast('❌ Підписку ще не бачу<br><span style="font-size:11px;font-weight:400">Переконайся, що підписався, і спробуй ще раз за хвилину</span>','#7f1d1d','#ef4444',3500);
+    return;
+  }
+
   const clubBudget = G.club?.budget || 50000000;
   const bonus = clubBudget >= 90000000 ? 30000000 : clubBudget >= 65000000 ? 20000000 : 10000000;
   G._channelBonusClaimed = true;
@@ -11407,17 +11431,7 @@ function claimChannelBonus(){
   if(typeof addJournalEntry === 'function'){
     addJournalEntry('sponsor_sign',{name:'Бонус підписника каналу', amount: bonus});
   }
-  const toast = document.createElement('div');
-  toast.textContent = '🎉 +' + (bonus/1000000) + 'M зараховано!';
-  Object.assign(toast.style,{
-    position:'fixed',bottom:'90px',left:'50%',transform:'translateX(-50%)',
-    background:'linear-gradient(135deg,#065f46,#10b981)',color:'#fff',
-    padding:'10px 20px',borderRadius:'20px',fontWeight:'700',fontSize:'14px',
-    zIndex:'9999',boxShadow:'0 4px 20px rgba(16,185,129,.4)',
-    opacity:'1',transition:'opacity .4s'
-  });
-  document.body.appendChild(toast);
-  setTimeout(()=>{ toast.style.opacity='0'; setTimeout(()=>toast.remove(),400); }, 2500);
+  _channelBonusToast('🎉 +' + (bonus/1000000) + 'M зараховано!','#065f46','#10b981',2500);
 }
 
 function showTrMsg(msg){

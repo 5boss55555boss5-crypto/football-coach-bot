@@ -79,6 +79,21 @@ async def cmd_mmm(message: Message) -> None:
     )
 
 
+async def cmd_whatchat(message: Message) -> None:
+    if not _is_admin(message.from_user.id if message.from_user else None):
+        return
+    fwd = message.forward_from_chat
+    if not fwd:
+        await message.answer("Переслав не з каналу — forward_from_chat порожній.")
+        return
+    await message.answer(
+        f"📌 Chat ID: <code>{fwd.id}</code>\n"
+        f"Назва: {html.escape(fwd.title or '')}\n"
+        f"Тип: {fwd.type}",
+        parse_mode="HTML",
+    )
+
+
 async def cb_mmm(callback: CallbackQuery, bot: Bot) -> None:
     if not _is_admin(callback.from_user.id if callback.from_user else None):
         await callback.answer("Тільки адмін", show_alert=True)
@@ -146,6 +161,7 @@ async def main():
     dp = Dispatcher()
     dp.message.middleware(UserStatsMiddleware())
     dp.message.register(cmd_mmm, Command("mmm"))
+    dp.message.register(cmd_whatchat, F.forward_from_chat)
     dp.callback_query.register(cb_mmm, F.data.startswith("mmm_"))
 
     dp.include_router(start.router)
