@@ -124,9 +124,9 @@ async def cb_mmm(callback: CallbackQuery, bot: Bot) -> None:
     )
 
 
-async def run_web_server():
+async def run_web_server(bot: Bot):
     port = int(os.getenv("PORT") or os.getenv("WEB_PORT", "8080"))
-    app = create_app()
+    app = create_app(bot)
     runner = web.AppRunner(app)
     await runner.setup()
     site = web.TCPSite(runner, "0.0.0.0", port)
@@ -161,7 +161,7 @@ async def main():
     await init_db()
     await seed_database()
 
-    await run_web_server()
+    await run_web_server(bot)
 
     logger.info("🤖 Бот запускається...")
     await dp.start_polling(bot)

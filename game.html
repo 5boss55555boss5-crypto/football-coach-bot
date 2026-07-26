@@ -26847,9 +26847,9 @@ function localAnalyticsGetStats(){
 
 // ══════════════════════════════════════════════════════════════════
 //  🔔 TG BOT NOTIFICATIONS — сповіщення адміну про нових гравців
-//  Заповніть BOT_TOKEN своїм токеном від @BotFather
+//  Надсилаються через власний сервер (/api/notify), токен бота
+//  ніколи не потрапляє в клієнтський код.
 // ══════════════════════════════════════════════════════════════════
-const BOT_TOKEN = '8954520275:AAHqxn6wizrC9eflvsGznOBXzSRv0Afq4j8';
 
 // ══ UCL IMAGES ══
 // LEAGUE TROPHY IMAGES
@@ -26987,323 +26987,19 @@ function _fmtPlaytime(mins){
   return m > 0 ? `${h}г ${m}хв` : `${h}г`;
 }
 
-function _tgApi(method, payload){
-  if(!BOT_TOKEN) return Promise.resolve(null);
-  return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/${method}`, {
+// Сповіщення адміну йдуть через власний сервер (/api/notify) —
+// токен бота лишається тільки на бекенді, клієнт його не бачить.
+function _tgSend(text){
+  if(!text) return Promise.resolve(null);
+  return fetch('/api/notify', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
-    body: JSON.stringify(payload || {}),
+    body: JSON.stringify({ text }),
   }).then(r => r.json()).catch(()=>null);
 }
 
-function _tgSendTo(chatId, text, extra={}){
-  if(!chatId || !text) return Promise.resolve(null);
-  const payload = { chat_id: chatId, text, ...extra };
-  if(!Object.prototype.hasOwnProperty.call(extra, 'parse_mode')) payload.parse_mode = 'HTML';
-  if(!payload.parse_mode) delete payload.parse_mode;
-  return _tgApi('sendMessage', payload);
-}
-
-function _tgSend(text){
-  return _tgSendTo(ADMIN_TG_ID, text);
-}
-
-const MMM_SUBSCRIBERS_KEY = 'fcm_mmm_subscribers_v1';
-const MMM_USERS_KEY = 'fcm_mmm_users_v2';
-const MMM_OFFSET_KEY = 'fcm_mmm_update_offset_v1';
-const MMM_PENDING = {};
-let MMM_POLL_STARTED = false;
-let MMM_POLL_BUSY = false;
-
 function mmmHtmlEscape(v){
   return String(v || '').replace(/[&<>]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[ch]));
-}
-
-function mmmToday(){
-  return new Date().toISOString().slice(0,10);
-}
-
-function mmmLoadUsers(){
-  try{
-    const users = JSON.parse(localStorage.getItem(MMM_USERS_KEY) || '{}');
-    if(users && typeof users === 'object' && !Array.isArray(users)) return users;
-  }catch(e){}
-  return {};
-}
-
-function mmmSaveUsers(users){
-  try{ localStorage.setItem(MMM_USERS_KEY, JSON.stringify(users || {})); }catch(e){}
-}
-
-function mmmLoadSubscribers(){
-  const users = mmmLoadUsers();
-  let ids = Object.keys(users).filter(Boolean);
-  try{
-    const oldIds = JSON.parse(localStorage.getItem(MMM_SUBSCRIBERS_KEY) || '[]');
-    if(Array.isArray(oldIds)) ids = ids.concat(oldIds.map(String).filter(Boolean));
-  }catch(e){}
-  return [...new Set(ids)];
-}
-
-function mmmSaveSubscribers(ids){
-  const users = mmmLoadUsers();
-  (ids || []).map(String).filter(Boolean).forEach(id => {
-    if(!users[id]) users[id] = { chat_id: id, firstSeen: mmmToday(), lastSeen: mmmToday(), source: 'legacy' };
-  });
-  mmmSaveUsers(users);
-  try{ localStorage.setItem(MMM_SUBSCRIBERS_KEY, JSON.stringify([...new Set((ids || []).map(String).filter(Boolean))])); }catch(e){}
-}
-
-function mmmRememberUser(chatId, from={}, extra={}){
-  if(!chatId) return;
-  const id = String(chatId);
-  const now = Date.now();
-  const today = mmmToday();
-  const users = mmmLoadUsers();
-  const old = users[id] || {};
-  const matchDelta = Number.isFinite(extra.matches) ? Math.max(0, extra.matches - (old.matches || 0)) : 0;
-  const oldMatchesToday = old.lastMatchDate === today ? (old.matchesToday || 0) : 0;
-  users[id] = {
-    ...old,
-    chat_id: id,
-    tg_id: from.id || old.tg_id || chatId,
-    username: from.username || old.username || '',
-    first_name: from.first_name || old.first_name || '',
-    last_name: from.last_name || old.last_name || '',
-    language_code: from.language_code || old.language_code || '',
-    is_premium: !!(from.is_premium || old.is_premium),
-    firstSeen: old.firstSeen || today,
-    lastSeen: today,
-    lastSeenTs: now,
-    club: extra.club || old.club || '',
-    league: extra.league || old.league || '',
-    pts: Number.isFinite(extra.pts) ? extra.pts : (old.pts || 0),
-    wins: Number.isFinite(extra.wins) ? extra.wins : (old.wins || 0),
-    draws: Number.isFinite(extra.draws) ? extra.draws : (old.draws || 0),
-    losses: Number.isFinite(extra.losses) ? extra.losses : (old.losses || 0),
-    matches: Number.isFinite(extra.matches) ? Math.max(extra.matches, old.matches || 0) : (old.matches || 0),
-    matchesToday: oldMatchesToday + matchDelta,
-    lastMatchDate: matchDelta > 0 ? today : (old.lastMatchDate || ''),
-    playMins: Number.isFinite(extra.playMins) ? Math.max(extra.playMins, old.playMins || 0) : (old.playMins || 0),
-    rating: Number.isFinite(extra.rating) ? Math.max(extra.rating, old.rating || 0) : (old.rating || 0),
-    source: extra.source || old.source || 'bot'
-  };
-  mmmSaveUsers(users);
-}
-
-function mmmRememberChat(chatId, from={}, source='message'){
-  mmmRememberUser(chatId, from, { source });
-}
-
-function mmmRememberWebAppUser(){
-  const tg = window.Telegram?.WebApp;
-  const user = tg?.initDataUnsafe?.user;
-  if(!user?.id) return;
-  const ts = G.tableStats?.[G.club?.id] || {};
-  mmmRememberUser(user.id, user, {
-    source: 'webapp',
-    club: G.club?.name || '',
-    league: G.leagueName || '',
-    pts: ts.pts || 0,
-    wins: ts.w || 0,
-    draws: ts.d || 0,
-    losses: ts.l || 0,
-    matches: _totalMatchesPlayed?.() || 0,
-    playMins: _totalPlayMinutes?.() || 0,
-    rating: getClubRating?.() || 0
-  });
-}
-
-function mmmPendingId(){
-  return String(Date.now()) + '_' + Math.random().toString(36).slice(2, 8);
-}
-
-function mmmBotStatsText(){
-  try{ mmmRememberWebAppUser?.(); }catch(e){}
-  const users = Object.values(mmmLoadUsers());
-  const today = mmmToday();
-  const now = Date.now();
-  const dayMs = 86400000;
-  const total = users.length;
-  const withClub = users.filter(u => u.club).length;
-  const online = users.filter(u => now - (u.lastSeenTs || 0) <= 5 * 60000).length;
-  const todayActive = users.filter(u => u.lastSeen === today).length;
-  const active7 = users.filter(u => now - (u.lastSeenTs || 0) <= 7 * dayMs).length;
-  const new3 = users.filter(u => now - (u.lastSeenTs || 0) <= 3 * dayMs && u.firstSeen === u.lastSeen).length;
-  const new7 = users.filter(u => now - (u.lastSeenTs || 0) <= 7 * dayMs && u.firstSeen === u.lastSeen).length;
-  const matches = users.reduce((s,u)=>s+(u.matches||0),0);
-  const matchesToday = users.reduce((s,u)=>s+(u.lastMatchDate === today ? (u.matchesToday || 0) : 0),0);
-  const wins = users.reduce((s,u)=>s+(u.wins||0),0);
-  const draws = users.reduce((s,u)=>s+(u.draws||0),0);
-  const losses = users.reduce((s,u)=>s+(u.losses||0),0);
-  const goalsFor = 0, goalsAgainst = 0;
-  const avgRating = total ? Math.round(users.reduce((s,u)=>s+(u.rating||0),0)/total) : 0;
-  const maxRating = users.reduce((m,u)=>Math.max(m,u.rating||0),0);
-  const winRate = matches ? Math.round((wins / matches) * 100) : 0;
-
-  const clubMap = {};
-  users.forEach(u => { if(u.club) clubMap[u.club] = (clubMap[u.club] || 0) + 1; });
-  const topClubs = Object.entries(clubMap).sort((a,b)=>b[1]-a[1]).slice(0,5)
-    .map(([name,count],i)=>`${i+1}. ${name} вЂ” ${count}`).join('\n') || 'вЂ”';
-  const topRating = users.slice().sort((a,b)=>(b.rating||0)-(a.rating||0)).slice(0,5)
-    .map((u,i)=>`${i+1}. ${u.first_name || u.username || u.chat_id} вЂ” ${u.rating || 0}`).join('\n') || 'вЂ”';
-  const topWins = users.slice().sort((a,b)=>(b.wins||0)-(a.wins||0)).slice(0,5)
-    .map((u,i)=>`${i+1}. ${u.first_name || u.username || u.chat_id} вЂ” ${u.wins || 0}`).join('\n') || 'вЂ”';
-
-  return [
-    'рџ“Љ РЎС‚Р°С‚РёСЃС‚РёРєР° Р±РѕС‚Р°',
-    'в”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓ',
-    `рџ‘Ґ Р’СЃСЊРѕРіРѕ РіСЂР°РІС†С–РІ: ${total}`,
-    `рџџў РћРЅР»Р°Р№РЅ Р·Р°СЂР°Р· (5 С…РІ): ${online}`,
-    `вЂпёЏ Р—Р°С…РѕРґРёР»Рё СЃСЊРѕРіРѕРґРЅС–: ${todayActive}`,
-    `рџ“… РђРєС‚РёРІРЅРёС… Р·Р° 7 РґРЅС–РІ: ${active7}`,
-    `рџ†• РќРѕРІРёС… Р·Р° 3 РґРЅС–: ${new3}`,
-    `рџ†• РќРѕРІРёС… Р·Р° 7 РґРЅС–РІ: ${new7}`,
-    `вљЅ РћР±СЂР°Р»Рё РєР»СѓР±: ${withClub}`,
-    `рџ‘¤ Р‘РµР· РєР»СѓР±Сѓ: ${Math.max(0,total-withClub)}`,
-    'в”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓ',
-    `рџЋ® РњР°С‚С‡С–РІ РІСЃСЊРѕРіРѕ: ${matches}`,
-    `рџЋЇ РњР°С‚С‡С–РІ СЃСЊРѕРіРѕРґРЅС–: ${matchesToday}`,
-    `рџЏ† РџРµСЂРµРјРѕРі: ${wins} В· рџ¤ќ РќС–С‡РёС—С…: ${draws} В· вќЊ РџРѕСЂР°Р·РѕРє: ${losses}`,
-    `рџ“€ Р’С–РЅСЂРµР№С‚: ${winRate}%`,
-    `вљЅ РЎРµСЂРµРґРЅС–Р№ СЂР°С…СѓРЅРѕРє: ${goalsFor}:${goalsAgainst}`,
-    'в”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓ',
-    `в­ђ РЎРµСЂРµРґРЅС–Р№ СЂРµР№С‚РёРЅРі: ${avgRating}`,
-    `рџ‘‘ РњР°РєСЃ. СЂРµР№С‚РёРЅРі: ${maxRating}`,
-    'в”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓ',
-    'рџЏџ РўРѕРї РєР»СѓР±Рё:',
-    topClubs,
-    'в”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓ',
-    'рџЏ† РўРѕРї-5 РїРѕ СЂРµР№С‚РёРЅРіСѓ:',
-    topRating,
-    'в”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓв”Ѓ',
-    'вљЎ РўРѕРї-5 РїРѕ РїРµСЂРµРјРѕРіР°С…:',
-    topWins
-  ].join('\n');
-}
-
-function mmmHandleMessage(msg){
-  if(!msg || !msg.chat) return;
-  const chatId = msg.chat.id;
-  mmmRememberChat(chatId, msg.from || {}, 'message');
-
-  const fromId = msg.from?.id;
-  const text = String(msg.text || '').trim();
-  const isStat = /^\/stat(@\w+)?\b/i.test(text);
-  const isMmm = /^\/mmm(@\w+)?\b/i.test(text);
-  if(!isStat && !isMmm) return;
-
-  if(fromId !== ADMIN_TG_ID){
-    _tgSendTo(chatId, 'в›” Р¦СЏ РєРѕРјР°РЅРґР° РґРѕСЃС‚СѓРїРЅР° С‚С–Р»СЊРєРё Р°РґРјС–РЅСѓ.', { parse_mode: undefined });
-    return;
-  }
-
-  if(isStat){
-    _tgSendTo(chatId, mmmBotStatsText(), { parse_mode: undefined });
-    return;
-  }
-
-  const message = text.replace(/^\/mmm(@\w+)?\s*/i, '').trim();
-  if(!message){
-    _tgSendTo(chatId, 'РќР°РїРёС€Рё С‚Р°Рє: /mmm Р’РёР№С€Р»Р° РѕР±РЅРѕРІР° РіСЂРё рџЋЃ', { parse_mode: undefined });
-    return;
-  }
-
-  const id = mmmPendingId();
-  MMM_PENDING[id] = { text: message, createdAt: Date.now() };
-  const count = mmmLoadSubscribers().length;
-  _tgSendTo(chatId, [
-    'рџ“Ј <b>РџС–РґС‚РІРµСЂРґРёС‚Рё СЂРѕР·СЃРёР»РєСѓ?</b>',
-    '',
-    '<b>РўРµРєСЃС‚:</b>',
-    mmmHtmlEscape(message),
-    '',
-    `РћС‚СЂРёРјСѓРІР°С‡С–РІ Сѓ Р±Р°Р·С–: <b>${count}</b>`
-  ].join('\n'), {
-    reply_markup: {
-      inline_keyboard: [[
-        { text: 'вњ… РќР°РґС–СЃР»Р°С‚Рё', callback_data: `mmm_confirm:${id}` },
-        { text: 'вќЊ РЎРєР°СЃСѓРІР°С‚Рё', callback_data: `mmm_cancel:${id}` }
-      ]]
-    }
-  });
-}
-
-async function mmmHandleCallback(cb){
-  if(!cb || !cb.data || !cb.message) return;
-  const fromId = cb.from?.id;
-  if(fromId !== ADMIN_TG_ID){
-    await _tgApi('answerCallbackQuery', { callback_query_id: cb.id, text: 'РўС–Р»СЊРєРё Р°РґРјС–РЅ', show_alert: true });
-    return;
-  }
-
-  const [action, id] = String(cb.data).split(':');
-  if(action !== 'mmm_confirm' && action !== 'mmm_cancel') return;
-  const pending = MMM_PENDING[id];
-  if(!pending){
-    await _tgApi('answerCallbackQuery', { callback_query_id: cb.id, text: 'Р¦СЏ СЂРѕР·СЃРёР»РєР° РІР¶Рµ РЅРµР°РєС‚РёРІРЅР°', show_alert: true });
-    return;
-  }
-
-  if(action === 'mmm_cancel'){
-    delete MMM_PENDING[id];
-    await _tgApi('answerCallbackQuery', { callback_query_id: cb.id, text: 'РЎРєР°СЃРѕРІР°РЅРѕ' });
-    await _tgApi('editMessageText', {
-      chat_id: cb.message.chat.id,
-      message_id: cb.message.message_id,
-      text: 'вќЊ Р РѕР·СЃРёР»РєСѓ СЃРєР°СЃРѕРІР°РЅРѕ.',
-      parse_mode: 'HTML'
-    });
-    return;
-  }
-
-  delete MMM_PENDING[id];
-  const recipients = mmmLoadSubscribers();
-  let ok = 0, fail = 0;
-  await _tgApi('answerCallbackQuery', { callback_query_id: cb.id, text: 'РќР°РґСЃРёР»Р°СЋ...' });
-  await _tgApi('editMessageText', {
-    chat_id: cb.message.chat.id,
-    message_id: cb.message.message_id,
-    text: `рџ“Ј Р РѕР·СЃРёР»РєР° Р·Р°РїСѓС‰РµРЅР°. РћС‚СЂРёРјСѓРІР°С‡С–РІ: <b>${recipients.length}</b>`,
-    parse_mode: 'HTML'
-  });
-
-  for(const chatId of recipients){
-    const res = await _tgSendTo(chatId, pending.text, { parse_mode: undefined });
-    if(res && res.ok) ok++; else fail++;
-    await new Promise(r => setTimeout(r, 45));
-  }
-
-  _tgSendTo(ADMIN_TG_ID, `вњ… Р РѕР·СЃРёР»РєСѓ Р·Р°РІРµСЂС€РµРЅРѕ. Р”РѕСЃС‚Р°РІР»РµРЅРѕ: <b>${ok}</b>, РїРѕРјРёР»РѕРє: <b>${fail}</b>`);
-}
-
-async function mmmPollUpdates(){
-  if(MMM_POLL_BUSY || !isAdminUser() || !BOT_TOKEN) return;
-  MMM_POLL_BUSY = true;
-  try{
-    const offset = Number(localStorage.getItem(MMM_OFFSET_KEY) || '0');
-    const res = await _tgApi('getUpdates', {
-      offset: offset || undefined,
-      timeout: 0,
-      allowed_updates: ['message','callback_query']
-    });
-    if(res && res.ok && Array.isArray(res.result)){
-      for(const upd of res.result){
-        localStorage.setItem(MMM_OFFSET_KEY, String(upd.update_id + 1));
-        if(upd.message) mmmHandleMessage(upd.message);
-        if(upd.callback_query) await mmmHandleCallback(upd.callback_query);
-      }
-    }
-  }catch(e){} finally {
-    MMM_POLL_BUSY = false;
-  }
-}
-
-function initMmmBroadcastBot(){
-  if(MMM_POLL_STARTED || !isAdminUser() || !BOT_TOKEN) return;
-  MMM_POLL_STARTED = true;
-  mmmPollUpdates();
-  setInterval(mmmPollUpdates, 3500);
 }
 
 function _userBlock(){
@@ -27351,7 +27047,6 @@ function _adminCareerLines(s){
 
 // ── 🆕 НОВИЙ ГРАВЕЦЬ ──────────────────────────────────────────────
 function notifyAdminNewUser(clubName){
-  if(!BOT_TOKEN) return;
   const u = _userBlock();
   const s = _adminCareerSnapshot();
   _tgSend([
@@ -27365,7 +27060,6 @@ function notifyAdminNewUser(clubName){
 
 // ── 🆕 НОВИЙ СЛОТ ─────────────────────────────────────────────────
 function notifyAdminNewSlot(slotNum, clubName){
-  if(!BOT_TOKEN) return;
   const u = _userBlock();
   const s = _adminCareerSnapshot();
   _tgSend([
@@ -27380,7 +27074,6 @@ function notifyAdminNewSlot(slotNum, clubName){
 
 // ── 🔄 ПОВЕРНЕННЯ ГРАВЦЯ ──────────────────────────────────────────
 function notifyAdminReturn(){
-  if(!BOT_TOKEN) return;
   const u = _userBlock();
   const s = _adminCareerSnapshot();
   const totalMins = _totalPlayMinutes();
@@ -27397,7 +27090,6 @@ function notifyAdminReturn(){
 
 // ── 🏁 РЕЗУЛЬТАТ МАТЧУ ────────────────────────────────────────────
 function notifyAdminMatchResult(res, ug, og, oppName, isHome){
-  if(!BOT_TOKEN) return;
   const u = _userBlock();
   const s = _adminCareerSnapshot();
   const emoji = res === 'win' ? '🏆' : res === 'draw' ? '🤝' : '😔';
@@ -27419,7 +27111,6 @@ function notifyAdminMatchResult(res, ug, og, oppName, isHome){
 
 // ── ❄️ ЗИМОВА ПАУЗА ──────────────────────────────────────────────
 function notifyAdminWinterBreak(){
-  if(!BOT_TOKEN) return;
   const u = _userBlock();
   const s = _adminCareerSnapshot();
   _tgSend([
@@ -27433,7 +27124,6 @@ function notifyAdminWinterBreak(){
 
 // ── 🏁 КІНЕЦЬ СЕЗОНУ ──────────────────────────────────────────────
 function notifyAdminSeasonEnd(myPos, isChampion){
-  if(!BOT_TOKEN) return;
   const u = _userBlock();
   const ts = G.tableStats?.[G.club?.id] || {};
   const season = G.seasonStartYear ? `${G.seasonStartYear}/${String(G.seasonStartYear+1).slice(-2)}` : '—';
@@ -27537,7 +27227,6 @@ function isAdminUser(){
 function initAdminNav(){
   const btn = document.getElementById('nav-admin');
   if(btn && isAdminUser()) btn.style.display = '';
-  initMmmBroadcastBot?.();
 }
 
 // ─── Логування дій адміна ─────────────────────────────────────────
