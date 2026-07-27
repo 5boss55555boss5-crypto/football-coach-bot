@@ -602,6 +602,16 @@ body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;min-he
 .ob-feat-icon{font-size:22px;margin-bottom:7px;display:block}
 .ob-feat-title{font-size:12px;font-weight:700;margin-bottom:3px;color:var(--txt)}
 .ob-feat-sub{font-size:10px;color:rgba(148,163,184,.5);line-height:1.45}
+/* Premium 2026/27 title screen */
+.onboard{justify-content:flex-start;padding:24px 18px 34px;background:radial-gradient(circle at 50% -2%,rgba(37,99,235,.34),transparent 34%),radial-gradient(circle at 4% 78%,rgba(249,115,22,.10),transparent 25%),radial-gradient(circle at 96% 68%,rgba(14,165,233,.09),transparent 24%),linear-gradient(180deg,#07101f,#060b13 48%,#070b12)}
+.onboard:before{content:'';position:absolute;left:50%;top:91px;width:430px;height:430px;transform:translateX(-50%);border:1px solid rgba(96,165,250,.055);border-radius:50%;box-shadow:0 0 0 38px rgba(59,130,246,.018),0 0 0 76px rgba(59,130,246,.012);pointer-events:none}.onboard:after{content:'';position:absolute;left:18px;right:18px;top:18px;height:260px;border:1px solid rgba(96,165,250,.055);border-radius:22px 22px 46% 46%;background:linear-gradient(180deg,rgba(59,130,246,.025),transparent);pointer-events:none}.ob-stadium{height:68%;opacity:.72;background-size:34px 34px}.ob-chip{position:relative;z-index:1;margin:2px 0 17px;padding:6px 13px;border-radius:99px;background:rgba(13,148,136,.09);border-color:rgba(45,212,191,.24);color:#2dd4bf;font-size:8px;font-weight:900;letter-spacing:1.35px;box-shadow:0 0 22px rgba(20,184,166,.08),inset 0 1px rgba(255,255,255,.035)}
+.ob-logo{z-index:1;width:78px;height:78px;margin:0 auto 17px;border-radius:23px;background:radial-gradient(circle at 68% 20%,rgba(255,255,255,.18),transparent 22%),linear-gradient(145deg,#1d4ed8,#2563eb 52%,#3b82f6);font-size:38px;border:1px solid rgba(147,197,253,.25);box-shadow:0 18px 45px rgba(29,78,216,.38),0 0 0 7px rgba(59,130,246,.045),inset 0 1px rgba(255,255,255,.17)}.ob-logo:before{content:'';position:absolute;left:19px;right:19px;bottom:-9px;height:3px;border-radius:3px;background:#f59e0b;box-shadow:0 0 13px #f59e0b}.ob-logo::after{border-radius:23px}
+.ob-title{position:relative;z-index:1;margin-bottom:7px;font-size:12px;font-family:Inter,sans-serif;font-weight:850;letter-spacing:5.5px;color:#718096}.ob-title-main{position:relative;z-index:1;display:flex;align-items:baseline;justify-content:center;gap:9px;margin-bottom:13px;font-size:58px;letter-spacing:2px;line-height:.9;filter:drop-shadow(0 8px 18px rgba(0,0,0,.25))}.ob-title-main span{display:inline;font-size:.78em;letter-spacing:1px}.ob-sub{position:relative;z-index:1;max-width:360px;margin-bottom:24px;font-size:12px;line-height:1.55;color:#718096}
+.ob-btn{position:relative;z-index:1;display:grid;grid-template-columns:39px 1fr 24px;align-items:center;text-align:left;gap:11px;width:100%;max-width:400px;min-height:61px;padding:9px 13px;border:1px solid rgba(147,197,253,.22);border-radius:18px;background:radial-gradient(circle at 90% 0%,rgba(255,255,255,.15),transparent 30%),linear-gradient(135deg,#1d4ed8,#2563eb 55%,#3b82f6);box-shadow:0 15px 35px rgba(29,78,216,.34),inset 0 1px rgba(255,255,255,.18);transition:transform .16s,filter .16s,box-shadow .16s}.ob-btn:before{border-radius:18px;background:linear-gradient(115deg,transparent 18%,rgba(255,255,255,.08) 48%,transparent 70%);transform:translateX(-70%);transition:transform .45s}.ob-btn:hover:before{transform:translateX(70%)}.ob-btn:hover{filter:brightness(1.07);transform:translateY(-1px);box-shadow:0 18px 42px rgba(29,78,216,.42),inset 0 1px rgba(255,255,255,.2)}.ob-btn:active{transform:translateY(1px) scale(.992)}.ob-btn-icon{position:relative;z-index:1;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.15);font-size:15px}.ob-btn-copy{position:relative;z-index:1;min-width:0}.ob-btn-copy b{display:block;font-size:14px;font-weight:900;letter-spacing:.1px}.ob-btn-copy small{display:block;margin-top:3px;font-size:7.5px;color:rgba(219,234,254,.7);font-weight:650;letter-spacing:.25px}.ob-btn-arrow{position:relative;z-index:1;font-size:24px;color:rgba(255,255,255,.65);text-align:center}
+.ob-features{position:relative;z-index:1;width:100%;max-width:400px;gap:9px;margin-bottom:0}.ob-feat{--feat:#60a5fa;position:relative;overflow:hidden;min-height:100px;padding:13px;border:1px solid rgba(71,91,124,.32);border-radius:16px;background:radial-gradient(circle at 88% 5%,color-mix(in srgb,var(--feat) 12%,transparent),transparent 32%),linear-gradient(145deg,rgba(15,26,43,.96),rgba(8,16,28,.98));box-shadow:0 10px 24px rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.03)}.ob-feat:nth-child(2){--feat:#fbbf24}.ob-feat:nth-child(3){--feat:#34d399}.ob-feat:nth-child(4){--feat:#a78bfa}.ob-feat:after{content:'';position:absolute;right:-25px;bottom:-42px;width:80px;height:80px;border:1px solid color-mix(in srgb,var(--feat) 9%,transparent);border-radius:50%;box-shadow:0 0 0 13px color-mix(in srgb,var(--feat) 2%,transparent)}.ob-feat-icon{width:31px;height:31px;margin-bottom:9px;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--feat) 12%,transparent);border:1px solid color-mix(in srgb,var(--feat) 22%,transparent);color:var(--feat);font-size:15px}.ob-feat-title{font-size:10.5px;font-weight:900}.ob-feat-sub{margin-top:4px;font-size:8px;line-height:1.45;color:#5f6e82}
+body.theme-light .onboard{background:radial-gradient(circle at 50% -2%,rgba(124,58,237,.16),transparent 34%),linear-gradient(180deg,#fbfaff,#f3f4f8)}body.theme-light .onboard:after{border-color:rgba(109,77,167,.08)}body.theme-light .ob-title-main{background:linear-gradient(160deg,#1f2937,#334155 70%);-webkit-background-clip:text}body.theme-light .ob-feat{background:radial-gradient(circle at 88% 5%,color-mix(in srgb,var(--feat) 9%,transparent),transparent 32%),linear-gradient(145deg,#fff,#f7f5fc);border-color:rgba(76,48,128,.12);box-shadow:0 10px 23px rgba(76,48,128,.07)}
+@media(max-height:720px){.onboard{padding-top:17px}.ob-chip{margin-bottom:12px}.ob-logo{width:68px;height:68px;margin-bottom:14px;font-size:33px}.ob-title-main{font-size:50px;margin-bottom:10px}.ob-sub{margin-bottom:18px}.ob-btn{min-height:56px}.ob-feat{min-height:86px;padding:10px}.ob-feat-icon{margin-bottom:6px}}
+@media(max-width:370px){.onboard{padding-left:12px;padding-right:12px}.ob-title-main{font-size:50px}.ob-features{gap:7px}.ob-feat{padding:10px;min-height:94px}.ob-feat-sub{font-size:7.5px}}
 
 /* ── MODAL ── */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:flex;align-items:flex-end}
@@ -1075,6 +1085,29 @@ body.theme-light .prematch-actions button{background:#fff!important;border-color
 .squad-v51-section-hint{font-size:8px;color:color-mix(in srgb,var(--section-color) 45%,rgba(148,163,184,.4));font-weight:800;letter-spacing:.55px}
 .squad-v51-section-count{margin-left:auto;min-width:24px;height:20px;padding:0 6px;border-radius:8px;background:color-mix(in srgb,var(--section-color) 13%,transparent);color:var(--section-color);font-size:9px;font-weight:900;display:inline-flex;align-items:center;justify-content:center}
 body.theme-light .squad-v51-section{border-bottom-color:rgba(92,61,148,.12)}body.theme-light .squad-v51-section-title{color:#75668e}
+</style>
+<style id="transfer-premium-ui">
+/* Premium player management and transfer dialogs */
+.ps-panel{background:radial-gradient(circle at 88% 0%,rgba(59,130,246,.14),transparent 28%),linear-gradient(180deg,#0b1322,#08101c 70%)!important;border-top:1px solid rgba(96,165,250,.2)!important;box-shadow:0 -22px 60px rgba(0,0,0,.48)!important}.ps-handlebar{background:rgba(8,16,28,.93)!important;backdrop-filter:blur(18px)}.ps-hero{position:relative;margin:9px 14px 13px;padding:15px!important;border:1px solid rgba(96,165,250,.13);border-radius:19px;background:radial-gradient(circle at 88% 15%,rgba(59,130,246,.17),transparent 31%),linear-gradient(145deg,rgba(20,35,58,.94),rgba(10,20,35,.96));box-shadow:0 14px 30px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.04)}.ps-hero:after{content:'';position:absolute;right:13px;bottom:8px;width:70px;height:70px;border:1px solid rgba(96,165,250,.07);border-radius:50%;box-shadow:0 0 0 13px rgba(96,165,250,.022);pointer-events:none}.ps-finance{gap:8px!important;margin-bottom:8px!important}.ps-finance>div{position:relative;overflow:hidden;border-radius:14px!important;padding:12px 13px!important;box-shadow:inset 0 1px rgba(255,255,255,.035)}.ps-contract{border-radius:14px!important;padding:12px 13px!important;background:linear-gradient(145deg,rgba(20,31,50,.9),rgba(12,21,36,.94))!important}.ps-actions{gap:9px!important;padding-bottom:12px!important}.ps-actions>button,.ps-actions>div>button{min-height:44px!important;border-radius:13px!important;font-weight:850!important;transition:transform .15s,filter .15s,box-shadow .15s}.ps-actions>button:hover,.ps-actions>div>button:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.transfer-offers-premium,.loan-offers-premium{padding:2px 0 4px}.transfer-section-label{display:flex;align-items:center;justify-content:space-between;margin:0 2px 10px;color:#718096;font-size:8px;font-weight:900;text-transform:uppercase;letter-spacing:1.15px}.transfer-section-label span{padding:3px 7px;border-radius:99px;background:rgba(148,163,184,.07);border:1px solid rgba(148,163,184,.08);color:#94a3b8}.transfer-offer,.loan-offer{position:relative;display:grid;grid-template-columns:42px minmax(0,1fr) auto auto;align-items:center;gap:10px;min-height:68px;margin-bottom:8px;padding:10px 11px;border:1px solid rgba(71,91,124,.38);border-radius:16px;background:radial-gradient(circle at 88% 0%,rgba(16,185,129,.07),transparent 30%),linear-gradient(145deg,rgba(18,31,51,.96),rgba(10,20,35,.98));box-shadow:0 10px 24px rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.035);overflow:hidden}.transfer-offer.best{border-color:rgba(52,211,153,.3)}.transfer-offer.best:before{content:'НАЙКРАЩА';position:absolute;right:10px;top:0;padding:2px 6px;border-radius:0 0 6px 6px;background:rgba(16,185,129,.15);color:#34d399;font-size:5px;font-weight:950;letter-spacing:.7px}.transfer-club-logo{width:40px;height:40px;border-radius:12px;padding:4px;overflow:hidden;background:#fff;box-shadow:0 6px 15px rgba(0,0,0,.24)}.transfer-club-logo img,.transfer-club-logo svg{width:100%!important;height:100%!important;object-fit:contain}.transfer-club-copy{min-width:0}.transfer-club-copy b{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.transfer-club-copy small{display:block;margin-top:4px;font-size:8px;font-weight:800}.transfer-price{text-align:right;white-space:nowrap}.transfer-price b{display:block;color:#34d399;font-size:16px;font-weight:950;line-height:1}.transfer-price small{display:block;margin-top:4px;color:#617086;font-size:7px}.transfer-action{min-width:72px;padding:9px 11px;border-radius:11px;border:1px solid rgba(52,211,153,.3);background:rgba(16,185,129,.11);color:#34d399;font-size:10px;font-weight:900;cursor:pointer;transition:transform .15s,filter .15s}.transfer-action:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.transfer-summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}.transfer-summary{padding:11px 12px;border:1px solid rgba(71,91,124,.35);border-radius:14px;background:linear-gradient(145deg,rgba(17,29,48,.92),rgba(10,19,33,.96))}.transfer-summary small{display:block;color:#66758b;font-size:7px;text-transform:uppercase;letter-spacing:.75px}.transfer-summary b{display:block;margin-top:5px;color:#34d399;font-size:14px;font-weight:950}.transfer-summary span{display:block;margin-top:3px;color:#59677a;font-size:7px}
+.loan-terms{display:grid;grid-template-columns:40px minmax(0,1fr);align-items:center;gap:10px;padding:12px;border:1px solid rgba(96,165,250,.2);border-radius:15px;background:radial-gradient(circle at 88% 0%,rgba(59,130,246,.13),transparent 35%),linear-gradient(145deg,rgba(17,32,55,.95),rgba(10,20,36,.98));margin-bottom:12px}.loan-terms-icon{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:rgba(59,130,246,.12);border:1px solid rgba(96,165,250,.2);font-size:17px}.loan-terms b{display:block;font-size:11px;color:#bfdbfe}.loan-terms span{display:block;margin-top:3px;color:#718096;font-size:8px;line-height:1.4}.loan-offer{grid-template-columns:43px minmax(0,1fr) auto auto;min-height:72px}.loan-offer .transfer-action{border-color:rgba(96,165,250,.32);background:rgba(59,130,246,.12);color:#60a5fa}.loan-offer .transfer-price small{max-width:74px;overflow:hidden;text-overflow:ellipsis}.theme-light .ps-panel{background:radial-gradient(circle at 88% 0%,rgba(124,58,237,.08),transparent 28%),linear-gradient(180deg,#fff,#f4f3f8 70%)!important}.theme-light .ps-handlebar{background:rgba(255,255,255,.93)!important}.theme-light .ps-hero,.theme-light .transfer-offer,.theme-light .loan-offer,.theme-light .transfer-summary,.theme-light .loan-terms{background:radial-gradient(circle at 88% 0%,rgba(124,58,237,.055),transparent 30%),linear-gradient(145deg,#fff,#f6f4fb);border-color:rgba(76,48,128,.12);box-shadow:0 9px 22px rgba(76,48,128,.07)}.theme-light .transfer-club-copy b{color:#253047}
+/* Win over legacy inline styles */
+.transfer-offer,.loan-offer{display:grid!important;grid-template-columns:42px minmax(0,1fr) auto auto!important;align-items:center!important;gap:10px!important;padding:10px 11px!important;border:1px solid rgba(71,91,124,.38)!important;border-radius:16px!important;background:radial-gradient(circle at 88% 0%,rgba(16,185,129,.07),transparent 30%),linear-gradient(145deg,rgba(18,31,51,.96),rgba(10,20,35,.98))!important}.transfer-club-logo{width:40px!important;height:40px!important;border-radius:12px!important;padding:4px!important;background:#fff!important}.transfer-action{min-width:72px!important;padding:9px 11px!important;border-radius:11px!important;font-size:10px!important;font-weight:900!important}.transfer-summary{border:1px solid rgba(71,91,124,.35)!important;border-radius:14px!important;background:linear-gradient(145deg,rgba(17,29,48,.92),rgba(10,19,33,.96))!important}
+.loan-terms{display:grid!important;grid-template-columns:40px minmax(0,1fr)!important}.theme-light .transfer-offer,.theme-light .loan-offer,.theme-light .transfer-summary{background:radial-gradient(circle at 88% 0%,rgba(124,58,237,.055),transparent 30%),linear-gradient(145deg,#fff,#f6f4fb)!important;border-color:rgba(76,48,128,.12)!important}
+@media(max-width:430px){.transfer-offer,.loan-offer{grid-template-columns:38px minmax(0,1fr) auto!important;padding:9px!important;gap:8px!important}.transfer-club-logo{width:36px!important;height:36px!important}.transfer-action{grid-column:2/4;width:100%;min-height:34px}.transfer-summary-grid{grid-template-columns:1fr}.ps-hero{margin-left:9px;margin-right:9px}.ps-finance{margin-left:9px!important;margin-right:9px!important}.ps-actions{padding-left:9px!important;padding-right:9px!important}}
+</style>
+<style id="elite-terms-v2">
+/* Individual elite-player transfer terms */
+.elite-terms-card{position:relative;overflow:hidden;padding:16px;border:1px solid rgba(251,191,36,.2);border-radius:19px;background:radial-gradient(circle at 90% 0%,rgba(245,158,11,.14),transparent 32%),linear-gradient(145deg,#111b2c,#0a1321);box-shadow:0 14px 32px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.04)}
+.elite-terms-card.refusal{border-color:rgba(248,113,113,.2);background:radial-gradient(circle at 90% 0%,rgba(239,68,68,.14),transparent 32%),linear-gradient(145deg,#181827,#0a1321)}
+.etc-badge{display:inline-flex;padding:5px 8px;margin-bottom:12px;border-radius:99px;border:1px solid rgba(251,191,36,.2);background:rgba(251,191,36,.08);color:#fbbf24;font-size:7px;font-weight:950;letter-spacing:1px}.refusal .etc-badge{border-color:rgba(248,113,113,.22);background:rgba(239,68,68,.08);color:#fb7185}
+.etc-head{display:grid;grid-template-columns:46px 1fr;align-items:center;gap:11px;margin-bottom:12px}.etc-icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;border:1px solid rgba(251,191,36,.22);background:rgba(251,191,36,.1);color:#fbbf24;font-size:21px;font-weight:950}.refusal .etc-icon{border-color:rgba(248,113,113,.2);background:rgba(239,68,68,.08);color:#fb7185}.etc-head b{display:block;font-size:15px;color:#f8fafc}.etc-head span{display:block;margin-top:4px;color:#718096;font-size:8px;line-height:1.45}
+.etc-ratings{display:grid;grid-template-columns:1fr 30px 1fr;align-items:stretch;margin-bottom:9px}.etc-ratings>div{padding:10px;border:1px solid rgba(148,163,184,.09);border-radius:12px;background:rgba(3,7,18,.28);text-align:center}.etc-ratings small,.etc-salary small{display:block;color:#64748b;font-size:7px;text-transform:uppercase;letter-spacing:.65px}.etc-ratings b{display:block;margin-top:4px;font-family:'Bebas Neue',sans-serif;font-size:25px;color:#34d399}.etc-ratings b.bad{color:#fb7185}.etc-ratings i{display:grid;place-items:center;color:#475569;font-style:normal;font-size:12px}
+.etc-salary{display:grid;grid-template-columns:1fr 48px 1fr;align-items:center;margin-bottom:9px;padding:10px;border:1px solid rgba(52,211,153,.14);border-radius:13px;background:rgba(16,185,129,.055);text-align:center}.etc-salary b{display:block;margin-top:4px;color:#e2e8f0;font-size:12px}.etc-salary>div:last-child b{color:#34d399}.etc-plus{color:#fbbf24;font-size:13px;font-weight:950}.etc-note{padding:9px 10px;border-radius:11px;background:rgba(148,163,184,.045);color:#718096;font-size:8px;line-height:1.5}.etc-actions{display:grid;grid-template-columns:.8fr 1.2fr;gap:7px;margin-top:12px}.etc-actions button{min-height:42px;padding:9px;border:1px solid rgba(148,163,184,.14);border-radius:12px;background:rgba(148,163,184,.06);color:#94a3b8;font-size:9px;font-weight:900;cursor:pointer}.etc-actions button.accept{border-color:rgba(52,211,153,.28);background:linear-gradient(135deg,rgba(5,150,105,.22),rgba(16,185,129,.13));color:#34d399}
+body.theme-light .elite-terms-card{background:radial-gradient(circle at 90% 0%,rgba(245,158,11,.1),transparent 32%),linear-gradient(145deg,#fff,#f6f4fb);border-color:rgba(120,80,10,.14)}body.theme-light .elite-terms-card.refusal{background:radial-gradient(circle at 90% 0%,rgba(239,68,68,.08),transparent 32%),linear-gradient(145deg,#fff,#f6f4fb)}body.theme-light .etc-head b,body.theme-light .etc-salary b{color:#253047}
+@media(max-width:390px){.etc-actions{grid-template-columns:1fr}.etc-salary{grid-template-columns:1fr 38px 1fr}.etc-salary b{font-size:10px}}
+
 </style>
 </head>
 <body onpointerup="onPointerUpGlobal();onPrePointerUpGlobal()">
@@ -2435,7 +2468,7 @@ body.theme-light .squad-v51-section{border-bottom-color:rgba(92,61,148,.12)}body
     <div class="hlogo" id="hLogo">⚽</div>
     <div>
       <div class="htitle" id="hTitle">Football Manager</div>
-      <div class="hsub" id="hSub">Сезон 2025/26</div>
+      <div class="hsub" id="hSub">Сезон 2026/27</div>
     </div>
   </div>
   <div style="display:flex;align-items:center;gap:8px">
@@ -2458,7 +2491,7 @@ body.theme-light .squad-v51-section{border-bottom-color:rgba(92,61,148,.12)}body
       <div class="ob-bg-glow" style="width:140px;height:140px;background:#3b82f6;bottom:80px;right:-30px;opacity:.12"></div>
 
       <!-- Season badge -->
-      <div class="ob-chip">✦ &nbsp;Сезон 2025/26&nbsp; ✦</div>
+      <div class="ob-chip">✦ &nbsp;Сезон 2026/27&nbsp; ✦</div>
 
       <!-- App icon -->
       <div class="ob-logo">🏆</div>
@@ -2471,8 +2504,10 @@ body.theme-light .squad-v51-section{border-bottom-color:rgba(92,61,148,.12)}body
       <div class="ob-sub">Обери клуб, будуй найкращий склад і борись за чемпіонство</div>
 
       <!-- CTA -->
-      <button class="ob-btn" onclick="openClubPicker(true)" style="margin-bottom:28px">
-        ⚽&nbsp; Розпочати кар'єру
+      <button class="ob-btn" onclick="openClubPicker(true)" style="margin-bottom:22px">
+        <span class="ob-btn-icon">▶</span>
+        <span class="ob-btn-copy"><b>Розпочати кар'єру</b><small>Обери клуб і створи власну футбольну історію</small></span>
+        <span class="ob-btn-arrow">›</span>
       </button>
 
       <!-- Feature cards -->
@@ -2532,7 +2567,7 @@ body.theme-light .squad-v51-section{border-bottom-color:rgba(92,61,148,.12)}body
 
     <!-- Squad panel -->
     <div id="homePanel-squad">
-      <div class="slabel" id="squadSeasonLabel">Склад — сезон 2025/26</div>
+      <div class="slabel" id="squadSeasonLabel">Склад — сезон 2026/27</div>
       <div id="squadList"></div>
     </div>
 
@@ -2869,9 +2904,9 @@ body.theme-light .squad-v51-section{border-bottom-color:rgba(92,61,148,.12)}body
     <div id="lineupPanel" style="display:none;padding:0 16px 16px">
 
     <!-- Lineup tabs -->
-    <div style="display:flex;gap:6px;margin-bottom:12px">
-      <div id="ltab-mine" onclick="switchLineupTab('mine')" style="flex:1;padding:7px;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;text-align:center;border:1px solid rgba(59,130,246,.4);background:rgba(59,130,246,.15);color:var(--acc)">👥 Мій склад</div>
-      <div id="ltab-opp" onclick="switchLineupTab('opp')" style="flex:1;padding:7px;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;text-align:center;border:1px solid var(--brd);background:var(--surf);color:var(--mut)">🆚 Суперник</div>
+    <div class="live-lineup-tabs" role="tablist" aria-label="Склади команд">
+      <button type="button" id="ltab-mine" class="live-lineup-tab is-active" role="tab" aria-selected="true" aria-controls="ltab-mine-panel" onclick="switchLineupTab('mine')"><span>Мій склад</span><small>Гравці та заміни</small></button>
+      <button type="button" id="ltab-opp" class="live-lineup-tab live-lineup-tab-opp" role="tab" aria-selected="false" aria-controls="ltab-opp-panel" onclick="switchLineupTab('opp')"><span>Суперник</span><small>Склад команди</small></button>
     </div>
 
     <!-- My team panel -->
@@ -2880,6 +2915,10 @@ body.theme-light .squad-v51-section{border-bottom-color:rgba(92,61,148,.12)}body
         <div class="lineup-energy-summary-head"><span>⚡ Загальна енергія складу</span><b id="lineupEnergyAvg">100%</b></div>
         <div class="lineup-energy-summary-track"><i id="lineupEnergyAvgFill"></i></div>
         <div id="lineupEnergyStatus" class="lineup-energy-summary-status">Склад готовий до матчу</div>
+      </div>
+      <div class="live-lineup-section-head">
+        <span>Стартовий склад</span>
+        <small>Затисни гравця для заміни</small>
       </div>
       <!-- Static tactical field -->
       <div class="static-tac-field" id="staticTacField">
@@ -2890,15 +2929,15 @@ body.theme-light .squad-v51-section{border-bottom-color:rgba(92,61,148,.12)}body
         <div id="staticPlayers"></div>
       </div>
       <!-- Bench row -->
-      <div style="font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">
-        Запасні — перетягни на гравця щоб замінити
+      <div class="live-bench-head">
+        <span>Запасні</span><small>Перетягни картку на поле</small>
       </div>
       <div class="bench-row" id="benchRow"></div>
     </div>
 
     <!-- Opponent panel -->
     <div id="ltab-opp-panel" style="display:none">
-      <div style="font-size:11px;color:var(--mut);font-weight:600;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px" id="oppLineupTitle"></div>
+      <div class="live-opponent-lineup-title" id="oppLineupTitle"></div>
       <div class="static-tac-field" id="oppTacField" style="height:320px;margin-bottom:10px">
         <div class="stf-mid"></div>
         <div class="stf-circle"></div>
@@ -2906,7 +2945,7 @@ body.theme-light .squad-v51-section{border-bottom-color:rgba(92,61,148,.12)}body
         <div class="stf-box bottom"></div>
         <div id="oppPlayers"></div>
       </div>
-      <div style="font-size:10px;font-weight:600;color:var(--mut);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Запасні суперника</div>
+      <div class="live-bench-head"><span>Запасні суперника</span><small>Доступні гравці</small></div>
       <div class="bench-row" id="oppBenchRow"></div>
     </div>
     </div>
@@ -5983,7 +6022,7 @@ const ACTIONS_MY=["Атака! Рух вперед","Небезпечна ата
 const ACTIONS_OPP=["Суперник атакує","Небезпечний момент","Прострел суперника","Контратака суперника","Тиск суперника"];
 const ACTIONS_NEU=["Боротьба за м'яч","Кутовий...","Штрафний","Офсайд!","М'яч у грі","Тиск в центрі"];
 
-let G={club:null,players:[],budget:100000000,tactic:"balanced",schedule:[],currentRound:0,tableStats:{},suspended:[],formation:'4-3-3',transfers:{spent:0,history:[],marketPlayers:[],lastRefresh:-1},scorers:{},salary:{salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0},sponsor:{active:null,signPaid:false,winterPaid:false,endPaid:false,history:[]},seasonStartYear:2025,journal:[],_journalFilter:'all',_finTab:'overview',academy:{level:1,totalInvested:0},ballonHistory:[],careerMatches:0,careerPlayMins:0,trophyHistory:[],careerLog:[],managerRep:10};
+let G={club:null,players:[],budget:100000000,tactic:"balanced",schedule:[],currentRound:0,tableStats:{},suspended:[],formation:'4-3-3',transfers:{spent:0,history:[],marketPlayers:[],lastRefresh:-1},scorers:{},salary:{salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0},sponsor:{active:null,signPaid:false,winterPaid:false,endPaid:false,history:[]},seasonStartYear:2026,journal:[],_journalFilter:'all',_finTab:'overview',academy:{level:1,totalInvested:0},ballonHistory:[],careerMatches:0,careerPlayMins:0,trophyHistory:[],careerLog:[],managerRep:10};
 // suspended: array of player names banned for next match
 const MATCH_DURATION_MULT=1.661; // v5.48: матч триває на 10% довше
 function getTickMs(){ return Math.round((_speedLevel===2 ? 175 : _speedLevel===1 ? 344 : 694)*MATCH_DURATION_MULT); }
@@ -9933,6 +9972,133 @@ function setTrFilter(pos){
   renderTrContent();
 }
 
+// Elite players sometimes refuse clubs whose current starting XI is too weak.
+// The decision is cached on the market item, so repeated clicks cannot reroll it.
+function getUserStartingXIAvgRating(){
+  const squad=Array.isArray(G.players)?G.players.filter(p=>p&&Number.isFinite(Number(p.r))):[];
+  if(!squad.length) return 0;
+
+  const squadNames=new Set(squad.map(p=>p.n));
+  const savedXI=(typeof PM!=='undefined'&&Array.isArray(PM.xi))
+    ? PM.xi.filter(p=>p&&squadNames.has(p.n)&&Number.isFinite(Number(p.r)))
+    : [];
+  const xi=savedXI.length>=11
+    ? savedXI.slice(0,11)
+    : squad.slice().sort((a,b)=>Number(b.r)-Number(a.r)).slice(0,11);
+  return xi.length?xi.reduce((sum,p)=>sum+Number(p.r),0)/xi.length:0;
+}
+
+function _legacyElitePlayerRefusesWeakClub(player){
+  if(!player||Number(player.r)<84) return false;
+  const clubAvg=getUserStartingXIAvgRating();
+  if(clubAvg>=79) return false;
+
+  if(player._weakClubDecision===undefined){
+    const weakness=Math.max(0,79-clubAvg);
+    const eliteBonus=Math.max(0,Number(player.r)-84)*0.035;
+    const refusalChance=Math.min(0.90,0.38+weakness*0.09+eliteBonus);
+    player._weakClubDecision=Math.random()<refusalChance?'refuse':'accept';
+  }
+  if(player._weakClubDecision!=='refuse') return false;
+
+  const avgLabel=clubAvg.toFixed(1);
+  closeTrModalDirect();
+  openTrModal(
+    `Трансфер не відбувся`,
+    `${player.n} відхилив пропозицію клубу`,
+    `<style>
+      .elite-refusal{position:relative;overflow:hidden;margin:-2px -2px 0;padding:18px;border:1px solid rgba(248,113,113,.18);border-radius:20px;background:radial-gradient(circle at 88% 5%,rgba(239,68,68,.18),transparent 35%),linear-gradient(145deg,#111827,#0a101b 72%);box-shadow:inset 0 1px rgba(255,255,255,.04)}
+      .elite-refusal:before{content:'';position:absolute;inset:0;background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.025) 49%,transparent 60%);pointer-events:none}
+      .er-top{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}.er-status{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border:1px solid rgba(248,113,113,.28);border-radius:99px;background:rgba(239,68,68,.09);color:#fca5a5;font-size:8px;font-weight:950;letter-spacing:1.25px}.er-status i{width:6px;height:6px;border-radius:50%;background:#ef4444;box-shadow:0 0 10px #ef4444}.er-window{font-size:8px;font-weight:800;letter-spacing:.7px;color:#64748b;text-transform:uppercase}
+      .er-player{position:relative;display:grid;grid-template-columns:58px 1fr;align-items:center;gap:12px;padding:13px;border:1px solid rgba(255,255,255,.07);border-radius:15px;background:rgba(255,255,255,.035);margin-bottom:10px}.er-avatar{width:54px;height:54px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(239,68,68,.22),rgba(127,29,29,.08));border:1px solid rgba(248,113,113,.24);font-size:25px;box-shadow:0 8px 20px rgba(0,0,0,.28)}.er-kicker{font-size:8px;font-weight:900;letter-spacing:1.1px;color:#f87171;text-transform:uppercase}.er-name{font-size:17px;font-weight:950;color:#f8fafc;margin:3px 0}.er-copy{font-size:9px;line-height:1.42;color:#7f8da3}
+      .er-ratings{position:relative;display:grid;grid-template-columns:1fr 34px 1fr;align-items:stretch;margin-bottom:10px}.er-rating{padding:12px;border:1px solid rgba(255,255,255,.07);background:rgba(7,12,21,.62)}.er-rating:first-child{border-radius:14px 0 0 14px}.er-rating:last-child{border-radius:0 14px 14px 0}.er-vs{display:grid;place-items:center;background:#0a101b;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);color:#475569;font-size:8px;font-weight:950}.er-label{font-size:7px;color:#64748b;text-transform:uppercase;letter-spacing:.9px;font-weight:850}.er-value{font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1;margin-top:4px;color:#f8fafc}.er-rating.weak .er-value{color:#fb7185}.er-rating small{display:block;font-size:7px;color:#64748b;margin-top:3px}.er-meter{height:4px;border-radius:4px;background:rgba(148,163,184,.12);overflow:hidden;margin-top:7px}.er-meter i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,#f97316,#ef4444)}
+      .er-advice{position:relative;display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid rgba(96,165,250,.16);border-radius:13px;background:linear-gradient(135deg,rgba(37,99,235,.10),rgba(15,23,42,.45))}.er-advice-icon{width:31px;height:31px;border-radius:10px;display:grid;place-items:center;background:rgba(59,130,246,.14);color:#60a5fa;font-size:15px;flex:none}.er-advice b{display:block;color:#bfdbfe;font-size:9px;margin-bottom:2px}.er-advice span{display:block;color:#718096;font-size:8px;line-height:1.4}
+      body.theme-light .elite-refusal{background:radial-gradient(circle at 88% 5%,rgba(239,68,68,.11),transparent 36%),linear-gradient(145deg,#fff,#f7f8fb);border-color:rgba(239,68,68,.16)}body.theme-light .er-player,body.theme-light .er-rating{background:rgba(255,255,255,.76);border-color:rgba(51,65,85,.1)}body.theme-light .er-name,body.theme-light .er-value{color:#172033}body.theme-light .er-vs{background:#f4f6f9;border-color:rgba(51,65,85,.1)}
+    </style>
+    <div class="elite-refusal">
+      <div class="er-top"><div class="er-status"><i></i> УГОДУ ЗІРВАНО</div><div class="er-window">Рішення гравця</div></div>
+      <div class="er-player">
+        <div class="er-avatar">✕</div>
+        <div><div class="er-kicker">Особисті умови не погоджено</div><div class="er-name">${esc(player.n)}</div><div class="er-copy">Гравець прагне виступати в команді, яка вже відповідає його спортивним амбіціям.</div></div>
+      </div>
+      <div class="er-ratings">
+        <div class="er-rating"><div class="er-label">Рейтинг гравця</div><div class="er-value">${player.r}</div><small>Елітний рівень</small></div>
+        <div class="er-vs">VS</div>
+        <div class="er-rating weak"><div class="er-label">Ваш стартовий XI</div><div class="er-value">${avgLabel}</div><small>Потрібно щонайменше 79.0</small><div class="er-meter"><i style="width:${Math.min(100,Math.round(clubAvg/79*100))}%"></i></div></div>
+      </div>
+      <div class="er-advice"><div class="er-advice-icon">↗</div><div><b>Як переконати топгравця?</b><span>Підсиль стартовий склад, підніми його середній рейтинг до 79+ і повернися до переговорів пізніше.</span></div></div>
+    </div>`
+  );
+  return true;
+}
+
+// PERSONAL TRANSFER TERMS v2 — individual squad demands and salary compromises.
+function eliteTermsSeed(player,salt=''){
+  const text=`${player?.n||''}|${player?.r||0}|${G.seasonStartYear||2026}|${salt}`;
+  let hash=2166136261;
+  for(let i=0;i<text.length;i++){hash^=text.charCodeAt(i);hash=Math.imul(hash,16777619);}
+  return hash>>>0;
+}
+function getEliteTeamRequirement(player){
+  const rating=Math.floor(Number(player?.r)||0);
+  if(rating<=81) return null;
+  if(!Number.isFinite(Number(player._eliteTeamRequirement))){
+    const gap=4+(eliteTermsSeed(player,'team')%5);
+    player._eliteTeamRequirement=Math.max(72,Math.min(rating-1,rating-gap));
+  }
+  return Math.min(rating-1,Math.floor(Number(player._eliteTeamRequirement)));
+}
+function prepareElitePersonalTerms(player){
+  if(player._eliteWeakClubDecision) return;
+  player._eliteWeakClubDecision=eliteTermsSeed(player,'decision')%100<52?'salary':'refuse';
+  if(player._eliteWeakClubDecision==='salary'){
+    player._eliteSalaryPremiumPct=20+(eliteTermsSeed(player,'salary')%131);
+    player._eliteSalaryMultiplier=1+player._eliteSalaryPremiumPct/100;
+  }
+}
+let pendingEliteTransferAction=null;
+let flashPurchaseLockUntil=0;
+function acceptEliteSalaryDemand(){
+  const pending=pendingEliteTransferAction;
+  if(!pending?.player||typeof pending.resume!=='function') return;
+  pending.player._eliteTermsAccepted=true;
+  pendingEliteTransferAction=null;
+  closeTrModalDirect();pending.resume();
+}
+function declineEliteSalaryDemand(){
+  const pending=pendingEliteTransferAction;
+  pendingEliteTransferAction=null;closeTrModalDirect();
+  if(pending?.player) showTrMsg(`❌ Підписання ${esc(pending.player.n)} скасовано`);
+}
+window.acceptEliteSalaryDemand=acceptEliteSalaryDemand;
+window.declineEliteSalaryDemand=declineEliteSalaryDemand;
+function applyEliteTransferSalary(newPlayer,marketPlayer){
+  if(!newPlayer||!marketPlayer?._eliteTermsAccepted||!marketPlayer._eliteSalaryMultiplier) return newPlayer;
+  const base=Number(newPlayer.salary)||calcPlayerSalary(newPlayer);
+  newPlayer.salary=snapSalary(base*marketPlayer._eliteSalaryMultiplier);
+  newPlayer._eliteSalaryPremiumPct=marketPlayer._eliteSalaryPremiumPct;
+  return newPlayer;
+}
+function elitePlayerRefusesWeakClub(player,resume){
+  const required=getEliteTeamRequirement(player);
+  if(required===null) return false;
+  const clubAvg=getUserStartingXIAvgRating();
+  if(clubAvg>=required||player._eliteTermsAccepted) return false;
+  prepareElitePersonalTerms(player);
+  const avgLabel=clubAvg.toFixed(1),baseSalary=calcPlayerSalary(player);
+  if(player._eliteWeakClubDecision==='salary'){
+    const premium=player._eliteSalaryPremiumPct,newSalary=snapSalary(baseSalary*player._eliteSalaryMultiplier);
+    pendingEliteTransferAction={player,resume};closeTrModalDirect();
+    openTrModal('Персональні умови',`${player.n} готовий розглянути перехід`,
+      `<div class="elite-terms-card"><div class="etc-badge">КОМПРОМІС ГРАВЦЯ</div><div class="etc-head"><div class="etc-icon">€</div><div><b>${esc(player.n)}</b><span>Команда слабша за його спортивні вимоги, але агент запропонував фінансовий компроміс.</span></div></div><div class="etc-ratings"><div><small>Стартовий XI</small><b class="bad">${avgLabel}</b></div><i>→</i><div><small>Вимога</small><b>${required}.0</b></div></div><div class="etc-salary"><div><small>Базова зарплата</small><b>${fmtPrice(baseSalary)}</b></div><div class="etc-plus">+${premium}%</div><div><small>Нова зарплата</small><b>${fmtPrice(newSalary)}</b></div></div><div class="etc-note">Нова зарплата діятиме весь контракт і враховуватиметься у квартальних виплатах.</div><div class="etc-actions"><button onclick="declineEliteSalaryDemand()">Відмовитися</button><button class="accept" onclick="acceptEliteSalaryDemand()">Погодитися · ${fmtPrice(newSalary)}/рік</button></div></div>`);
+    return true;
+  }
+  closeTrModalDirect();
+  openTrModal('Трансфер не відбувся',`${player.n} відхилив пропозицію клубу`,
+    `<div class="elite-terms-card refusal"><div class="etc-badge">УГОДУ ЗІРВАНО</div><div class="etc-head"><div class="etc-icon">✕</div><div><b>${esc(player.n)}</b><span>Гравець не готовий переходити до команди, яка поки не відповідає його амбіціям.</span></div></div><div class="etc-ratings"><div><small>Стартовий XI</small><b class="bad">${avgLabel}</b></div><i>→</i><div><small>Особиста вимога</small><b>${required}.0</b></div></div><div class="etc-note">Підсиль стартовий склад до рейтингу ${required}.0+ і повернися до переговорів пізніше.</div></div>`);
+  return true;
+}
+
 function buyFlash(idx){
   if(!G.transfers.flashSales) return;
   if(G.salary.salaryBlocked){showTrMsg('⛔ Трансфери заблоковані через борг по зарплаті. Поповни бюджет.');return;}
@@ -9982,12 +10148,20 @@ function buyFlash(idx){
 
 function confirmFlashBuy(idx){
   if(!G.transfers.flashSales) return;
+  if(Date.now()<flashPurchaseLockUntil) return;
   const f=G.transfers.flashSales[idx];
   if(!f) return;
   const price=f.listPrice;
+  if(G.players.some(gp=>gp.n===f.n)){
+    G.transfers.flashSales.splice(idx,1);closeTrModalDirect();renderTrContent();
+    showTrMsg(`ℹ️ ${esc(f.n)} вже є у вашому складі`);return;
+  }
+  if(elitePlayerRefusesWeakClub(f,()=>confirmFlashBuy(idx))) return;
   if(G.budget<price){showTrMsg('❌ Недостатньо коштів');return;}
+  flashPurchaseLockUntil=Date.now()+800;
   G.budget=Math.max(0,G.budget-price);G.transfers.spent+=price;
-  const newPlayer=assignDefaultContract({n:f.n,p:f.p,r:f.r,mv:f.mv,age:f.age,nat:f.nat,...(f.ballonAwards?{ballonAwards:f.ballonAwards.slice()}:{})}, G.seasonStartYear||2025);
+  const newPlayer=assignDefaultContract({n:f.n,p:f.p,r:f.r,mv:f.mv,age:f.age,nat:f.nat,...(f.ballonAwards?{ballonAwards:f.ballonAwards.slice()}:{})}, G.seasonStartYear||2026);
+  applyEliteTransferSalary(newPlayer,f);
   newPlayer._boughtRound=G.currentRound; // sell cooldown: 3 rounds
   // FIX P3: prevent duplicate players in squad
   if(!G.players.some(gp=>gp.n===newPlayer.n)){
@@ -10091,10 +10265,16 @@ function confirmBuy(idx){
   const p=G.transfers.marketPlayers[idx];
   // Re-check budget at moment of confirmation (prevents race condition)
   if(!p||!p.listPrice) return;
+  if(G.players.some(gp=>gp.n===p.n)){
+    G.transfers.lastRefresh=-1;G.transfers.marketPlayers=[];closeTrModalDirect();renderTrContent();
+    showTrMsg(`ℹ️ ${esc(p.n)} вже є у вашому складі`);return;
+  }
+  if(elitePlayerRefusesWeakClub(p,()=>confirmBuy(idx))) return;
   if(G.budget<p.listPrice){showTrMsg(`❌ Недостатньо коштів. Потрібно ще ${fmtPrice(p.listPrice-G.budget)}`);return;}
   G.budget=Math.max(0,G.budget-p.listPrice); // BUG9 FIX
   G.transfers.spent+=p.listPrice;
-  const newPlayer=assignDefaultContract({n:p.n,p:p.p,r:p.r,mv:p.mv,age:p.age,nat:p.nat,...(p.ballonAwards?{ballonAwards:p.ballonAwards.slice()}:{})}, G.seasonStartYear||2025);
+  const newPlayer=assignDefaultContract({n:p.n,p:p.p,r:p.r,mv:p.mv,age:p.age,nat:p.nat,...(p.ballonAwards?{ballonAwards:p.ballonAwards.slice()}:{})}, G.seasonStartYear||2026);
+  applyEliteTransferSalary(newPlayer,p);
   newPlayer._boughtRound=G.currentRound; // sell cooldown: 3 rounds
   // FIX P3: prevent duplicate players in squad
   if(!G.players.some(gp=>gp.n===newPlayer.n)){
@@ -10339,8 +10519,14 @@ function submitOffer(idx,amount){
     if(amount>=clubAsk){
       // Re-check budget at deal confirmation time
       if(amount>G.budget){showTrMsg('❌ Недостатньо коштів');renderNegotiationModal();return;}
+      if(G.players.some(gp=>gp.n===p.n)){
+        G.transfers.lastRefresh=-1;G.transfers.marketPlayers=[];trNegotiation=null;closeTrModalDirect();renderTrContent();
+        showTrMsg(`ℹ️ ${esc(p.n)} вже є у вашому складі`);return;
+      }
+      if(elitePlayerRefusesWeakClub(p,()=>submitOffer(idx,amount))) return;
       G.budget=Math.max(0,G.budget-amount);G.transfers.spent+=amount; // BUG9 FIX
-      const newPlayer=assignDefaultContract({n:p.n,p:p.p,r:p.r,mv:p.mv,age:p.age,nat:p.nat,...(p.ballonAwards?{ballonAwards:p.ballonAwards.slice()}:{})}, G.seasonStartYear||2025);
+      const newPlayer=assignDefaultContract({n:p.n,p:p.p,r:p.r,mv:p.mv,age:p.age,nat:p.nat,...(p.ballonAwards?{ballonAwards:p.ballonAwards.slice()}:{})}, G.seasonStartYear||2026);
+      applyEliteTransferSalary(newPlayer,p);
       newPlayer._boughtRound=G.currentRound; // sell cooldown: 3 rounds
       // FIX P3: prevent duplicate players in squad (same as confirmBuy/confirmFlashBuy)
       if(!G.players.some(gp=>gp.n===newPlayer.n)){G.players.push(newPlayer);}
@@ -10488,19 +10674,19 @@ function sellPlayer(name){
     return;
   }
   const bestOffer=offers[0];
-  const offersHTML=offers.map(({clubId,clubName,clubLogo,clubBg,price,pct,label,labelColor})=>`
-    <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;
+  const offersHTML=offers.map(({clubId,clubName,clubLogo,clubBg,price,pct,label,labelColor},offerIndex)=>`
+    <div class="transfer-offer ${offerIndex===0?'best':''}" style="display:flex;align-items:center;gap:10px;padding:10px 12px;
       background:var(--surf2);border:1px solid var(--brd);border-radius:12px;margin-bottom:8px">
-      <div style="width:36px;height:36px;border-radius:10px;background:${clubBg};padding:3px;overflow:hidden;flex-shrink:0">${clubLogo}</div>
-      <div style="flex:1;min-width:0">
+      <div class="transfer-club-logo" style="width:36px;height:36px;border-radius:10px;background:${clubBg};padding:3px;overflow:hidden;flex-shrink:0">${clubLogo}</div>
+      <div class="transfer-club-copy" style="flex:1;min-width:0">
         <div style="font-size:13px;font-weight:700">${clubName}</div>
         <div style="font-size:11px;color:${labelColor};font-weight:600;margin-top:1px">${label}</div>
       </div>
-      <div style="text-align:right;flex-shrink:0;margin-right:8px">
+      <div class="transfer-price" style="text-align:right;flex-shrink:0;margin-right:8px">
         <div style="font-size:15px;font-weight:800;color:var(--grn)">${fmtPrice(price)}</div>
         <div style="font-size:10px;color:var(--mut)">${pct}%</div>
       </div>
-      <button onclick="confirmSell('${name}',${price},${clubId})"
+      <button class="transfer-action" onclick="confirmSell('${name}',${price},${clubId})"
         style="background:rgba(14,201,126,.12);border:1px solid rgba(14,201,126,.3);color:var(--grn);
         border-radius:10px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer;flex-shrink:0">
         Продати
@@ -10510,15 +10696,15 @@ function sellPlayer(name){
   openTrModal(
     `💰 Продати ${p.n}`,
     `${G.club.emoji} ${G.club.name} · ${p.p} · ${p.r}/100 · ${fmtPrice(val)} ринкова`,
-    `<div style="margin-bottom:14px">
-      <div style="font-size:10px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">
+    `<div class="transfer-offers-premium" style="margin-bottom:14px">
+      <div class="transfer-section-label" style="font-size:10px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">
         Пропозиції від клубів (${offers.length}):
       </div>
       ${offersHTML}
-      <div style="font-size:11px;color:var(--mut);text-align:center;padding:6px 0">
+      <div class="transfer-summary" style="font-size:11px;color:var(--mut);text-align:center;padding:10px 12px;margin-top:10px">
         Бюджет після найкращої угоди: <span style="color:var(--grn);font-weight:700">${fmtPrice(G.budget+bestOffer.price)}</span>
       </div>
-      <div style="margin-top:8px;padding:10px 14px;background:var(--surf2);border:1px solid var(--brd);border-radius:12px;display:flex;justify-content:space-between;align-items:center">
+      <div class="transfer-summary" style="margin-top:8px;padding:10px 14px;background:var(--surf2);border:1px solid var(--brd);border-radius:12px;display:flex;justify-content:space-between;align-items:center">
         <div style="display:flex;align-items:center;gap:6px"><span style="font-size:13px">💼</span><span style="font-size:12px;color:var(--mut)">Звільниться зарплати</span></div>
         <div style="display:flex;align-items:center;gap:10px">
           <span style="font-size:11px;color:var(--mut)">${fmtPrice(snapSalary(calcPlayerSalary(p)/4))}/кв</span>
@@ -10686,17 +10872,17 @@ function loanOutPlayer(name){
     const label=feePct>=28?'Висока':feePct>=20?'Стандартна':'Низька';
     const lColor=feePct>=28?'var(--grn)':feePct>=20?'var(--acc)':'var(--red)';
     const club={id:clubId,name:clubName,logo:clubLogo,bg:clubBg};
-    return `<div style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:14px;margin-bottom:8px">
-      <div style="width:44px;height:44px;border-radius:12px;background:${clubBg};padding:4px;overflow:hidden;flex-shrink:0">${clubLogo}</div>
-      <div style="flex:1;min-width:0">
+    return `<div class="loan-offer" style="display:flex;align-items:center;gap:12px;padding:12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:14px;margin-bottom:8px">
+      <div class="transfer-club-logo" style="width:44px;height:44px;border-radius:12px;background:${clubBg};padding:4px;overflow:hidden;flex-shrink:0">${clubLogo}</div>
+      <div class="transfer-club-copy" style="flex:1;min-width:0">
         <div style="font-size:14px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${clubName}</div>
         <div style="font-size:11px;color:${lColor};font-weight:750;margin-top:3px">${label} пропозиція</div>
       </div>
-      <div style="text-align:right;flex-shrink:0">
+      <div class="transfer-price" style="text-align:right;flex-shrink:0">
         <div style="font-size:17px;font-weight:900;color:#34d399;line-height:1">${fmtPrice(fee)}</div>
         <div style="font-size:9px;color:rgba(148,163,184,.65);margin-top:3px">${clubName} платить</div>
       </div>
-      <button onclick="confirmLoanOut('${name.replace(/'/g,"&#39;")}',${clubId},${fee},${feePct},'${window}')"
+      <button class="transfer-action" onclick="confirmLoanOut('${name.replace(/'/g,"&#39;")}',${clubId},${fee},${feePct},'${window}')"
         style="background:rgba(59,130,246,.14);border:1px solid rgba(59,130,246,.35);color:#60a5fa;border-radius:11px;padding:8px 13px;font-size:12px;font-weight:850;cursor:pointer;flex-shrink:0">
         Здати
       </button>
@@ -10704,15 +10890,15 @@ function loanOutPlayer(name){
   }).join('');
   openTrModal(`🤝 Оренда: ${p.n}`,
     `${p.p} · ${p.r}/100 · ${fmtPrice(val)} ринкова`,
-    `<div>
-      <div style="display:flex;align-items:center;gap:10px;padding:11px 12px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.18);border-radius:14px;margin-bottom:12px">
-        <div style="font-size:18px;line-height:1">${isWinter?'❄️':'☀️'}</div>
+    `<div class="loan-offers-premium">
+      <div class="loan-terms" style="display:flex;align-items:center;gap:10px;padding:11px 12px;background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.18);border-radius:14px;margin-bottom:12px">
+        <div class="loan-terms-icon" style="font-size:18px;line-height:1">${isWinter?'❄️':'☀️'}</div>
         <div style="flex:1;min-width:0">
           <div style="font-size:13px;font-weight:850;color:${isWinter?'#93c5fd':'#fbbf24'}">${returnDesc.replace(/^☀️ Повернення: |^❄️ Повернення: /,'')}</div>
           <div style="font-size:11px;color:rgba(148,163,184,.75);margin-top:2px">Плату зараз і зарплату платить клуб-орендар</div>
         </div>
       </div>
-      <div style="font-size:10px;color:rgba(148,163,184,.65);font-weight:800;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Пропозиції (${loanOffers.length})</div>
+      <div class="transfer-section-label" style="font-size:10px;color:rgba(148,163,184,.65);font-weight:800;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Пропозиції <span>${loanOffers.length}</span></div>
       ${offersHTML}
     </div>`
   );
@@ -11240,6 +11426,8 @@ function openTrModal(title,sub,body){
 }
 function closeTrModal(e){if(e.target.id==='trModal')closeTrModalDirect();}
 function closeTrModalDirect(){
+  const modalBody=document.getElementById('trModalBody');
+  if(pendingEliteTransferAction&&modalBody?.querySelector('.elite-terms-card')) pendingEliteTransferAction=null;
   document.getElementById('trModal').style.display='none';
   // Bug7 fix: reset negotiation state on the player object so it doesn't persist forever
   if(trNegotiation && trNegotiation.player){
@@ -13216,10 +13404,11 @@ function renderStaticField(){
     const ratingEl=(!p.subbed&&!isRed&&p.r)
       ?`<span style="font-size:8px;font-weight:800;color:#fff;line-height:1">${effR}</span>`:'';
     const penBadge=hasPen?`<span style="position:absolute;top:-7px;right:-7px;background:${penColor};color:#fff;font-size:7px;font-weight:900;padding:1px 3px;border-radius:4px;line-height:1.2">${pen}</span>`:'';
-    return`<div class="stf-player" style="left:${p.fx}%;top:${p.fy}%"
+    const fieldY=Math.max(13,Math.min(86,Number(p.fy)||50));
+    return`<div class="stf-player" style="left:${p.fx}%;top:${fieldY}%"
       onpointerup="onFieldPointerUp(event,${i})"
       ontouchend="onFieldTouchEnd(event,${i})">
-      <div style="position:relative;display:inline-block">
+      <div class="stf-player-core" style="position:relative;display:inline-block">
         <div class="${dotClass}" style="display:flex;align-items:center;justify-content:center;position:relative;${hasPen?`border-color:${penColor}88!important;`:''}">${ratingEl}${penBadge}</div>
         <div class="stf-player-icons">${playerIconsHTML(i)}</div>
       </div>
@@ -13277,14 +13466,12 @@ function switchLineupTab(tab){
   const mineTab=document.getElementById('ltab-mine');
   const oppTab=document.getElementById('ltab-opp');
   if(mineTab){
-    mineTab.style.background=isMine?'rgba(59,130,246,.15)':'var(--surf)';
-    mineTab.style.color=isMine?'var(--acc)':'var(--mut)';
-    mineTab.style.borderColor=isMine?'rgba(59,130,246,.4)':'var(--brd)';
+    mineTab.classList.toggle('is-active',isMine);
+    mineTab.setAttribute('aria-selected',String(isMine));
   }
   if(oppTab){
-    oppTab.style.background=!isMine?'rgba(239,68,68,.15)':'var(--surf)';
-    oppTab.style.color=!isMine?'#ef4444':'var(--mut)';
-    oppTab.style.borderColor=!isMine?'rgba(239,68,68,.4)':'var(--brd)';
+    oppTab.classList.toggle('is-active',!isMine);
+    oppTab.setAttribute('aria-selected',String(!isMine));
   }
   if(!isMine) renderOppLineup();
 }
@@ -13315,8 +13502,9 @@ function renderOppLineup(){
       :isSubbed
       ?'background:linear-gradient(135deg,#5f2020,#a33);opacity:.5;border-color:rgba(239,68,68,.2)'
       :'background:linear-gradient(135deg,#7f1d1d,#ef4444);border-color:rgba(239,68,68,.4)';
-    return`<div class="stf-player" style="left:${p.fx}%;top:${p.fy}%;pointer-events:none">
-      <div style="position:relative;display:inline-block">
+    const fieldY=Math.max(13,Math.min(86,Number(p.fy)||50));
+    return`<div class="stf-player" style="left:${p.fx}%;top:${fieldY}%;pointer-events:none">
+      <div class="stf-player-core" style="position:relative;display:inline-block">
         <div class="stf-player-dot${p.p==='ВРТ'?' gk':''}" style="${dotStyle}"></div>
         <div class="stf-player-icons">${icons}</div>
       </div>
@@ -13746,7 +13934,7 @@ function showCupWinnerCeremony(winnerId){
     <div id="confettiWrap" style="position:absolute;inset:0;pointer-events:none"></div>
 
     <div style="background:var(--surf);border:1px solid rgba(245,166,35,.4);border-radius:24px;padding:28px 20px;width:100%;max-width:360px;text-align:center;position:relative;z-index:1;animation:winnerSlide .6s cubic-bezier(.17,.67,.38,1.3)">
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px">🏆 Переможець Кубку 2025/26</div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold);margin-bottom:10px">🏆 Переможець Кубку ${G.seasonStartYear||2026}/${String((G.seasonStartYear||2026)+1).slice(-2)}</div>
 
       <!-- Trophy -->
       <div style="animation:trophyPop .7s cubic-bezier(.17,.67,.38,1.3) .2s both;display:block;margin-bottom:12px">${cupTrophyImg(G.leagueId,'100px','display:block;margin:0 auto;filter:drop-shadow(0 0 14px rgba(245,166,35,.35))')}</div>
@@ -16071,8 +16259,8 @@ function scoreText(result){
 }
 
 // v1-13: central helpers for season aging, load migrations and round transitions.
-function seasonAgeOffset(year=G.seasonStartYear||2025){
-  const y=Math.floor(Number(year)||2025);
+function seasonAgeOffset(year=G.seasonStartYear||2026){
+  const y=Math.floor(Number(year)||2026);
   return Math.max(0, y-2025);
 }
 function cleanPlayerName(name){
@@ -16117,7 +16305,7 @@ function assignDefaultContract(p, year){
   return p;
 }
 
-function cloneDefaultSquadForSeason(clubId, year=G.seasonStartYear||2025){
+function cloneDefaultSquadForSeason(clubId, year=G.seasonStartYear||2026){
   const seen=new Set();
   const offset=seasonAgeOffset(year);
   return (PLAYERS[clubId]||[])
@@ -16134,7 +16322,7 @@ function squadSaveLite(p){
   return {n:p.n,p:p.p,r:p.r,mv:p.mv,age:p.age,nat:p.nat,id:p.id||undefined,
     contractEnd:p.contractEnd||undefined, salary:p.salary||undefined};
 }
-function defaultSquadLightForSeason(clubId, year=G.seasonStartYear||2025){
+function defaultSquadLightForSeason(clubId, year=G.seasonStartYear||2026){
   const key=`${year}|${clubId}`;
   if(DEFAULT_SQUAD_LIGHT_CACHE.has(key)) return DEFAULT_SQUAD_LIGHT_CACHE.get(key);
   const light=cloneDefaultSquadForSeason(clubId, year).map(squadSaveLite);
@@ -16207,6 +16395,7 @@ function sanitizeMatchRecord(m){
   if(!m || typeof m!=='object') return null;
   const home=Number(m.home), away=Number(m.away);
   if(!Number.isFinite(home)||!Number.isFinite(away)) return null;
+  if(Array.isArray(CLUBS)&&(!CLUBS.some(c=>c.id===home)||!CLUBS.some(c=>c.id===away))) return null;
   const out={...m,home,away};
   out.result = m.result ? scoreText(m.result) : null;
   if(out.leg!=null) out.leg=Math.max(1,Math.min(2,Math.floor(Number(out.leg)||1)));
@@ -16250,7 +16439,27 @@ function sanitizeTransfers(raw){
     marketPlayers:Array.isArray(raw?.marketPlayers)?raw.marketPlayers:[],
     lastRefresh:Math.floor(Number(raw?.lastRefresh)||-1),
     flashSales:Array.isArray(raw?.flashSales)?raw.flashSales.slice(0,40):[],
-    loans:Array.isArray(raw?.loans)?raw.loans:[]
+    loans:Array.isArray(raw?.loans)?raw.loans.filter(l=>l&&typeof l==='object'&&typeof l.name==='string'&&l.playerSnapshot&&typeof l.playerSnapshot==='object').slice(-100).map(l=>({
+      ...l,
+      name:l.name.replace(/[<>]/g,'').slice(0,60),
+      pos:typeof l.pos==='string'?l.pos.slice(0,10):'',
+      fee:Math.max(0,Number(l.fee)||0),
+      feePct:Math.max(0,Math.min(100,Number(l.feePct)||0)),
+      toClubId:Number(l.toClubId)||0,
+      toClubName:typeof l.toClubName==='string'?l.toClubName.replace(/[<>]/g,'').slice(0,80):'',
+      season:Math.max(2025,Math.min(2100,Math.floor(Number(l.season)||2026))),
+      returnPhase:l.returnPhase==='winter'?'winter':'summer',
+      returnSeason:Math.max(2025,Math.min(2101,Math.floor(Number(l.returnSeason)||2027))),
+      durationRatio:Math.max(0,Math.min(1,Number(l.durationRatio)||1)),
+      playerSnapshot:{
+        ...l.playerSnapshot,
+        n:String(l.playerSnapshot.n||l.name).replace(/[<>]/g,'').slice(0,60),
+        p:String(l.playerSnapshot.p||l.pos||'').slice(0,10),
+        r:Math.max(1,Math.min(99,Math.floor(Number(l.playerSnapshot.r)||50))),
+        mv:Math.max(0,Math.min(500,Number(l.playerSnapshot.mv)||0)),
+        age:Math.max(14,Math.min(45,Math.floor(Number(l.playerSnapshot.age)||25)))
+      }
+    })):[]
   };
 }
 function advanceRound(reason='manual', opts={}){
@@ -18116,7 +18325,7 @@ function startNewGameFromSlot(n){
   if(G.club) flushSaveGame();
   switchSlot(n);
   // Скинути G
-  G = {club:null,players:[],budget:100000000,tactic:'balanced',schedule:[],currentRound:0,tableStats:{},suspended:[],formation:'4-3-3',transfers:{spent:0,history:[],marketPlayers:[],lastRefresh:-1},scorers:{},salary:{salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0},sponsor:{active:null,signPaid:false,winterPaid:false,endPaid:false,history:[]},seasonStartYear:2025,journal:[]};
+  G = {club:null,players:[],budget:100000000,tactic:'balanced',schedule:[],currentRound:0,tableStats:{},suspended:[],formation:'4-3-3',transfers:{spent:0,history:[],marketPlayers:[],lastRefresh:-1},scorers:{},salary:{salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0},sponsor:{active:null,signPaid:false,winterPaid:false,endPaid:false,history:[]},seasonStartYear:2026,journal:[]};
   closeSlotPicker();
   document.getElementById('mainNav').style.display = 'none';
   go('onboard');
@@ -18137,7 +18346,7 @@ function confirmDeleteSlot(n){
           selectSlot(next);
         } else {
           switchSlot(1);
-          G = {club:null,players:[],budget:100000000,tactic:'balanced',schedule:[],currentRound:0,tableStats:{},suspended:[],formation:'4-3-3',transfers:{spent:0,history:[],marketPlayers:[],lastRefresh:-1},scorers:{},salary:{salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0},sponsor:{active:null,signPaid:false,winterPaid:false,endPaid:false,history:[]},seasonStartYear:2025,journal:[]};
+          G = {club:null,players:[],budget:100000000,tactic:'balanced',schedule:[],currentRound:0,tableStats:{},suspended:[],formation:'4-3-3',transfers:{spent:0,history:[],marketPlayers:[],lastRefresh:-1},scorers:{},salary:{salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0},sponsor:{active:null,signPaid:false,winterPaid:false,endPaid:false,history:[]},seasonStartYear:2026,journal:[]};
           document.getElementById('mainNav').style.display='none';
           closeSlotPicker();
           go('onboard');
@@ -18522,7 +18731,16 @@ function _pushSaveToServer(slot, json){
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify({user_id:_tgUserId, slot, data:json}),
+    keepalive:typeof json==='string'&&json.length<50000,
   }).catch(()=>{});
+}
+
+function _saveTimestamp(raw){
+  if(!raw) return 0;
+  try{
+    const parsed=typeof raw==='string'?JSON.parse(raw):raw;
+    return Math.max(0,Number(parsed?.savedAt)||0);
+  }catch(e){return 0;}
 }
 
 async function _pullSavesFromServer(){
@@ -18549,8 +18767,22 @@ async function _syncActiveSlotFromServer(){
     if(!serverSlot || ![1,2,3].includes(serverSlot)) return;
     const res2 = await fetch(`/api/load-game?user_id=${_tgUserId}&slot=${serverSlot}`);
     const j2 = await res2.json();
-    if(j2?.ok && j2.data) localStorage.setItem(getSlotKey(serverSlot), j2.data);
-    if(ACTIVE_SLOT !== serverSlot){
+    if(!j2?.ok || !j2.data) return;
+    const currentRaw=localStorage.getItem(getSlotKey(ACTIVE_SLOT));
+    const serverRaw=j2.data;
+    const currentTs=_saveTimestamp(currentRaw);
+    const serverTs=_saveTimestamp(serverRaw);
+    // Never replace a newer local career with an older/legacy server snapshot.
+    if(currentRaw && (currentTs===0 || serverTs===0 || currentTs>serverTs)){
+      _pushSaveToServer(ACTIVE_SLOT,currentRaw);
+      return;
+    }
+    const serverSlotRaw=localStorage.getItem(getSlotKey(serverSlot));
+    const serverSlotLocalTs=_saveTimestamp(serverSlotRaw);
+    if(!serverSlotRaw || (serverTs>0 && serverTs>=serverSlotLocalTs)){
+      localStorage.setItem(getSlotKey(serverSlot),serverRaw);
+    }
+    if(ACTIVE_SLOT !== serverSlot && (!serverSlotRaw || serverTs>=serverSlotLocalTs)){
       ACTIVE_SLOT = serverSlot;
       localStorage.setItem(_slotPrefix + '_activeSlot', String(serverSlot));
     }
@@ -18580,18 +18812,36 @@ function writeSaveGame(){
       });
     }
     const data={
-      saveVersion:13,
+      saveVersion:14,
+      savedAt:Date.now(),
       playerDatabaseVersion:PLAYER_DATABASE_VERSION,
       clubId:G.club.id,
-      players:G.players.map(p=>({n:p.n,p:p.p,r:p.r,mv:p.mv,age:p.age,nat:p.nat,yellowCards:p.yellowCards||0,_recovering:p._recovering||0,contractEnd:p.contractEnd||null,salary:p.salary||null,fatigue:p.fatigue||0,energy:Number.isFinite(p.energy)?Math.max(0,Math.min(100,p.energy)):null,_energyModel:p._energyModel||0,_stamina:p._stamina||null,_startStreak:p._startStreak||0,_recentMinutes:Array.isArray(p._recentMinutes)?p._recentMinutes.slice(-5):[]})),
+      players:G.players.map(p=>({
+        n:p.n,p:p.p,r:p.r,mv:p.mv,age:p.age,nat:p.nat,
+        id:typeof p.id==='string'?p.id:null,
+        yellowCards:p.yellowCards||0,_recovering:p._recovering||0,
+        contractEnd:p.contractEnd||null,salary:p.salary||null,
+        fatigue:p.fatigue||0,energy:Number.isFinite(p.energy)?Math.max(0,Math.min(100,p.energy)):null,
+        _energyModel:p._energyModel||0,_stamina:p._stamina||null,
+        _startStreak:p._startStreak||0,_recentMinutes:Array.isArray(p._recentMinutes)?p._recentMinutes.slice(-5):[],
+        _boughtRound:p._boughtRound!=null&&Number.isFinite(Number(p._boughtRound))?Number(p._boughtRound):null,
+        ballonAwards:Array.isArray(p.ballonAwards)?p.ballonAwards.slice(-30):[],
+        _fromAcademy:!!p._fromAcademy,_isStar:!!p._isStar,
+        _potentialCap:p._potentialCap!=null&&Number.isFinite(Number(p._potentialCap))?Number(p._potentialCap):null,
+        _academyContract:!!p._academyContract,
+        _rentedIn:p._rentedIn&&typeof p._rentedIn==='object'?p._rentedIn:null,
+        _rentedInSalary:p._rentedInSalary!=null&&Number.isFinite(Number(p._rentedInSalary))?Number(p._rentedInSalary):null
+      })),
       budget:G.budget,_channelBonusClaimed:G._channelBonusClaimed||false,_channelBonusWarned:G._channelBonusWarned||false,tactic:G.tactic,formation:G.formation,
       currentRound:G.currentRound,tableStats:G.tableStats,
       suspended:G.suspended,suspensionBans:G.suspensionBans||{},injuredPlayers:G.injuredPlayers||{},
       schedule:G.schedule,scorers:G.scorers,
       salary:G.salary,sponsor:G.sponsor,
-      transfers:{spent:G.transfers.spent,history:G.transfers.history,lastRefresh:-1,marketPlayers:[],flashSales:G.transfers.flashSales||[]},
+      transfers:{spent:G.transfers.spent,history:G.transfers.history,lastRefresh:-1,marketPlayers:[],flashSales:G.transfers.flashSales||[],loans:Array.isArray(G.transfers.loans)?G.transfers.loans.slice(-100):[]},
       seasonStartYear:G.seasonStartYear||2025,
       cup:G.cup,uefaSuperCup:G.uefaSuperCup||null,_seasonPrizeGiven:G._seasonPrizeGiven||false,academy:G.academy||{level:1,totalInvested:0},
+      _academyRound:G._academyRound!=null&&Number.isFinite(Number(G._academyRound))?Number(G._academyRound):null,
+      _academyWavesThisSeason:Math.max(0,Math.min(3,Math.floor(Number(G._academyWavesThisSeason)||0))),
       _tvPayments:G._tvPayments||[],
       clubSquads:clubSquadsLight,
       leagueId:G.leagueId||'other',leagueName:G.leagueName||'Інші',
@@ -18611,7 +18861,10 @@ function writeSaveGame(){
       managerRep:G.managerRep||10,
       captainName:G.captainName||null,
       achievements:G.achievements||{},
-      aiAcademyDrift:G.aiAcademyDrift||{}
+      aiAcademyDrift:G.aiAcademyDrift||{},
+      aiSuspended:G.aiSuspended||{},
+      aiEnergy:G.aiEnergy||{},
+      coaches:G.coaches||null
     };
     const _json = JSON.stringify(data);
     localStorage.setItem(getSlotKey(ACTIVE_SLOT), _json);
@@ -18679,6 +18932,25 @@ function loadGame(rawData){
         mv:  Math.max(0, Math.min(500, Number(p.mv)||0)),
         age: Math.max(14, Math.min(45, Math.floor(Number(p.age)||25))),
         nat: typeof p.nat === 'string' ? p.nat.slice(0,8) : '',
+        id:  typeof p.id === 'string' ? p.id.slice(0,120) : null,
+        _boughtRound:p._boughtRound!=null&&Number.isFinite(Number(p._boughtRound))?Math.max(0,Math.min(MAX_ROUND,Math.floor(Number(p._boughtRound)))):null,
+        ballonAwards:Array.isArray(p.ballonAwards)?p.ballonAwards.filter(x=>typeof x==='string'&&/^\d{4}\/\d{2}$/.test(x)).slice(-30):[],
+        _fromAcademy:!!p._fromAcademy,
+        _isStar:!!p._isStar,
+        _potentialCap:p._potentialCap!=null&&Number.isFinite(Number(p._potentialCap))?Math.max(50,Math.min(99,Math.floor(Number(p._potentialCap)))):null,
+        _academyContract:!!p._academyContract,
+        _rentedIn:p._rentedIn&&typeof p._rentedIn==='object'?{
+          fromClubId:Number(p._rentedIn.fromClubId)||0,
+          fromClubName:typeof p._rentedIn.fromClubName==='string'?p._rentedIn.fromClubName.replace(/[<>]/g,'').slice(0,80):'',
+          loanFee:Math.max(0,Number(p._rentedIn.loanFee)||0),
+          loanWindow:p._rentedIn.loanWindow==='winter'?'winter':'summer',
+          season:Math.max(2025,Math.min(2100,Math.floor(Number(p._rentedIn.season)||2026))),
+          returnPhase:p._rentedIn.returnPhase==='winter'?'winter':'summer',
+          returnSeason:Math.max(2025,Math.min(2101,Math.floor(Number(p._rentedIn.returnSeason)||2027))),
+          durationRatio:Math.max(0,Math.min(1,Number(p._rentedIn.durationRatio)||1)),
+          returnDesc:typeof p._rentedIn.returnDesc==='string'?p._rentedIn.returnDesc.replace(/[<>]/g,'').slice(0,100):''
+        }:null,
+        _rentedInSalary:p._rentedInSalary!=null&&Number.isFinite(Number(p._rentedInSalary))?Math.max(0,Number(p._rentedInSalary)):null,
         // preserve ephemeral fields if present
         ...(p.injured !== undefined ? {injured: !!p.injured} : {}),
         ...(p._sellOffers !== undefined ? {_sellOffers: p._sellOffers, _sellOffersRound: p._sellOffersRound} : {}),
@@ -18713,12 +18985,12 @@ function loadGame(rawData){
       });
     }
     // Migration: assign contracts to players who don't have one yet (old saves)
-    const _migYear = Math.max(2025, Math.min(2100, Math.floor(Number(d.seasonStartYear)||2025)));
+    const _migYear = Math.max(2025, Math.min(2100, Math.floor(Number(d.seasonStartYear)||2026)));
     G.players.forEach(p=>{ if(!p.contractEnd) assignDefaultContract(p, _migYear); });
     G.schedule=sanitizeSchedule(d.schedule);G.scorers=sanitizeScorers(d.scorers);
     G.salary=sanitizeSalary(d.salary);G.sponsor=sanitizeSponsor(d.sponsor);
     G.transfers=sanitizeTransfers(d.transfers);
-    G.seasonStartYear=Math.max(2025,Math.min(2100,Math.floor(Number(d.seasonStartYear)||2025)));
+    G.seasonStartYear=Math.max(2025,Math.min(2100,Math.floor(Number(d.seasonStartYear)||2026)));
     G.cup=(d.cup&&typeof d.cup==='object')?d.cup:null;
     G.uefaSuperCup=(d.uefaSuperCup&&typeof d.uefaSuperCup==='object')?d.uefaSuperCup:null;
   // FIX: infer cup.stage if missing (old saves compatibility)
@@ -18732,7 +19004,13 @@ function loadGame(rawData){
     G._channelBonusClaimed=!!d._channelBonusClaimed;
     G._channelBonusWarned=!!d._channelBonusWarned;
     G.academy=(d.academy&&typeof d.academy==='object')?{level:Math.max(1,Math.min(7,d.academy.level||1)),totalInvested:d.academy.totalInvested||0}:{level:1,totalInvested:0};
+    const _hasSavedAcademySchedule=Object.prototype.hasOwnProperty.call(d,'_academyRound');
+    G._academyRound=d._academyRound!=null&&Number.isFinite(Number(d._academyRound))?Math.max(0,Math.min((G.schedule?.length||600)-1,Math.floor(Number(d._academyRound)))):null;
+    G._academyWavesThisSeason=Math.max(0,Math.min(3,Math.floor(Number(d._academyWavesThisSeason)||0)));
     G.aiAcademyDrift=(d.aiAcademyDrift&&typeof d.aiAcademyDrift==='object')?d.aiAcademyDrift:{};
+    G.aiSuspended=(d.aiSuspended&&typeof d.aiSuspended==='object')?d.aiSuspended:{};
+    G.aiEnergy=(d.aiEnergy&&typeof d.aiEnergy==='object')?d.aiEnergy:{};
+    G.coaches=(d.coaches&&typeof d.coaches==='object')?d.coaches:null;
     G._tvPayments=Array.isArray(d._tvPayments)?d._tvPayments.slice(-80):[];
     // FIX: Restore clubs not in saved delta from default PLAYERS data
     const savedSquads = d.clubSquads||{};
@@ -18796,8 +19074,7 @@ function loadGame(rawData){
     }
     G.players.forEach(p=>{ if(!p.id) p.id=makePlayerId(G.club.id,p.n,p.p); });
     // FIX: migrate old saves where _academyRound was never set
-    if(G._academyRound == null && G.currentRound >= 0 && G.club) scheduleAcademyRound();
-    if(G._academyWavesThisSeason == null) G._academyWavesThisSeason = 0;
+    if(!_hasSavedAcademySchedule && G.currentRound >= 0 && G.club) scheduleAcademyRound();
     // FIX: migrate old saves where QF/SF/Final slots were not inserted in schedule.
     // If cup has qf/sf/final matches but schedule has no round for them, inject a placeholder.
     if(G.cup && Array.isArray(G.schedule)){
@@ -18821,8 +19098,8 @@ function loadGame(rawData){
 function resetAll(){
   showConfirm('⚠️ Почати все заново?<br><span style="font-size:12px;color:#64748b;font-weight:400">Весь прогрес буде втрачено</span>', ()=>{
     deleteSlot(ACTIVE_SLOT);
-    G={club:null,players:[],budget:100000000,tactic:"balanced",schedule:[],currentRound:0,tableStats:{},suspended:[],formation:'4-3-3',transfers:{spent:0,history:[],marketPlayers:[],lastRefresh:-1},scorers:{},salary:{salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0},sponsor:{active:null,signPaid:false,winterPaid:false,endPaid:false,history:[]},seasonStartYear:2025,journal:[]};
-    document.getElementById('hSub').textContent='Сезон 2025/26';
+    G={club:null,players:[],budget:100000000,tactic:"balanced",schedule:[],currentRound:0,tableStats:{},suspended:[],formation:'4-3-3',transfers:{spent:0,history:[],marketPlayers:[],lastRefresh:-1},scorers:{},salary:{salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0},sponsor:{active:null,signPaid:false,winterPaid:false,endPaid:false,history:[]},seasonStartYear:2026,journal:[]};
+    document.getElementById('hSub').textContent='Сезон 2026/27';
     document.getElementById('hTitle').textContent='Футбольний тренер';
     document.getElementById('bchip').style.display='none';
     document.getElementById('bchip').textContent='';
@@ -19142,12 +19419,9 @@ function generateAcademyPlayer(clubId) {
 // Визначає чи цей тур є «академічним»
 function scheduleAcademyRound() {
   const base = G.currentRound || 0;
-  const totalLeagueRounds = (G.schedule||[]).filter(r=>!isWinterBreak(r)&&!isCupRound(r)&&!r.ucl&&!r.uel).length;
-  const maxRound = totalLeagueRounds > 0 ? totalLeagueRounds - 2 : 28;
-  // FIX: reset wave counter for new season
-  G._academyWavesThisSeason = 0;
+  const maxRound = Math.max(0,(G.schedule||[]).length-3);
   const target = base + 5 + Math.floor(Math.random() * 8);
-  G._academyRound = Math.min(target, maxRound);
+  G._academyRound = target<=maxRound ? target : null;
 }
 
 // Головна функція — перевіряємо чи треба показати академію цього туру
@@ -19186,10 +19460,10 @@ function checkAcademyPromotion() {
   // Track how many waves happened this season
   if(!G._academyWavesThisSeason) G._academyWavesThisSeason = 0;
   G._academyWavesThisSeason++;
-  const totalLeagueRounds = (G.schedule||[]).filter(r=>!isWinterBreak(r)&&!isCupRound(r)&&!r.ucl&&!r.uel).length;
+  const maxScheduleRound = Math.max(0,(G.schedule||[]).length-3);
   if(G._academyWavesThisSeason < 3){
     const nextBase = G.currentRound + 8 + Math.floor(Math.random() * 8);
-    if(nextBase < totalLeagueRounds - 2){
+    if(nextBase <= maxScheduleRound){
       G._academyRound = nextBase;
     }
   }
@@ -20125,15 +20399,15 @@ function openPlayerSheet(name){
   const coolLeft = Math.max(0, 3 - roundsHeld);
 
   sh.innerHTML=`
-    <div onclick="document.getElementById('playerSheet').remove()"
+    <div class="ps-overlay" onclick="document.getElementById('playerSheet').remove()"
       style="position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;backdrop-filter:blur(3px);animation:overlayIn .2s ease"></div>
-    <div style="position:fixed;bottom:0;left:0;right:0;z-index:601;
+    <div class="ps-panel" style="position:fixed;bottom:0;left:0;right:0;z-index:601;
       background:#0a1120;border-radius:24px 24px 0 0;
       border-top:1px solid rgba(255,255,255,.07);padding-bottom:env(safe-area-inset-bottom,24px);
       animation:sheetUp .28s cubic-bezier(.22,.68,0,1.15);max-height:92vh;overflow-y:auto">
 
       <!-- Handle + close -->
-      <div style="display:flex;align-items:center;justify-content:center;padding:10px 0 4px;position:sticky;top:0;background:#0a1120;z-index:1;border-bottom:1px solid rgba(255,255,255,.04)">
+      <div class="ps-handlebar" style="display:flex;align-items:center;justify-content:center;padding:10px 0 4px;position:sticky;top:0;background:#0a1120;z-index:1;border-bottom:1px solid rgba(255,255,255,.04)">
         <div style="width:32px;height:4px;border-radius:2px;background:rgba(255,255,255,.1)"></div>
         <button onclick="document.getElementById('playerSheet').remove()"
           style="position:absolute;right:14px;width:28px;height:28px;border-radius:50%;
@@ -20142,7 +20416,7 @@ function openPlayerSheet(name){
       </div>
 
       <!-- Hero section -->
-      <div style="padding:16px 16px 12px;display:flex;align-items:center;gap:14px">
+      <div class="ps-hero" style="padding:16px 16px 12px;display:flex;align-items:center;gap:14px">
         <!-- Avatar -->
         <div style="position:relative;flex-shrink:0">
           <div style="width:68px;height:68px;border-radius:18px;background:linear-gradient(${avatarGrad});
@@ -20196,7 +20470,7 @@ function openPlayerSheet(name){
       </div>`:''}
 
       <!-- Value + Salary -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0 14px 6px">
+      <div class="ps-finance" style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0 14px 6px">
         <div style="background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.14);border-radius:10px;padding:11px 12px">
           <div style="font-size:8px;color:rgba(245,166,35,.45);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Вартість</div>
           <div style="font-size:17px;font-weight:900;color:#f5a623">${fmtPrice(val)}</div>
@@ -20217,7 +20491,7 @@ function openPlayerSheet(name){
             </div>
             <span style="font-size:22px">🤝</span>
           </div>`
-        : p.contractEnd?`<div style="margin:0 14px 10px;background:rgba(255,255,255,.03);border:1px solid ${p.contractEnd<=(G.seasonStartYear||2025)?'rgba(239,68,68,.2)':p.contractEnd===(G.seasonStartYear||2025)+1?'rgba(251,146,60,.2)':p.contractEnd===(G.seasonStartYear||2025)+2?'rgba(217,119,6,.15)':'rgba(255,255,255,.07)'};border-radius:10px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between">
+        : p.contractEnd?`<div class="ps-contract" style="margin:0 14px 10px;background:rgba(255,255,255,.03);border:1px solid ${p.contractEnd<=(G.seasonStartYear||2025)?'rgba(239,68,68,.2)':p.contractEnd===(G.seasonStartYear||2025)+1?'rgba(251,146,60,.2)':p.contractEnd===(G.seasonStartYear||2025)+2?'rgba(217,119,6,.15)':'rgba(255,255,255,.07)'};border-radius:10px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between">
           <div>
             <div style="font-size:8px;color:rgba(148,163,184,.35);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px">Контракт до</div>
             <div style="font-size:16px;font-weight:900;color:${p.contractEnd<=(G.seasonStartYear||2025)?'#f87171':p.contractEnd===(G.seasonStartYear||2025)+1?'#fb923c':p.contractEnd===(G.seasonStartYear||2025)+2?'#fbbf24':'rgba(148,163,184,.6)'}">${p.contractEnd}/${(p.contractEnd+1).toString().slice(2)}</div>
@@ -20229,7 +20503,7 @@ function openPlayerSheet(name){
         </div>`:''}
 
       <!-- Captain + sell/loan -->
-      <div style="padding:0 14px 4px;display:flex;flex-direction:column;gap:7px">
+      <div class="ps-actions" style="padding:0 14px 4px;display:flex;flex-direction:column;gap:7px">
         ${!isCaptainSheet&&(p.age||25)>=22&&!p._rentedIn
           ?`<button onclick="document.getElementById('playerSheet').remove();setCaptain('${name.replace(/'/g,"&#39;")}')\"
               style="align-self:flex-start;background:transparent;border:1px solid rgba(245,166,35,.18);
@@ -24552,6 +24826,29 @@ function renderClubDashboard(d){
     .club-manage-reset:active{transform:scale(.96)}
     .theme-light .club-manage-reset{background:linear-gradient(150deg,rgba(225,29,72,.1),rgba(225,29,72,.04));border-color:rgba(225,29,72,.28);color:#be123c}
 
+    /* v5.60 — premium club command center */
+    .club-dash{isolation:isolate;padding:8px 10px 104px;background:
+      radial-gradient(circle at 92% 12%,color-mix(in srgb,var(--club) 13%,transparent),transparent 27%),
+      radial-gradient(circle at 6% 48%,rgba(37,99,235,.07),transparent 25%),
+      linear-gradient(180deg,#070c13,#08101a 52%,#070c13)}
+    .club-dash:before{content:'';position:absolute;z-index:-1;inset:0;opacity:.18;pointer-events:none;background-image:linear-gradient(rgba(148,163,184,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.025) 1px,transparent 1px);background-size:26px 26px;mask-image:linear-gradient(to bottom,#000,transparent 72%)}
+    .club-section{margin-top:22px}.club-section-title{margin:0 4px 11px;padding:0 0 0 13px;min-height:18px}.club-section-title:before{display:block!important;top:1px;bottom:1px;width:3px;border-radius:3px;background:linear-gradient(180deg,var(--club),#60a5fa);box-shadow:0 0 12px color-mix(in srgb,var(--club) 45%,transparent)}.club-section-title strong{font-size:9px;font-weight:950;letter-spacing:2px;color:#91a0b5}.club-section-title span{padding:3px 7px;border-radius:99px;background:rgba(148,163,184,.055);border:1px solid rgba(148,163,184,.07);font-size:7px;font-weight:750;color:#65748a}
+
+    .club-competition-list,.club-actions{gap:9px}.club-competition,.club-action{position:relative;overflow:hidden;border:1px solid rgba(71,91,124,.4);background:radial-gradient(circle at 92% 0%,rgba(59,130,246,.09),transparent 29%),linear-gradient(145deg,rgba(17,31,52,.96),rgba(9,20,35,.98));box-shadow:0 12px 28px rgba(0,0,0,.21),inset 0 1px rgba(255,255,255,.035)}
+    .club-competition:after,.club-action:after{content:'';position:absolute;right:-34px;bottom:-55px;width:118px;height:118px;border:1px solid rgba(148,163,184,.055);border-radius:50%;box-shadow:0 0 0 18px rgba(148,163,184,.016);pointer-events:none}.club-competition{min-height:73px;padding:11px 14px;border-radius:18px}.club-competition-icon{width:45px;height:45px;border-radius:14px!important}.club-competition-copy strong{font-size:13px;font-weight:900;letter-spacing:-.1px}.club-competition-copy span{margin-top:5px;color:#748399}.club-status{position:relative;z-index:1;padding:5px 8px;border-radius:99px;font-size:7px;font-weight:950;letter-spacing:.45px}
+
+    .club-action{min-height:78px;padding:11px 14px;grid-template-columns:47px minmax(0,1fr) auto;gap:13px;border-radius:18px;transition:transform .16s,border-color .16s,filter .16s}.club-action:hover{transform:translateY(-1px);filter:brightness(1.055);border-color:color-mix(in srgb,var(--action) 35%,#334155)}.club-action:active{transform:translateY(1px) scale(.991)}.club-action.ach{background:radial-gradient(circle at 90% 0%,rgba(139,92,246,.15),transparent 31%),linear-gradient(145deg,#131c32,#0a1424)}.club-action.career{background:radial-gradient(circle at 90% 0%,rgba(245,158,11,.14),transparent 31%),linear-gradient(145deg,#171d2b,#0a1424)}.club-action.coaches{background:radial-gradient(circle at 90% 0%,rgba(59,130,246,.16),transparent 31%),linear-gradient(145deg,#111d35,#0a1424)}
+    .club-action-icon{width:45px;height:45px;border-radius:14px!important;box-shadow:inset 0 1px rgba(255,255,255,.12),0 8px 18px rgba(0,0,0,.25)!important}.club-action strong{font-size:13px;font-weight:900;letter-spacing:-.1px}.club-action small{font-size:8px;color:#748399}.club-action-side{position:relative;z-index:1}.club-action-badge{padding:5px 8px;border-radius:99px;border:1px solid color-mix(in srgb,var(--action) 24%,transparent);font-size:6.5px;letter-spacing:.6px}.club-action-arrow{width:29px;height:29px;border-radius:10px;background:rgba(148,163,184,.07);border:1px solid rgba(148,163,184,.06);color:#718096;font-size:19px;transition:background .16s,color .16s}.club-action:hover .club-action-arrow{background:color-mix(in srgb,var(--action) 14%,transparent);color:color-mix(in srgb,var(--action) 75%,white)}
+
+    .club-insight{position:relative;border:1px solid rgba(71,91,124,.42);border-radius:18px;background:linear-gradient(145deg,rgba(16,29,49,.96),rgba(9,19,33,.98));box-shadow:0 12px 28px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.035)}.club-insight-card{min-height:90px;padding:15px 12px 12px}.club-insight-card:before{display:block!important;content:'';position:absolute;left:12px;right:12px;top:0;height:2px;border-radius:0 0 3px 3px;background:#3b82f6;box-shadow:0 0 10px rgba(59,130,246,.45)}.club-insight-card:nth-child(1):before{background:#f43f5e;box-shadow:0 0 10px rgba(244,63,94,.4)}.club-insight-card:nth-child(2):before{background:#60a5fa}.club-insight-card:nth-child(3):before{background:#a78bfa;box-shadow:0 0 10px rgba(167,139,250,.4)}.club-insight-card span{font-size:7px;font-weight:900;letter-spacing:1px}.club-insight-card b{margin-top:10px;font-size:14px;font-weight:950}.club-insight-card small{margin-top:6px;color:#5f6f85}.club-insight-card+.club-insight-card{border-color:rgba(71,91,124,.38)}
+
+    .club-settings{gap:10px}.club-setting{min-height:84px;padding:12px 14px;grid-template-columns:50px minmax(0,1fr) auto;gap:13px;border:1px solid rgba(71,91,124,.42)!important;border-radius:18px;background:radial-gradient(circle at 90% 0%,color-mix(in srgb,var(--setting) 12%,transparent),transparent 30%),linear-gradient(145deg,rgba(16,29,49,.98),rgba(9,19,33,.98));box-shadow:0 12px 27px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.035);transition:transform .16s,border-color .16s,filter .16s}.club-setting:hover{filter:brightness(1.055);border-color:color-mix(in srgb,var(--setting) 35%,#334155)!important;transform:translateY(-1px)}.club-setting:active{transform:translateY(1px) scale(.992)}.club-setting:after{width:125px;height:125px;right:-58px;top:-65px;opacity:.85}.club-setting-icon.club-setting-emoji{width:47px;height:47px;border-radius:15px!important}.club-setting b{font-size:12.5px;font-weight:900;letter-spacing:-.1px}.club-setting small{margin-top:5px;font-size:8px;color:#75849a}.club-setting-controls{flex-direction:row-reverse;align-items:center;gap:7px}.club-setting-state{padding:4px 7px;border-radius:99px;font-size:6px;letter-spacing:.65px;border:1px solid color-mix(in srgb,var(--setting) 18%,transparent)}.club-setting .club-switch{width:38px;height:21px;box-shadow:inset 0 2px 5px rgba(0,0,0,.28)}.club-setting .club-switch:after{width:13px;height:13px}.club-setting.on .club-switch:after{left:20px}
+
+    .club-manage-row{gap:9px}.club-manage button{min-height:82px;padding:12px 14px;grid-template-columns:49px minmax(0,1fr) 33px;border:1px solid rgba(71,91,124,.42);border-radius:18px;background:radial-gradient(circle at 90% 0%,rgba(59,130,246,.13),transparent 31%),linear-gradient(145deg,rgba(16,29,49,.98),rgba(9,19,33,.98));box-shadow:0 12px 27px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.035);transition:transform .16s,border-color .16s}.club-manage button:hover{transform:translateY(-1px);border-color:rgba(96,165,250,.34)}.club-manage button:active{transform:translateY(1px) scale(.992)}.club-manage-icon.club-manage-emoji{width:47px;height:47px;border-radius:15px!important}.club-manage b{font-size:12.5px;font-weight:900}.club-manage small{color:#75849a}.club-slot-dots i{height:4px;width:19px;background:#223149}.club-slot-dots i.filled{background:linear-gradient(90deg,#22c55e,#34d399);box-shadow:0 0 9px rgba(52,211,153,.4)}.club-manage-arrow{border:1px solid rgba(148,163,184,.06)}.club-manage-reset{flex-basis:60px;border-radius:18px;background:radial-gradient(circle at 50% 0%,rgba(244,63,94,.18),transparent 45%),linear-gradient(155deg,rgba(65,18,35,.62),rgba(25,12,23,.92));box-shadow:0 12px 26px rgba(0,0,0,.19),inset 0 1px rgba(255,255,255,.035);transition:transform .16s,filter .16s}.club-manage-reset:hover{filter:brightness(1.12);transform:translateY(-1px)}
+
+    .theme-light .club-dash{background:radial-gradient(circle at 92% 10%,rgba(124,58,237,.08),transparent 28%),linear-gradient(180deg,#f8f7fb,#f3f5f9)}.theme-light .club-dash:before{opacity:.24}.theme-light .club-section-title span{background:rgba(109,77,167,.06);border-color:rgba(109,77,167,.08)}.theme-light .club-competition,.theme-light .club-action,.theme-light .club-insight,.theme-light .club-setting,.theme-light .club-manage button{background:radial-gradient(circle at 92% 0%,rgba(124,58,237,.055),transparent 30%),linear-gradient(145deg,#fff,#f7f5fc)!important;border-color:rgba(76,48,128,.13)!important;box-shadow:0 11px 26px rgba(65,45,100,.075),inset 0 1px #fff}.theme-light .club-action.ach,.theme-light .club-action.career,.theme-light .club-action.coaches{background:radial-gradient(circle at 92% 0%,color-mix(in srgb,var(--action) 9%,transparent),transparent 31%),linear-gradient(145deg,#fff,#f7f5fc)!important}.theme-light .club-insight-card+.club-insight-card{border-color:rgba(76,48,128,.1)}.theme-light .club-manage-reset{background:linear-gradient(155deg,#fff1f3,#fff7f8);box-shadow:0 10px 23px rgba(159,18,57,.07)}
+    @media(max-width:430px){.club-dash{padding-left:7px;padding-right:7px}.club-setting{grid-template-columns:46px minmax(0,1fr) auto;padding-left:11px;padding-right:11px}.club-setting-icon.club-setting-emoji{width:43px;height:43px}.club-setting-controls{flex-direction:column;gap:6px}.club-setting-state{font-size:5.5px}.club-action{grid-template-columns:44px minmax(0,1fr) auto;padding-left:11px;padding-right:11px}.club-action-side{gap:4px}.club-action-badge{display:none}.club-insight-card{padding-left:9px;padding-right:9px}.club-insight-card b{font-size:12px}.club-insight-card small{font-size:7px}.club-manage-reset{flex-basis:55px}}
+
   </style>
 
 
@@ -28796,6 +29093,11 @@ body.theme-light .coach-name{color:#20133d}body.theme-light .coach-meta,body.the
 @media(max-width:390px){#liveOverlay .live-score{font-size:54px!important}#liveOverlay .live-team-logo{width:55px!important;height:55px!important}#liveOverlay .live-score-block{flex-basis:116px!important}}
 .match-console{margin:9px 10px 12px;border:1px solid rgba(148,163,184,.11);border-radius:16px;background:linear-gradient(180deg,#0a101b,#070c15);overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.28)}.match-console-head{display:flex;align-items:center;justify-content:space-between;padding:10px 11px 8px}.match-console-head strong{font-size:10px;color:#d8dee9;letter-spacing:.8px;text-transform:uppercase}.match-console-head span{font-size:8px;color:#566276}.mc-opp-coach{display:none;align-items:center;gap:5px;margin:0 11px 8px;padding:6px 9px;border-radius:9px;background:rgba(124,58,237,.08);border:1px solid rgba(124,58,237,.16);font-size:9px;color:#9ca8bd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mc-opp-coach.show{display:flex}.mc-opp-coach b{color:#c4b5fd;font-weight:800}.mc-opp-coach .mcc-flag{font-size:11px;flex:0 0 auto}
 .match-console-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;padding:0 8px 8px}.match-console-tab{height:34px;border:1px solid transparent;border-radius:10px;background:rgba(148,163,184,.055);color:#758196;font-size:9px;font-weight:900;letter-spacing:.25px}.match-console-tab.active{border-color:rgba(96,165,250,.34);background:linear-gradient(135deg,rgba(37,99,235,.24),rgba(59,130,246,.10));color:#93c5fd;box-shadow:inset 0 1px rgba(255,255,255,.04)}.match-console-tab .console-count{display:inline-grid;place-items:center;min-width:15px;height:15px;margin-left:3px;padding:0 4px;border-radius:7px;background:rgba(148,163,184,.12);font-size:7px}.match-console-panel{display:none;border-top:1px solid rgba(148,163,184,.08);min-height:88px}.match-console-panel.active{display:block}.match-console-panel.events-panel{padding:5px 2px 3px}.match-console-panel.tactics-panel{padding:0}.match-console-panel.squad-panel{padding:0}.match-console #liveTacticBar{margin:0!important;border:0!important;border-radius:0!important;background:transparent!important}.match-console #eventsList{padding:6px 7px 7px!important;min-height:88px!important}.match-console #miniBenchBar{margin:0!important;padding:11px 9px!important;border:0!important;background:transparent!important}.match-console .lineup-toggle{margin:0!important;border-top:1px solid rgba(148,163,184,.08)!important;background:rgba(148,163,184,.025)!important}.match-console #lineupPanel{padding:10px 9px 14px!important}.match-console-empty{display:flex;align-items:center;justify-content:center;min-height:88px;color:#4f5b6d;font-size:10px}.live-quick-nav{display:none!important}
+
+/* OPPONENT DOSSIER — compact XI + real recent form */
+.opp-tactic-field{height:350px!important;border-radius:18px!important}.opp-field-player{width:52px!important}.opp-field-rating{width:28px!important;height:28px!important;font-size:9px!important}.opp-field-name{margin-top:2px!important;font-size:6px!important}.opp-field-meta{font-size:5.2px!important}.opp-field-energy{width:32px!important}
+.opp-form-section{margin-top:14px}.opp-form-head{display:flex;align-items:flex-end;justify-content:space-between;margin:0 2px 9px}.opp-form-head strong{font-size:9px;font-weight:950;letter-spacing:1.35px;text-transform:uppercase;color:#cbd5e1}.opp-form-head span{font-size:7px;color:#59677a;text-transform:uppercase;letter-spacing:.7px}.opp-form-list{display:grid;gap:7px}.opp-form-match{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 68px minmax(0,1fr) 26px;align-items:center;gap:7px;min-height:54px;padding:8px 9px;border:1px solid rgba(148,163,184,.1);border-radius:14px;background:linear-gradient(145deg,rgba(17,27,44,.94),rgba(9,16,28,.98));overflow:hidden}.opp-form-match:before{content:'';position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:3px;background:var(--result,#64748b);box-shadow:0 0 9px color-mix(in srgb,var(--result,#64748b) 55%,transparent)}.opp-form-club{min-width:0;display:flex;align-items:center;gap:6px}.opp-form-club.away{flex-direction:row-reverse;text-align:right}.opp-form-logo{width:29px;height:29px;flex:0 0 auto;padding:3px;border-radius:9px;background:#fff;overflow:hidden}.opp-form-logo img,.opp-form-logo svg{width:100%!important;height:100%!important;object-fit:contain}.opp-form-name{min-width:0;font-size:8px;font-weight:850;color:#cbd5e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.opp-form-score{text-align:center}.opp-form-score b{display:block;font-family:'Bebas Neue',sans-serif;font-size:20px;line-height:1;color:#f8fafc;letter-spacing:1px}.opp-form-score small{display:block;margin-top:3px;font-size:5.5px;color:#59677a;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}.opp-form-result{width:25px;height:25px;border-radius:8px;display:grid;place-items:center;background:color-mix(in srgb,var(--result,#64748b) 14%,transparent);border:1px solid color-mix(in srgb,var(--result,#64748b) 28%,transparent);color:var(--result,#94a3b8);font-size:8px;font-weight:950}.opp-form-empty{padding:22px 14px;border:1px dashed rgba(148,163,184,.15);border-radius:14px;text-align:center;background:rgba(148,163,184,.025)}.opp-form-empty b{display:block;font-size:10px;color:#94a3b8}.opp-form-empty span{display:block;margin-top:4px;font-size:8px;color:#59677a}.theme-light .opp-form-match{background:linear-gradient(145deg,#fff,#f5f3fb);border-color:rgba(76,48,128,.11)}.theme-light .opp-form-name,.theme-light .opp-form-head strong,.theme-light .opp-form-score b{color:#253047}
+@media(max-width:390px){.opp-tactic-field{height:322px!important}.opp-field-player{width:48px!important}.opp-field-rating{width:26px!important;height:26px!important}.opp-form-match{grid-template-columns:minmax(0,1fr) 58px minmax(0,1fr) 24px;gap:5px;padding-left:8px;padding-right:7px}.opp-form-logo{width:25px;height:25px}.opp-form-name{font-size:7px}.opp-form-score b{font-size:18px}}
 </style>
 <script>
 (function(){
@@ -29190,8 +29492,51 @@ function _shortPlayerName(n){
   const last=tok[tok.length-1];
   return /^[А-ЯЇІЄҐA-Z]\.$/.test(last) ? tok[0] : last;
 }
-function openOpponentScout(id){const club=clubById(id),coach=currentCoach(id),formation=opponentFormation(id),squad=getSquad(id)||[],built=buildLineupFromFormation(squad,formation),xi=(built?.xi||[]).filter(Boolean).slice(0,11);document.getElementById('oppScout')?.remove();const avg=xi.length?Math.round(xi.reduce((n,p,i)=>n+scoutEnergy(p,id,i),0)/xi.length):0;
- document.body.insertAdjacentHTML('beforeend',`<div class="opp-scout" id="oppScout"><div class="opp-scout-head"><div class="opp-scout-team"><div class="opp-scout-logo">${club?.logo||'⚽'}</div><div style="min-width:0"><div style="font-size:9px;color:#a78bfa;font-weight:850;letter-spacing:1.4px;text-transform:uppercase">Досьє суперника</div><div style="font-size:18px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(club?.name||'Суперник')}</div></div><button class="opp-scout-close" onclick="document.getElementById('oppScout').remove()">×</button></div></div><div class="opp-scout-body"><div class="opp-coach-card"><div class="opp-coach-avatar">${coach.flag||'🌍'}</div><div><div style="font-size:8px;color:var(--mut);text-transform:uppercase;letter-spacing:1px">Головний тренер</div><div style="font-size:12px;font-weight:900;margin-top:3px">${esc(coach.name)}</div><div style="font-size:9px;color:var(--mut);margin-top:2px">${esc(coach.nation)} · ${coachAge(coach)} р.</div></div><div style="font-size:17px;font-weight:950;color:#a78bfa">${coachRating(id)}</div></div><div class="opp-xi-summary"><span>Схема ${formation}</span><span>Середня енергія ⚡ ${avg}%</span></div><div class="opp-tactic-field"><div class="opp-box-top"></div><div class="opp-box-bottom"></div>${xi.map((p,i)=>{const e=scoutEnergy(p,id,i),col=scoutEnergyColor(e),r=Math.round(p.r||0),rc=r>=88?'#7c3aed':r>=80?'#2563eb':r>=72?'#0891b2':'#475569',x=Math.max(9,Math.min(91,8+(Number(p.fx)||50)*.84)),y=Math.max(8,Math.min(92,7+(Number(p.fy)||50)*.86));return `<div class="opp-field-player" style="left:${x}%;top:${y}%;--pr:${rc}" title="${esc(p.n)} · ${esc(p.nat||'')} · рейтинг ${r} · енергія ${e}%"><div class="opp-field-rating">${r}</div><div class="opp-field-name">${esc(_shortPlayerName(p.n))}</div><div class="opp-field-meta">${esc(p.nat||'🌍')} · ${esc(p.p||p.slotPos||'—')} · ⚡${e}</div><div class="opp-field-energy"><i style="width:${e}%;background:${col}"></i></div></div>`;}).join('')}</div></div></div>`);
+function opponentRecentMatches(id){
+  const rows=[];
+  (G.schedule||[]).forEach((rd,roundIndex)=>{
+    (rd?.matches||[]).forEach((m,matchIndex)=>{
+      if(!m?.result||(m.home!==id&&m.away!==id)) return;
+      let hg=0,ag=0;
+      if(typeof m.result==='object'){
+        hg=Number(m.result.hg)||0;ag=Number(m.result.ag)||0;
+      }else{
+        const score=String(m.result).split(':');hg=Number(score[0])||0;ag=Number(score[1])||0;
+      }
+      const own=m.home===id?hg:ag,opp=m.home===id?ag:hg;
+      const result=own>opp?'W':own<opp?'L':'D';
+      const competition=rd.isCupRound||m.isCup
+        ? `Кубок${rd.cupStage&&typeof CUP_STAGE_LABELS!=='undefined'?` · ${CUP_STAGE_LABELS[rd.cupStage]||rd.cupStage}`:''}`
+        : rd.isUCL?'Ліга чемпіонів':rd.isUEL?'Ліга Європи':'Чемпіонат';
+      rows.push({roundIndex,matchIndex,home:m.home,away:m.away,hg,ag,result,competition,date:rd.date||''});
+    });
+  });
+  return rows.sort((a,b)=>b.roundIndex-a.roundIndex||b.matchIndex-a.matchIndex).slice(0,5);
+}
+
+function opponentFormHTML(id){
+  const matches=opponentRecentMatches(id);
+  if(!matches.length){
+    return `<section class="opp-form-section"><div class="opp-form-head"><strong>Останні матчі</strong><span>Форма суперника</span></div><div class="opp-form-empty"><b>Результатів поки немає</b><span>Історія форми з’явиться після перших зіграних матчів.</span></div></section>`;
+  }
+  const colors={W:'#22c55e',D:'#f59e0b',L:'#f43f5e'};
+  const labels={W:'В',D:'Н',L:'П'};
+  const countLabel=matches.length===1?'Останній матч':matches.length<5?`Останні ${matches.length} матчі`:'Останні 5 матчів';
+  return `<section class="opp-form-section"><div class="opp-form-head"><strong>${countLabel}</strong><span>Форма суперника</span></div><div class="opp-form-list">${matches.map(m=>{
+    const home=clubById(m.home)||{name:'Клуб',logo:'⚽'},away=clubById(m.away)||{name:'Клуб',logo:'⚽'},color=colors[m.result];
+    return `<div class="opp-form-match" style="--result:${color}"><div class="opp-form-club"><span class="opp-form-logo">${home.logo||'⚽'}</span><span class="opp-form-name">${esc(home.name)}</span></div><div class="opp-form-score"><b>${m.hg}:${m.ag}</b><small>${esc(m.competition)}${m.date?` · ${esc(m.date)}`:''}</small></div><div class="opp-form-club away"><span class="opp-form-logo">${away.logo||'⚽'}</span><span class="opp-form-name">${esc(away.name)}</span></div><span class="opp-form-result" title="Результат суперника">${labels[m.result]}</span></div>`;
+  }).join('')}</div></section>`;
+}
+
+function openOpponentScout(id){
+  const club=clubById(id),coach=currentCoach(id),formation=opponentFormation(id),squad=getSquad(id)||[],built=buildLineupFromFormation(squad,formation),xi=(built?.xi||[]).filter(Boolean).slice(0,11);
+  document.getElementById('oppScout')?.remove();
+  const avg=xi.length?Math.round(xi.reduce((n,p,i)=>n+scoutEnergy(p,id,i),0)/xi.length):0;
+  const fieldPlayers=xi.map((p,i)=>{
+    const e=scoutEnergy(p,id,i),col=scoutEnergyColor(e),r=Math.round(p.r||0),rc=r>=88?'#7c3aed':r>=80?'#2563eb':r>=72?'#0891b2':'#475569',x=Math.max(9,Math.min(91,8+(Number(p.fx)||50)*.84)),y=Math.max(9,Math.min(91,8+(Number(p.fy)||50)*.84));
+    return `<div class="opp-field-player" style="left:${x}%;top:${y}%;--pr:${rc}" title="${esc(p.n)} · ${esc(p.nat||'')} · рейтинг ${r} · енергія ${e}%"><div class="opp-field-rating">${r}</div><div class="opp-field-name">${esc(_shortPlayerName(p.n))}</div><div class="opp-field-meta">${esc(p.nat||'🌍')} · ${esc(p.p||p.slotPos||'—')} · ⚡${e}</div><div class="opp-field-energy"><i style="width:${e}%;background:${col}"></i></div></div>`;
+  }).join('');
+  document.body.insertAdjacentHTML('beforeend',`<div class="opp-scout" id="oppScout"><div class="opp-scout-head"><div class="opp-scout-team"><div class="opp-scout-logo">${club?.logo||'⚽'}</div><div style="min-width:0"><div style="font-size:9px;color:#a78bfa;font-weight:850;letter-spacing:1.4px;text-transform:uppercase">Досьє суперника</div><div style="font-size:18px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(club?.name||'Суперник')}</div></div><button class="opp-scout-close" onclick="document.getElementById('oppScout').remove()">×</button></div></div><div class="opp-scout-body"><div class="opp-coach-card"><div class="opp-coach-avatar">${coach.flag||'🌍'}</div><div><div style="font-size:8px;color:var(--mut);text-transform:uppercase;letter-spacing:1px">Головний тренер</div><div style="font-size:12px;font-weight:900;margin-top:3px">${esc(coach.name)}</div><div style="font-size:9px;color:var(--mut);margin-top:2px">${esc(coach.nation)} · ${coachAge(coach)} р.</div></div><div style="font-size:17px;font-weight:950;color:#a78bfa">${coachRating(id)}</div></div><div class="opp-xi-summary"><span>Схема ${formation}</span><span>Середня енергія ⚡ ${avg}%</span></div><div class="opp-tactic-field"><div class="opp-box-top"></div><div class="opp-box-bottom"></div>${fieldPlayers}</div>${opponentFormHTML(id)}</div></div>`);
 }
 window.openOpponentScout=openOpponentScout;
 function decorateNextCoach(){const card=document.querySelector('#nextMatchCard .next-match-card');if(!card)return;card.querySelector('.coach-duel')?.remove();document.querySelectorAll('#tab-content-play .opp-scout-action-row').forEach(x=>x.remove());const m=findUpcoming();if(!m)return;const oppId=m.home===G.club?.id?m.away:m.home;card.insertAdjacentHTML('afterend',`<div class="opp-scout-action-row"><button type="button" class="opp-scout-btn" onclick="window.openOpponentScout(${oppId})" aria-label="Інформація про суперника">▦ Про суперника</button></div>`);}
@@ -29305,7 +29650,7 @@ const oldSimV2=simScoreV2;simScoreV2=function(players,oppStr,isHome,tactic,final
 const oldFinish=finishMatch;finishMatch=function(){const live=LS?{opp:LS.oppId,isHome:LS.isHome,h:LS.score?.h??LS.hg,a:LS.score?.a??LS.ag}:null;const rd=G.schedule?.[G.currentRound],matches=rd?.matches,oldResults=matches?.map(m=>m.result?JSON.stringify(m.result):null),played=[];const x=oldFinish.apply(this,arguments);if(matches)matches.forEach((m,i)=>{if(oldResults?.[i]||!m.result)return;played.push(m.home,m.away);if(m.home===G.club?.id||m.away===G.club?.id)return;const h=m.result.hg,a=m.result.ag;updateCoach(m.home,h>a?'win':h===a?'draw':'loss',m.away);updateCoach(m.away,a>h?'win':a===h?'draw':'loss',m.home);});if(live?.opp&&!LS?._coachRated){played.push(G.club.id,live.opp);const ug=live.isHome?live.h:live.a,og=live.isHome?live.a:live.h,res=ug>og?'win':ug===og?'draw':'loss',oppRes=og>ug?'win':og===ug?'draw':'loss';updateCoach(G.club.id,res,live.opp);updateCoach(live.opp,oppRes,G.club.id);if(LS)LS._coachRated=true;}simulateCoachWorldRound(played);evaluateAICoaches();saveGame();return x;};
 
 // Додаємо стан тренерів у стандартне збереження без зміни сумісності старих слотів.
-const oldWrite=writeSaveGame;writeSaveGame=function(){const key=getSlotKey(ACTIVE_SLOT);oldWrite.apply(this,arguments);try{const d=JSON.parse(localStorage.getItem(key)||'{}');d.coaches=coachState();localStorage.setItem(key,JSON.stringify(d));}catch(e){console.warn('coach save failed',e);}};
+const oldWrite=writeSaveGame;writeSaveGame=function(){coachState();return oldWrite.apply(this,arguments);};
 const oldLoad=loadGame;loadGame=function(raw){let parsed=null;try{parsed=JSON.parse(raw!==undefined?raw:(localStorage.getItem(getSlotKey(ACTIVE_SLOT))||'null'));}catch(e){}const ok=oldLoad.apply(this,arguments);if(ok){G.coaches=parsed?.coaches||{ratings:{},stats:{}};coachState();}return ok;};
 try{const persisted=JSON.parse(localStorage.getItem(getSlotKey(ACTIVE_SLOT))||'null');if(persisted?.coaches)G.coaches=persisted.coaches;}catch(e){}
 coachState();setTimeout(()=>{try{decorateNextCoach();injectCoachHubButton();}catch(e){}},350);
@@ -29562,13 +29907,7 @@ function resetTutorial(){
 // ── Патч finishMatch — нарахування втоми ────────────────────────────────────
 const _finishMatchOrig = finishMatch;
 finishMatch = function(){
-  const playedNames = new Set();
-  if(window.LS){
-    (LS.onField || []).forEach(p => { if(p && p.n) playedNames.add(p.n); });
-    (LS.subbedOut || []).forEach(p => { if(p && p.n) playedNames.add(p.n); });
-    (LS.bench || []).forEach(p => { if(p && p.n && p.subbed) playedNames.add(p.n); });
-  }
-  _finishMatchOrig();
+  _finishMatchOrig.apply(this,arguments);
   syncUserSquad();
 };
 
@@ -30237,22 +30576,26 @@ renderAchievementsContent=function(){
       .fin2-panel{border:1px solid var(--stroke);background:var(--panel);border-radius:15px;margin-bottom:9px;overflow:hidden}.fin2-panel-head{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border-bottom:1px solid var(--stroke)}.fin2-panel-head b{font-size:11px}.fin2-panel-head span{font-size:8px;color:#64748b}.fin2-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid rgba(148,163,184,.07)}.fin2-row:last-child{border-bottom:0}.fin2-row-icon{width:31px;height:31px;border-radius:9px;display:grid;place-items:center;background:rgba(148,163,184,.07);font-size:14px;flex:none}.fin2-row-main{flex:1;min-width:0}.fin2-row-main b{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fin2-row-main span{display:block;font-size:8px;color:#64748b;margin-top:2px}.fin2-row-val{font-size:11px;font-weight:900;text-align:right;white-space:nowrap}.fin2-player-avatar{position:relative;overflow:hidden;border:1px solid var(--av-border)!important;background:linear-gradient(145deg,var(--av-a),var(--av-b))!important;color:white!important;box-shadow:0 5px 13px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.16)}.fin2-player-avatar::after{content:'';position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.14),transparent 48%);pointer-events:none}.fin2-player-avatar b{font-size:9px;font-weight:950;letter-spacing:.2px;position:relative;z-index:1}.fin2-player-avatar small{position:absolute;bottom:2px;right:3px;font-size:5px;font-weight:900;color:rgba(255,255,255,.72);z-index:1}
       .fin2-callout{display:flex;align-items:flex-start;gap:9px;border:1px solid var(--stroke);border-radius:13px;padding:10px 11px;margin-bottom:9px;background:rgba(148,163,184,.035)}.fin2-callout b{font-size:10px;display:block}.fin2-callout span{font-size:8px;color:#7c8a9e;line-height:1.45;display:block;margin-top:2px}
       .fin2-quarter{display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:9px;padding:11px 12px;border-bottom:1px solid var(--stroke)}.fin2-quarter:last-child{border:0}.fin2-qdot{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;font-size:12px}.fin2-qname{font-size:10px;font-weight:850}.fin2-qsub{font-size:8px;color:#64748b;margin-top:2px}.fin2-qsum{font-size:11px;font-weight:900;text-align:right}
-      .fin2-promo-big{position:relative;overflow:hidden;border:1.5px solid rgba(251,191,36,.45);border-radius:20px;padding:15px 16px;margin-bottom:11px;background:linear-gradient(135deg,rgba(251,191,36,.16),rgba(245,158,11,.05) 65%);box-shadow:0 12px 28px rgba(245,158,11,.14)}
-      .fin2-promo-big:before{content:'';position:absolute;right:-24px;top:-34px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(251,191,36,.25),transparent 70%);pointer-events:none}
-      .fin2-promo-big .fp-head{position:relative;z-index:1;display:flex;align-items:flex-start;gap:11px;margin-bottom:12px}
-      .fin2-promo-big .fp-icon{font-size:30px;line-height:1;filter:drop-shadow(0 3px 8px rgba(245,158,11,.45))}
-      .fin2-promo-big .fp-title{font-size:14px;font-weight:900;color:#fde68a;line-height:1.25}
-      .fin2-promo-big .fp-sub{font-size:11px;color:#c7cfdb;margin-top:4px;line-height:1.4}
-      .fin2-promo-big .fp-amt{color:#fbbf24}
-      .fin2-promo-big .fp-actions{position:relative;z-index:1;display:flex;gap:8px}
-      .fin2-promo-big a,.fin2-promo-big button{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px;border-radius:13px;font-size:12.5px;font-weight:850;text-decoration:none;cursor:pointer;border:none}
-      .fin2-promo-big a{background:linear-gradient(135deg,#0088cc,#229ed9);color:#fff;box-shadow:0 5px 15px rgba(0,136,204,.35)}
-      .fin2-promo-big button{background:linear-gradient(135deg,rgba(251,191,36,.28),rgba(245,158,11,.2));border:1px solid rgba(251,191,36,.45);color:#fde68a}
-      .fin2-promo-big.claimed{border-color:rgba(52,211,153,.4);background:linear-gradient(135deg,rgba(16,185,129,.12),rgba(5,150,105,.04));box-shadow:0 10px 22px rgba(16,185,129,.1);animation:none}
-      @keyframes fin2PromoPulse{0%,100%{box-shadow:0 12px 28px rgba(245,158,11,.14)}50%{box-shadow:0 14px 36px rgba(245,158,11,.3)}}
-      .fin2-promo-big:not(.claimed){animation:fin2PromoPulse 2.6s ease-in-out infinite}
+      .fin2-promo-big{position:relative;overflow:hidden;border:1px solid rgba(251,191,36,.28);border-radius:20px;padding:16px;margin-bottom:11px;background:radial-gradient(circle at 86% 18%,rgba(245,158,11,.18),transparent 31%),linear-gradient(145deg,#171710,#0b1017 68%);box-shadow:0 16px 36px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.055)}
+      .fin2-promo-big:before{content:'';position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#fbbf24 35%,#fde68a 52%,transparent 92%);opacity:.9}
+      .fin2-promo-big:after{content:'';position:absolute;right:-35px;bottom:-65px;width:180px;height:180px;border:1px solid rgba(251,191,36,.08);border-radius:50%;box-shadow:0 0 0 24px rgba(251,191,36,.025),0 0 0 48px rgba(251,191,36,.018);pointer-events:none}
+      .fin2-promo-big .fp-eyebrow{position:relative;z-index:1;display:inline-flex;align-items:center;gap:6px;margin-bottom:10px;padding:4px 7px;border-radius:99px;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.16);color:#d6a936;font-size:7px;font-weight:950;letter-spacing:1.15px;text-transform:uppercase}.fin2-promo-big .fp-eyebrow i{width:5px;height:5px;border-radius:50%;background:#fbbf24;box-shadow:0 0 8px #f59e0b}
+      .fin2-promo-big .fp-head{position:relative;z-index:1;display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:11px;margin-bottom:14px}
+      .fin2-promo-big .fp-icon{width:45px;height:45px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(251,191,36,.22),rgba(120,53,15,.12));border:1px solid rgba(251,191,36,.25);font-size:23px;line-height:1;filter:drop-shadow(0 5px 10px rgba(0,0,0,.25));box-shadow:inset 0 1px rgba(255,255,255,.09)}
+      .fin2-promo-big .fp-title{font-size:14px;font-weight:950;color:#f8fafc;line-height:1.2;letter-spacing:-.15px}
+      .fin2-promo-big .fp-sub{font-size:9px;color:#7f8b9d;margin-top:4px;line-height:1.45}
+      .fin2-promo-big .fp-amount{min-width:74px;padding:8px 9px;border-radius:12px;text-align:right;background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.15)}.fin2-promo-big .fp-amount small{display:block;font-size:6px;color:#927528;text-transform:uppercase;letter-spacing:.85px;font-weight:900}.fin2-promo-big .fp-amt{display:block;color:#fbbf24;font-family:'Bebas Neue',sans-serif;font-size:24px;line-height:1;margin-top:3px;white-space:nowrap}
+      .fin2-promo-big .fp-actions{position:relative;z-index:1;display:grid;grid-template-columns:1.12fr .88fr;gap:8px}
+      .fin2-promo-big a,.fin2-promo-big button{min-height:43px;display:flex;align-items:center;justify-content:center;gap:7px;padding:10px 12px;border-radius:13px;font-size:11px;font-weight:900;text-decoration:none;cursor:pointer;transition:transform .16s,filter .16s,box-shadow .16s}
+      .fin2-promo-big a{border:1px solid rgba(56,189,248,.22);background:linear-gradient(135deg,#087eb6,#0ea5e9);color:#fff;box-shadow:0 7px 18px rgba(2,132,199,.25),inset 0 1px rgba(255,255,255,.18)}
+      .fin2-promo-big button{background:linear-gradient(145deg,rgba(251,191,36,.16),rgba(120,53,15,.16));border:1px solid rgba(251,191,36,.3);color:#fcd872;box-shadow:inset 0 1px rgba(255,255,255,.05)}
+      .fin2-promo-big a:hover,.fin2-promo-big button:hover{filter:brightness(1.1);transform:translateY(-1px)}.fin2-promo-big a:active,.fin2-promo-big button:active{transform:translateY(1px)}
+      .fin2-promo-big.claimed{border-color:rgba(52,211,153,.3);background:radial-gradient(circle at 86% 18%,rgba(16,185,129,.14),transparent 31%),linear-gradient(145deg,#0d1917,#0b1017 68%);box-shadow:0 14px 30px rgba(0,0,0,.2);animation:none}.fin2-promo-big.claimed:before{background:linear-gradient(90deg,transparent,#34d399,transparent)}
+      @keyframes fin2PromoPulse{0%,100%{border-color:rgba(251,191,36,.23)}50%{border-color:rgba(251,191,36,.42)}}
+      .fin2-promo-big:not(.claimed){animation:fin2PromoPulse 3s ease-in-out infinite}
       @media(prefers-reduced-motion:reduce){.fin2-promo-big{animation:none!important}}
-      body.theme-light .fin2-promo-big .fp-sub{color:#5b6577}
+      @media(max-width:390px){.fin2-promo-big .fp-head{grid-template-columns:42px minmax(0,1fr)}.fin2-promo-big .fp-icon{width:40px;height:40px}.fin2-promo-big .fp-amount{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;text-align:left}.fin2-promo-big .fp-amt{margin:0}.fin2-promo-big .fp-actions{grid-template-columns:1fr}.fin2-promo-big a,.fin2-promo-big button{min-height:41px}}
+      body.theme-light .fin2-promo-big{background:radial-gradient(circle at 86% 18%,rgba(245,158,11,.13),transparent 31%),linear-gradient(145deg,#fffdf5,#fff);box-shadow:0 14px 30px rgba(120,80,10,.1)}body.theme-light .fin2-promo-big .fp-title{color:#1e293b}body.theme-light .fin2-promo-big .fp-sub{color:#64748b}
       body.theme-light #s-salary .fin2{--panel:#fff;--panel2:#f6f7fb;--stroke:rgba(51,65,85,.11)}body.theme-light .fin2-tabs{background:#eef1f6}body.theme-light .fin2-tab.on{background:#fff}body.theme-light .fin2-hero{background:linear-gradient(145deg,#eef5ff,#fff)}body.theme-light .fin2-wallet b{color:#1e293b}
     `;document.head.appendChild(s);
   }
@@ -30276,7 +30619,7 @@ renderAchievementsContent=function(){
     if(claimed){
       return `<div class="fin2-promo-big claimed"><div class="fp-head"><span class="fp-icon">✅</span><div><div class="fp-title" style="color:#34d399">Бонус спільноти отримано</div><div class="fp-sub">${money(bonus)} вже зараховано на рахунок клубу</div></div></div></div>`;
     }
-    return `<div class="fin2-promo-big"><div class="fp-head"><span class="fp-icon">🎁</span><div><div class="fp-title">Підпишись на канал — отримай <span class="fp-amt">${money(bonus)}</span></div><div class="fp-sub">Разова допомога від спільноти гри. Бонус залежить від рівня клубу.</div></div></div><div class="fp-actions"><a href="https://t.me/+4htinJkj_6EyNTIy" target="_blank">✈️ Підписатись</a><button onclick="claimChannelBonus()">💰 Забрати ${money(bonus)}</button></div></div>`;
+    return `<div class="fin2-promo-big"><div class="fp-eyebrow"><i></i> Нагорода спільноти</div><div class="fp-head"><span class="fp-icon">🎁</span><div><div class="fp-title">Підсиль клуб разом зі спільнотою</div><div class="fp-sub">Підпишись на офіційний канал гри та отримай разову фінансову підтримку.</div></div><div class="fp-amount"><small>Бонус клубу</small><span class="fp-amt">${money(bonus)}</span></div></div><div class="fp-actions"><a href="https://t.me/+4htinJkj_6EyNTIy" target="_blank"><span>✈</span> Відкрити Telegram</a><button onclick="claimChannelBonus()"><span>◆</span> Отримати бонус</button></div></div>`;
   }
   function salaryAvatar(p){return playerAvatar(p?.n||'',p?.p||'ПЗ',31,9);}
   function overview(d){
@@ -31628,6 +31971,160 @@ console.log('⚡ Fatigue + Match Engine v5 loaded (Manager v5.3) · F5() для 
   console.log('🎧 Audio Mix '+A.version+' loaded · balanced UI, stadium and music');
 })();
 </script>
+
+<style id="live-lineup-redesign-v10">
+/* Compact premium squad view inside the live match console. */
+#liveOverlay .match-console #lineupPanel{
+  padding:8px 9px 12px!important;
+  background:
+    radial-gradient(circle at 50% 0,rgba(47,116,255,.10),transparent 34%),
+    linear-gradient(180deg,rgba(8,14,27,.98),rgba(5,10,19,.99));
+  border-top:1px solid rgba(126,157,211,.12);
+  overflow:hidden;
+}
+#liveOverlay .match-console .live-lineup-tabs{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:0 0 8px;
+  padding:4px;border:1px solid rgba(113,142,194,.14);border-radius:14px;
+  background:rgba(3,8,17,.68);box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+}
+#liveOverlay .match-console .live-lineup-tab{
+  min-width:0;height:42px;padding:6px 10px;border:1px solid transparent;border-radius:10px;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;
+  appearance:none;background:transparent;color:#7f8ca3;cursor:pointer;text-align:left;
+  font:inherit;transition:background .18s,border-color .18s,color .18s,transform .12s;
+}
+#liveOverlay .match-console .live-lineup-tab:active{transform:scale(.98)}
+#liveOverlay .match-console .live-lineup-tab span{
+  font-size:10.5px;font-weight:900;line-height:1.1;letter-spacing:.15px;
+}
+#liveOverlay .match-console .live-lineup-tab small{
+  font-size:7.5px;font-weight:700;line-height:1.15;color:#57657d;
+}
+#liveOverlay .match-console .live-lineup-tab.is-active{
+  color:#eef6ff;border-color:rgba(76,144,255,.45);
+  background:linear-gradient(135deg,rgba(34,103,224,.30),rgba(20,58,132,.20));
+  box-shadow:0 5px 16px rgba(10,55,139,.18),inset 0 1px 0 rgba(255,255,255,.06);
+}
+#liveOverlay .match-console .live-lineup-tab.is-active small{color:#82b7ff}
+#liveOverlay .match-console .live-lineup-tab-opp.is-active{
+  border-color:rgba(248,91,91,.38);
+  background:linear-gradient(135deg,rgba(185,45,58,.28),rgba(103,27,44,.20));
+}
+#liveOverlay .match-console .live-lineup-tab-opp.is-active small{color:#ff9b9b}
+
+#liveOverlay .match-console .lineup-energy-summary{
+  margin:0 0 7px!important;padding:7px 9px!important;border-radius:11px!important;
+  display:grid;grid-template-columns:minmax(0,1fr) 72px;column-gap:10px;align-items:center;
+  background:linear-gradient(135deg,rgba(19,31,52,.92),rgba(11,21,38,.92))!important;
+  border:1px solid rgba(80,132,220,.22)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+}
+#liveOverlay .match-console .lineup-energy-summary-head{grid-column:1/2;font-size:8.5px!important}
+#liveOverlay .match-console .lineup-energy-summary-head span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#liveOverlay .match-console .lineup-energy-summary-head b{font-size:12px!important;margin-left:7px}
+#liveOverlay .match-console .lineup-energy-summary-track{
+  grid-column:2/3;grid-row:1/3;height:6px!important;margin:0!important;background:rgba(125,145,177,.16)!important;
+}
+#liveOverlay .match-console .lineup-energy-summary-status{
+  grid-column:1/2;margin-top:3px!important;font-size:7.5px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+#liveOverlay .match-console .live-lineup-section-head,
+#liveOverlay .match-console .live-bench-head{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 2px 6px;
+}
+#liveOverlay .match-console .live-lineup-section-head span,
+#liveOverlay .match-console .live-bench-head span{
+  color:#d9e4f5;font-size:8.5px;font-weight:950;text-transform:uppercase;letter-spacing:1.1px;
+}
+#liveOverlay .match-console .live-lineup-section-head small,
+#liveOverlay .match-console .live-bench-head small{
+  color:#56657d;font-size:7px;font-weight:750;white-space:nowrap;
+}
+
+#liveOverlay .match-console .static-tac-field{
+  height:278px!important;margin:0 0 9px!important;border-radius:16px!important;
+  overflow:hidden!important;border:1px solid rgba(88,225,139,.42)!important;
+  background:
+    radial-gradient(ellipse at 50% 48%,rgba(34,197,94,.10),transparent 58%),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.018) 0,rgba(255,255,255,.018) 12.5%,rgba(0,0,0,.035) 12.5%,rgba(0,0,0,.035) 25%),
+    linear-gradient(180deg,#075528,#064a23)!important;
+  box-shadow:0 9px 26px rgba(0,0,0,.34),inset 0 0 34px rgba(0,0,0,.12)!important;
+}
+#liveOverlay .match-console .static-tac-field::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
+  background:linear-gradient(180deg,rgba(255,255,255,.035),transparent 20%,transparent 80%,rgba(0,0,0,.08));
+}
+#liveOverlay .match-console .stf-mid{background:rgba(222,255,233,.38)!important;z-index:2}
+#liveOverlay .match-console .stf-circle{width:49px!important;height:49px!important;border-color:rgba(222,255,233,.38)!important;z-index:2}
+#liveOverlay .match-console .stf-box{width:43%!important;height:20%!important;border-color:rgba(222,255,233,.34)!important;z-index:2}
+#liveOverlay .match-console .stf-player{gap:1px!important;z-index:4}
+#liveOverlay .match-console .stf-player-dot{
+  width:34px!important;height:34px!important;font-size:10px!important;border-width:1.5px!important;
+  box-shadow:0 4px 11px rgba(0,0,0,.46),inset 0 1px 0 rgba(255,255,255,.22)!important;
+}
+#liveOverlay .match-console .stf-player-name{
+  max-width:58px!important;padding:1px 4px!important;border-radius:4px!important;
+  font-size:6px!important;font-weight:850!important;line-height:1.25!important;text-overflow:ellipsis!important;
+  box-shadow:0 2px 7px rgba(0,0,0,.24);
+}
+#liveOverlay .match-console #staticPlayers .stf-player>div:not([class]),
+#liveOverlay .match-console #oppPlayers .stf-player>div:not([class]){
+  top:19px!important;right:-8px!important;min-width:13px!important;padding:1px 2px!important;
+  font-size:5px!important;border-color:rgba(255,255,255,.16)!important;
+}
+#liveOverlay .match-console .lineup-player-energy{width:39px!important;margin:1px auto 0!important;gap:2px!important}
+#liveOverlay .match-console .lineup-player-energy b{font-size:5.8px!important;min-width:16px!important}
+#liveOverlay .match-console .lineup-player-energy>span{height:2px!important}
+#liveOverlay .match-console .stf-player-icons{top:-6px!important;right:-5px!important}
+#liveOverlay .match-console .p-icon{width:12px!important;height:12px!important;font-size:8px!important}
+
+#liveOverlay .match-console .live-bench-head{margin:0 2px 5px}
+#liveOverlay .match-console .bench-row{
+  gap:6px!important;margin:0 -1px;padding:2px 1px 7px!important;
+  overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;
+}
+#liveOverlay .match-console .bench-row::-webkit-scrollbar{display:none}
+#liveOverlay .match-console .bench-player{width:52px!important;min-width:52px;gap:3px!important;scroll-snap-align:start}
+#liveOverlay .match-console .bench-dot{
+  width:49px!important;height:54px!important;border-radius:11px!important;
+  border-color:rgba(165,190,231,.24)!important;box-shadow:0 5px 12px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.14)!important;
+}
+#liveOverlay .match-console .bench-name{
+  width:52px;max-width:52px!important;font-size:7px!important;line-height:1.15!important;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center;
+}
+#liveOverlay .match-console .bench-energy-readout{width:48px!important;margin:1px auto 0!important;gap:2px!important}
+#liveOverlay .match-console .bench-energy-readout b{font-size:5.8px!important;min-width:17px!important}
+#liveOverlay .match-console .live-opponent-lineup-title{
+  min-height:28px;margin:0 0 7px;padding:5px 8px;border-radius:9px;
+  display:flex;align-items:center;color:#c8d4e7;font-size:8.5px;font-weight:900;text-transform:uppercase;letter-spacing:.7px;
+  background:rgba(20,30,48,.75);border:1px solid rgba(116,140,180,.14);
+}
+
+@media(max-width:390px){
+  #liveOverlay .match-console .static-tac-field{height:252px!important}
+  #liveOverlay .match-console .stf-player-dot{width:31px!important;height:31px!important;font-size:9px!important}
+  #liveOverlay .match-console .stf-player-name{max-width:52px!important;font-size:5.5px!important}
+  #liveOverlay .match-console .live-lineup-tab small{display:none}
+  #liveOverlay .match-console .live-lineup-tab{height:34px;align-items:center}
+  #liveOverlay .match-console .lineup-energy-summary{grid-template-columns:minmax(0,1fr) 58px}
+}
+
+body.light #liveOverlay .match-console #lineupPanel{
+  background:linear-gradient(180deg,#f5f8fd,#edf3fa)!important;border-top-color:#d9e3f1;
+}
+body.light #liveOverlay .match-console .live-lineup-tabs{background:#e5ebf4;border-color:#d1dbe9}
+body.light #liveOverlay .match-console .live-lineup-tab{color:#65748c}
+body.light #liveOverlay .match-console .live-lineup-tab small{color:#8290a4}
+body.light #liveOverlay .match-console .live-lineup-tab.is-active{color:#0d3f91;background:#fff;border-color:#82aff5;box-shadow:0 4px 12px rgba(35,83,155,.10)}
+body.light #liveOverlay .match-console .lineup-energy-summary{background:#fff!important;border-color:#d6e2f2!important}
+body.light #liveOverlay .match-console .lineup-energy-summary-head,
+body.light #liveOverlay .match-console .live-lineup-section-head span,
+body.light #liveOverlay .match-console .live-bench-head span{color:#203049}
+body.light #liveOverlay .match-console .live-lineup-section-head small,
+body.light #liveOverlay .match-console .live-bench-head small{color:#7a889c}
+</style>
 
 <script>window.TM_DATABASE_VERSION="2026-07-26";window.TM_DATABASE_MATCHES=353;</script>
 </body>
