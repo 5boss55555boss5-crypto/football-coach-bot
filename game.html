@@ -7614,7 +7614,21 @@ function snapPrice(v){
   if(v<1_000_000) return Math.round(v/50_000)*50_000;
   return Math.round(v/100_000)*100_000;
 }
+// Реальні легенди зі значно завищеною вартістю за mv, яку загальна вікова
+// крива занадто сильно занижує (0.22x для 36+ незалежно від рейтингу).
+// Точкові значення актуальні на середину 2026 (Transfermarkt).
+const LEGEND_VALUE_OVERRIDE = {
+  'Мессі': 15_000_000,
+  'Роналду': 10_000_000,
+  'Куртуа': 15_000_000,
+  'Облак': 15_000_000,
+  'Суарес': 1_500_000,
+  'Буске': 800_000,
+  'Альба': 1_800_000,
+};
+
 function playerValue(p){
+  if(LEGEND_VALUE_OVERRIDE[p.n] != null) return LEGEND_VALUE_OVERRIDE[p.n];
   // FIX 4: Dynamic market value based on base value + form bonus
   let raw;
   if(p.mv){
