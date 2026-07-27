@@ -7853,6 +7853,20 @@ function checkAndPaySalary(){
   }
 }
 
+// FIX: manual debt settlement — without this, salaryBlocked only clears at the
+// next scheduled quarterly payday, softlocking transfers for players who already
+// have enough budget to cover the missed payment right now.
+function paySalaryDebt(){
+  if(!G.salary?.salaryBlocked) return;
+  if(G.budget < 0){
+    showTrMsg(`⛔ Бюджет ще від'ємний (${fmtPrice(G.budget)}). Заробіть ще, щоб погасити борг.`);
+    return;
+  }
+  G.salary.salaryBlocked = false;
+  showTrMsg('✅ Борг по зарплаті погашено! Трансфери розблоковано.');
+  if(typeof renderSalaryScreen === 'function') renderSalaryScreen();
+}
+
 function renderSalaryScreen(){
   if(!G.club) return;
   // Use locked annualBill if set (consistent with what was actually charged)
@@ -30189,6 +30203,7 @@ renderAchievementsContent=function(){
     return`${channelPromoHTML()}<div class="fin2-hero"><div class="fin2-hero-top"><div><div class="fin2-label">Кошти, доступні для рішень</div><div class="fin2-money" style="color:${d.safe>0?'#f8fafc':'#fb7185'}">${money(d.safe)}</div><div class="fin2-delta" style="color:${d.net>=0?'#34d399':'#fb7185'}">${d.net>=0?'+':'−'}${money(Math.abs(d.net))} · чистий потік сезону</div></div><span class="fin2-health" style="color:${st.color}">${st.label}</span></div><div class="fin2-rail"><i style="width:${budgetPct}%;background:linear-gradient(90deg,#3b82f6,#34d399)"></i></div><div class="fin2-caption"><span>Поточний бюджет ${money(G.budget)}</span><span>${budgetPct}% від стартового</span></div></div>
     <div class="fin2-metrics"><div class="fin2-metric good"><div class="fin2-label">Надходження</div><div class="value">+${money(d.income)}</div><div class="hint">Усі підтверджені доходи сезону</div></div><div class="fin2-metric bad"><div class="fin2-label">Витрачено</div><div class="value">−${money(d.out)}</div><div class="hint">Трансфери та виплачена зарплата</div></div><div class="fin2-metric warn"><div class="fin2-label">Зобов’язання</div><div class="value">${money(d.remainingSalary)}</div><div class="hint">Зарплати до кінця сезону</div></div><div class="fin2-metric info"><div class="fin2-label">Прогноз залишку</div><div class="value">${d.afterSeason<0?'−':''}${money(Math.abs(d.afterSeason))}</div><div class="hint">Після гарантованих зарплат</div></div></div>
     <div class="fin2-callout"><div style="font-size:17px">${st.label==='Стабільний'?'🟢':st.label==='Критичний'?'🔴':'🟡'}</div><div><b>Фінансовий висновок</b><span>${st.note} Покриття майбутніх зарплат: ${salaryCover}%.</span></div></div>
+    ${G.salary?.salaryBlocked?`<div class="fin2-callout" style="border-color:rgba(251,113,133,.4);background:rgba(251,113,133,.07)"><div style="font-size:17px">⛔</div><div style="flex:1"><b style="color:#fda4af">Борг по зарплаті — трансфери заблоковано</b><span>${G.budget>=0?'Кошти вже є на рахунку. Погасіть борг, щоб одразу розблокувати трансфери.':`Потрібно ще ${money(Math.abs(G.budget))}, щоб погасити борг.`}</span></div>${G.budget>=0?`<button onclick="paySalaryDebt()" style="flex:none;padding:9px 14px;border-radius:11px;font-size:11px;font-weight:850;border:1px solid rgba(251,113,133,.45);background:rgba(251,113,133,.18);color:#fecdd3;cursor:pointer">Погасити борг</button>`:''}</div>`:''}
     <div class="fin2-panel"><div class="fin2-panel-head"><b>Найближче зобов’язання</b><span>${nextText}</span></div>${d.nextQ===undefined?row('✓','Зарплати сплачено','Усі чотири квартали закрито','Готово','#34d399'):row('◷',`${d.nextQ+1}-й квартал`,`Після платежу залишиться ${money(G.budget-d.quarter)}`,money(d.quarter),G.budget>=d.quarter?'#fbbf24':'#fb7185')}</div>
     <div class="fin2-panel"><div class="fin2-panel-head"><b>Грошовий потік</b><span>поточний сезон</span></div>${row('↗','Доходи',`${Math.round(d.income/flowMax*100)}% найбільшого потоку`,'+'+money(d.income),'#34d399')}${row('↘','Витрати',`${Math.round(d.out/flowMax*100)}% найбільшого потоку`,'−'+money(d.out),'#fb7185')}</div>`;
   }
