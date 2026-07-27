@@ -18423,6 +18423,27 @@ async function _pullSavesFromServer(){
   }
 }
 
+// Пристрій, де вже є локальний прогрес: дізнатись, який слот останнім
+// зберігався з БУДЬ-ЯКОГО пристрою під цим акаунтом, і перейти саме на нього.
+// Без цього кожен пристрій лишається на своєму локальному ACTIVE_SLOT назавжди,
+// навіть якщо самі дані слотів вже синхронізовані.
+async function _syncActiveSlotFromServer(){
+  if(!_tgUserId) return;
+  try{
+    const res = await fetch(`/api/active-slot?user_id=${_tgUserId}`);
+    const j = await res.json();
+    const serverSlot = j?.ok ? j.slot : null;
+    if(!serverSlot || ![1,2,3].includes(serverSlot)) return;
+    const res2 = await fetch(`/api/load-game?user_id=${_tgUserId}&slot=${serverSlot}`);
+    const j2 = await res2.json();
+    if(j2?.ok && j2.data) localStorage.setItem(getSlotKey(serverSlot), j2.data);
+    if(ACTIVE_SLOT !== serverSlot){
+      ACTIVE_SLOT = serverSlot;
+      localStorage.setItem(_slotPrefix + '_activeSlot', String(serverSlot));
+    }
+  }catch(e){}
+}
+
 function writeSaveGame(){
   normalizeUCLScheduleLabels();
   if(!G.club) return;
@@ -28591,14 +28612,17 @@ function renderAdminLogs(){
     setProgress(100, 'Готово!');
 
     setTimeout(async () => {
-      // Новий пристрій під тим самим Telegram-акаунтом — локально ще нічого немає,
-      // тож пробуємо підтягти прогрес із сервера перед звичайною auto-load логікою.
+      // Синхронізація з сервером — завжди, не лише на порожньому пристрої.
+      // Спочатку підтягуємо, який слот останнім грали на БУДЬ-ЯКОМУ пристрої
+      // під цим Telegram-акаунтом, і переключаємось саме на нього — інакше
+      // кожен пристрій лишається "замкненим" на своєму локальному ACTIVE_SLOT
+      // навіть після синхронізації даних.
       try{
         const _hasAnyLocal = [1,2,3].some(n=>localStorage.getItem(getSlotKey(n)));
-        if(!_hasAnyLocal && _tgUserId){
+        if(_tgUserId){
           setProgress(95, 'Синхронізація прогресу...');
           await Promise.race([
-            _pullSavesFromServer(),
+            _hasAnyLocal ? _syncActiveSlotFromServer() : _pullSavesFromServer(),
             new Promise(r=>setTimeout(r, 3500)),
           ]);
         }

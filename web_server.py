@@ -127,6 +127,26 @@ async def load_game(request):
     return web.json_response({"ok": True, "data": row[0] if row else None})
 
 
+async def active_slot(request):
+    try:
+        user_id = int(request.query.get("user_id"))
+    except Exception:
+        return web.json_response({"ok": False, "error": "invalid request"}, status=400)
+
+    try:
+        async with get_db() as db:
+            async with db.execute(
+                "SELECT slot FROM game_saves WHERE tg_id = ? ORDER BY updated_at DESC LIMIT 1",
+                (user_id,),
+            ) as cursor:
+                row = await cursor.fetchone()
+    except Exception as e:
+        logger.warning(f"active_slot failed for user {user_id}: {e}")
+        return web.json_response({"ok": False}, status=500)
+
+    return web.json_response({"ok": True, "slot": row[0] if row else None})
+
+
 def create_app(bot=None):
     app = web.Application(client_max_size=SAVE_DATA_MAX_LEN + 1024)
     app["bot"] = bot
@@ -136,4 +156,5 @@ def create_app(bot=None):
     app.router.add_post('/api/check-subscription', check_subscription)
     app.router.add_post('/api/save-game', save_game)
     app.router.add_get('/api/load-game', load_game)
+    app.router.add_get('/api/active-slot', active_slot)
     return app
