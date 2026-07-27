@@ -7756,8 +7756,24 @@ function calcPlayerSalary(p){
 
   const raw = base * posMult * veteranBonus * youthDiscount;
 
+  // 🛡 Підлога ЗП за рейтингом — незалежно від трансферної вартості (mv).
+  // Без цього гравець з високим рейтингом, але заниженою/застарілою mv
+  // (типовий кейс для ветеранів чи наших власних вихованців), міг отримати
+  // мізерну ЗП попри клас гри. Ця підлога діє незалежно від legendTier/mv.
+  const ratingFloor =
+    r >= 93 ? 9_000_000 :
+    r >= 90 ? 5_000_000 :
+    r >= 88 ? 3_500_000 :
+    r >= 85 ? 2_200_000 :
+    r >= 82 ? 1_400_000 :
+    r >= 80 ? 1_000_000 :
+    r >= 78 ?   700_000 :
+    r >= 75 ?   400_000 :
+    r >= 72 ?   220_000 : 0;
+  const withFloor = Math.max(raw, ratingFloor * youthDiscount);
+
   // Жорсткий cap: max 12M, min 20K
-  const capped = Math.min(raw, 12_000_000);
+  const capped = Math.min(withFloor, 12_000_000);
   return snapSalary(Math.max(capped, 20_000));
 }
 
@@ -8719,8 +8735,9 @@ function buildMarket(){
       // Skip if already in flash sales
       if(G.transfers.flashSales.find(f=>f.n===p.n&&f.fromClub===c.id)) return;
       const listed=Math.random()<0.35;
-      // Оренда: ~10% гравців доступні для взяття в оренду, тільки r<85
-      const loanAvailable = p.r < 85 && Math.random() < 0.10;
+      // Оренда: ~10% гравців доступні для взяття в оренду, тільки r<85 і вік ≤34
+      // (ветеранів 35+ клуби віддають тільки продажем, не в оренду)
+      const loanAvailable = p.r < 85 && (p.age||25) <= 34 && Math.random() < 0.10;
       allPlayers.push({
         ...p,
         fromClub:c.id, fromClubName:c.name, fromClubEmoji:c.emoji||'',
