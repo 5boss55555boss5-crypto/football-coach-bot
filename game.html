@@ -10192,9 +10192,17 @@ function eliteTermsSeed(player,salt=''){
 function getEliteTeamRequirement(player){
   const rating=Math.floor(Number(player?.r)||0);
   if(rating<=81) return null;
+  if(player._eliteCaresAboutRating===undefined){
+    // ~40% of elite players don't care about squad strength at all — they're
+    // ready to move regardless (any salary demand is handled separately)
+    player._eliteCaresAboutRating=eliteTermsSeed(player,'cares')%100>=40;
+  }
+  if(!player._eliteCaresAboutRating) return null;
   if(!Number.isFinite(Number(player._eliteTeamRequirement))){
-    const gap=4+(eliteTermsSeed(player,'team')%5);
-    player._eliteTeamRequirement=Math.max(72,Math.min(rating-1,rating-gap));
+    // Required squad rating capped to a realistic in-game range (74-84) —
+    // squads rarely exceed ~90 average, so even a 99-rated superstar
+    // shouldn't demand a near-unreachable team rating tied to their own
+    player._eliteTeamRequirement=74+(eliteTermsSeed(player,'team')%11);
   }
   return Math.min(rating-1,Math.floor(Number(player._eliteTeamRequirement)));
 }
