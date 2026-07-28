@@ -5948,6 +5948,109 @@ const PLAYERS={
     {n:"Й. Шавез",p:"ЛЗ",r:72,mv:3,age:24,nat:"🇪🇨"}
   ]
 };
+
+// ── УПЛ 2026/27: актуальні заявки з Transfermarkt (оновлено 28.07.2026) ──
+const UPL_SQUADS_2026_27_RAW={"8":[["Dmytro Riznyk","Вратарь",27,"Украина",8],["Kiril Fesyun","Вратарь",23,"Украина",1.5],["Denys Tvardovskyi","Вратарь",23,"Украина",0.4],["Tymur Puzankov","Вратарь",23,"Украина",0.1],["Rostyslav Baglay","Вратарь",18,"Украина",0.05],["Mykola Matvienko","Центр. защитник",30,"Украина",12],["Valeriy Bondar","Центр. защитник",27,"Украина",8],["Marlon","Центр. защитник",30,"Бразилия",2.5],["Alaa Ghram","Центр. защитник",25,"Тунис",1.5],["Eduard Kozik","Центр. защитник",23,"Украина",0.8],["Diego Arroyo","Центр. защитник",21,"Боливия",0.5],["Maryan Faryna","Центр. защитник",22,"Украина",0.35],["Pedro Henrique","Левый защитник",24,"Бразилия",8],["Irakli Azarovi","Левый защитник",24,"Грузия",2.5],["Viktor Korniyenko","Левый защитник",27,"Украина",0.3],["Vinícius Tobias","Правый защитник",22,"Бразилия",6],["Giorgi Gocholeishvili","Правый защитник",25,"Грузия",2],["Oleksandr Karavaev","Правый защитник",34,"Украина",1],["Marlon Gomes","Центр. полузащитник",22,"Бразилия",12],["Dmytro Kryskiv","Центр. полузащитник",25,"Украина",4],["Yegor Nazaryna","Центр. полузащитник",29,"Украина",2.5],["Viktor Tsukanov","Центр. полузащитник",20,"Украина",0.5],["Kyrylo Sigeev","Центр. полузащитник",22,"Украина",0.1],["Isaque","Атак. полузащитник",19,"Бразилия",11],["Artem Bondarenko","Атак. полузащитник",25,"Украина",8],["Oleg Ocheretko","Атак. полузащитник",23,"Украина",7],["Anton Glushchenko","Атак. полузащитник",22,"Украина",0.3],["Newerton","Левый Вингер",21,"Бразилия",7],["Eguinaldo","Левый Вингер",21,"Бразилия",5],["Gleiker Mendoza","Левый Вингер",24,"Венесуэла",3],["Oleg Pushkaryov","Левый Вингер",22,"Украина",0.15],["Ryan Roberto","Левый Вингер",18,"Бразилия",0.05],["Pedrinho","Правый Вингер",28,"Бразилия",10],["Alisson","Правый Вингер",20,"Бразилия",9],["Lucas Ferreira","Правый Вингер",20,"Бразилия",7],["Prosper Obah","Правый Вингер",22,"Нигерия",4],["Maryan Shved","Правый Вингер",29,"Украина",0.8],["Kauã Elias","Центральный нап.",20,"Бразилия",15],["Luca Meirelles","Центральный нап.",19,"Бразилия",10],["Lassina Traoré","Центральный нап.",25,"Буркина-Фасо",7]],"9":[["Ruslan Neshcheret","Вратарь",24,"Украина",3.5],["Ilya Olkhovyi","Вратарь",23,"Украина",0.175],["Vyacheslav Surkis","Вратарь",20,"Украина",0.1],["Taras Mykhavko","Центр. защитник",21,"Украина",10],["Denys Popov","Центр. защитник",27,"Украина",3],["Kristian Bilovar","Центр. защитник",25,"Украина",1.5],["Oleksandr Syrota","Центр. защитник",26,"Украина",1],["Aliou Thiaré","Центр. защитник",22,"Сенегал",1],["Vladyslav Zakharchenko","Центр. защитник",20,"Украина",0.7],["Kostyantyn Vivcharenko","Левый защитник",24,"Украина",2.5],["Vladyslav Dubinchak","Левый защитник",28,"Украина",2.5],["Oleksandr Tymchyk","Правый защитник",29,"Украина",3.5],["Tomasz Kędziora","Правый защитник",32,"Польша",2],["Maksym Korobov","Правый защитник",20,"Украина",0.8],["Oleksiy Sych","Правый защитник",25,"Украина",0.7],["Oleksiy Gusev","Правый защитник",21,"Украина",0.5],["Navin Malysh","Правый защитник",23,"Украина",0.4],["Volodymyr Brazhko","Опорный полузащитник",24,"Украина",10],["Mykola Mykhaylenko","Опорный полузащитник",25,"Украина",2],["Reshat Ramadani","Опорный полузащитник",23,"Северная Македония",0.6],["Mykola Shaparenko","Центр. полузащитник",27,"Украина",8],["Oleksandr Pikhalyonok","Центр. полузащитник",29,"Украина",3],["Justin Lonwijk","Центр. полузащитник",26,"Суринам",0.8],["Valentyn Rubchynskyi","Центр. полузащитник",24,"Украина",0.75],["Roman Salenko","Центр. полузащитник",21,"Украина",0.4],["Vitaliy Buyalskyi","Атак. полузащитник",33,"Украина",2.5],["Vladyslav Kabaev","Левый Вингер",30,"Украина",2.5],["Bogdan Redushko","Левый Вингер",19,"Украина",2],["Shola Ogundana","Левый Вингер",21,"Нигерия",0.8],["Samba Diallo","Левый Вингер",23,"Сенегал",0.3],["Vladyslav Gerych","Левый Вингер",20,"Украина",0.3],["Nazar Voloshyn","Правый Вингер",23,"Украина",5],["Andriy Yarmolenko","Правый Вингер",36,"Украина",1],["Ángel Torres","Правый Вингер",26,"Колумбия",0.25],["Matviy Ponomarenko","Центральный нап.",20,"Украина",12],["Eduardo Guerrero","Центральный нап.",26,"Панама",2.5],["Pierre Mounguengue","Центральный нап.",18,"Франция",2],["Vladislav Blănuță","Центральный нап.",24,"Румыния",1],["Vladyslav Supryaga","Центральный нап.",26,"Украина",0.4],["Vitaliy Lobko","Центральный нап.",19,"Украина",0.1]],"12":[["Georgiy Bushchan","Вратарь",32,"Украина",2],["Yevgen Volynets","Вратарь",32,"Украина",0.75],["Oleg Kudryk","Вратарь",29,"Украина",0.4],["Eduard Sarapiy","Центр. защитник",27,"Украина",2.5],["Sergiy Chobotenko","Центр. защитник",29,"Украина",1.5],["Ilir Krasniqi","Центр. защитник",26,"Косово",1],["Danylo Beskorovaynyi","Центр. защитник",27,"Украина",0.8],["João Vialle","Центр. защитник",23,"Бразилия",0.4],["Matej Matic","Центр. защитник",22,"Хорватия",0.3],["Kiril Kobernyuk","Центр. защитник",21,"Украина",0.1],["Bogdan Mykhaylichenko","Левый защитник",29,"Украина",2.5],["Mykyta Kravchenko","Правый защитник",29,"Украина",1],["Giorgi Maisuradze","Правый защитник",24,"Грузия",0.6],["Andi Hadroj","Правый защитник",27,"Албания",0.3],["Borys Krushynskyi","Опорный полузащитник",24,"Украина",1.5],["Andrusw Araujo","Опорный полузащитник",23,"Венесуэла",1.2],["Maksym Melnychenko","Опорный полузащитник",21,"Украина",0.3],["Lindon Emërllahu","Центр. полузащитник",23,"Косово",2],["Oleg Fedor","Центр. полузащитник",22,"Украина",1.2],["Oleksandr Andriyevskyi","Центр. полузащитник",32,"Украина",0.8],["Volodymyr Shepelev","Центр. полузащитник",29,"Украина",0.7],["Borel Tomandzoto","Центр. полузащитник",23,"Конго",0.3],["Ruslan Babenko","Центр. полузащитник",34,"Украина",0.25],["Yaroslav Karaman","Атак. полузащитник",20,"Украина",0.3],["Oleksandr Nazarenko","Левый Вингер",26,"Украина",2.5],["Maksym Bragaru","Левый Вингер",24,"Украина",1.5],["Béni Makouana","Левый Вингер",23,"Конго",0.2],["Leandro Andrade","Правый Вингер",26,"Кабо-Верде",3.5],["Vladyslav Veleten","Правый Вингер",23,"Украина",1],["Igor Krasnopir","Центральный нап.",23,"Украина",1.5],["Mykola Gayduchyk","Центральный нап.",26,"Украина",1],["Oleksandr Filippov","Центральный нап.",33,"Украина",0.4]],"32":[["Oleksandr Kemkin","Вратарь",23,"Украина",1],["Bogdan Khoma","Вратарь",23,"Украина",0.1],["Volodymyr Vilivald","Центр. защитник",21,"Украина",1.5],["Joseph Jones","Центр. защитник",20,"Панама",0.6],["Jimmy Mpanzu","Центр. защитник",24,"Португалия",0.05],["Ante Bekavac","Левый защитник",24,"Хорватия",0.6],["Thiago Borges","Левый защитник",21,"Бразилия",0.4],["Jan Jurcec","Правый защитник",25,"Хорватия",1.5],["João Machado","Правый защитник",21,"Португалия",0.05],["Denys Pidgurskyi","Опорный полузащитник",23,"Украина",0.5],["Roy Nawi","Опорный полузащитник",22,"Израиль",0.275],["Yaroslav Shevchenko","Центр. полузащитник",19,"Украина",0.7],["Oleksandr Kamenskyi","Левый полузащитник",18,"Украина",0.4],["Giovany Herbert","Атак. полузащитник",21,"Панама",0.4],["Bar Lin","Правый Вингер",21,"Израиль",1],["Assane Seck","Правый Вингер",22,"Сенегал",0.3],["Tymur Butenko","Правый Вингер",19,"Украина",0.05],["Shakeone Satchwell","Центральный нап.",22,"Ямайка",0.2],["Volodymyr Mulyk","Центральный нап.",20,"Украина",0.2],["Matviy Bodnar","Центральный нап.",18,"Украина",0.15]],"34":[["Denys Marchenko","Вратарь",19,"Украина",0.6],["Anton Zhylkin","Вратарь",23,"Украина",0.15],["Roman Mysak","Вратарь",34,"Украина",0.05],["Vladyslav Baboglo","Центр. защитник",27,"Молдова",1],["Jean Pedroso","Центр. защитник",22,"Бразилия",0.9],["Vitaliy Kholod","Центр. защитник",22,"Украина",0.6],["Tymur Stetskov","Центр. защитник",28,"Украина",0.3],["Mykola Kyrychok","Центр. защитник",20,"Украина",0.15],["Bogdan Levytskyi","Центр. защитник",17,"Украина",0.1],["Roman Vantukh","Левый защитник",28,"Украина",0.7],["Rostyslav Lyakh","Левый защитник",25,"Украина",0.7],["Andriy Buleza","Левый защитник",22,"Украина",0.1],["Denys Miroshnichenko","Правый защитник",31,"Украина",0.4],["Yuriy Kokodynyak","Правый защитник",19,"Украина",0.1],["Marko Sapuga","Опорный полузащитник",23,"Украина",0.5],["Eriki","Опорный полузащитник",20,"Бразилия",0.3],["Moha Moukhliss","Центр. полузащитник",26,"Испания",0.8],["Ivan Chaban","Центр. полузащитник",20,"Украина",0.1],["Yan Kostenko","Левый полузащитник",23,"Украина",0.8],["Ambrosiy Chachua","Атак. полузащитник",32,"Украина",0.5],["Artur Shakh","Атак. полузащитник",21,"Украина",0.5],["Fellipe Vieira","Атак. полузащитник",21,"Бразилия",0.3],["Xeber Alkain","Правый Вингер",29,"Испания",0.8],["Nazariy Rusyn","Центральный нап.",27,"Украина",0.6],["Yaroslav Karabin","Центральный нап.",23,"Украина",0.5]],"35":[["Oleksandr Saputin","Вратарь",22,"Украина",0.9],["Vladyslav Rybak","Вратарь",25,"Украина",0.35],["Valeriy Kosivskyi","Вратарь",20,"Украина",0.05],["Jordan","Центр. защитник",27,"Бразилия",1],["Andrija Janjic","Центр. защитник",24,"Босния и Герцеговина",0.7],["Gabriel Eskinja","Центр. защитник",22,"Австрия",0.5],["Juninho","Левый защитник",30,"Бразилия",0.8],["Vasyl Kravets","Левый защитник",28,"Украина",0.3],["Igor Perduta","Правый защитник",35,"Украина",0.1],["Dejan Popara","Опорный полузащитник",23,"Босния и Герцеговина",0.8],["Jakov Basic","Опорный полузащитник",29,"Хорватия",0.6],["Bogdan Kushnirenko","Опорный полузащитник",30,"Украина",0.5],["Kyrylo Dryshlyuk","Центр. полузащитник",26,"Украина",0.5],["Nemanja Andjusic","Атак. полузащитник",29,"Босния и Герцеговина",0.75],["Ivan Nesterenko","Атак. полузащитник",23,"Украина",0.3],["Sallieu Bah","Атак. полузащитник",19,"Сьерра-Леоне",0.3],["Ivan Golovkin","Атак. полузащитник",26,"Украина",0.05],["Domagoj Jelavic","Левый Вингер",24,"Хорватия",0.3],["Vladyslav Vakula","Левый Вингер",27,"Украина",0.2],["Artem Slesar","Правый Вингер",21,"Украина",0.8],["Igor Gorbach","Центральный нап.",22,"Украина",0.4],["Pylyp Budkivskyi","Центральный нап.",34,"Украина",0.3],["Fedir Zadorozhnyi","Центральный нап.",19,"Украина",0.1]],"37":[["Valentyn Gorokh","Вратарь",25,"Украина",0.5],["Andrey Kozhukhar","Вратарь",27,"Молдова",0.3],["Pavlo Stefanyuk","Вратарь",21,"Украина",0.05],["Kai Cipot","Центр. защитник",25,"Словения",0.7],["Semen Vovchenko","Центр. защитник",27,"Украина",0.5],["Danyil Checher","Центр. защитник",21,"Украина",0.15],["Maksym Smiyan","Левый защитник",24,"Украина",0.6],["Konstantinos Stamoulis","Правый защитник",25,"Греция",0.7],["Mykhaylo Protasevych","Правый защитник",21,"Украина",0.3],["Igor Kharatin","Опорный полузащитник",31,"Украина",0.4],["Vitaliy Boyko","Центр. полузащитник",28,"Украина",0.6],["David Niyo","Центр. полузащитник",19,"Руанда",0.05],["Rostyslav Baran","Центр. полузащитник",21,"Украина",0.05],["Fabrício Yan","Атак. полузащитник",22,"Бразилия",0.3],["Dmytro Godya","Атак. полузащитник",21,"Украина",0.25],["Wesley Pomba","Левый Вингер",24,"Бразилия",0.5],["André Gonçalves","Левый Вингер",23,"Португалия",0.5],["Vladyslav Sharay","Левый Вингер",29,"Украина",0.5],["Guilherme Bahia","Левый Вингер",20,"Бразилия",0.2],["Nathanael Blair","Центральный нап.",22,"Австралия",0.25],["Alagie Wally","Центральный нап.",20,"Гамбия",0.15]],"38":[["Ivan Pakholyuk","Вратарь",22,"Украина",1],["Valentyn Morgun","Вратарь",24,"Украина",0.5],["Dmytro Matsapura","Вратарь",26,"Украина",0.2],["Mykyta Burda","Центр. защитник",31,"Украина",0.4],["Daniil Khrypchuk","Центр. защитник",22,"Украина",0.3],["Roman Goncharenko","Центр. защитник",32,"Украина",0.2],["Vladyslav Shershen","Центр. защитник",20,"Украина",0.05],["Zurab Rukhadze","Левый защитник",22,"Грузия",0.2],["Andriy Tsurikov","Левый защитник",33,"Украина",0.2],["Vitaliy Katrych","Левый защитник",21,"Украина",0.175],["Andriy Ponedelnik","Правый защитник",29,"Украина",0.8],["Yegor Popravka","Правый защитник",22,"Украина",0.25],["Elias Telles","Опорный полузащитник",27,"Бразилия",0.9],["Oleksandr Demchenko","Опорный полузащитник",30,"Украина",0.5],["Artem Chelyadin","Опорный полузащитник",26,"Украина",0.25],["Nika Gagnidze","Центр. полузащитник",25,"Грузия",0.9],["Oleg Kryvoruchko","Центр. полузащитник",21,"Украина",0.2],["Ibrahim Kane","Правый полузащитник",26,"Мали",0.6],["Arinaldo Rrapaj","Атак. полузащитник",24,"Албания",0.7],["Irgi Kasalla","Атак. полузащитник",23,"Албания",0.45],["Luka Stankovski","Атак. полузащитник",23,"Северная Македония",0.4],["Daniil Denysenko","Атак. полузащитник",19,"Украина",0.2],["Oleksiy Bezruchuk","Атак. полузащитник",20,"Украина",0.075],["Anton Salabay","Левый Вингер",24,"Украина",0.6],["Artem Gusol","Правый Вингер",20,"Украина",0.7],["Yuriy Klymchuk","Центральный нап.",29,"Украина",0.7],["Denys Ndukve","Центральный нап.",26,"Украина",0.6],["Ardit Tahiri","Центральный нап.",23,"Косово",0.35]],"39":[["Nazariy Fedorivskyi","Вратарь",30,"Украина",0.3],["Vadym Stashkiv","Вратарь",19,"Украина",0.15],["Kyrylo Barantsov","Вратарь",22,"Украина",0.075],["Oleksandr Zhovtenko","Центр. защитник",21,"Украина",0.25],["Andriy Lomnytskyi","Центр. защитник",20,"Украина",0.2],["Kyrylo Prokopchuk","Центр. защитник",28,"Украина",0.15],["Vitaliy Yermakov","Центр. защитник",34,"Украина",0.1],["Oleksandr Feshchenko","Центр. защитник",19,"Украина",0.05],["Yevgeniy Shevchenko","Левый защитник",30,"Украина",0.4],["Yegor Prokopenko","Левый защитник",28,"Украина",0.3],["Dmytro Kapinus","Правый защитник",23,"Украина",0.4],["Pavlo Polegenko","Правый защитник",31,"Украина",0.4],["Maksym Grysyo","Правый защитник",30,"Украина",0.1],["Maksym Chekh","Опорный полузащитник",27,"Украина",0.4],["Taras Moroz","Опорный полузащитник",30,"Украина",0.25],["Roman Volokhatyi","Центр. полузащитник",25,"Украина",0.3],["Dmytro Myshnyov","Центр. полузащитник",32,"Украина",0.25],["Artem Kulakovskyi","Центр. полузащитник",24,"Украина",0.2],["Oleg Slobodyan","Атак. полузащитник",29,"Украина",0.3],["Andriy Matkevych","Левый Вингер",21,"Украина",0.2],["Igor Medynskyi","Правый Вингер",33,"Украина",0.15],["Daniil Yushko","Правый Вингер",21,"Украина",0.05],["Denys Ustymenko","Центральный нап.",27,"Украина",0.4],["Sergiy Sukhanov","Центральный нап.",31,"Украина",0.25],["Denys Teslyuk","Центральный нап.",23,"Украина",0.2],["Taras Lyakh","Центральный нап.",21,"Украина",0.15]],"40":[["Dmytro Ledviy","Вратарь",22,"Украина",0.5],["Oleksiy Palamarchuk","Вратарь",35,"Украина",0.25],["Kirill Samoylenko","Вратарь",25,"Украина",0.1],["Roman Didyk","Центр. защитник",23,"Украина",1.5],["Oleg Gorin","Центр. защитник",26,"Украина",1.2],["Nazariy Muravskyi","Центр. защитник",26,"Украина",1.2],["Ajdi Dajko","Центр. защитник",23,"Албания",0.6],["Oleksandr Drambayev","Левый защитник",25,"Украина",0.9],["Vitaliy Roman","Левый защитник",23,"Украина",0.5],["Yaroslav Kysil","Левый защитник",23,"Украина",0.2],["Andriy Kitela","Правый защитник",21,"Украина",0.5],["Shota Nonikashvili","Опорный полузащитник",25,"Грузия",0.7],["Adam Yakubu","Опорный полузащитник",21,"Нигерия",0.5],["Artur Ryabov","Центр. полузащитник",25,"Украина",1.2],["Denys Kuzyk","Правый полузащитник",23,"Украина",2],["Dmytro Matkivskyi","Правый полузащитник",20,"Украина",0.075],["Gennadiy Pasich","Левый полузащитник",33,"Украина",0.3],["Yegor Tverdokhlib","Атак. полузащитник",25,"Украина",1.8],["Muharrem Jashari","Атак. полузащитник",28,"Косово",1],["Yevgeniy Pastukh","Атак. полузащитник",22,"Украина",1],["Talles Brener","Атак. полузащитник",28,"Бразилия",0.5],["Tedi Cara","Левый Вингер",26,"Албания",0.8],["Jewison Bennette","Левый Вингер",22,"Коста-Рика",0.6],["Artur Mykytyshyn","Правый Вингер",23,"Украина",0.8],["Mark Assinor","Центральный нап.",26,"Гана",1.5],["Danylo Kravchuk","Центральный нап.",25,"Украина",0.5],["Cody David","Центральный нап.",25,"Нигерия",0.4],["Mollo Bessala","Центральный нап.",22,"Камерун",0.2]],"41":[["Danylo Varakuta","Вратарь",24,"Украина",0.8],["Yaroslav Protsenko","Вратарь",24,"Украина",0.15],["Yevgen Pavlyuk","Центр. защитник",23,"Украина",1.5],["Volodymyr Salyuk","Центр. защитник",24,"Украина",1],["Valeriy Dubko","Центр. защитник",25,"Украина",0.5],["Artem Shabanov","Центр. защитник",34,"Украина",0.2],["Oleksandr Martynyuk","Левый защитник",24,"Украина",1.5],["Ilya Krupskyi","Правый защитник",21,"Украина",1.8],["Rafael Profini","Опорный полузащитник",22,"Аргентина",2.8],["Nicolás Arévalo","Опорный полузащитник",23,"Колумбия",0.9],["Ivan Kalyuzhnyi","Центр. полузащитник",28,"Украина",2],["Oleksandr Yatsyk","Центр. полузащитник",23,"Украина",1],["Igor Kogut","Центр. полузащитник",30,"Украина",0.4],["Matviy Panchenko","Центр. полузащитник",20,"Украина",0.2],["Cauan Baptistella","Атак. полузащитник",18,"Италия",1],["Denys Nagnoynyi","Атак. полузащитник",24,"Украина",0.35],["Vladlen Yurchenko","Атак. полузащитник",32,"Украина",0.25],["Ermir Rashica","Левый Вингер",22,"Албания",1.2],["Sebastián Castillo","Левый Вингер",21,"Венесуэла",0.7],["Denys Antyukh","Правый Вингер",28,"Украина",1],["Baton Zabergja","Правый Вингер",25,"Косово",1],["Ramik Gadzhyev","Правый Вингер",20,"Украина",0.5],["Peter Itodo","Центральный нап.",23,"Нигерия",1.8],["Carlos Paraco","Центральный нап.",22,"Венесуэла",1.5],["Christian Mba","Центральный нап.",26,"Нигерия",0.6],["Raymond Owusu","Центральный нап.",24,"Гана",0.3],["Oleksiy Sydorov","Центральный нап.",25,"Украина",0.1]],"42":[["Oleg Bilyk","Вратарь",28,"Украина",0.4],["Nikita Fedotov","Вратарь",26,"Украина",0.1],["Arseniy Vavshko","Вратарь",20,"Украина",0.05],["Stepan Grygorashchuk","Центр. защитник",25,"Украина",0.4],["Vladyslav Moroz","Центр. защитник",24,"Украина",0.4],["Nil Coch","Центр. защитник",28,"Испания",0.4],["Serjan Repaj","Центр. защитник",25,"Албания",0.25],["Vitaliy Gorin","Центр. защитник",19,"Украина",0.05],["Oleksandr Klymets","Левый защитник",26,"Украина",0.4],["Igor Kyryukhantsev","Правый защитник",30,"Украина",0.4],["Valeriy Luchkevych","Правый защитник",30,"Украина",0.25],["Andriy Boyko","Правый защитник",21,"Украина",0.05],["Andriy Lipovuz","Опорный полузащитник",28,"Украина",0.25],["Mykola Myronyuk","Центр. полузащитник",23,"Украина",0.4],["Jon Ceberio","Центр. полузащитник",29,"Испания",0.35],["Yevgen Zaporozhets","Центр. полузащитник",31,"Украина",0.25],["Raúl Tavares","Центр. полузащитник",27,"Испания",0.2],["Artem Kozak","Правый полузащитник",28,"Украина",0.4],["Kyrylo Kovalets","Атак. полузащитник",33,"Украина",0.15],["Nene","Левый Вингер",23,"Испания",0.35],["Ivan Bendera","Левый Вингер",23,"Украина",0.15],["Joaquinete","Правый Вингер",28,"Испания",0.5],["Carlos Rojas","Правый Вингер",24,"Испания",0.25],["Denys Golub","Правый Вингер",22,"Украина",0.05],["Vadym Sydun","Центральный нап.",21,"Украина",0.4],["Maksym Yevpak","Центральный нап.",23,"Украина",0.15]],"43":[["Anton Yashkov","Вратарь",34,"Украина",0.1],["llya Karavashchenko","Вратарь",25,"Украина",0.1],["Kyrylo Lavuta","Вратарь",23,"Украина",0.05],["Mykhaylo Kulyk","Вратарь",20,"Украина",0.05],["Dmytro Semenov","Центр. защитник",26,"Украина",0.4],["Myroslav Serdyuk","Центр. защитник",27,"Украина",0.4],["Bogdan Veklyak","Центр. защитник",26,"Украина",0.3],["Jair Collahuazo","Центр. защитник",20,"Эквадор",0.25],["Yuriy Potimkov","Центр. защитник",23,"Украина",0.15],["Maksym Melnychuk","Левый защитник",26,"Украина",0.4],["Mykola Ogarkov","Левый защитник",21,"Украина",0.4],["Artem Machelyuk","Правый защитник",26,"Украина",0.4],["Yevgeniy Pasich","Правый защитник",33,"Украина",0.1],["Artur Dumanyuk","Опорный полузащитник",29,"Украина",0.35],["Kaya Makosso","Опорный полузащитник",27,"Конго",0.2],["Victor Adeoye","Опорный полузащитник",20,"Нигерия",0.1],["Yevgeniy Smyrnyi","Центр. полузащитник",27,"Украина",0.25],["Oleksandr Belyaev","Левый полузащитник",26,"Украина",0.25],["Rodion Plaksa","Атак. полузащитник",24,"Украина",0.2],["Sergiy Sten","Левый Вингер",24,"Украина",0.2],["Ivan Petryak","Левый Вингер",32,"Украина",0.15],["Denys Svityukha","Правый Вингер",24,"Украина",0.25],["Reynaldiño Verley","Центральный нап.",23,"Панама",0.2],["Anton Demchenko","Центральный нап.",21,"Украина",0.075],["Roman Solodarenko","Центральный нап.",42,"Украина",0.05]],"44":[["Danylo Kanevtsev","Вратарь",30,"Украина",0.2],["German Penkov","Вратарь",32,"Украина",0.2],["Danylo Karas","Центр. защитник",29,"Украина",0.5],["Mykyta Bezuglyi","Центр. защитник",30,"Украина",0.4],["Vladyslav Pryimak","Центр. защитник",29,"Украина",0.4],["Andriy Busko","Центр. защитник",29,"Украина",0.15],["Petro Stasyuk","Левый защитник",31,"Украина",0.4],["Taras Sakiv","Левый защитник",28,"Украина",0.3],["Ilya Putrya","Правый защитник",28,"Украина",0.5],["Edwin Odinaka","Правый защитник",22,"Нигерия",0.4],["Dmytro Shynkarenko","Правый защитник",26,"Украина",0.15],["Vadym Vitenchuk","Опорный полузащитник",29,"Украина",0.5],["Vyacheslav Tankovskyi","Центр. полузащитник",30,"Украина",0.6],["Fedir Babak","Центр. полузащитник",19,"Украина",0.025],["Oleg Ilyin","Правый полузащитник",29,"Украина",0.25],["Vitaliy Dakhnovskyi","Левый полузащитник",27,"Украина",0.75],["Maksym Zaderaka","Атак. полузащитник",31,"Украина",0.6],["Vitaliy Grusha","Атак. полузащитник",32,"Украина",0.25],["Ivan Tyshchenko","Атак. полузащитник",28,"Украина",0.2],["Arseniy Kilyevyi","Атак. полузащитник",22,"Украина",0.025],["Mihael Klepac","Левый Вингер",28,"Хорватия",0.25],["Yevgen Pidlepenets","Правый Вингер",27,"Украина",0.6],["Bogdan Boychuk","Правый Вингер",30,"Украина",0.35],["Oleg Kozhushko","Центральный нап.",28,"Украина",0.6],["Maksym Voytikhovskyi","Центральный нап.",27,"Украина",0.3]]};
+const UPL_POS_2026_27={
+  "Вратарь":"ВРТ","Центр. защитник":"ЦЗ","Левый защитник":"ЛЗ","Правый защитник":"РБ",
+  "Опорный полузащитник":"ПЗ","Центр. полузащитник":"ЦПЗ","Левый полузащитник":"ЛВ",
+  "Правый полузащитник":"ПВ","Атак. полузащитник":"АПЗ","Левый Вингер":"ЛВ",
+  "Правый Вингер":"ПВ","Центральный нап.":"ЦН"
+};
+const UPL_NAT_2026_27={
+  "Украина":"🇺🇦","Бразилия":"🇧🇷","Тунис":"🇹🇳","Боливия":"🇧🇴","Грузия":"🇬🇪",
+  "Венесуэла":"🇻🇪","Нигерия":"🇳🇬","Буркина-Фасо":"🇧🇫","Сенегал":"🇸🇳","Польша":"🇵🇱",
+  "Северная Македония":"🇲🇰","Суринам":"🇸🇷","Колумбия":"🇨🇴","Панама":"🇵🇦",
+  "Франция":"🇫🇷","Румыния":"🇷🇴","Косово":"🇽🇰","Хорватия":"🇭🇷","Конго":"🇨🇬",
+  "Албания":"🇦🇱","Кабо-Верде":"🇨🇻","Португалия":"🇵🇹","Израиль":"🇮🇱",
+  "Ямайка":"🇯🇲","Молдова":"🇲🇩","Испания":"🇪🇸","Босния и Герцеговина":"🇧🇦",
+  "Австрия":"🇦🇹","Сьерра-Леоне":"🇸🇱","Словения":"🇸🇮","Греция":"🇬🇷",
+  "Руанда":"🇷🇼","Австралия":"🇦🇺","Гамбия":"🇬🇲","Мали":"🇲🇱",
+  "Коста-Рика":"🇨🇷","Гана":"🇬🇭","Камерун":"🇨🇲","Аргентина":"🇦🇷",
+  "Италия":"🇮🇹","Эквадор":"🇪🇨"
+};
+const UPL_NAME_EXCEPTIONS_2026_27={
+  "Kędziora":"Кендзьора","Traoré":"Траоре","Gonçalves":"Гонсалвеш","Bahia":"Баїя",
+  "Rrapaj":"Ррапай","Blănuță":"Бленуце","Emërllahu":"Емерлаху","Joaquinete":"Хоакінете",
+  "Coch":"Коч","Ceberio":"Себеріо","Reynaldiño":"Рейнальдіньо","Cipot":"Чіпот",
+  "Gocholeishvili":"Гочолейшвілі","Ocheretko":"Очеретько","Pikhalyonok":"Піхальонок",
+  "Mykhaylichenko":"Михайліченко","Gayduchyk":"Гайдучик","Neshcheret":"Нещерет",
+  "Matvienko":"Матвієнко","Korniyenko":"Корнієнко","Klymets":"Климець",
+  "Kyryukhantsev":"Кирюханцев","Pidlepenets":"Підлепенець","Voytikhovskyi":"Войтиховський",
+  "Jashari":"Яшарі","Janjic":"Янич","Jelavic":"Єлавич","Joaquinete":"Хоакінете",
+  "Eriki":"Ерікі","Isaque":"Ісаке","Newerton":"Невертон","Eguinaldo":"Егіналду",
+  "Pedrinho":"Педріньйо","Juninho":"Жуніньйо","Nene":"Нене"
+};
+function uplShortName2026(full){
+  const last=String(full||"").trim().split(/\s+/).pop()||"Гравець";
+  if(UPL_NAME_EXCEPTIONS_2026_27[last])return UPL_NAME_EXCEPTIONS_2026_27[last];
+  let s=last.normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ł/gi,"l").toLowerCase();
+  s=s.replace(/tskyi$/,"цький").replace(/skyi$/,"ський").replace(/ckyi$/,"цький")
+     .replace(/nyi$/,"ний").replace(/iy$/,"ій").replace(/yi$/,"ий");
+  [["shch","щ"],["zh","ж"],["kh","х"],["ch","ч"],["sh","ш"],["ts","ц"],
+   ["ya","я"],["yu","ю"],["ye","є"],["yi","ї"],["jo","йо"],["ph","ф"],["th","т"],
+   ["qu","кв"],["ck","к"]].forEach(([a,b])=>{s=s.split(a).join(b);});
+  s=s.replace(/c(?=[eiy])/g,"с").replace(/j/g,"дж").replace(/x/g,"кс").replace(/w/g,"в")
+     .replace(/q/g,"к").replace(/a/g,"а").replace(/b/g,"б").replace(/c/g,"к")
+     .replace(/d/g,"д").replace(/e/g,"е").replace(/f/g,"ф").replace(/g/g,"г")
+     .replace(/h/g,"г").replace(/i/g,"і").replace(/k/g,"к").replace(/l/g,"л")
+     .replace(/m/g,"м").replace(/n/g,"н").replace(/o/g,"о").replace(/p/g,"п")
+     .replace(/r/g,"р").replace(/s/g,"с").replace(/t/g,"т").replace(/u/g,"у")
+     .replace(/v/g,"в").replace(/y/g,"и").replace(/z/g,"з");
+  return s.charAt(0).toUpperCase()+s.slice(1);
+}
+function uplRating2026(mv,age=25,pos=""){
+  const v=Number(mv)||0,a=Number(age)||25;
+  // Спільна європейська шкала: ціна визначає базовий клас, але не дорівнює рейтингу.
+  let r=v>=15?82:v>=12?81:v>=10?80:v>=8?79:v>=7?78:v>=6?77:
+        v>=5?76:v>=4?75:v>=3.5?74:v>=3?73:v>=2.5?72:v>=1.8?71:
+        v>=1.5?70:v>=1?69:v>=.8?68:v>=.6?67:v>=.4?66:v>=.25?64:
+        v>=.15?62:v>=.1?60:v>=.05?58:56;
+  // У молодих ринкова ціна частково складається з потенціалу; ветерани, навпаки, дешевші за свій поточний рівень.
+  if(a<=18)r-=2;else if(a<=20)r-=1;else if(a>=33)r+=2;else if(a>=30)r+=1;
+  // Трансферні ціни воротарів системно нижчі за ціни польових гравців такого самого рівня.
+  if(pos==="ВРТ")r+=1;
+  return Math.max(54,Math.min(84,Math.round(r)));
+}
+Object.entries(UPL_SQUADS_2026_27_RAW).forEach(([clubId,rows])=>{
+  const prepared=rows.map(([full,pos,age,nation,mv])=>({
+    full,short:uplShortName2026(full),pos,age,nation,mv
+  }));
+  const nameCounts=prepared.reduce((acc,p)=>(acc[p.short]=(acc[p.short]||0)+1,acc),{});
+  PLAYERS[Number(clubId)]=prepared.map(({full,short,pos,age,nation,mv})=>{
+    const first=String(full).trim().split(/\s+/)[0]||"";
+    const display=nameCounts[short]>1?`${short} ${uplShortName2026(first).charAt(0)}.`:short;
+    const gamePos=UPL_POS_2026_27[pos]||"ЦПЗ";
+    return {
+      n:display,p:gamePos,r:uplRating2026(mv,age,gamePos),
+      mv:Number(mv)||.05,age:Number(age)||20,nat:UPL_NAT_2026_27[nation]||"🌍"
+    };
+  });
+});
+
+// Єдина формула також для вже оновлених складів Чорноморця та Лівого Берега.
+const UPL_CLUB_IDS_2026_27=[8,9,12,32,33,34,35,36,37,38,39,40,41,42,43,44];
+UPL_CLUB_IDS_2026_27.forEach(id=>(PLAYERS[id]||[]).forEach(p=>{
+  p.r=uplRating2026(p.mv,p.age,p.p);
+}));
+
+// Точкові експертні коригування для гравців, чий рівень не відображає одна лише ринкова ціна.
+const UPL_PLAYER_RATING_OVERRIDES_2026_27={44:{"Дахновський":69}};
+Object.entries(UPL_PLAYER_RATING_OVERRIDES_2026_27).forEach(([clubId,overrides])=>{
+  (PLAYERS[Number(clubId)]||[]).forEach(p=>{
+    if(Number.isFinite(overrides[p.n]))p.r=overrides[p.n];
+  });
+});
+
+// Сила клубу відповідає збалансованому стартовому XI, а не старій заявці до трансферів.
+const UPL_CLUB_STRENGTH_2026_27={
+  8:80,9:76,12:71,41:70,40:69,34:68,38:68,35:68,
+  32:67,44:67,37:67,42:66,39:66,33:65,43:65,36:65
+};
+CLUBS.forEach(club=>{
+  if(UPL_CLUB_STRENGTH_2026_27[club.id])club.strength=UPL_CLUB_STRENGTH_2026_27[club.id];
+});
+
 // Each mode affects: myStr bonus, goals multiplier (attack), concede multiplier (defense)
 // attackMod: +N extra goals chance for my team
 // defendMod: +N extra goals chance for opponent
@@ -7525,6 +7628,17 @@ function buildLineupFromFormation(players, formationId){
   const usedSet = new Set();
   const xi = new Array(n).fill(null);
 
+  // Природна позиція завжди важливіша за 1–2 пункти рейтингу.
+  // Це не дозволяє ЦП/АП опинятися в захисті, доки в заявці є справжні захисники.
+  const lineupFitScore=(player,slotPos)=>{
+    let score=effectiveRating(player,slotPos);
+    if(player.p===slotPos)return score+1000;
+    if(slotPos==='ПЗ'&&isMid(player.p))return score+500;
+    if(isDef(slotPos)&&isDef(player.p))return score+500;
+    if(isFwd(slotPos)&&isFwd(player.p))return score+500;
+    return score;
+  };
+
   // 1. Воротар
   const gkSlotIdx = slots.findIndex(s=>s.p==='ВРТ');
   if(gkSlotIdx!==-1 && gks.length){
@@ -7549,16 +7663,13 @@ function buildLineupFromFormation(players, formationId){
       const av = outfield.filter(p=>!usedSet.has(p.n));
       if(!av.length) return;
 
-      const ranked = [...av].sort((a,b)=>effectiveRating(b,slot.p)-effectiveRating(a,slot.p));
-      const top1 = effectiveRating(ranked[0], slot.p);
-      const top2 = ranked[1] ? effectiveRating(ranked[1], slot.p) : 0;
+      const ranked = [...av].sort((a,b)=>lineupFitScore(b,slot.p)-lineupFitScore(a,slot.p));
+      const top1 = lineupFitScore(ranked[0], slot.p);
+      const top2 = ranked[1] ? lineupFitScore(ranked[1], slot.p) : 0;
       const urgency = top1 - top2; // великий gap = мало альтернатив
 
-      // Додатковий бонус для слотів де top кандидат — природна позиція
-      const naturalBonus = ranked[0].p === slot.p ? 100 : 0;
-
-      if(top1 + naturalBonus > bestScore){
-        bestScore = top1 + naturalBonus;
+      if(top1 > bestScore){
+        bestScore = top1;
         bestSlot = slot;
       }
     });
@@ -7568,7 +7679,7 @@ function buildLineupFromFormation(players, formationId){
     const av = outfield.filter(p=>!usedSet.has(p.n));
     if(!av.length) break;
 
-    av.sort((a,b)=>effectiveRating(b,bestSlot.p)-effectiveRating(a,bestSlot.p));
+    av.sort((a,b)=>lineupFitScore(b,bestSlot.p)-lineupFitScore(a,bestSlot.p));
     const best = av[0];
     usedSet.add(best.n);
     xi[bestSlot.i]={...best, fx:bestSlot.x, fy:bestSlot.y, slotPos:bestSlot.p, subbed:false, fieldIdx:bestSlot.i};
@@ -7580,7 +7691,7 @@ function buildLineupFromFormation(players, formationId){
     if(xi[i]!==null) return;
     const av=[...gks,...outfield].filter(p=>!usedSet.has(p.n));
     if(!av.length) return;
-    av.sort((a,b)=>effectiveRating(b,slot.p)-effectiveRating(a,slot.p));
+    av.sort((a,b)=>lineupFitScore(b,slot.p)-lineupFitScore(a,slot.p));
     const p=av[0];
     usedSet.add(p.n);
     xi[i]={...p, fx:slot.x, fy:slot.y, slotPos:slot.p, subbed:false, fieldIdx:i};
@@ -8852,11 +8963,20 @@ function fmtPrice(v){
   return`€${v}`;
 }
 
+const TRANSFER_MARKET_REFRESH_INTERVAL=3;
+
+function removePlayerFromMarket(player){
+  if(!player||!Array.isArray(G.transfers?.marketPlayers)) return;
+  G.transfers.marketPlayers=G.transfers.marketPlayers.filter(candidate=>
+    !(candidate.n===player.n&&candidate.fromClub===player.fromClub)
+  );
+}
+
 // Build live market from all non-user squads in registry
 function buildMarket(){
   if(!G.club||!G.clubSquads) return;
-  // Refresh market only every 2 rounds (not every round)
-  const REFRESH_INTERVAL = 2;
+  // Статуси гравців стабільні між плановими оновленнями ринку.
+  const REFRESH_INTERVAL = TRANSFER_MARKET_REFRESH_INTERVAL;
   const roundsSinceLast = G.currentRound - G.transfers.lastRefresh;
   if(roundsSinceLast < REFRESH_INTERVAL && G.transfers.marketPlayers.length) return;
 
@@ -9047,9 +9167,7 @@ function doAITransfers(isWinter){
     // --- Виконуємо трансфер ---
     removeFromClub(player.n,seller.id);
     addToClub(player,buyer.id);
-    G.transfers.lastRefresh=-1;
-    // FIX18: don't wipe marketPlayers on AI transfers - just flag refresh needed
-    // G.transfers.marketPlayers=[] was clearing user's market on every AI deal
+    // Ринок оновиться за власним розкладом; поточні статуси інших гравців зберігаємо.
 
     const price=playerValue(player);
     events.push(`${buyer.emoji||''} ${buyer.name} купив ${player.n} (${player.p}) у ${seller.emoji||''} ${seller.name}`);
@@ -9112,8 +9230,8 @@ function renderTrContent(){
   if(hintEl&&trTab==='market'){
     hintEl.style.display='flex';
     const lastR = G.transfers.lastRefresh >= 0 ? G.transfers.lastRefresh : G.currentRound;
-    const nextR = lastR % 2 === 0 ? lastR + 2 : lastR + 1;
-    hintEl.textContent=`🔄 Оновлення ринку кожні 2 тури · наступне: тур ${nextR+1}`;
+    const nextR = lastR + TRANSFER_MARKET_REFRESH_INTERVAL;
+    hintEl.textContent=`🔄 Оновлення ринку кожні ${TRANSFER_MARKET_REFRESH_INTERVAL} матчі · наступне: тур ${nextR+1}`;
   } else if(hintEl){
     hintEl.style.display='none';
   }
@@ -10201,8 +10319,7 @@ function confirmFlashBuy(idx){
   }syncUserSquad();
   removeFromClub(f.n,f.fromClub);
   G.transfers.flashSales.splice(idx,1);
-  G.transfers.lastRefresh=-1;
-  G.transfers.marketPlayers=[];
+  removePlayerFromMarket(f);
   G.transfers.history.push({name:f.n,pos:f.p,club:f.fromClubName,price,type:'flash',round:G.currentRound});
   addJournalEntry('transfer_buy',{name:f.n,pos:f.p,price,from:f.fromClubName||'?'});
   closeTrModalDirect();renderTrContent();updateHeader();SFX.buy?.();
@@ -10298,7 +10415,7 @@ function confirmBuy(idx){
   // Re-check budget at moment of confirmation (prevents race condition)
   if(!p||!p.listPrice) return;
   if(G.players.some(gp=>gp.n===p.n)){
-    G.transfers.lastRefresh=-1;G.transfers.marketPlayers=[];closeTrModalDirect();renderTrContent();
+    removePlayerFromMarket(p);closeTrModalDirect();renderTrContent();
     showTrMsg(`ℹ️ ${esc(p.n)} вже є у вашому складі`);return;
   }
   if(elitePlayerRefusesWeakClub(p,()=>confirmBuy(idx))) return;
@@ -10314,8 +10431,8 @@ function confirmBuy(idx){
   }
   syncUserSquad();
   removeFromClub(p.n, p.fromClub);
-  // Force market refresh — player removed from old club, new players may appear
-  G.transfers.marketPlayers=[];
+  // Прибираємо лише придбаного гравця; статуси решти ринку не змінюються.
+  removePlayerFromMarket(p);
   G.transfers.history.push({name:p.n,pos:p.p,club:p.fromClubName,price:p.listPrice,type:'buy',round:G.currentRound});
   addJournalEntry('transfer_buy',{name:p.n,pos:p.p,price:p.listPrice,from:p.fromClubName||'?'});
   closeTrModalDirect();
@@ -10552,7 +10669,7 @@ function submitOffer(idx,amount){
       // Re-check budget at deal confirmation time
       if(amount>G.budget){showTrMsg('❌ Недостатньо коштів');renderNegotiationModal();return;}
       if(G.players.some(gp=>gp.n===p.n)){
-        G.transfers.lastRefresh=-1;G.transfers.marketPlayers=[];trNegotiation=null;closeTrModalDirect();renderTrContent();
+        removePlayerFromMarket(p);trNegotiation=null;closeTrModalDirect();renderTrContent();
         showTrMsg(`ℹ️ ${esc(p.n)} вже є у вашому складі`);return;
       }
       if(elitePlayerRefusesWeakClub(p,()=>submitOffer(idx,amount))) return;
@@ -10564,8 +10681,7 @@ function submitOffer(idx,amount){
       if(!G.players.some(gp=>gp.n===newPlayer.n)){G.players.push(newPlayer);}
       syncUserSquad();
       removeFromClub(p.n,p.fromClub);
-      G.transfers.lastRefresh=-1;
-      G.transfers.marketPlayers=[];
+      removePlayerFromMarket(p);
       G.transfers.history.push({name:p.n,pos:p.p,club:p.fromClubName,price:amount,type:'buy',round:G.currentRound});
       addJournalEntry('transfer_buy',{name:p.n,pos:p.p,price:amount,from:p.fromClubName||'?'});
       closeTrModalDirect();renderTrContent();SFX.win?.();
@@ -10764,9 +10880,7 @@ function confirmSell(name,price,buyerClubId){
   syncUserSquad();
   // Add player to buying club's squad
   addToClub({...p}, buyerClubId);
-  // Force market refresh next visit so player can re-appear in new club
-  G.transfers.lastRefresh=-1;
-  G.transfers.marketPlayers=[];
+  // Проданий гравець з'явиться на ринку лише під час наступного планового оновлення.
   G.transfers.history.push({name:p.n,pos:p.p,club:buyer?buyer.name:'Вільний агент',price,type:'sell',round:G.currentRound});
   addJournalEntry('transfer_sell',{name:p.n,pos:p.p,price,to:buyer?buyer.name:'Вільний агент'});
   initPreMatchLineup(true); // force — squad changed by transfer
@@ -10963,7 +11077,7 @@ function confirmLoanOut(name,clubId,fee,feePct,window){
   const windowLabel=loanPlan.phase==='winter'?'❄️ до наступної зими':'☀️ до літа';
   G.transfers.history.push({name:p.n,pos:p.p,club:club.name,price:fee,type:'loan_out',nat:p.nat||'',round:G.currentRound,_season:G.seasonStartYear||2025,loanWindow:loanPlan.legacyWindow,returnPhase:loanPlan.phase,returnSeason:loanPlan.season});
   addJournalEntry('transfer_sell',{name:p.n,pos:p.p,price:fee,to:`${club.name} (оренда, ${windowLabel})`});
-  G.transfers.lastRefresh=-1;G.transfers.marketPlayers=[];
+  // Оренда не повинна перегенеровувати статуси всього трансферного ринку.
   initPreMatchLineup(true);
   closeTrModalDirect();
   renderTrContent();renderHome();
@@ -16784,7 +16898,7 @@ function finalizeUefaSuperCupResult(rd, match, hg, ag, playedByUser=false){
   const seasonLabel=`${G.seasonStartYear||2025}/${((G.seasonStartYear||2025)+1).toString().slice(-2)}`;
   const hasTrophy=G.trophyHistory.some(t=>t.type==='uefa_supercup'&&t.season===seasonLabel);
   if(winnerId===G.club?.id && !hasTrophy){
-    G.trophyHistory.push({type:'uefa_supercup', icon:'🏆', label:'Суперкубок УЄФА', season:seasonLabel});
+    G.trophyHistory.push({type:'uefa_supercup', icon:'🏆', label:'Суперкубок УЄФА', season:seasonLabel,leagueId:G.leagueId,country:G.club?.country||'',clubId:G.club?.id,clubName:G.club?.name||''});
   }
   return {winnerId, loserId, hg, ag};
 }
@@ -17349,17 +17463,13 @@ function finishMatch(){
     });
   })();
 
-  // AI clubs do occasional transfers; invalidate market cache for next round
+  // AI clubs do occasional transfers; кеш ринку очищається лише планово.
   const aiNews=doAITransfers(false);
   // AI clubs analyze squad needs and fill positional gaps (GK, DEF, MID, FWD)
   // Runs every 3 rounds to avoid over-triggering
   if(G.currentRound % 2 === 0) doAISquadNeeds(); // More frequent: every 2 rounds
   if(G.currentRound % 4 === 0) doAIContractRenewals();
-  // Only force market rebuild every 2 rounds; on odd rounds just keep existing market
-  if(G.currentRound % 2 === 0){
-    G.transfers.lastRefresh=-1;
-    G.transfers.flashSales=[];
-  }
+  // buildMarket сам оновить ринок після заданої кількості зіграних матчів.
   // Clear sell offer caches so new round = new offers
   G.players.forEach(p=>{delete p._sellOffers;delete p._sellOffersRound;});
 
@@ -18593,8 +18703,7 @@ function doAISquadNeeds(){
           // Проводимо трансфер
           removeFromClub(player.n, seller.id);
           addToClub(player, club.id);
-          G.transfers.lastRefresh = -1; // FIX18: don't wipe market on AI squad deals
-          // G.transfers.marketPlayers cleared only by user actions, not AI
+          // Не перегенеровуємо ринок через внутрішній трансфер клубів ШІ.
 
           G.transfers.history.push({
             name: player.n, pos: player.p,
@@ -18666,7 +18775,7 @@ function doAISquadNeeds(){
         const price = playerValue(toSell);
         removeFromClub(toSell.n, club.id);
         addToClub(toSell, buyer.id);
-        G.transfers.lastRefresh = -1; // FIX18: no market wipe on AI surplus deals
+        // Статуси ринку залишаються стабільними до планового оновлення.
 
         G.transfers.history.push({
           name: toSell.n, pos: toSell.p,
@@ -18752,7 +18861,7 @@ function generateFreeAgent(pos, minR, maxR, clubId){
   return player;
 }
 
-const PLAYER_DATABASE_VERSION='2026-07-26';
+const PLAYER_DATABASE_VERSION='2026-07-28-achievements-v4';
 // ── Хмарна синхронізація прогресу між пристроями (той самий Telegram-акаунт) ──
 // Кожне writeSaveGame() ще й тихо надсилає той самий JSON на сервер (fire-and-forget).
 // На новому пристрої, де localStorage порожній, _pullSavesFromServer() підтягує
@@ -21181,8 +21290,8 @@ function renderNextMatch(){
       const _cupName=(LEAGUES&&G.leagueId?LEAGUES.find(l=>l.id===G.leagueId):null)?.cupName||'Кубок';
       G.trophyHistory.push({type:'cup', icon:'🥇', label:_cupName, leagueId:G.leagueId, leagueName:G.leagueName||'', country:G.club?.country||'', clubId:G.club?.id, season:_seasonLabel});
     }
-    if(G.ucl?.winner===G.club.id && !_hasTrophy('ucl')) G.trophyHistory.push({type:'ucl', icon:'⭐', label:'Ліга Чемпіонів', season:_seasonLabel});
-    if(G.uel?.winner===G.club.id && !_hasTrophy('uel')) G.trophyHistory.push({type:'uel', icon:'◆', label:'Ліга Європи', season:_seasonLabel});
+    if(G.ucl?.winner===G.club.id && !_hasTrophy('ucl')) G.trophyHistory.push({type:'ucl', icon:'⭐', label:'Ліга Чемпіонів', season:_seasonLabel,leagueId:G.leagueId,country:G.club?.country||'',clubId:G.club?.id,clubName:G.club?.name||''});
+    if(G.uel?.winner===G.club.id && !_hasTrophy('uel')) G.trophyHistory.push({type:'uel', icon:'◆', label:'Ліга Європи', season:_seasonLabel,leagueId:G.leagueId,country:G.club?.country||'',clubId:G.club?.id,clubName:G.club?.name||''});
 
     // ── Record career season log ─────────────────────────────────────────
     if(!G.careerLog) G.careerLog = [];
@@ -21222,6 +21331,7 @@ function renderNextMatch(){
       club:        { id:G.club.id, name:G.club.name, logo:G.club.logo, bg:G.club.bg },
       pos:         myPos,
       pts:         _myStat.pts||0,
+      m:           _myStat.m||0,
       w:           _myStat.w||0,
       d:           _myStat.d||0,
       l:           _myStat.l||0,
@@ -21403,12 +21513,12 @@ function renderNextMatch(){
     if(ballonWinner){
       const seasonLabel=`${G.seasonStartYear||2025}/${((G.seasonStartYear||2025)+1).toString().slice(-2)}`;
       if(!G.ballonHistory) G.ballonHistory=[];
+      const winnerP=G.players.find(p=>p.n===ballonWinner.n);
       // Avoid duplicate entry for same season
       if(!G.ballonHistory.find(e=>e.season===seasonLabel)){
-        G.ballonHistory.push({name:ballonWinner.n, club:ballonWinner.club, nat:ballonWinner.nat||'', season:seasonLabel});
+        G.ballonHistory.push({name:ballonWinner.n, club:ballonWinner.club, nat:ballonWinner.nat||'', season:seasonLabel,clubId:isBallonWinner?G.club?.id:null,managed:!!isBallonWinner,fromAcademy:!!(isBallonWinner&&winnerP?._fromAcademy)});
       }
       // Boost winner's rating and market value (if they're in our squad)
-      const winnerP=G.players.find(p=>p.n===ballonWinner.n);
       if(winnerP){
         winnerP.r=Math.min(99, (winnerP.r||70)+(Math.random()<0.5?3:4));
         winnerP.mv=Math.min(300, Math.round(((winnerP.mv||1)*(1.25+Math.random()*0.15))*10)/10);
@@ -24870,6 +24980,7 @@ function renderClubDashboard(d){
     .club-competition:after,.club-action:after{content:'';position:absolute;right:-34px;bottom:-55px;width:118px;height:118px;border:1px solid rgba(148,163,184,.055);border-radius:50%;box-shadow:0 0 0 18px rgba(148,163,184,.016);pointer-events:none}.club-competition{min-height:73px;padding:11px 14px;border-radius:18px}.club-competition-icon{width:45px;height:45px;border-radius:14px!important}.club-competition-copy strong{font-size:13px;font-weight:900;letter-spacing:-.1px}.club-competition-copy span{margin-top:5px;color:#748399}.club-status{position:relative;z-index:1;padding:5px 8px;border-radius:99px;font-size:7px;font-weight:950;letter-spacing:.45px}
 
     .club-action{min-height:78px;padding:11px 14px;grid-template-columns:47px minmax(0,1fr) auto;gap:13px;border-radius:18px;transition:transform .16s,border-color .16s,filter .16s}.club-action:hover{transform:translateY(-1px);filter:brightness(1.055);border-color:color-mix(in srgb,var(--action) 35%,#334155)}.club-action:active{transform:translateY(1px) scale(.991)}.club-action.ach{background:radial-gradient(circle at 90% 0%,rgba(139,92,246,.15),transparent 31%),linear-gradient(145deg,#131c32,#0a1424)}.club-action.career{background:radial-gradient(circle at 90% 0%,rgba(245,158,11,.14),transparent 31%),linear-gradient(145deg,#171d2b,#0a1424)}.club-action.coaches{background:radial-gradient(circle at 90% 0%,rgba(59,130,246,.16),transparent 31%),linear-gradient(145deg,#111d35,#0a1424)}
+    .club-ach-unclaimed{position:absolute;z-index:4;top:7px;right:7px;min-width:18px;height:18px;padding:0 4px;display:inline-flex;align-items:center;justify-content:center;border:2px solid #111827;border-radius:999px;background:linear-gradient(145deg,#ff5364,#dc2626);box-shadow:0 4px 11px rgba(239,68,68,.5);color:#fff;font-size:9px;font-weight:950;line-height:1;letter-spacing:0;pointer-events:none}
     .club-action-icon{width:45px;height:45px;border-radius:14px!important;box-shadow:inset 0 1px rgba(255,255,255,.12),0 8px 18px rgba(0,0,0,.25)!important}.club-action strong{font-size:13px;font-weight:900;letter-spacing:-.1px}.club-action small{font-size:8px;color:#748399}.club-action-side{position:relative;z-index:1}.club-action-badge{padding:5px 8px;border-radius:99px;border:1px solid color-mix(in srgb,var(--action) 24%,transparent);font-size:6.5px;letter-spacing:.6px}.club-action-arrow{width:29px;height:29px;border-radius:10px;background:rgba(148,163,184,.07);border:1px solid rgba(148,163,184,.06);color:#718096;font-size:19px;transition:background .16s,color .16s}.club-action:hover .club-action-arrow{background:color-mix(in srgb,var(--action) 14%,transparent);color:color-mix(in srgb,var(--action) 75%,white)}
 
     .club-insight{position:relative;border:1px solid rgba(71,91,124,.42);border-radius:18px;background:linear-gradient(145deg,rgba(16,29,49,.96),rgba(9,19,33,.98));box-shadow:0 12px 28px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.035)}.club-insight-card{min-height:90px;padding:15px 12px 12px}.club-insight-card:before{display:block!important;content:'';position:absolute;left:12px;right:12px;top:0;height:2px;border-radius:0 0 3px 3px;background:#3b82f6;box-shadow:0 0 10px rgba(59,130,246,.45)}.club-insight-card:nth-child(1):before{background:#f43f5e;box-shadow:0 0 10px rgba(244,63,94,.4)}.club-insight-card:nth-child(2):before{background:#60a5fa}.club-insight-card:nth-child(3):before{background:#a78bfa;box-shadow:0 0 10px rgba(167,139,250,.4)}.club-insight-card span{font-size:7px;font-weight:900;letter-spacing:1px}.club-insight-card b{margin-top:10px;font-size:14px;font-weight:950}.club-insight-card small{margin-top:6px;color:#5f6f85}.club-insight-card+.club-insight-card{border-color:rgba(71,91,124,.38)}
@@ -24877,8 +24988,10 @@ function renderClubDashboard(d){
     .club-settings{gap:10px}.club-setting{min-height:84px;padding:12px 14px;grid-template-columns:50px minmax(0,1fr) auto;gap:13px;border:1px solid rgba(71,91,124,.42)!important;border-radius:18px;background:radial-gradient(circle at 90% 0%,color-mix(in srgb,var(--setting) 12%,transparent),transparent 30%),linear-gradient(145deg,rgba(16,29,49,.98),rgba(9,19,33,.98));box-shadow:0 12px 27px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.035);transition:transform .16s,border-color .16s,filter .16s}.club-setting:hover{filter:brightness(1.055);border-color:color-mix(in srgb,var(--setting) 35%,#334155)!important;transform:translateY(-1px)}.club-setting:active{transform:translateY(1px) scale(.992)}.club-setting:after{width:125px;height:125px;right:-58px;top:-65px;opacity:.85}.club-setting-icon.club-setting-emoji{width:47px;height:47px;border-radius:15px!important}.club-setting b{font-size:12.5px;font-weight:900;letter-spacing:-.1px}.club-setting small{margin-top:5px;font-size:8px;color:#75849a}.club-setting-controls{flex-direction:row-reverse;align-items:center;gap:7px}.club-setting-state{padding:4px 7px;border-radius:99px;font-size:6px;letter-spacing:.65px;border:1px solid color-mix(in srgb,var(--setting) 18%,transparent)}.club-setting .club-switch{width:38px;height:21px;box-shadow:inset 0 2px 5px rgba(0,0,0,.28)}.club-setting .club-switch:after{width:13px;height:13px}.club-setting.on .club-switch:after{left:20px}
 
     .club-manage-row{gap:9px}.club-manage button{min-height:82px;padding:12px 14px;grid-template-columns:49px minmax(0,1fr) 33px;border:1px solid rgba(71,91,124,.42);border-radius:18px;background:radial-gradient(circle at 90% 0%,rgba(59,130,246,.13),transparent 31%),linear-gradient(145deg,rgba(16,29,49,.98),rgba(9,19,33,.98));box-shadow:0 12px 27px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.035);transition:transform .16s,border-color .16s}.club-manage button:hover{transform:translateY(-1px);border-color:rgba(96,165,250,.34)}.club-manage button:active{transform:translateY(1px) scale(.992)}.club-manage-icon.club-manage-emoji{width:47px;height:47px;border-radius:15px!important}.club-manage b{font-size:12.5px;font-weight:900}.club-manage small{color:#75849a}.club-slot-dots i{height:4px;width:19px;background:#223149}.club-slot-dots i.filled{background:linear-gradient(90deg,#22c55e,#34d399);box-shadow:0 0 9px rgba(52,211,153,.4)}.club-manage-arrow{border:1px solid rgba(148,163,184,.06)}.club-manage-reset{flex-basis:60px;border-radius:18px;background:radial-gradient(circle at 50% 0%,rgba(244,63,94,.18),transparent 45%),linear-gradient(155deg,rgba(65,18,35,.62),rgba(25,12,23,.92));box-shadow:0 12px 26px rgba(0,0,0,.19),inset 0 1px rgba(255,255,255,.035);transition:transform .16s,filter .16s}.club-manage-reset:hover{filter:brightness(1.12);transform:translateY(-1px)}
+    .club-bug-report{position:relative;overflow:hidden;display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:12px;margin-top:10px;padding:11px 12px;border:1px solid rgba(56,189,248,.24);border-radius:17px;background:radial-gradient(circle at 92% 0%,rgba(14,165,233,.14),transparent 34%),linear-gradient(145deg,#101d30,#091523);box-shadow:0 10px 25px rgba(0,0,0,.18)}.club-bug-report:after{content:'';position:absolute;right:-38px;bottom:-63px;width:110px;height:110px;border:1px solid rgba(56,189,248,.07);border-radius:50%;pointer-events:none}.club-bug-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(56,189,248,.3);border-radius:13px;background:linear-gradient(145deg,rgba(14,165,233,.22),rgba(8,47,73,.38));font-size:19px;box-shadow:inset 0 1px rgba(255,255,255,.08)}.club-bug-copy{min-width:0}.club-bug-copy b{display:block;color:#eaf6ff;font-size:12px;font-weight:900}.club-bug-copy small{display:block;margin-top:4px;color:#708298;font-size:8px;line-height:1.35}.club-bug-button{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:34px;padding:0 11px;border:1px solid rgba(56,189,248,.34);border-radius:10px;background:linear-gradient(135deg,#0284c7,#0ea5e9);box-shadow:0 6px 16px rgba(14,165,233,.24);color:#fff;text-decoration:none;font-size:9px;font-weight:900;white-space:nowrap;transition:transform .16s,filter .16s}.club-bug-button:hover{filter:brightness(1.1);transform:translateY(-1px)}.club-bug-button:active{transform:translateY(1px) scale(.98)}
 
-    .theme-light .club-dash{background:radial-gradient(circle at 92% 10%,rgba(124,58,237,.08),transparent 28%),linear-gradient(180deg,#f8f7fb,#f3f5f9)}.theme-light .club-dash:before{opacity:.24}.theme-light .club-section-title span{background:rgba(109,77,167,.06);border-color:rgba(109,77,167,.08)}.theme-light .club-competition,.theme-light .club-action,.theme-light .club-insight,.theme-light .club-setting,.theme-light .club-manage button{background:radial-gradient(circle at 92% 0%,rgba(124,58,237,.055),transparent 30%),linear-gradient(145deg,#fff,#f7f5fc)!important;border-color:rgba(76,48,128,.13)!important;box-shadow:0 11px 26px rgba(65,45,100,.075),inset 0 1px #fff}.theme-light .club-action.ach,.theme-light .club-action.career,.theme-light .club-action.coaches{background:radial-gradient(circle at 92% 0%,color-mix(in srgb,var(--action) 9%,transparent),transparent 31%),linear-gradient(145deg,#fff,#f7f5fc)!important}.theme-light .club-insight-card+.club-insight-card{border-color:rgba(76,48,128,.1)}.theme-light .club-manage-reset{background:linear-gradient(155deg,#fff1f3,#fff7f8);box-shadow:0 10px 23px rgba(159,18,57,.07)}
+    .theme-light .club-dash{background:radial-gradient(circle at 92% 10%,rgba(124,58,237,.08),transparent 28%),linear-gradient(180deg,#f8f7fb,#f3f5f9)}.theme-light .club-dash:before{opacity:.24}.theme-light .club-section-title span{background:rgba(109,77,167,.06);border-color:rgba(109,77,167,.08)}.theme-light .club-competition,.theme-light .club-action,.theme-light .club-insight,.theme-light .club-setting,.theme-light .club-manage button{background:radial-gradient(circle at 92% 0%,rgba(124,58,237,.055),transparent 30%),linear-gradient(145deg,#fff,#f7f5fc)!important;border-color:rgba(76,48,128,.13)!important;box-shadow:0 11px 26px rgba(65,45,100,.075),inset 0 1px #fff}.theme-light .club-action.ach,.theme-light .club-action.career,.theme-light .club-action.coaches{background:radial-gradient(circle at 92% 0%,color-mix(in srgb,var(--action) 9%,transparent),transparent 31%),linear-gradient(145deg,#fff,#f7f5fc)!important}.theme-light .club-insight-card+.club-insight-card{border-color:rgba(76,48,128,.1)}.theme-light .club-manage-reset{background:linear-gradient(155deg,#fff1f3,#fff7f8);box-shadow:0 10px 23px rgba(159,18,57,.07)}.theme-light .club-bug-report{background:linear-gradient(145deg,#fff,#eff9ff);border-color:rgba(2,132,199,.2);box-shadow:0 10px 23px rgba(14,116,144,.08)}.theme-light .club-bug-copy b{color:#172033}.theme-light .club-bug-copy small{color:#718096}
+    .theme-light .club-ach-unclaimed{border-color:#fff;box-shadow:0 4px 11px rgba(220,38,38,.32)}
     @media(max-width:430px){.club-dash{padding-left:7px;padding-right:7px}.club-setting{grid-template-columns:46px minmax(0,1fr) auto;padding-left:11px;padding-right:11px}.club-setting-icon.club-setting-emoji{width:43px;height:43px}.club-setting-controls{flex-direction:column;gap:6px}.club-setting-state{font-size:5.5px}.club-action{grid-template-columns:44px minmax(0,1fr) auto;padding-left:11px;padding-right:11px}.club-action-side{gap:4px}.club-action-badge{display:none}.club-insight-card{padding-left:9px;padding-right:9px}.club-insight-card b{font-size:12px}.club-insight-card small{font-size:7px}.club-manage-reset{flex-basis:55px}}
 
   </style>
@@ -24913,6 +25026,7 @@ function renderClubDashboard(d){
       <div class="club-section-title"><strong>Моя історія</strong><span>Репутація ${careerRep}</span></div>
       <div class="club-actions">
         <button class="club-action ach" onclick="showAchievementsScreen()">
+          ${achBonus?`<span class="club-ach-unclaimed" aria-label="${achBonus} незабраних нагород">${achBonus>99?'99+':achBonus}</span>`:''}
           <span class="club-action-icon">🏅</span>
           <span class="club-action-copy"><strong>Досягнення</strong><small>${achDone}/${achTotal} відкрито${achBonus?` · ${achBonus} бонус`:''}</small></span>
           <span class="club-action-side"><span class="club-action-badge">${Math.round(achDone/Math.max(1,achTotal)*100)}%</span><span class="club-action-arrow">›</span></span>
@@ -24988,6 +25102,11 @@ function renderClubDashboard(d){
           </button>
         </div>
         <button class="club-manage-reset" onclick="resetAll()" aria-label="Почати нову кар’єру з іншим клубом">${ICON.reset}</button>
+      </div>
+      <div class="club-bug-report">
+        <span class="club-bug-icon">🐞</span>
+        <span class="club-bug-copy"><b>Знайшли баг?</b><small>Напишіть нам — перевіримо та виправимо</small></span>
+        <a class="club-bug-button" href="https://t.me/ADM_FMG" target="_blank" rel="noopener noreferrer" aria-label="Написати про баг у Telegram">✈ Написати</a>
       </div>
     </section>
 
@@ -25916,7 +26035,7 @@ function repairUCLFinalPenaltyWinner(opts={}){
     const season = `${G.seasonStartYear||2025}/${((G.seasonStartYear||2025)+1).toString().slice(-2)}`;
     const hasUcl = G.trophyHistory.some(t=>t.type==='ucl' && t.season===season);
     if(opts.addTrophy && !hasUcl){
-      G.trophyHistory.push({type:'ucl', icon:'⭐', label:'Ліга Чемпіонів', season});
+      G.trophyHistory.push({type:'ucl', icon:'⭐', label:'Ліга Чемпіонів', season,leagueId:G.leagueId,country:G.club?.country||'',clubId:G.club?.id,clubName:G.club?.name||''});
     }
   } else if(finalMatch.home===G.club?.id || finalMatch.away===G.club?.id){
     G.ucl.userEliminated = true;
@@ -29998,7 +30117,7 @@ document.addEventListener('DOMContentLoaded', () => {
    🏅 СИСТЕМА ДОСЯГНЕНЬ v1.0
    ═══════════════════════════════════════════════════════════ */
 
-const ACHIEVEMENTS = [
+const LEGACY_ACHIEVEMENTS = [
   // ═══ ПЕРШІ КРОКИ ═══
   {id:'first_match',icon:'⚽',name:'Перший матч',desc:'Зіграйте свій перший матч',cat:'start',tier:1,bonus:100000,check:()=>(G.careerMatches||0)>=1},
   {id:'first_win',icon:'✅',name:'Перша перемога',desc:'Здобудьте першу перемогу',cat:'start',tier:1,bonus:200000,check:()=>(G.journal||[]).some(e=>e.type==='match_win')},
@@ -30076,6 +30195,67 @@ const ACHIEVEMENTS = [
   {id:'trophy_30',icon:'🔱',name:'Імперія трофеїв',desc:'Зберіть 30 трофеїв',cat:'legendary',tier:5,bonus:25000000,check:()=>(G.trophyHistory||[]).length>=30},
 ];
 
+// Кар'єрні досягнення тренера v3: без автоматичних нагород за перший матч або одну просту дію.
+const ACHIEVEMENTS = [
+  // Матчі та стабільність
+  {id:'wins_25',icon:'🏅',name:'Переможний тренер',desc:'Здобудьте 25 перемог за кар’єру',cat:'matches',tier:2,bonus:500000,check:()=>_achCareerWins()>=25},
+  {id:'wins_50',icon:'⭐',name:'Стабільний результат',desc:'Здобудьте 50 перемог за кар’єру',cat:'matches',tier:3,bonus:1200000,check:()=>_achCareerWins()>=50},
+  {id:'wins_100',icon:'💯',name:'Сотня перемог',desc:'Здобудьте 100 перемог за кар’єру',cat:'matches',tier:4,bonus:3500000,check:()=>_achCareerWins()>=100},
+  {id:'matches_100',icon:'📊',name:'Сто матчів біля бровки',desc:'Проведіть 100 офіційних матчів',cat:'matches',tier:3,bonus:1000000,check:()=>(G.careerMatches||0)>=100},
+  {id:'streak_wins_10',icon:'🔥',name:'Тактична машина',desc:'Виграйте 10 матчів поспіль',cat:'matches',tier:4,bonus:2500000,check:()=>_achWinStreak()>=10},
+  {id:'unbeaten_20',icon:'🛡️',name:'Непереможні',desc:'Проведіть 20 матчів поспіль без поразок',cat:'matches',tier:4,bonus:3000000,check:()=>_achNoLossStreak()>=20},
+
+  // Командна атака
+  {id:'goals_50',icon:'⚽',name:'Атакувальний футбол',desc:'Забийте 50 голів за один сезон ліги',cat:'goals',tier:3,bonus:800000,check:()=>{const ts=G.tableStats?.[G.club?.id];return ts?(ts.gf||0)>=50:false;}},
+  {id:'goals_300_career',icon:'⚡',name:'Триста голів',desc:'Ваші команди мають забити 300 голів за кар’єру',cat:'goals',tier:4,bonus:2500000,check:()=>_achCareerGoals()>=300},
+  {id:'player_25_goals',icon:'👟',name:'Створити бомбардира',desc:'Ваш гравець має забити 25 голів за сезон',cat:'goals',tier:4,bonus:3500000,check:()=>_achOwnScorers(25)>=1&&_achSeasonFinished()},
+  {id:'scoring_trio',icon:'🔱',name:'Ударне тріо',desc:'Три ваші гравці мають забити по 10 голів за сезон',cat:'goals',tier:4,bonus:3000000,check:()=>_achOwnScorers(10)>=3&&_achSeasonFinished()},
+  {id:'top_scorer',icon:'🥇',name:'Золотий бутс',desc:'Ваш гравець має завершити сезон найкращим бомбардиром ліги',cat:'goals',tier:4,bonus:4000000,check:()=>_achOwnTopScorer()&&_achSeasonFinished()},
+
+  // Побудова команди
+  {id:'transfers_10',icon:'📋',name:'Власний проєкт',desc:'Здійсніть 10 трансферів за кар’єру',cat:'transfers',tier:2,bonus:600000,check:()=>_achTransferCount()>=10},
+  {id:'sign_star',icon:'⭐',name:'Зірковий підпис',desc:'Підпишіть або розвиньте гравця до рейтингу 85',cat:'transfers',tier:3,bonus:1200000,check:()=>(G.players||[]).some(p=>p.r>=85)},
+  {id:'sign_legend',icon:'👑',name:'Галактікос',desc:'Майте у складі гравця з рейтингом 90+',cat:'transfers',tier:4,bonus:3000000,check:()=>(G.players||[]).some(p=>p.r>=90)},
+  {id:'nations_8',icon:'🌍',name:'Міжнародна роздягальня',desc:'Зберіть у складі гравців із 8 країн',cat:'transfers',tier:3,bonus:1000000,check:()=>_achNationCount()>=8},
+  {id:'squad_avg_75',icon:'📈',name:'Сильна обойма',desc:'Досягніть середнього рейтингу складу 75',cat:'transfers',tier:3,bonus:2000000,check:()=>_achSquadAverage()>=75},
+  {id:'academy_75',icon:'🌱',name:'Свій талант',desc:'Розвиньте вихованця академії до рейтингу 75',cat:'transfers',tier:3,bonus:1500000,check:()=>_achAcademyMax()>=75},
+  {id:'academy_80',icon:'💎',name:'Зірка академії',desc:'Розвиньте вихованця академії до рейтингу 80',cat:'transfers',tier:4,bonus:4000000,check:()=>_achAcademyMax()>=80},
+  {id:'profitable_sale',icon:'💹',name:'Трансферний геній',desc:'Продайте гравця щонайменше вдвічі дорожче, ніж купили',cat:'transfers',tier:4,bonus:2500000,check:()=>_achHasProfitableSale(2)},
+
+  // Внутрішні турніри та робота у різних клубах
+  {id:'top3',icon:'🥉',name:'На п’єдесталі',desc:'Завершіть сезон у топ-3 чемпіонату',cat:'season',tier:2,bonus:1000000,check:()=>_achBestFinish()<=3},
+  {id:'champion',icon:'🏆',name:'Чемпіон',desc:'Виграйте національний чемпіонат',cat:'season',tier:3,bonus:3500000,check:()=>_achTrophies('league').length>=1},
+  {id:'cup_winner',icon:'🥇',name:'Кубковий тріумф',desc:'Виграйте національний кубок',cat:'season',tier:3,bonus:2500000,check:()=>_achTrophies('cup').length>=1},
+  {id:'season_3',icon:'📆',name:'Сформований тренер',desc:'Завершіть 3 сезони',cat:'season',tier:2,bonus:1500000,check:()=>(G.careerLog||[]).length>=3},
+  {id:'season_5',icon:'🎖️',name:'П’ятирічний план',desc:'Завершіть 5 сезонів',cat:'season',tier:4,bonus:5000000,check:()=>(G.careerLog||[]).length>=5},
+  {id:'champion_repeat',icon:'🔁',name:'Захист титулу',desc:'Виграйте чемпіонат два сезони поспіль',cat:'season',tier:4,bonus:5000000,check:()=>_achBackToBackTitles()},
+  {id:'unbeaten_season',icon:'🛡️',name:'Непереможний сезон',desc:'Завершіть чемпіонат без жодної поразки',cat:'season',tier:5,bonus:10000000,check:()=>_achUnbeatenSeason()},
+  {id:'cup_two_leagues',icon:'🗺️',name:'Кубковий мандрівник',desc:'Виграйте національні кубки у двох різних чемпіонатах',cat:'season',tier:4,bonus:7000000,check:()=>_achUniqueTrophyField('cup','leagueId')>=2},
+  {id:'champion_two_leagues',icon:'🌐',name:'Чемпіон двох країн',desc:'Виграйте ліги у двох різних чемпіонатах',cat:'season',tier:5,bonus:10000000,check:()=>_achUniqueTrophyField('league','leagueId')>=2},
+  {id:'trophies_two_clubs',icon:'🤝',name:'Успіх не випадковий',desc:'Виграйте трофеї з двома різними клубами',cat:'season',tier:4,bonus:6000000,check:()=>_achUniqueTrophyField(null,'clubId')>=2},
+  {id:'champion_two_clubs',icon:'🏟️',name:'Будівничий чемпіонів',desc:'Станьте чемпіоном із двома різними клубами',cat:'season',tier:5,bonus:12000000,check:()=>_achUniqueTrophyField('league','clubId')>=2},
+  {id:'underdog_champion',icon:'🐺',name:'Футбольне диво',desc:'Виграйте лігу з клубом стартової сили 68 або нижче',cat:'season',tier:5,bonus:12000000,check:()=>_achUnderdogTrophy('league',68)},
+  {id:'trophy_5',icon:'🏛️',name:'Колекція тренера',desc:'Зберіть 5 офіційних трофеїв',cat:'season',tier:4,bonus:6000000,check:()=>(G.trophyHistory||[]).length>=5},
+
+  // Європа
+  {id:'uel_winner',icon:'◆',name:'Тріумф у Лізі Європи',desc:'Виграйте Лігу Європи',cat:'europe',tier:4,bonus:6000000,check:()=>_achTrophies('uel').length>=1},
+  {id:'ucl_winner',icon:'⭐',name:'Король Європи',desc:'Виграйте Лігу чемпіонів',cat:'europe',tier:5,bonus:12000000,check:()=>_achTrophies('ucl').length>=1},
+  {id:'ucl_winner_2',icon:'🌟',name:'Європейська династія',desc:'Виграйте Лігу чемпіонів двічі',cat:'europe',tier:5,bonus:18000000,check:()=>_achTrophies('ucl').length>=2},
+  {id:'supercup',icon:'🏅',name:'Суперкубок УЄФА',desc:'Виграйте Суперкубок УЄФА',cat:'europe',tier:4,bonus:4000000,check:()=>_achTrophies('uefa_supercup').length>=1},
+  {id:'euro_collection',icon:'🌍',name:'Повна євроколекція',desc:'Виграйте і Лігу Європи, і Лігу чемпіонів',cat:'europe',tier:5,bonus:15000000,check:()=>_achTrophies('uel').length>=1&&_achTrophies('ucl').length>=1},
+  {id:'ucl_underdog',icon:'⚔️',name:'Підкорити Європу',desc:'Виграйте ЛЧ із клубом стартової сили 75 або нижче',cat:'europe',tier:5,bonus:20000000,check:()=>_achUnderdogTrophy('ucl',75)},
+
+  // Легендарна тренерська спадщина
+  {id:'ballon_player',icon:'🥇',name:'Творець володаря Золотого м’яча',desc:'Гравець вашої команди має виграти Золотий м’яч',cat:'legendary',tier:5,bonus:12000000,check:()=>_achManagedBallons().length>=1},
+  {id:'ballon_two',icon:'✨',name:'Фабрика суперзірок',desc:'Ваші гравці мають виграти два Золоті м’ячі',cat:'legendary',tier:5,bonus:20000000,check:()=>_achManagedBallons().length>=2},
+  {id:'academy_ballon',icon:'🌟',name:'Від академії до вершини',desc:'Вихованець вашої академії має виграти Золотий м’яч',cat:'legendary',tier:5,bonus:25000000,check:()=>_achManagedBallons().some(b=>b.fromAcademy)},
+  {id:'double',icon:'🏆',name:'Золотий дубль',desc:'Виграйте лігу та кубок за один сезон',cat:'legendary',tier:4,bonus:9000000,check:()=>_achSeasonCombo(['league','cup'])},
+  {id:'treble_ucl',icon:'👑',name:'Требл',desc:'Виграйте лігу, кубок і ЛЧ за один сезон',cat:'legendary',tier:5,bonus:25000000,check:()=>_achSeasonCombo(['league','cup','ucl'])},
+  {id:'trophies_three_clubs',icon:'🧳',name:'Елітний мандрівник',desc:'Виграйте трофеї з трьома різними клубами',cat:'legendary',tier:5,bonus:18000000,check:()=>_achUniqueTrophyField(null,'clubId')>=3},
+  {id:'rep_max',icon:'🎓',name:'Легенда тренерства',desc:'Досягніть тренерської репутації 90',cat:'legendary',tier:5,bonus:8000000,check:()=>(G.managerRep||0)>=90},
+  {id:'perfect_season',icon:'💎',name:'Ідеальний чемпіон',desc:'Виграйте всі матчі чемпіонату за сезон',cat:'legendary',tier:5,bonus:20000000,check:()=>_achPerfectSeason()},
+];
+
 const ACH_CATEGORIES={
   start:{label:'Перші кроки',icon:'🌱'},matches:{label:'Матчі',icon:'⚽'},goals:{label:'Голи',icon:'🥅'},
   transfers:{label:'Трансфери',icon:'🤝'},finance:{label:'Фінанси',icon:'💰'},season:{label:'Сезон',icon:'📅'},
@@ -30096,7 +30276,53 @@ function _achWinStreak(){const j=(G.journal||[]).filter(e=>e.type==='match_win'|
 function _achNoLossStreak(){const j=(G.journal||[]).filter(e=>e.type==='match_win'||e.type==='match_draw'||e.type==='match_loss');let s=0,b=0;for(let i=j.length-1;i>=0;i--){if(j[i].type!=='match_loss'){s++;b=Math.max(b,s);}else s=0;}return b;}
 function _achBestFinish(){let b=99;(G.careerLog||[]).forEach(e=>{const p=e.position||e.pos||99;if(p<b)b=p;});return b;}
 
-function initAchievements(){if(!G.achievements)G.achievements={};}
+function _achSeasonLabel(){const y=G.seasonStartYear||2026;return `${y}/${String(y+1).slice(-2)}`;}
+function _achSeasonFinished(){const s=_achSeasonLabel();return(G.careerLog||[]).some(e=>e.season===s);}
+function _achTrophies(type=null){return(G.trophyHistory||[]).filter(t=>!type||t.type===type);}
+function _achUniqueTrophyField(type,field){return new Set(_achTrophies(type).map(t=>t?.[field]).filter(v=>v!==undefined&&v!==null&&v!=='')).size;}
+function _achNationCount(){return new Set((G.players||[]).map(p=>p.nat).filter(Boolean)).size;}
+function _achSquadAverage(){const ps=G.players||[];return ps.length?ps.reduce((s,p)=>s+(p.r||0),0)/ps.length:0;}
+function _achAcademyMax(){return Math.max(0,...(G.players||[]).filter(p=>p._fromAcademy).map(p=>p.r||0));}
+function _achOwnScorers(minGoals){const own=new Set((G.players||[]).map(p=>p.n));return Object.entries(G.scorers||{}).filter(([n,g])=>own.has(n)&&Number(g)>=minGoals).length;}
+function _achOwnTopScorer(){const rows=Object.entries(G.scorers||{}).sort((a,b)=>Number(b[1])-Number(a[1]));return!!rows.length&&(G.players||[]).some(p=>p.n===rows[0][0]);}
+function _achHasProfitableSale(mult=2){
+  const paid=new Map();
+  for(const t of(G.transfers?.history||[])){
+    if(['buy','flash','negotiate','case'].includes(t.type)&&Number(t.price)>0)paid.set(t.name,Number(t.price));
+    if(['sell','case_sell'].includes(t.type)&&paid.has(t.name)&&Number(t.price)>=paid.get(t.name)*mult)return true;
+  }
+  return false;
+}
+function _achBackToBackTitles(){const log=G.careerLog||[];for(let i=1;i<log.length;i++)if(log[i-1].champion&&log[i].champion&&Number(log[i].year)===Number(log[i-1].year)+1)return true;return false;}
+function _achUnbeatenSeason(){return(G.careerLog||[]).some(e=>(e.m||e.matches||0)>0&&(e.l||e.losses||0)===0);}
+function _achPerfectSeason(){return(G.careerLog||[]).some(e=>{const m=e.m||e.matches||0,w=e.w||e.wins||0;return m>0&&w===m;});}
+function _achSeasonCombo(types){const th=G.trophyHistory||[];return[...new Set(th.map(t=>t.season))].some(s=>types.every(type=>th.some(t=>t.season===s&&t.type===type)));}
+function _achUnderdogTrophy(type,maxStrength){return _achTrophies(type).some(t=>{const c=clubById(t.clubId);return c&&Number(c.strength)<=maxStrength;});}
+function _achManagedBallons(){
+  const log=G.careerLog||[];
+  return(G.ballonHistory||[]).filter(b=>b.managed||log.some(s=>s.season===b.season&&s.club?.name===b.club));
+}
+
+function initAchievements(){
+  if(!G.achievements)G.achievements={};
+  // Старі легкі досягнення більше не впливають на прогрес нової тренерської колекції.
+  const valid=new Set(ACHIEVEMENTS.map(a=>a.id));
+  Object.keys(G.achievements).forEach(id=>{if(!valid.has(id))delete G.achievements[id];});
+}
+
+function updateAchievementHomeBadge(){
+  const unlocked=G.achievements||{};
+  const count=typeof ACHIEVEMENTS!=='undefined'
+    ?ACHIEVEMENTS.filter(ach=>unlocked[ach.id]&&!unlocked[ach.id].bonusClaimed&&ach.bonus>0).length
+    :0;
+  document.querySelectorAll('.club-action.ach').forEach(button=>{
+    let badge=button.querySelector('.club-ach-unclaimed');
+    if(!count){if(badge)badge.remove();return;}
+    if(!badge){badge=document.createElement('span');badge.className='club-ach-unclaimed';button.prepend(badge);}
+    badge.textContent=count>99?'99+':String(count);
+    badge.setAttribute('aria-label',count+' незабраних нагород');
+  });
+}
 
 function checkAchievements(){
   initAchievements();
@@ -30105,8 +30331,11 @@ function checkAchievements(){
     if(G.achievements[ach.id])return;
     try{if(ach.check()){G.achievements[ach.id]={unlockedAt:Date.now(),round:G.currentRound,season:G.seasonStartYear,bonusClaimed:false};newlyUnlocked.push(ach);}}catch(e){}
   });
-  newlyUnlocked.forEach((ach,i)=>{setTimeout(()=>_showAchToast(ach),i*1800);});
+  // Не засипаємо екран п'ятьма повідомленнями після одного матчу.
+  newlyUnlocked.slice(0,2).forEach((ach,i)=>{setTimeout(()=>_showAchToast(ach),i*1800);});
+  if(newlyUnlocked.length>2)setTimeout(()=>showToast?.(`🏅 Ще ${newlyUnlocked.length-2} тренерські цілі виконано`,'rgba(168,85,247,.35)',2800),3800);
   if(newlyUnlocked.length>0)saveGame();
+  updateAchievementHomeBadge();
   return newlyUnlocked;
 }
 
@@ -30126,14 +30355,14 @@ function claimAchievementBonus(achId){
   if(!ach||!G.achievements[achId]||G.achievements[achId].bonusClaimed)return;if(ach.bonus<=0)return;
   G.achievements[achId].bonusClaimed=true;G.budget=(G.budget||0)+ach.bonus;
   addJournalEntry('achievement_bonus',{name:ach.name,icon:ach.icon,bonus:ach.bonus});
-  updateHeader();saveGame();renderAchievementsContent();
+  updateHeader();saveGame();renderAchievementsContent();updateAchievementHomeBadge();
   if(typeof showToast==='function')showToast(ach.icon+' +'+fmtPrice(ach.bonus)+' за "'+ach.name+'"','rgba(14,201,126,.35)',2500);
 }
 
 function _claimAllBonuses(){
   initAchievements();let total=0;
   ACHIEVEMENTS.forEach(ach=>{if(G.achievements?.[ach.id]&&!G.achievements[ach.id].bonusClaimed&&ach.bonus>0){G.achievements[ach.id].bonusClaimed=true;total+=ach.bonus;}});
-  if(total>0){G.budget=(G.budget||0)+total;addJournalEntry('achievement_bonus',{name:'Всі бонуси',icon:'💰',bonus:total});updateHeader();saveGame();renderAchievementsContent();if(typeof showToast==='function')showToast('💰 +'+fmtPrice(total)+' з досягнень!','rgba(14,201,126,.35)',2500);}
+  if(total>0){G.budget=(G.budget||0)+total;addJournalEntry('achievement_bonus',{name:'Всі бонуси',icon:'💰',bonus:total});updateHeader();saveGame();renderAchievementsContent();updateAchievementHomeBadge();if(typeof showToast==='function')showToast('💰 +'+fmtPrice(total)+' з досягнень!','rgba(14,201,126,.35)',2500);}
 }
 
 function showAchievementsScreen(){
@@ -30302,6 +30531,26 @@ const ACH_PROGRESS={
   rep_max:()=>[G.managerRep||0,90],trophy_10:()=>[(G.trophyHistory||[]).length,10],
   trophy_20:()=>[(G.trophyHistory||[]).length,20],trophy_30:()=>[(G.trophyHistory||[]).length,30]
 };
+Object.assign(ACH_PROGRESS,{
+  streak_wins_10:()=>[_achWinStreak(),10],unbeaten_20:()=>[_achNoLossStreak(),20],
+  player_25_goals:()=>[Math.max(0,...Object.values(G.scorers||{}).map(Number)),25],
+  scoring_trio:()=>[_achOwnScorers(10),3],top_scorer:()=>[_achOwnTopScorer()&&_achSeasonFinished()?1:0,1],
+  nations_8:()=>[_achNationCount(),8],squad_avg_75:()=>[_achSquadAverage(),75],
+  academy_75:()=>[_achAcademyMax(),75],academy_80:()=>[_achAcademyMax(),80],
+  profitable_sale:()=>[_achHasProfitableSale(2)?1:0,1],season_3:()=>[(G.careerLog||[]).length,3],
+  cup_two_leagues:()=>[_achUniqueTrophyField('cup','leagueId'),2],
+  champion_two_leagues:()=>[_achUniqueTrophyField('league','leagueId'),2],
+  trophies_two_clubs:()=>[_achUniqueTrophyField(null,'clubId'),2],
+  champion_two_clubs:()=>[_achUniqueTrophyField('league','clubId'),2],
+  underdog_champion:()=>[_achUnderdogTrophy('league',68)?1:0,1],trophy_5:()=>[(G.trophyHistory||[]).length,5],
+  uel_winner:()=>[_achTrophies('uel').length,1],ucl_winner:()=>[_achTrophies('ucl').length,1],
+  ucl_winner_2:()=>[_achTrophies('ucl').length,2],supercup:()=>[_achTrophies('uefa_supercup').length,1],
+  euro_collection:()=>[(_achTrophies('uel').length?1:0)+(_achTrophies('ucl').length?1:0),2],
+  ucl_underdog:()=>[_achUnderdogTrophy('ucl',75)?1:0,1],
+  ballon_player:()=>[_achManagedBallons().length,1],ballon_two:()=>[_achManagedBallons().length,2],
+  academy_ballon:()=>[_achManagedBallons().some(b=>b.fromAcademy)?1:0,1],
+  trophies_three_clubs:()=>[_achUniqueTrophyField(null,'clubId'),3]
+});
 function _achProgress(a){
   if(G.achievements?.[a.id])return{value:1,target:1,pct:100,label:'Виконано'};
   let pair;try{pair=ACH_PROGRESS[a.id]?.();}catch(_){pair=null;}
