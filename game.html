@@ -6051,6 +6051,197 @@ CLUBS.forEach(club=>{
   if(UPL_CLUB_STRENGTH_2026_27[club.id])club.strength=UPL_CLUB_STRENGTH_2026_27[club.id];
 });
 
+// ── АПЛ 2026/27: актуальні заявки та ринкові вартості Transfermarkt (30.07.2026) ──
+// Формат: [ім'я, позиція, рейтинг, вартість у €млн, вік, прапор].
+const EPL_SQUADS_2026_27={
+  2:[
+    ["Рая","ВРТ",87,30,30,"🇪🇸"],["Кепа","ВРТ",82,5,31,"🇪🇸"],["Сетфорд","ВРТ",68,.8,22,"🏴"],
+    ["Саліба","ЦЗ",91,100,25,"🇫🇷"],["Габріел","ЦЗ",88,75,28,"🇧🇷"],["Інкап'є","ЦЗ",85,50,24,"🇪🇨"],["Москера","ЦЗ",83,40,22,"🇪🇸"],["Калафіорі","ЛЗ",86,55,24,"🇮🇹"],["Тімбер","РБ",87,70,25,"🇳🇱"],["Вайт","РБ",84,30,28,"🏴"],["Льюїс-Скеллі","ЛЗ",83,45,19,"🏴"],
+    ["Райс","ЦПЗ",91,120,27,"🏴"],["Зубіменді","ЦПЗ",88,75,27,"🇪🇸"],["Едегор","АПЗ",88,65,27,"🇳🇴"],["Езе","АПЗ",87,65,28,"🏴"],["Меріно","ЦПЗ",83,25,30,"🇪🇸"],["Нергор","ЦПЗ",78,5,32,"🇩🇰"],["Нванері","АПЗ",82,35,19,"🏴"],["Фабіу Вієйра","АПЗ",79,18,26,"🇵🇹"],
+    ["Сака","ПВ",91,110,24,"🏴"],["Дьокереш","ЦН",88,65,28,"🇸🇪"],["Гаверц","ЦН",86,55,27,"🇩🇪"],["Мартінеллі","ЛВ",85,45,25,"🇧🇷"],["Мадуеке","ПВ",85,50,24,"🏴"],["Дауман","ПВ",80,30,16,"🏴"],["Троссар","ЛВ",81,18,31,"🇧🇪"],["Жезус","ЦН",80,17,29,"🇧🇷"],["Нельсон","ПВ",76,8,26,"🏴"]
+  ],
+  3:[
+    ["Доннарумма","ВРТ",90,45,27,"🇮🇹"],["Траффорд","ВРТ",82,25,23,"🏴"],["Беттінеллі","ВРТ",69,.3,34,"🏴"],
+    ["Геї","ЦЗ",88,70,25,"🏴"],["Гвардіол","ЛЗ",88,70,24,"🇭🇷"],["Рубен Діаш","ЦЗ",87,55,29,"🇵🇹"],["Хусанов","ЦЗ",85,50,23,"🇺🇿"],["Маттеус Нунес","РБ",85,50,27,"🇵🇹"],["Ріко Льюїс","РБ",82,28,21,"🏴"],["Каборе","РБ",75,4,25,"🇧🇫"],
+    ["Родрі","ЦПЗ",89,50,30,"🇪🇸"],["Ніко Гонсалес","ЦПЗ",84,40,24,"🇪🇸"],["Елліот Андерсон","ЦПЗ",87,75,23,"🏴"],["Рейндерс","ЦПЗ",86,50,27,"🇳🇱"],["Ковачич","ЦПЗ",82,10,32,"🇭🇷"],["Нюпан","ЦПЗ",78,13,19,"🇳🇴"],["Калвін Філліпс","ЦПЗ",74,2.5,30,"🏴"],["Шеркі","АПЗ",89,90,22,"🇫🇷"],["Фоден","АПЗ",88,70,26,"🏴"],["Ечеверрі","АПЗ",79,15,20,"🇦🇷"],
+    ["Голанд","ЦН",94,200,25,"🇳🇴"],["Семеньйо","ПВ",88,80,26,"🇬🇭"],["Доку","ЛВ",87,75,24,"🇧🇪"],["Мармуш","ЦН",86,50,27,"🇪🇬"],["Савіньйо","ПВ",83,35,22,"🇧🇷"],["Гріліш","ЛВ",80,20,30,"🏴"]
+  ],
+  4:[
+    ["Аліссон","ВРТ",89,20,33,"🇧🇷"],["Мамардашвілі","ВРТ",86,30,25,"🇬🇪"],["Ярош","ВРТ",76,5,24,"🇨🇿"],["Вудман","ВРТ",73,3,29,"🏴"],["Девіс","ВРТ",67,.5,22,"🏴"],
+    ["Жаке","ЦЗ",86,55,20,"🇫🇷"],["Леоні","ЦЗ",82,25,19,"🇮🇹"],["Ван Дейк","ЦЗ",87,15,35,"🇳🇱"],["Гомес","ЦЗ",80,13,29,"🏴"],["Керкез","ЛЗ",84,35,22,"🇭🇺"],["Цимікас","ЛЗ",76,4.5,30,"🇬🇷"],["Фрімпонг","РБ",85,35,25,"🇳🇱"],["Бредлі","РБ",82,25,23,"🇬🇧"],["Ремзі","РБ",72,1.5,22,"🏴"],
+    ["Гравенберх","ЦПЗ",89,80,24,"🇳🇱"],["Мак Аллістер","ЦПЗ",88,70,27,"🇦🇷"],["Собослаї","АПЗ",90,100,25,"🇭🇺"],["Вірц","АПЗ",90,100,23,"🇩🇪"],["Кертіс Джонс","ЦПЗ",83,35,25,"🏴"],["Елліотт","АПЗ",80,20,23,"🏴"],["Ньйоні","ЦПЗ",75,8,19,"🏴"],["Ендо","ЦПЗ",77,4,33,"🇯🇵"],["Байчетич","ЦПЗ",74,4,21,"🇪🇸"],
+    ["Ісак","ЦН",89,85,26,"🇸🇪"],["Екітіке","ЦН",89,80,24,"🇫🇷"],["Гакпо","ЛВ",87,60,27,"🇳🇱"],["Муньйос","ЛВ",83,30,22,"🇪🇸"],["Нгумоха","ЛВ",80,30,17,"🏴"],["К'єза","ПВ",79,13,28,"🇮🇹"]
+  ],
+  15:[
+    ["Санчес","ВРТ",83,22,28,"🇪🇸"],["Йоргенсен","ВРТ",80,15,24,"🇩🇰"],["Слоніна","ВРТ",73,3,22,"🇺🇸"],["Шарман-Лоу","ВРТ",68,.5,23,"🏴"],
+    ["Колвілл","ЦЗ",86,50,23,"🏴"],["Чалоба","ЦЗ",84,40,27,"🏴"],["Фофана","ЦЗ",82,28,25,"🇫🇷"],["Мамаду Сарр","ЦЗ",80,22,20,"🇫🇷"],["Тосін","ЦЗ",79,16,28,"🏴"],["Дісасі","ЦЗ",78,15,28,"🇫🇷"],["Бадьяшиль","ЦЗ",78,15,25,"🇫🇷"],["Кукурелья","ЛЗ",86,45,28,"🇪🇸"],["Хато","ЛЗ",84,40,20,"🇳🇱"],["Ріс Джеймс","РБ",85,35,26,"🏴"],["Гюсто","РБ",83,35,23,"🇫🇷"],
+    ["Кайседо","ЦПЗ",90,100,24,"🇪🇨"],["Енцо","ЦПЗ",88,75,25,"🇦🇷"],["Лавія","ЦПЗ",82,30,22,"🇧🇪"],["Андрей Сантос","ЦПЗ",83,35,22,"🇧🇷"],["Палмер","АПЗ",90,100,24,"🏴"],
+    ["Естевао","ПВ",88,80,19,"🇧🇷"],["Нету","ПВ",87,60,26,"🇵🇹"],["Гіттенс","ЛВ",83,30,21,"🏴"],["Гарначо","ЛВ",82,28,22,"🇦🇷"],["Жоау Педру","ЦН",86,55,24,"🇧🇷"],["Делап","ЦН",83,35,23,"🏴"],["Гіу","ЦН",77,12,20,"🇪🇸"]
+  ],
+  16:[
+    ["Ламменс","ВРТ",84,35,24,"🇧🇪"],["Байиндир","ВРТ",76,5,28,"🇹🇷"],["Гітон","ВРТ",66,.1,40,"🏴"],["Мі","ВРТ",65,.05,23,"🏴"],
+    ["Йоро","ЦЗ",86,50,20,"🇫🇷"],["Лісандро","ЦЗ",84,40,28,"🇦🇷"],["Де Лігт","ЦЗ",83,30,26,"🇳🇱"],["Гевен","ЦЗ",82,30,19,"🏴"],["Магвайр","ЦЗ",78,8,33,"🏴"],["Фредріксон","ЦЗ",72,3,21,"🏴"],["Люк Шоу","ЛЗ",77,8,30,"🏴"],["Амасс","ЛЗ",75,7,19,"🏴"],["Дієго Леон","ЛЗ",73,4,19,"🇵🇾"],["Далот","РБ",83,30,27,"🇵🇹"],["Мазрауї","РБ",80,18,28,"🇲🇦"],
+    ["Угарте","ЦПЗ",81,25,25,"🇺🇾"],["Мейну","ЦПЗ",88,70,21,"🏴"],["Колльєр","ЦПЗ",74,5,22,"🏴"],["Дан Гор","ЦПЗ",69,1,21,"🏴"],["Бруну","АПЗ",87,35,31,"🇵🇹"],["Маунт","АПЗ",81,25,27,"🏴"],["Джек Флетчер","АПЗ",71,1.5,19,"🏴"],
+    ["Кунья","ЛВ",88,75,27,"🇧🇷"],["Мбемо","ПВ",88,75,26,"🇨🇲"],["Доргу","ЛВ",84,35,21,"🇩🇰"],["Амад","ПВ",85,45,23,"🇨🇮"],["Решфорд","ЛВ",84,40,28,"🏴"],["Шешко","ЦН",88,75,23,"🇸🇮"],["Зіркзеє","ЦН",80,20,25,"🇳🇱"],["Чідо Обі","ЦН",74,5,18,"🇩🇰"]
+  ],
+  17:[
+    ["Вікаріо","ВРТ",84,32,29,"🇮🇹"],["Кінскі","ВРТ",79,15,23,"🇨🇿"],["Остін","ВРТ",71,2,27,"🏴"],
+    ["Ван де Вен","ЦЗ",86,45,25,"🇳🇱"],["Ромеро","ЦЗ",86,45,28,"🇦🇷"],["Сенесі","ЦЗ",82,25,29,"🇦🇷"],["Дансо","ЦЗ",80,20,27,"🇦🇹"],["Дрегушин","ЦЗ",79,16,24,"🇷🇴"],["Філліпс","ЦЗ",75,7,21,"🏴"],["Такай","ЦЗ",74,5,21,"🇯🇵"],["Бен Девіс","ЦЗ",72,3,33,"🏴"],["Удоджі","ЛЗ",83,30,23,"🇮🇹"],["Спенс","РБ",83,30,25,"🏴"],["Соуза","ЛЗ",78,12,20,"🇧🇷"],["Робертсон","ЛЗ",77,7,32,"🏴"],["Порро","РБ",84,35,26,"🇪🇸"],
+    ["Матеуш Фернандеш","ЦПЗ",86,50,21,"🇵🇹"],["Арчі Грей","ЦПЗ",84,35,20,"🏴"],["Бергвалль","ЦПЗ",84,35,20,"🇸🇪"],["Галлагер","ЦПЗ",83,32,26,"🏴"],["Сарр","ЦПЗ",82,30,23,"🇸🇳"],["Бентанкур","ЦПЗ",80,20,29,"🇺🇾"],["Меддісон","АПЗ",80,20,29,"🏴"],["Кулусевскі","АПЗ",80,17,26,"🇸🇪"],
+    ["Кудус","ПВ",86,50,25,"🇬🇭"],["Соланке","ЦН",82,28,28,"🏴"],["Рішарлісон","ЦН",81,25,29,"🇧🇷"],["Тель","ЛВ",80,22,21,"🇫🇷"],["Майкі Мур","ЛВ",78,18,18,"🏴"],["Одобер","ЛВ",78,18,21,"🇫🇷"],["Соломон","ЛВ",76,8,26,"🇮🇱"]
+  ],
+  18:[
+    ["Мартінес","ВРТ",86,12,33,"🇦🇷"],["Бізот","ВРТ",76,1.5,35,"🇳🇱"],
+    ["Конса","ЦЗ",85,40,28,"🏴"],["Пау Торрес","ЦЗ",82,20,29,"🇪🇸"],["Мінгс","ЦЗ",76,3,33,"🏴"],["Лінделеф","ЦЗ",77,5,32,"🇸🇪"],["Мінґеш","ЦЗ",73,2,22,"🇵🇹"],["М.Олісе","ЦЗ",72,2,21,"🇫🇷"],["Мадсен","ЛЗ",78,8,23,"🇩🇰"],["Дінь","ЛЗ",77,6,33,"🇫🇷"],["Кеш","РБ",82,22,28,"🇵🇱"],["Андрес Гарсія","РБ",77,6,23,"🇪🇸"],
+    ["Роджерс","АПЗ",89,90,24,"🏴"],["Онана","ЦПЗ",85,45,24,"🇧🇪"],["Камара","ЦПЗ",84,40,26,"🇫🇷"],["Тілеманс","ЦПЗ",83,30,29,"🇧🇪"],["Дуглас Луїс","ЦПЗ",81,18,28,"🇧🇷"],["Макгінн","ЦПЗ",80,13,31,"🏴"],["Барклі","ЦПЗ",73,4,32,"🏴"],["Богард","ЦПЗ",80,18,22,"🇳🇱"],["Буендіа","АПЗ",79,16,29,"🇦🇷"],["Гарві Елліотт","АПЗ",81,20,23,"🏴"],
+    ["Воткінс","ЦН",82,25,30,"🏴"],["Абрахам","ЦН",80,18,28,"🏴"],["Санчо","ЛВ",80,18,26,"🏴"],["Бейлі","ПВ",79,14,28,"🇯🇲"],["Аліссон","ЛВ",77,10,20,"🇧🇷"]
+  ],
+  19:[
+    ["Жауен","ВРТ",79,12,20,"🇫🇷"],["Поуп","ВРТ",78,5,34,"🏴"],["Гіллеспі","ВРТ",66,.1,34,"🏴"],
+    ["Тіав","ЦЗ",85,45,24,"🇩🇪"],["Ботман","ЦЗ",84,35,26,"🇳🇱"],["Шер","ЦЗ",77,4,34,"🇨🇭"],["Берн","ЦЗ",76,4,34,"🏴"],["Льюїс Голл","ЛЗ",84,40,21,"🏴"],["Мерфі","ЛЗ",70,1.5,22,"🇮🇪"],["Лівраменто","РБ",85,45,23,"🏴"],
+    ["Бруну Гімараес","ЦПЗ",88,70,28,"🇧🇷"],["Джейкоб Ремзі","ЦПЗ",84,35,25,"🏴"],["Жоелінтон","ЦПЗ",82,25,29,"🇧🇷"],["Майлі","ЦПЗ",82,25,20,"🏴"],["Віллок","ЦПЗ",79,14,26,"🏴"],["Шон Стюр","ЦПЗ",75,7,18,"🏴"],["Джо Вайт","ЦПЗ",67,.2,23,"🏴"],
+    ["Базумана Туре","ЛВ",84,40,20,"🇨🇮"],["Барнс","ЛВ",83,32,28,"🏴"],["Еланга","ПВ",83,32,24,"🇸🇪"],["Джейкоб Мерфі","ПВ",78,12,31,"🏴"],["Кордеро","ЛВ",71,2,19,"🇪🇸"],["Вольтемаде","ЦН",86,55,24,"🇩🇪"],["Осула","ЦН",82,28,22,"🇩🇰"],["Вісса","ЦН",81,25,29,"🇨🇩"]
+  ],
+  20:[
+    ["Петрович","ВРТ",83,28,26,"🇷🇸"],["Мандас","ВРТ",77,8,24,"🇬🇷"],
+    ["Діакіте","ЦЗ",84,35,25,"🇫🇷"],["Мілосавлєвич","ЦЗ",76,8,21,"🇷🇸"],["Джеймс Гілл","ЦЗ",73,4,24,"🏴"],["Хуліан Араухо","РБ",77,7,24,"🇲🇽"],["Адам Сміт","РБ",72,1,35,"🏴"],["Трюффер","ЛЗ",80,18,24,"🇫🇷"],["Хуліо Солер","ЛЗ",75,6,21,"🇦🇷"],
+    ["Тайлер Адамс","ЦПЗ",81,20,27,"🇺🇸"],["Алекс Скотт","ЦПЗ",81,22,22,"🏴"],["Льюїс Кук","ЦПЗ",78,11,29,"🏴"],["Крісті","ЦПЗ",76,8,31,"🏴"],["Таверньє","АПЗ",81,25,27,"🏴"],["Клюйверт","АПЗ",81,25,27,"🇳🇱"],
+    ["Раян","ЛВ",87,60,19,"🇧🇷"],["Адлі","ЛВ",80,20,26,"🇫🇷"],["Ганнон-Доук","ПВ",78,15,20,"🏴"],["Брукс","ПВ",77,12,28,"🏴"],["Крупі","ЦН",88,70,20,"🇫🇷"],["Еванілсон","ЦН",84,35,26,"🇧🇷"],["Унал","ЦН",75,7,29,"🇹🇷"]
+  ],
+  21:[
+    ["Келлехер","ВРТ",83,28,27,"🇮🇪"],["Вальдімарссон","ВРТ",73,2.5,24,"🇮🇸"],["Кокс","ВРТ",69,.7,23,"🏴"],["Балкомб","ВРТ",68,.4,26,"🏴"],
+    ["Ван ден Берг","ЦЗ",84,32,24,"🇳🇱"],["Коллінз","ЦЗ",83,30,25,"🇮🇪"],["Шустер","ЦЗ",80,18,20,"🇦🇹"],["Аєр","ЦЗ",80,18,28,"🇳🇴"],["Піннок","ЦЗ",74,3,33,"🏴"],["Кім Джі Су","ЦЗ",70,1.8,21,"🇰🇷"],["Ріко Генрі","ЛЗ",79,13,28,"🏴"],["Мегома","ЛЗ",71,2,20,"🏴"],["Кайоде","РБ",85,40,21,"🇮🇹"],["Гікі","РБ",80,16,24,"🏴"],
+    ["Янельт","ЦПЗ",80,16,28,"🇩🇪"],["Ярмолюк","ЦПЗ",84,32,22,"🇺🇦"],["Єнсен","ЦПЗ",77,10,30,"🇩🇰"],["Гендерсон","ЦПЗ",73,1.2,36,"🏴"],["Дамсгор","АПЗ",83,30,26,"🇩🇰"],["Міламбо","АПЗ",79,15,21,"🇳🇱"],["Карвалью","АПЗ",76,8,23,"🇵🇹"],
+    ["Шаде","ЛВ",84,35,24,"🇩🇪"],["Уаттара","ПВ",84,35,24,"🇧🇫"],["Льюїс-Поттер","ЛВ",81,25,25,"🏴"],["Густаво Нунес","ЛВ",76,8,20,"🇧🇷"],["Ігор Тіаго","ЦН",87,65,25,"🇧🇷"],["Кай Фуро","ЦН",76,8,18,"🏴"]
+  ],
+  22:[
+    ["Вербрюгген","ВРТ",85,40,23,"🇳🇱"],["Рашворт","ВРТ",80,16,24,"🏴"],["Бідл","ВРТ",75,6,21,"🏴"],["Стіл","ВРТ",69,.5,35,"🏴"],
+    ["Ван Гекке","ЦЗ",85,45,26,"🇳🇱"],["Боскальї","ЦЗ",79,15,28,"🇫🇷"],["Ігор Жуліо","ЦЗ",77,10,28,"🇧🇷"],["Кешін","ЦЗ",75,5,24,"🇮🇪"],["Данк","ЦЗ",73,3.5,34,"🏴"],["Вебстер","ЦЗ",72,3,31,"🏴"],["Кадіоглу","ЛЗ",84,35,26,"🇹🇷"],["Де Кейпер","ЛЗ",81,22,25,"🇧🇪"],["Віффер","РБ",82,25,26,"🇳🇱"],["Велтман","РБ",72,1.5,34,"🇳🇱"],
+    ["Балеба","ЦПЗ",86,55,22,"🇨🇲"],["Аярі","ЦПЗ",84,35,22,"🇸🇪"],["Гіншелвуд","ЦПЗ",82,28,21,"🏴"],["Дієго Гомес","ЦПЗ",82,25,23,"🇵🇾"],["О'Райлі","ЦПЗ",80,18,25,"🇩🇰"],["Ялкує","ЦПЗ",77,12,20,"🇲🇱"],["Гросс","ЦПЗ",73,2.5,35,"🇩🇪"],
+    ["Мінте","ПВ",85,45,21,"🇬🇲"],["Мітома","ЛВ",81,22,29,"🇯🇵"],["Рюттер","АПЗ",83,30,24,"🇫🇷"],["Костулас","ЦН",82,25,19,"🇬🇷"],["Цімас","ЦН",80,18,20,"🇬🇷"],["Велбек","ЦН",74,4,35,"🏴"]
+  ],
+  23:[
+    ["Пікфорд","ВРТ",81,13,32,"🏴"],["Траверс","ВРТ",73,3,27,"🇮🇪"],["Кінг","ВРТ",65,.1,31,"🏴"],
+    ["Брантвейт","ЦЗ",84,40,24,"🏴"],["Тарковскі","ЦЗ",76,5,33,"🏴"],["Кін","ЦЗ",74,3,33,"🏴"],["Миколенко","ЛЗ",82,25,27,"🇺🇦"],["Азну","ЛЗ",75,6,20,"🇲🇦"],["О'Браєн","ЦЗ",80,18,25,"🇮🇪"],["Паттерсон","РБ",77,10,24,"🏴"],
+    ["Гарнер","ЦПЗ",85,45,25,"🏴"],["Гекні","ЦПЗ",84,32,24,"🏴"],["Дьюсбері-Голл","ЦПЗ",84,35,27,"🏴"],["Ірогбунам","ЦПЗ",80,18,23,"🏴"],["Алькарас","АПЗ",79,15,23,"🇦🇷"],["Армстронг","ЦПЗ",78,12,19,"🏴"],["Рель","ЦПЗ",79,16,24,"🇩🇪"],
+    ["Ндіає","ЛВ",86,55,26,"🇸🇳"],["Тайрік Джордж","ЛВ",80,20,20,"🏴"],["Макніл","ЛВ",80,18,26,"🏴"],["Діблінг","ПВ",79,17,20,"🏴"],["Тьєрно Баррі","ЦН",83,30,23,"🇫🇷"],["Бету","ЦН",80,18,28,"🇵🇹"]
+  ],
+  24:[
+    ["Гендерсон","ВРТ",83,28,29,"🏴"],["Бенітес","ВРТ",75,4,33,"🇦🇷"],["Метьюз","ВРТ",67,.4,32,"🏴"],
+    ["Лакруа","ЦЗ",84,38,26,"🇫🇷"],["Річардс","ЦЗ",82,25,26,"🇺🇸"],["Канво","ЦЗ",78,15,22,"🇬🇭"],["Ріад","ЦЗ",77,12,23,"🇲🇦"],["Муньйос","РБ",84,35,30,"🇨🇴"],["Мітчелл","ЛЗ",81,20,26,"🏴"],["Соса","ЛЗ",78,12,28,"🇭🇷"],
+    ["Вортон","ЦПЗ",86,55,22,"🏴"],["Дукуре","ЦПЗ",81,20,26,"🇲🇱"],["Лерма","ЦПЗ",78,9,31,"🇨🇴"],["Камада","АПЗ",77,10,29,"🇯🇵"],["Девенні","ЦПЗ",73,4,22,"🇬🇧"],
+    ["Ісмаїла Сарр","ПВ",83,30,28,"🇸🇳"],["Піно","ЛВ",84,35,23,"🇪🇸"],["Бреннан Джонсон","ПВ",84,38,25,"🏴"],["Гессан","ПВ",81,22,25,"🇨🇮"],["Уче","АПЗ",78,12,23,"🇳🇬"],["Странд Ларсен","ЦН",84,40,26,"🇳🇴"],["Матета","ЦН",83,28,29,"🇫🇷"],["Нкетіа","ЦН",79,15,27,"🏴"]
+  ],
+  25:[
+    ["Лено","ВРТ",81,8,34,"🇩🇪"],["Бенда","ВРТ",72,2,27,"🇩🇪"],
+    ["Андерсен","ЦЗ",83,28,30,"🇩🇰"],["Бассі","ЦЗ",82,25,26,"🇳🇬"],["Куенка","ЦЗ",78,12,26,"🇪🇸"],["Діоп","ЦЗ",79,15,29,"🇫🇷"],["Робінсон","ЛЗ",84,32,28,"🇺🇸"],["Кастань","РБ",79,12,30,"🇧🇪"],["Тете","РБ",78,10,30,"🇳🇱"],
+    ["Берге","ЦПЗ",81,20,28,"🇳🇴"],["Лукіч","ЦПЗ",79,15,30,"🇷🇸"],["Рід","ЦПЗ",76,7,31,"🇯🇲"],["Андреас","АПЗ",81,20,30,"🇧🇷"],["Сміт-Роу","АПЗ",82,25,26,"🏴"],["Кінг","АПЗ",75,8,20,"🏴"],
+    ["Івобі","ЛВ",81,18,30,"🇳🇬"],["Вілсон","ПВ",78,9,29,"🏴"],["Траоре","ПВ",77,8,30,"🇪🇸"],["Чуквуезе","ПВ",80,18,27,"🇳🇬"],["Оскар Бобб","ПВ",83,30,23,"🇳🇴"],["Рікардо Пепі","ЦН",84,35,23,"🇺🇸"],["Муніс","ЦН",83,30,25,"🇧🇷"]
+  ],
+  62:[
+    ["Руфс","ВРТ",83,28,23,"🇳🇱"],["Паттерсон","ВРТ",77,8,26,"🏴"],["Еллборг","ВРТ",73,3,23,"🇸🇪"],["Мур","ВРТ",65,.075,36,"🏴"],
+    ["Баллард","ЦЗ",81,20,26,"🇬🇧"],["Альдерете","ЦЗ",79,13,29,"🇵🇾"],["Зельт","ЦЗ",76,5,23,"🇳🇱"],["Г'єльде","ЦЗ",71,1.5,22,"🇳🇴"],["Алезе","ЦЗ",69,.7,25,"🏴"],["О'Наєн","ЦЗ",69,.7,31,"🇬🇧"],["Рейнілду","ЛЗ",75,4,32,"🇲🇿"],["Масуаку","ЛЗ",72,2,32,"🇨🇩"],["Трей Г'юм","РБ",82,22,24,"🇬🇧"],["Мукіеле","РБ",80,16,28,"🇫🇷"],["Пембеле","РБ",70,1.8,23,"🇫🇷"],
+    ["Джака","ЦПЗ",79,8,33,"🇨🇭"],["Діарра","ЦПЗ",84,35,22,"🇫🇷"],["Садікі","ЦПЗ",84,35,21,"🇧🇪"],["Ле Фе","ЦПЗ",83,28,26,"🇫🇷"],["Браун","ЦПЗ",71,2,31,"🇮🇪"],["Кріс Рігг","АПЗ",82,25,19,"🏴"],
+    ["Адінгра","ЛВ",82,22,24,"🇨🇮"],["Ангуло","ЛВ",80,17,23,"🇪🇨"],["Мандл","ЛВ",76,7,23,"🏴"],["Тальбі","ПВ",82,25,21,"🇲🇦"],["Траоре","ПВ",74,4,30,"🇧🇫"],["Броббі","ЦН",83,30,24,"🇳🇱"],["Ісідор","ЦН",80,18,25,"🇫🇷"],["Маєнда","ЦН",79,16,21,"🇫🇷"],["Марка Гіу","ЦН",78,12,20,"🇪🇸"]
+  ],
+  63:[
+    ["Жон Віктор","ВРТ",76,5,30,"🇧🇷"],["Зелс","ВРТ",75,3.5,34,"🇧🇪"],
+    ["Мурілло","ЦЗ",86,50,24,"🇧🇷"],["Міленкович","ЦЗ",83,28,28,"🇷🇸"],["Жаїр Кунья","ЦЗ",79,15,21,"🇧🇷"],["Морато","ЦЗ",79,14,25,"🇧🇷"],["Ебботт","ЦЗ",74,4,20,"🏴"],["Біндон","ЦЗ",73,3.5,21,"🇳🇿"],["Неко Вільямс","ЛЗ",83,28,25,"🏴"],["Нетц","ЛЗ",77,8,23,"🇩🇪"],["Річардс","ЛЗ",70,2,28,"🏴"],["Айна","РБ",80,18,29,"🇳🇬"],["Савона","РБ",79,15,23,"🇮🇹"],
+    ["Сангаре","ЦПЗ",81,20,28,"🇨🇮"],["Домінгес","ЦПЗ",79,15,28,"🇦🇷"],["Єйтс","ЦПЗ",75,7,28,"🏴"],["Гіббс-Вайт","АПЗ",88,70,26,"🏴"],["Гатчінсон","АПЗ",83,30,22,"🏴"],["Макаті","АПЗ",80,18,23,"🏴"],
+    ["Гадсон-Одої","ЛВ",83,30,25,"🏴"],["Ндоє","ПВ",84,32,25,"🇨🇭"],["Баква","ПВ",83,28,23,"🇫🇷"],["Калімюендо","ЦН",82,25,24,"🇫🇷"],["Ігор Жезус","ЦН",82,25,25,"🇧🇷"],["Авонії","ЦН",76,8,28,"🇳🇬"],["Кріс Вуд","ЦН",75,5,34,"🇳🇿"]
+  ]
+};
+
+Object.entries(EPL_SQUADS_2026_27).forEach(([clubId,rows])=>{
+  PLAYERS[Number(clubId)]=rows.map(([n,p,r,mv,age,nat])=>({n,p,r,mv,age,nat}));
+});
+
+// Сила клубів узгоджена із середнім рейтингом найкращого стартового складу.
+const EPL_CLUB_STRENGTH_2026_27={2:91,3:91,4:90,15:89,16:87,17:85,18:84,19:85,20:82,21:82,22:82,23:81,24:83,25:81,62:81,63:82};
+CLUBS.forEach(club=>{
+  if(EPL_CLUB_STRENGTH_2026_27[club.id])club.strength=EPL_CLUB_STRENGTH_2026_27[club.id];
+});
+
+// ── Баланс гравців 85+: форма + рівень ліги + вік + актуальна ціна Transfermarkt ──
+// Висока ціна молодого футболіста частково відображає потенціал і не дорівнює поточному рейтингу.
+const ELITE_PLAYER_REBALANCE_2026_27={
+  1:{"Кубарсі":{r:86}},
+  2:{"Рая":{r:86},"Едегор":{r:87},"Дьокереш":{r:87}},
+  3:{"Доннарумма":{r:89},"Родрі":{r:88},"Шеркі":{r:87},"Семеньйо":{r:86},"Геї":{r:87},"Гвардіол":{r:87},"Фоден":{r:87},"Елліот Андерсон":{r:85}},
+  4:{"Аліссон":{r:88},"Ван Дейк":{r:86},"Жаке":{r:84},"Екітіке":{r:87},"Гакпо":{r:86}},
+  5:{"Павловіч":{r:86}},
+  6:{"Жоао Невеш":{r:89},"Дезіре Дуе":{r:87},"Зайр-Емері":{r:87}},
+  11:{"Грізман":{r:83,mv:8},"Облак":{r:86}},
+  13:{"Мессі":{r:87,mv:15}},
+  14:{"Роналду":{r:86}},
+  15:{"Естевао":{r:86},"Колвілл":{r:84},"Жоау Педру":{r:85}},
+  16:{"Йоро":{r:84},"Мейну":{r:85},"Кунья":{r:86},"Мбемо":{r:86},"Шешко":{r:86}},
+  17:{"Матеуш Фернандеш":{r:84},"Кудус":{r:85}},
+  18:{"Роджерс":{r:87},"Мартінес":{r:85}},
+  19:{"Бруну Гімараес":{r:87}},
+  20:{"Крупі":{r:85},"Раян":{r:84}},
+  21:{"Ігор Тіаго":{r:85}},
+  22:{"Балеба":{r:84},"Ван Гекке":{r:84},"Мінте":{r:84}},
+  23:{"Гарнер":{r:83},"Ндіає":{r:84}},
+  24:{"Вортон":{r:84}},
+  27:{"Ніко Вільямс":{r:86}},
+  28:{"Такефуса Кубо":{r:82,mv:20,age:25},"Алекс Реміро":{r:83}},
+  51:{"Чалханоглу":{r:84}},
+  63:{"Гіббс-Вайт":{r:86},"Мурілло":{r:85}},
+  64:{"Рюдіґер":{r:84}},
+  65:{"Карнесеккі":{r:84}},
+  77:{"Дьоманде":{r:86}},
+  83:{"Нюбель":{r:82,mv:12,age:29},"Ундав":{r:83,mv:22,age:30}},
+  86:{"Стейдж":{r:82,mv:14,age:29}},
+  90:{"Амірі":{r:84,mv:17,age:29}}
+};
+const ELITE_PLAYER_CHANGELOG_2026_27=[];
+Object.entries(ELITE_PLAYER_REBALANCE_2026_27).forEach(([clubId,changes])=>{
+  (PLAYERS[Number(clubId)]||[]).forEach(player=>{
+    const update=changes[player.n];
+    if(!update)return;
+    const before={r:player.r,mv:player.mv,age:player.age};
+    Object.assign(player,update);
+    ELITE_PLAYER_CHANGELOG_2026_27.push({clubId:Number(clubId),name:player.n,before,after:{r:player.r,mv:player.mv,age:player.age}});
+  });
+});
+
+// ── Підвищення за фактичний сезон 2025/26 ──
+// Враховані голи, асисти, стабільність, рівень турніру та зростання ринкової вартості.
+const SEASON_2025_26_PERFORMANCE_UPGRADES={
+  1:{"Ферран Торрес":{r:85}},
+  3:{"Шеркі":{r:88},"Семеньйо":{r:87}},
+  5:{"Оліз":{mv:150},"Луїс Діас":{r:89}},
+  15:{"Жоау Педру":{r:86}},
+  16:{"Бруну":{r:89}},
+  18:{"Воткінс":{r:85}},
+  19:{"Базумана Туре":{r:85}},
+  21:{"Ігор Тіаго":{r:87}},
+  26:{"Жорж Мікаутадзе":{r:85},"Папе Ге":{r:85},"Альберто Молейро":{r:85},"Ніколя Пепе":{r:82}},
+  28:{"Мікель Оярсабаль":{r:85}},
+  29:{"Абде Езалзулі":{r:85},"Антоні":{r:84}},
+  51:{"Дімарко":{r:89},"М. Тюрам":{r:87}},
+  59:{"Пізіллі":{r:83}},
+  60:{"Шик":{r:86}},
+  63:{"Гіббс-Вайт":{r:87},"Ігор Жезус":{r:84}},
+  65:{"Скальвіні":{r:85}},
+  68:{"Роу":{r:83,mv:28}},
+  75:{"Ніко Пас":{r:88},"Хакобо Рамон":{r:83}},
+  77:{"Бауменгартнер":{r:87}},
+  91:{"Ель Мала":{r:86}},
+  93:{"Вушкович":{r:85}}
+};
+const SEASON_2025_26_UPGRADE_CHANGELOG=[];
+Object.entries(SEASON_2025_26_PERFORMANCE_UPGRADES).forEach(([clubId,changes])=>{
+  (PLAYERS[Number(clubId)]||[]).forEach(player=>{
+    const update=changes[player.n];
+    if(!update)return;
+    const before={r:player.r,mv:player.mv,age:player.age};
+    Object.assign(player,update);
+    SEASON_2025_26_UPGRADE_CHANGELOG.push({clubId:Number(clubId),name:player.n,before,after:{r:player.r,mv:player.mv,age:player.age}});
+  });
+});
+
 // Each mode affects: myStr bonus, goals multiplier (attack), concede multiplier (defense)
 // attackMod: +N extra goals chance for my team
 // defendMod: +N extra goals chance for opponent
@@ -6157,7 +6348,7 @@ const ACTIONS_MY=["Атака! Рух вперед","Небезпечна ата
 const ACTIONS_OPP=["Суперник атакує","Небезпечний момент","Прострел суперника","Контратака суперника","Тиск суперника"];
 const ACTIONS_NEU=["Боротьба за м'яч","Кутовий...","Штрафний","Офсайд!","М'яч у грі","Тиск в центрі"];
 
-let G={club:null,players:[],budget:100000000,tactic:"balanced",schedule:[],currentRound:0,tableStats:{},suspended:[],formation:'4-3-3',transfers:{spent:0,history:[],marketPlayers:[],lastRefresh:-1},scorers:{},salary:{salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0},sponsor:{active:null,signPaid:false,winterPaid:false,endPaid:false,history:[]},seasonStartYear:2026,journal:[],_journalFilter:'all',_finTab:'overview',academy:{level:1,totalInvested:0},ballonHistory:[],careerMatches:0,careerPlayMins:0,trophyHistory:[],careerLog:[],managerRep:10};
+let G={club:null,players:[],budget:100000000,tactic:"balanced",schedule:[],currentRound:0,tableStats:{},suspended:[],formation:'4-3-3',transfers:{spent:0,history:[],marketPlayers:[],lastRefresh:-1},scorers:{},salary:{salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0},sponsor:{active:null,signPaid:false,winterPaid:false,endPaid:false,history:[]},seasonStartYear:2026,journal:[],_journalFilter:'all',_finTab:'overview',academy:{level:1,totalInvested:0,lastUpgradeSeason:null},ballonHistory:[],careerMatches:0,careerPlayMins:0,trophyHistory:[],careerLog:[],managerRep:10};
 // suspended: array of player names banned for next match
 const MATCH_DURATION_MULT=1.661; // v5.48: матч триває на 10% довше
 function getTickMs(){ return Math.round((_speedLevel===2 ? 175 : _speedLevel===1 ? 344 : 694)*MATCH_DURATION_MULT); }
@@ -7168,10 +7359,11 @@ function isNewPlayer(playerName){
 }
 function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
 function fmt(n){
-  if(n>=1e9){const b=n/1e9;return'€'+(b%1===0?b.toFixed(0):(Math.round(b*10)/10).toFixed(1))+'B';}
-  if(n>=1e6){const m=n/1e6;return'€'+(m%1===0?m.toFixed(0):(Math.round(m*10)/10).toFixed(1))+'M';}
-  if(n>=1e3){const k=n/1e3;return'€'+(k%1===0?k.toFixed(0):(Math.round(k*10)/10).toFixed(1))+'K';}
-  return'€'+Math.round(n);
+  const value=Number(n)||0, sign=value<0?'−':'', abs=Math.abs(value);
+  if(abs>=1e9){const b=abs/1e9;return sign+'€'+(b%1===0?b.toFixed(0):(Math.round(b*10)/10).toFixed(1))+'B';}
+  if(abs>=1e6){const m=abs/1e6;return sign+'€'+(m%1===0?m.toFixed(0):(Math.round(m*10)/10).toFixed(1))+'M';}
+  if(abs>=1e3){const k=abs/1e3;return sign+'€'+(k%1===0?k.toFixed(0):(Math.round(k*10)/10).toFixed(1))+'K';}
+  return sign+'€'+Math.round(abs);
 }
 
 // Player avatar: initials + position-colored gradient
@@ -7877,7 +8069,7 @@ const LEGEND_VALUE_OVERRIDE = {
   'Омлін': 1_500_000,
 };
 
-function playerValue(p){
+function playerValueLegacy(p){
   if(LEGEND_VALUE_OVERRIDE[p.n] != null) return LEGEND_VALUE_OVERRIDE[p.n];
   // FIX 4: Dynamic market value based on base value + form bonus
   let raw;
@@ -7920,6 +8112,74 @@ function playerValue(p){
   return snapPrice(raw);
 }
 
+function marketAgeCurve(age){
+  age=Math.max(15,Math.min(45,Number(age)||25));
+  if(age<=17)return 0.70;
+  if(age===18)return 0.78;
+  if(age===19)return 0.86;
+  if(age===20)return 0.93;
+  if(age===21)return 0.98;
+  if(age<=27)return 1.00;
+  if(age===28)return 0.97;
+  if(age===29)return 0.93;
+  if(age===30)return 0.87;
+  if(age===31)return 0.80;
+  if(age===32)return 0.72;
+  if(age===33)return 0.64;
+  if(age===34)return 0.56;
+  if(age===35)return 0.48;
+  if(age===36)return 0.40;
+  if(age===37)return 0.33;
+  if(age===38)return 0.27;
+  if(age===39)return 0.22;
+  return Math.max(0.10,0.18-(age-40)*0.02);
+}
+function ensureMarketValueBaseline(p){
+  if(!p||typeof p!=='object')return 100_000;
+  if(!Number.isFinite(Number(p._marketBaseMv))||Number(p._marketBaseMv)<=0){
+    const fixed=LEGEND_VALUE_OVERRIDE[p.n];
+    let baseMillions=Number.isFinite(Number(fixed))&&Number(fixed)>0?Number(fixed)/1_000_000:Number(p.mv);
+    if(!Number.isFinite(baseMillions)||baseMillions<=0){
+      const r=Math.max(45,Number(p.r)||60);
+      const isGK=/ВРТ|GK/i.test(String(p.p||''));
+      const posMult=isGK?0.85:isFwd(p.p)?1.25:isDef(p.p)?0.95:1.05;
+      baseMillions=(r*r*1800*posMult)/1_000_000;
+    }
+    p._marketBaseMv=Math.max(0.1,Math.min(300,baseMillions));
+    p._marketBaseRating=Math.max(45,Number(p.r)||60);
+    p._marketBaseAge=Math.max(15,Number(p.age)||25);
+  }
+  if(!Number.isFinite(Number(p._marketBaseRating)))p._marketBaseRating=Math.max(45,Number(p.r)||60);
+  if(!Number.isFinite(Number(p._marketBaseAge)))p._marketBaseAge=Math.max(15,Number(p.age)||25);
+  return Number(p._marketBaseMv)*1_000_000;
+}
+function playerValue(p,clubName){
+  if(!p)return 100_000;
+  let raw=ensureMarketValueBaseline(p);
+
+  // Rating is applied exactly once: about 9% per point with safe cumulative bounds.
+  const ratingDelta=Math.max(-12,Math.min(12,(Number(p.r)||60)-Number(p._marketBaseRating)));
+  raw*=Math.max(0.45,Math.min(2.25,Math.pow(1.09,ratingDelta)));
+
+  // The starting Transfermarkt value already includes age; apply only aging after the baseline date.
+  const ageNow=Math.max(15,Number(p.age)||25),ageBase=Math.max(15,Number(p._marketBaseAge)||ageNow);
+  raw*=Math.max(0.38,Math.min(1.28,marketAgeCurve(ageNow)/marketAgeCurve(ageBase)));
+
+  // Season form can raise or lower value, but remains secondary to rating and age.
+  const statsClub=clubName||p.fromClubName||((G.players||[]).includes(p)?G.club?.name:'');
+  const sc=playerSeasonStats(p,statsClub);
+  if(sc&&sc.apps>=5){
+    const apps=Math.max(1,sc.apps),gpg=(sc.goals||0)/apps,apg=(sc.assists||0)/apps;
+    const r=Math.max(50,Number(p.r)||65),quality=Math.max(0,Math.min(1,(r-65)/25));
+    const isGK=/ВРТ|GK/i.test(String(p.p||'')),defensive=isGK||isDef(p.p);
+    const output=isFwd(p.p)?gpg+apg*0.55:defensive?gpg*0.20+apg*0.25:gpg*0.65+apg*0.75;
+    const expected=isFwd(p.p)?0.30+quality*0.38:defensive?0.035+quality*0.035:0.16+quality*0.22;
+    raw*=1+Math.max(-0.15,Math.min(0.25,(output-expected)*0.38));
+  }
+
+  return snapPrice(Math.max(100_000,Math.min(350_000_000,raw)));
+}
+
 // ===== SALARY SYSTEM (4 payments per season) =====
 function snapSalary(v){
   // до 1М — крок 5k; від 1М — крок 100k
@@ -7927,9 +8187,9 @@ function snapSalary(v){
   if(v<1_000_000) return Math.round(v/5_000)*5_000;
   return Math.round(v/100_000)*100_000;
 }
-function calcPlayerSalary(p){
+function calcPlayerSalary(p, ignoreExisting=false){
   // Якщо ЗП вже підписана (у контракті) — повертаємо її
-  if(p && p.salary) return p.salary;
+  if(p && p.salary && !ignoreExisting) return p.salary;
   // ══ SALARY SYSTEM v2 ══
   // Діапазон: 20K – 12M / сезон
   // Максимум 12M: Мессі, Роналду (топ-легенди, r≥93 або r≥88 з mv≥30+)
@@ -8103,17 +8363,20 @@ function checkAndPaySalary(){
   const labels = ['1-й квартал','2-й квартал','3-й квартал','4-й квартал'];
   if(G.budget >= payment){
     G.budget -= payment;
-    G.salary.salaryBlocked = false;
+    G.salary.salaryBlocked = (Number(G.salary.debt)||0) > 0;
     G.salary.history.push({label: labels[qIdx], quarter: qIdx, amount: payment, paid: true, round: G.currentRound});
     addJournalEntry('salary',{label:labels[qIdx],amount:payment});
     return {paid: true, amount: payment, quarter: qIdx};
   } else {
-    // FIX: allow budget to go negative (debt) but record the shortfall, min -200M
-    G.budget = Math.max(-200_000_000, G.budget - payment);
+    // Budget is never negative: use the available cash and store only the unpaid remainder as salary debt.
+    const available=Math.max(0,Number(G.budget)||0);
+    const shortfall=Math.max(0,payment-available);
+    G.budget=0;
+    G.salary.debt=Math.max(0,Number(G.salary.debt)||0)+shortfall;
     G.salary.salaryBlocked = true;
-    G.salary.history.push({label: labels[qIdx], quarter: qIdx, amount: payment, paid: false, round: G.currentRound});
-    addJournalEntry('salary',{label:labels[qIdx],amount:payment,unpaid:true});
-    return {paid: false, amount: payment, quarter: qIdx};
+    G.salary.history.push({label: labels[qIdx], quarter: qIdx, amount: payment, paid: false, paidAmount:available, debt:shortfall, round: G.currentRound});
+    addJournalEntry('salary',{label:labels[qIdx],amount:payment,paidAmount:available,debt:shortfall,unpaid:true});
+    return {paid: false, amount: payment, paidAmount:available, debt:shortfall, quarter: qIdx};
   }
 }
 
@@ -8122,10 +8385,13 @@ function checkAndPaySalary(){
 // have enough budget to cover the missed payment right now.
 function paySalaryDebt(){
   if(!G.salary?.salaryBlocked) return;
-  if(G.budget < 0){
-    showTrMsg(`⛔ Бюджет ще від'ємний (${fmtPrice(G.budget)}). Заробіть ще, щоб погасити борг.`);
+  const debt=Math.max(0,Number(G.salary.debt)||0);
+  if(debt>0&&G.budget<debt){
+    showTrMsg(`⛔ Для погашення боргу потрібно ще ${fmtPrice(debt-G.budget)}.`);
     return;
   }
+  if(debt>0) G.budget=Math.max(0,G.budget-debt);
+  G.salary.debt=0;
   G.salary.salaryBlocked = false;
   showTrMsg('✅ Борг по зарплаті погашено! Трансфери розблоковано.');
   if(typeof renderSalaryScreen === 'function') renderSalaryScreen();
@@ -8948,19 +9214,20 @@ function showSponsorPicker(){
 }
 
 function fmtPrice(v){
-  if(!v||v<=0) return '€0';
-  if(v>=1e9){const b=v/1e9;return`€${b%1===0?b.toFixed(0):b.toFixed(1)}B`;}
-  if(v>=1e6){
-    const m=v/1e6;
+  const value=Number(v)||0, sign=value<0?'−':'', abs=Math.abs(value);
+  if(!abs) return '€0';
+  if(abs>=1e9){const b=abs/1e9;return`${sign}€${b%1===0?b.toFixed(0):b.toFixed(1)}B`;}
+  if(abs>=1e6){
+    const m=abs/1e6;
     // Show one decimal if not whole (e.g. 1.5M, 12.3M)
-    return`€${m%1===0?m.toFixed(0):(Math.round(m*10)/10).toFixed(1)}M`;
+    return`${sign}€${m%1===0?m.toFixed(0):(Math.round(m*10)/10).toFixed(1)}M`;
   }
   // 100k–999k: show as 100K, 150K, 500K etc (NOT 0.5M)
-  if(v>=100_000){
-    return`€${Math.round(v/1000)}K`;
+  if(abs>=100_000){
+    return`${sign}€${Math.round(abs/1000)}K`;
   }
-  if(v>=1000) return`€${Math.round(v/1000)}K`;
-  return`€${v}`;
+  if(abs>=1000) return`${sign}€${Math.round(abs/1000)}K`;
+  return`${sign}€${Math.round(abs)}`;
 }
 
 const TRANSFER_MARKET_REFRESH_INTERVAL=3;
@@ -8993,7 +9260,7 @@ function buildMarket(){
     const outfield=squad.filter(p=>p&&p.n&&p.p!=='ВРТ');
     if(outfield.length){
       const p=outfield[Math.floor(Math.random()*outfield.length)];
-      const val=playerValue(p);
+      const val=playerValue(p,c.name);
       const priceFraction=0.50+Math.random()*0.15; // player costs 50–65% of market value
       const flashPrice=snapPrice(val*priceFraction);
       const duration=rnd(2,4);
@@ -9018,7 +9285,7 @@ function buildMarket(){
       const key=`${p.n}|${c.id}`;
       if(seen.has(key)) return; // пропустити дублікат
       seen.add(key);
-      const val=playerValue(p);
+      const val=playerValue(p,c.name);
       // Skip if already in flash sales
       if(G.transfers.flashSales.find(f=>f.n===p.n&&f.fromClub===c.id)) return;
       const listed=Math.random()<0.35;
@@ -10763,6 +11030,14 @@ function sellPlayer(name){
   const p=G.players.find(x=>x.n===name);
   if(!p) return;
   if(G.players.length<=14){showTrMsg('❌ Мінімум 14 гравців у складі');return;}
+  if(p._fromAcademy && p._academyPromotedSeason===(G.seasonStartYear||2025)){
+    const promotedRound=Number(p._academyPromotedRound)||0;
+    const roundsHeld=Math.max(0,G.currentRound-promotedRound);
+    if(roundsHeld<5){
+      showTrMsg(`🎓 Вихованець щойно приєднався — продаж можливий через ${5-roundsHeld} тури`);
+      return;
+    }
+  }
   // Sell cooldown: can't sell within 3 rounds of purchase
   if(p._boughtRound !== undefined){
     const roundsHeld = G.currentRound - p._boughtRound;
@@ -11303,7 +11578,7 @@ function returnRentedInPlayers(window){
 function getContractDemand(p){
   const age = p.age || 25;
   const r   = p.r   || 65;
-  const baseSalary = calcPlayerSalary(p);
+  const baseSalary = p && p._academyContract ? calcPlayerSalary(p, true) : calcPlayerSalary(p);
   const curYear = G.seasonStartYear || 2025;
 
   // Детермінований seed — вимоги стабільні при повторному відкритті
@@ -13130,7 +13405,7 @@ function generateGoalEvents(hg,ag,homeId,awayId,userClubId,onField){
   events._myRedCarded  = myRedCarded;
 
   // ── PENALTIES ──
-  // Базовий шанс пенальті: ~28% за матч (було 18%), другий ~14% (було 8%)
+  // Реалістична частота: у середньому ~0.24 пенальті за матч.
   // Чим сильніші атакувальні гравці — тим більше вибивають пенальті
   const myFwdMid = myPlayers.filter(p=>isFwd(p.p)||p.p==='ПЗ'||p.p==='АМ');
   const myAttRating = myFwdMid.length
@@ -13140,10 +13415,9 @@ function generateGoalEvents(hg,ag,homeId,awayId,userClubId,onField){
   const oppAttRating = oppFwdMid.length
     ? oppFwdMid.reduce((s,p)=>s+(p.r||75),0)/oppFwdMid.length
     : 75;
-  // Рейтинг 70 → базовий шанс; рейтинг 90 → +8%; рейтинг 60 → −8%
-  const attBonus = ((myAttRating + oppAttRating) / 2 - 75) * 0.008;
-  const penBase1 = Math.min(0.45, Math.max(0.18, 0.28 + attBonus));
-  const penBase2 = Math.min(0.22, Math.max(0.06, 0.14 + attBonus * 0.5));
+  const attBonus = ((myAttRating + oppAttRating) / 2 - 75) * 0.003;
+  const penBase1 = Math.min(0.32, Math.max(0.15, 0.22 + attBonus));
+  const penBase2 = Math.min(0.10, Math.max(0.03, 0.07 + attBonus * 0.35));
   const penCount = Math.random()<penBase1 ? (Math.random()<penBase2 ? 2 : 1) : 0;
 
   // Helper: pick best penalty taker from a squad (top rated fwd/mid, not GK)
@@ -13161,11 +13435,9 @@ function generateGoalEvents(hg,ag,homeId,awayId,userClubId,onField){
     return candidates[0];
   }
 
-  // Penalty score chance: stronger GK impact (±15% per 20-pt gap instead of ±5%)
+  // Загальний рейтинг лише наближено моделює техніку удару/реакцію воротаря.
   function calcPenChance(takerR, keeperR){
-    const base = 0.76; // realistic baseline: ~76% of penalties scored in football
-    const skillDiff = (takerR - keeperR) / 100;
-    return Math.min(0.92, Math.max(0.38, base + skillDiff * 0.7));
+    return Math.min(0.88, Math.max(0.58, 0.76 + (takerR-78)*0.004 - (keeperR-78)*0.003));
   }
 
   // Penalty directions for flavour text (stored on event)
@@ -13173,7 +13445,10 @@ function generateGoalEvents(hg,ag,homeId,awayId,userClubId,onField){
 
   for(let _pi=0; _pi<penCount; _pi++){
     const penMin = rMin(12, 88);
-    const myTeamGetspen = Math.random() > 0.5;
+    const tacticBias = ({ultra_attack:0.05,attack:0.025,defense:-0.02,ultra_defense:-0.04}[G.tactic]||0);
+    const homeBias = homeIsUser ? 0.025 : -0.025;
+    const myPenShare = Math.min(0.70,Math.max(0.30,0.50+(myAttRating-oppAttRating)*0.009+tacticBias+homeBias));
+    const myTeamGetspen = Math.random() < myPenShare;
     const penTeam = myTeamGetspen ? (homeIsUser?'home':'away') : (homeIsUser?'away':'home');
 
     const myGK  = myPlayers.find(p=>p.p==='ВРТ');
@@ -13880,7 +14155,6 @@ function startLiveMatch(){
   let hg,ag;
   if(isHome){hg=myGoals;ag=oppGoals;}
   else{hg=oppGoals;ag=myGoals;}
-  if(isUefaSuperCup && hg===ag){ isHome ? hg++ : ag++; }
   const computedHg=hg, computedAg=ag;
 
   // Build opponent lineup — FIX 3: varied formations based on club strength
@@ -13995,8 +14269,6 @@ function startLiveCupMatch(m){
   const{myGoals,oppGoals}=simScoreV2(onField, STR[oppId]||75, isHome, G.tactic);
   let hg,ag;
   if(isHome){hg=myGoals;ag=oppGoals;}else{hg=oppGoals;ag=myGoals;}
-  // No draws in cup
-  if(hg===ag){isHome?hg++:ag++;}
   const computedHg=hg,computedAg=ag;
 
   const oppSquad=getSquad(oppId);
@@ -14505,19 +14777,147 @@ function startPenaltyShootout(onComplete){
   renderShootoutUI();
 }
 
+// v32 — rules-correct shootout: only players on the pitch, alternating kicks,
+// every eligible player kicks before anyone repeats, and termination after every kick.
+startPenaltyShootout = function(onComplete){
+  const alive=(arr,mine)=>(arr||[]).filter((p,i)=>p&&p.n&&!p.subbed&&!p.injured&&!isSentOffLive(mine,i));
+  let mine=alive(LS.onField,true), opps=alive(LS.oppOnField,false);
+  const trimTo=(arr,n)=>{
+    while(arr.length>n){
+      let idx=-1,score=Infinity;
+      arr.forEach((p,i)=>{ if(p.p!=='ВРТ'&&(p.r||60)<score){score=p.r||60;idx=i;} });
+      arr.splice(idx>=0?idx:arr.length-1,1);
+    }
+  };
+  const eligibleCount=Math.max(1,Math.min(mine.length,opps.length));
+  trimTo(mine,eligibleCount); trimTo(opps,eligibleCount);
+  const penSkill=p=>{
+    const posBonus=['ЦН','НАП','ЛВ','ПВ'].includes(p.p)?3:p.p==='ПЗ'||p.p==='АМ'?2:p.p==='ВРТ'?-7:0;
+    const seed=(p.n||'').split('').reduce((s,c)=>s+c.charCodeAt(0),0);
+    return (p.r||68)+posBonus+((seed%5)-2);
+  };
+  const order=arr=>arr.slice().sort((a,b)=>penSkill(b)-penSkill(a));
+  mine=order(mine); opps=order(opps);
+  const myGK=mine.find(p=>p.p==='ВРТ')||LS.onField?.find(p=>p?.p==='ВРТ')||{n:'Воротар',r:70};
+  const oppGK=opps.find(p=>p.p==='ВРТ')||LS.oppOnField?.find(p=>p?.p==='ВРТ')||{n:'Воротар',r:70};
+  const firstTeam=Math.random()<0.5?'my':'opp';
+  let turn=firstTeam,myTaken=0,oppTaken=0,myScore=0,oppScore=0,finished=false,busy=false;
+  const myLog=[],oppLog=[];
+  const dirs=['лівий нижній','лівий верхній','по центру','правий верхній','правий нижній'];
+  const clubMine=G.club||{name:'Ми'};
+  const clubOpp=clubById(LS.oppId)||{name:'Суперник'};
+  const chance=(t,g)=>Math.min(.88,Math.max(.58,.76+(penSkill(t)-78)*.004-((g.r||70)-78)*.003));
+  const kick=(t,g)=>{
+    const scored=Math.random()<chance(t,g),missed=!scored&&Math.random()<.30;
+    return{scored,missed,dir:dirs[rnd(0,dirs.length-1)],taker:t.n,keeper:g.n};
+  };
+  const marks=log=>Array.from({length:Math.max(5,log.length)},(_,i)=>`<i class="pen32-mark ${log[i]===true?'ok':log[i]===false?'bad':''}"></i>`).join('');
+  const currentTaker=()=>turn==='my'?mine[myTaken%mine.length]:opps[oppTaken%opps.length];
+  const currentKeeper=()=>turn==='my'?oppGK:myGK;
+  const isSudden=()=>myTaken>=5&&oppTaken>=5;
+  function decided(){
+    if(myTaken<5||oppTaken<5){
+      if(myScore>oppScore+Math.max(0,5-oppTaken)) return true;
+      if(oppScore>myScore+Math.max(0,5-myTaken)) return true;
+      return false;
+    }
+    return myTaken===oppTaken&&myScore!==oppScore;
+  }
+  function detail(){
+    const seq=x=>x.map(v=>v?'✅':'❌').join(' ');
+    return `${myScore}:${oppScore} (${seq(myLog)} / ${seq(oppLog)})`;
+  }
+  function finish(){
+    if(finished)return; finished=true;
+    document.getElementById('penShootoutOverlay')?.remove();
+    delete window.penShootoutStep;
+    onComplete(myScore>oppScore,myScore,oppScore,detail());
+  }
+  function render(message=''){
+    document.getElementById('penShootoutOverlay')?.remove();
+    const t=currentTaker(),g=currentKeeper(),mineTurn=turn==='my';
+    const ov=document.createElement('div'); ov.id='penShootoutOverlay'; ov.className='pen32-overlay';
+    ov.innerHTML=`<style>
+      .pen32-overlay{position:fixed;inset:0;z-index:800;background:radial-gradient(circle at 50% 22%,#14253f 0,#07101e 45%,#02050a 100%);display:flex;flex-direction:column;justify-content:center;padding:18px;color:#f8fafc}
+      .pen32-card{width:min(520px,100%);margin:auto}.pen32-kicker{text-align:center;color:#94a3b8;font-size:10px;font-weight:850;letter-spacing:2px}.pen32-score{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin:13px 0}.pen32-team{text-align:center;font-size:12px;font-weight:800}.pen32-num{font:54px/1 'Bebas Neue',sans-serif}.pen32-marks{height:15px;display:flex;justify-content:center;gap:5px;margin-top:5px}.pen32-mark{width:10px;height:10px;border-radius:50%;border:1px solid #475569;background:#111827}.pen32-mark.ok{background:#22c55e;border-color:#86efac}.pen32-mark.bad{background:#ef4444;border-color:#fca5a5}.pen32-stage{position:relative;height:230px;border:1px solid rgba(255,255,255,.14);border-radius:22px;overflow:hidden;background:linear-gradient(90deg,#0d5c2b,#0a6b30 50%,#0d5c2b)}.pen32-stage:before{content:'';position:absolute;left:18%;right:18%;top:13px;height:68px;border:2px solid rgba(255,255,255,.7);border-bottom:0}.pen32-goal{position:absolute;left:31%;right:31%;top:18px;height:48px;border:3px solid #fff;border-bottom-width:2px;background:repeating-linear-gradient(45deg,transparent 0 8px,rgba(255,255,255,.15) 9px 10px)}.pen32-ball{position:absolute;left:calc(50% - 7px);bottom:67px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 2px 8px #000;transition:all .48s cubic-bezier(.2,.8,.2,1)}.pen32-player,.pen32-gk{position:absolute;border-radius:50%;display:grid;place-items:center;font-size:9px;font-weight:900;border:2px solid #fff;transition:all .48s cubic-bezier(.2,.8,.2,1)}.pen32-player{width:34px;height:34px;left:calc(50% - 17px);bottom:18px;background:#2563eb}.pen32-gk{width:36px;height:36px;left:calc(50% - 18px);top:36px;background:#f59e0b}.pen32-stage.run .pen32-player{bottom:57px}.pen32-stage.shot .pen32-ball{top:37px;bottom:auto;left:var(--ball-x,50%)}.pen32-stage.shot .pen32-gk{left:var(--gk-x,50%);transform:rotate(22deg) scale(1.08)}.pen32-duel{text-align:center;padding:12px 8px 7px;font-size:14px;font-weight:800}.pen32-sub{text-align:center;color:#94a3b8;font-size:11px;min-height:18px}.pen32-btn{width:100%;margin-top:12px;border:0;border-radius:16px;padding:15px;background:linear-gradient(135deg,#2563eb,#38bdf8);color:white;font-size:15px;font-weight:900;box-shadow:0 8px 30px rgba(37,99,235,.35)}
+    </style><div class="pen32-card"><div class="pen32-kicker">${isSudden()?'РАПТОВА СМЕРТЬ':'СЕРІЯ ПЕНАЛЬТІ'} · ${firstTeam==='my'?esc(clubMine.name):esc(clubOpp.name)} Б’Є ПЕРШОЮ</div><div class="pen32-score"><div class="pen32-team">${esc(clubMine.name)}<div class="pen32-num">${myScore}</div><div class="pen32-marks">${marks(myLog)}</div></div><b>:</b><div class="pen32-team">${esc(clubOpp.name)}<div class="pen32-num">${oppScore}</div><div class="pen32-marks">${marks(oppLog)}</div></div></div><div class="pen32-stage" id="pen32Stage"><div class="pen32-goal"></div><div class="pen32-gk">ВРТ</div><div class="pen32-ball"></div><div class="pen32-player">${mineTurn?'МИ':'СУП'}</div><div class="pen32-duel">⚽ ${esc(t.n)} <span style="color:#64748b">проти</span> ${esc(g.n)}</div><div class="pen32-sub" id="pen32Text">${message||`${mineTurn?esc(clubMine.name):esc(clubOpp.name)} готується до удару`}</div></div><button class="pen32-btn" id="penShootBtn" onclick="penShootoutStep()">⚽ ВИКОНАТИ УДАР</button></div>`;
+    document.body.appendChild(ov);
+  }
+  window.penShootoutStep=()=>{
+    if(busy||finished)return; busy=true;
+    const t=currentTaker(),g=currentKeeper(),team=turn,r=kick(t,g),stage=document.getElementById('pen32Stage'),txt=document.getElementById('pen32Text'),btn=document.getElementById('penShootBtn');
+    if(btn){btn.disabled=true;btn.style.opacity='.45';} if(txt)txt.textContent=`${t.n}: розбіг…`;
+    stage?.classList.add('run');
+    setTimeout(()=>{
+      const bx=r.dir.includes('лів')?'36%':r.dir.includes('прав')?'62%':'49%';
+      const guessed=Math.random()<.48, gx=guessed?bx:(Math.random()<.5?'34%':'64%');
+      stage?.style.setProperty('--ball-x',bx);stage?.style.setProperty('--gk-x',gx);stage?.classList.add('shot');
+      if(txt)txt.textContent=`УДАР — ${r.dir}!`;
+    },spd(650));
+    setTimeout(()=>{
+      if(team==='my'){myTaken++;myLog.push(r.scored);if(r.scored)myScore++;}else{oppTaken++;oppLog.push(r.scored);if(r.scored)oppScore++;}
+      const msg=r.scored?`⚽ ГОЛ! ${r.taker}`:r.missed?`❌ ${r.taker} пробив повз`:`🧤 ${r.keeper} відбив!`;
+      addEvent({type:r.scored?(team==='my'?'goal':'goal_opp'):(r.missed?'penalty-miss':'penalty-save'),text:`${msg} (${r.dir})`,min:LS._extraTimePlayed?120:90});
+      r.scored?(team==='my'?SFX.goal?.():SFX.goalOpp?.()):SFX.yellow?.();
+      if(decided()){
+        // Show the decisive kick and the real final score before closing the scene.
+        busy=true; render(msg);
+        const finalBtn=document.getElementById('penShootBtn');
+        if(finalBtn){finalBtn.disabled=true;finalBtn.textContent='СЕРІЮ ЗАВЕРШЕНО';finalBtn.style.opacity='.55';}
+        setTimeout(finish,spd(1100));return;
+      }
+      turn=turn==='my'?'opp':'my'; busy=false; render(msg);
+    },spd(1550));
+  };
+  render();
+};
+
+function startLiveExtraTime(onComplete){
+  if(!LS||LS._extraTimePlayed){onComplete?.();return;}
+  LS._extraTimePlayed=true;LS.done=false;fieldActionLocked=true;
+  addEvent({type:'info',text:'⏱ Загальний рахунок рівний — два додаткові тайми по 15 хвилин',min:90});
+  const mine=(LS.onField||[]).filter((p,i)=>p&&p.n&&!p.subbed&&!p.injured&&!isSentOffLive(true,i));
+  const opp=(LS.oppOnField||[]).filter((p,i)=>p&&p.n&&!p.subbed&&!p.injured&&!isSentOffLive(false,i));
+  const myStr=mine.length?mine.reduce((s,p)=>s+(p.r||65),0)/mine.length:70;
+  const opStr=opp.length?opp.reduce((s,p)=>s+(p.r||65),0)/opp.length:70;
+  const poisson=lambda=>{let n=0,p=Math.exp(-lambda),c=p,r=Math.random();while(c<r&&n<3){n++;p*=lambda/n;c+=p;}return n;};
+  const myGoals=poisson(Math.max(.12,Math.min(.65,.34+(myStr-opStr)*.012)));
+  const opGoals=poisson(Math.max(.12,Math.min(.65,.34+(opStr-myStr)*.012)));
+  const pick=arr=>{const pool=arr.filter(p=>p.p!=='ВРТ');return (pool[rnd(0,Math.max(0,pool.length-1))]||arr[0]||{n:'Гравець'}).n;};
+  const newEvents=[];
+  for(let i=0;i<myGoals;i++)newEvents.push({min:rnd(92,119),type:'goal',team:LS.isHome?'home':'away',scorer:pick(mine),assist:null,_extraTime:true});
+  for(let i=0;i<opGoals;i++)newEvents.push({min:rnd(92,119),type:'goal',team:LS.isHome?'away':'home',scorer:pick(opp),assist:null,_extraTime:true});
+  newEvents.sort((a,b)=>a.min-b.min).forEach(ev=>{
+    LS.events.push(ev);if(ev.team==='home')LS.score.h++;else LS.score.a++;
+    addEvent({type:ev.team===(LS.isHome?'home':'away')?'goal':'goal_opp',text:`⏱ ${ev.min}’ ${esc(ev.scorer)} — гол у додатковий час!`,min:ev.min});
+  });
+  LS.hg=LS.score.h;LS.ag=LS.score.a;
+  document.getElementById('lScore1').textContent=LS.score.h;document.getElementById('lScore2').textContent=LS.score.a;
+  document.getElementById('liveHalfLabel').textContent='Додатковий час';document.getElementById('liveMin').textContent="120'";
+  document.getElementById('extraTimeOverlay')?.remove();
+  const ov=document.createElement('div');ov.id='extraTimeOverlay';ov.style.cssText='position:fixed;inset:0;z-index:795;background:radial-gradient(circle,#14284a 0,#050912 72%);display:grid;place-items:center;color:white';
+  ov.innerHTML=`<div style="text-align:center;padding:24px"><div style="font-size:11px;letter-spacing:3px;color:#60a5fa;font-weight:900">ДОДАТКОВИЙ ЧАС</div><div style="font:72px/1 'Bebas Neue',sans-serif;margin:14px 0">${LS.score.h} : ${LS.score.a}</div><div style="font-size:13px;color:#94a3b8">90’ → 105’ → 120’</div><div style="margin-top:18px;width:220px;height:4px;border-radius:4px;background:#172033;overflow:hidden"><div style="height:100%;background:linear-gradient(90deg,#2563eb,#38bdf8);animation:progressFill 3s linear both;width:100%"></div></div></div>`;
+  document.body.appendChild(ov);
+  setTimeout(()=>{ov.remove();fieldActionLocked=false;onComplete?.();},spd(3200));
+}
+
 function finishCupMatch(){
-  walkOffPitch();
   const m=LS.cupMatch;
   let finalHg=LS.score?.h ?? LS.hg;
   let finalAg=LS.score?.a ?? LS.ag;
 
+  if(finalHg===finalAg&&!LS._extraTimePlayed){startLiveExtraTime(()=>finishCupMatch());return;}
+  walkOffPitch();
+
   if(finalHg===finalAg){
     // Trigger interactive shootout
-    addEvent({type:'info',text:'⚽ Нічия після 90 хв! Серія пенальті!',min:90});
+    addEvent({type:'info',text:'⚽ Нічия після 120 хв! Серія пенальті!',min:120});
     // FIX: don't mutate finalHg/finalAg — pass shootout winner separately to _finalizeCupMatch
     const _drawHg=finalHg, _drawAg=finalAg;
     startPenaltyShootout((myWon, myPen, oppPen, detail)=>{
       // Score stays as drawn — penalty winner tracked via penNote and myWon flag
+      m.penScore={home:LS.isHome?myPen:oppPen,away:LS.isHome?oppPen:myPen};
+      m.penDetail=detail;
       _finalizeCupMatch(m, _drawHg, _drawAg, ` (пен. ${myPen}:${oppPen})`, detail, myWon);
     });
     return; // will be completed by callback
@@ -14570,7 +14970,7 @@ function _finalizeCupMatch(m, finalHg, finalAg, penNote, penDetail, penWon){
 
   // Salary check before round increment
   const cupSalaryResult=checkAndPaySalary();
-  if(cupSalaryResult) G.salary.salaryBlocked=!cupSalaryResult.paid;
+  if(cupSalaryResult) G.salary.salaryBlocked=!cupSalaryResult.paid||(Number(G.salary.debt)||0)>0;
 
   // Record scorers BEFORE advancing round (LS may be overwritten by next match)
   recordLiveMatchScorers('cup');
@@ -14592,7 +14992,7 @@ function _finalizeCupMatch(m, finalHg, finalAg, penNote, penDetail, penWon){
   document.getElementById('liveHalfLabel').textContent='Матч завершено';
   document.getElementById('liveStatus').textContent='Фінальний свисток';
   document.getElementById('progressFill').style.width='100%';
-  document.getElementById('liveMin').textContent="90'";
+  document.getElementById('liveMin').textContent=LS._extraTimePlayed?"120'":"90'";
   SFX.fulltime();setTimeout(()=>won?SFX.win():SFX.loss(),700);
   VIB.fulltime();setTimeout(()=>won?VIB.win():VIB.loss(),800);
 
@@ -15868,6 +16268,14 @@ function tick(min){
   }
 }
 
+function showMatchPenaltyCinematic(taker,keeper,isMine,message='ПЕНАЛЬТІ'){
+  document.getElementById('pen32MatchCine')?.remove();
+  const el=document.createElement('div');el.id='pen32MatchCine';
+  el.style.cssText='position:fixed;left:50%;top:72px;transform:translateX(-50%);z-index:790;width:min(430px,calc(100% - 28px));pointer-events:none;animation:devSlideUp .28s ease both';
+  el.innerHTML=`<div style="background:linear-gradient(135deg,rgba(7,16,30,.97),rgba(16,31,55,.97));border:1px solid ${isMine?'rgba(56,189,248,.55)':'rgba(248,113,113,.55)'};border-radius:18px;padding:12px 14px;box-shadow:0 18px 55px rgba(0,0,0,.55);backdrop-filter:blur(12px)"><div style="font-size:9px;letter-spacing:2px;font-weight:900;color:${isMine?'#38bdf8':'#fb7185'};text-align:center">⚠ ${message}</div><div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin-top:8px"><div style="text-align:center"><b style="font-size:13px">${esc(taker||'Гравець')}</b><div style="font-size:9px;color:#64748b;margin-top:3px">ВИКОНАВЕЦЬ</div></div><div style="font:24px/1 'Bebas Neue',sans-serif;color:#475569">VS</div><div style="text-align:center"><b style="font-size:13px">${esc(keeper||'Воротар')}</b><div style="font-size:9px;color:#64748b;margin-top:3px">ВОРОТАР</div></div></div></div>`;
+  document.body.appendChild(el);
+  return el;
+}
 function processEvent(ev){
   const isMyGoal=(ev.team==='home'&&LS.isHome)||(ev.team==='away'&&!LS.isHome);
   const isMyTeamEvent = ev.isMyPlayer!==undefined ? ev.isMyPlayer : isMyGoal;
@@ -16146,14 +16554,18 @@ function processEvent(ev){
       if(!repl) return;
       ev.scorer=repl;
     }
-    const scored  = ev.scored;
-    const missed  = ev.missed;   // wide/over vs save
     const dir     = ev.direction || '';
-    const keeper  = ev.keeperName || (isMyPen
-      ? (LS.oppOnField?.find(p=>p&&p.p==='ВРТ'&&!p.subbed)?.n || 'Воротар')
-      : (LS.onField.find(p=>p&&p.p==='ВРТ'&&!p.subbed)?.n || 'Воротар'));
+    const takerObj = penTeamNow.find(p=>p&&p.n===ev.scorer&&!p.subbed) || {n:ev.scorer,r:70};
+    const keeperObj = isMyPen
+      ? (LS.oppOnField?.find(p=>p&&p.p==='ВРТ'&&!p.subbed&&!p.injured) || {n:'Воротар',r:70})
+      : (LS.onField.find(p=>p&&p.p==='ВРТ'&&!p.subbed&&!p.injured) || {n:'Воротар',r:70});
+    const livePenChance=Math.min(.88,Math.max(.58,.76+((takerObj.r||70)-78)*.004-((keeperObj.r||70)-78)*.003));
+    const scored=Math.random()<livePenChance;
+    const missed=!scored&&Math.random()<.30;
+    const keeper=keeperObj.n||'Воротар';
     const takerShort = (ev.scorer||'Гравець').split(' ').pop();
     const keeperShort = keeper.split(' ').pop();
+    showMatchPenaltyCinematic(ev.scorer,keeper,isMyPen,`ПЕНАЛЬТІ · ${ev.min}’ · ${LS.score.h}:${LS.score.a}`);
 
     // Зупиняємо матч
     if(liveTimer){clearInterval(liveTimer);liveTimer=null;}
@@ -16294,6 +16706,7 @@ function processEvent(ev){
       // ── КРОК 5 (9.5с): Гра відновлюється ───────────────────────────
       setTimeout(()=>{
         if(!LS||LS.done) return;
+        document.getElementById('pen32MatchCine')?.remove();
         document.getElementById('fieldAction').textContent='▶ Гра продовжується';
         if(scored) resetTeamsForKickoff(isMyPen?'opp':'my');
         else moveBall(50,50);
@@ -16565,6 +16978,7 @@ function sanitizeSchedule(raw){
 function sanitizeSalary(raw){
   return {
     salaryBlocked:!!raw?.salaryBlocked,
+    debt:Math.max(0,Math.min(200_000_000,Number(raw?.debt)||0)),
     lastPaidHalf:Math.floor(Number(raw?.lastPaidHalf)||-1),
     paidQuarters:Array.isArray(raw?.paidQuarters)?raw.paidQuarters.map(x=>Math.floor(Number(x)||0)).filter(x=>x>=0).slice(0,40):[],
     history:Array.isArray(raw?.history)?raw.history.slice(-80):[],
@@ -16709,6 +17123,30 @@ function getUCLTieLegsForMatch(match, rd){
   ))) || null;
 }
 
+function getUELTieLegsForMatch(match, rd){
+  const stage=rd?.uel_po||match?.uel_po;
+  if(!match||!stage||stage==='final') return null;
+  const groups=G.uel?.playoff?.[stage];
+  if(!Array.isArray(groups)) return null;
+  return groups.find(legs=>Array.isArray(legs)&&legs.some(leg=>leg===match || (
+    leg && leg.leg===match.leg && leg.home===match.home && leg.away===match.away
+  ))) || null;
+}
+
+// Keep aggregate totals in the first-leg team order. The home side usually
+// changes in leg two, so user home/away status cannot be used for this mapping.
+function getTwoLegAggregateAtScore(first, current, hg, ag){
+  if(!first?.result||!current) return null;
+  const s1=scoreParts(first.result);
+  const currentGoalsFor=id=>current.home===id?hg:current.away===id?ag:0;
+  return {
+    teamA:first.home,
+    teamB:first.away,
+    aggA:s1.hg+currentGoalsFor(first.home),
+    aggB:s1.ag+currentGoalsFor(first.away)
+  };
+}
+
 function getUCLTwoLegWinner(legs){
   if(!Array.isArray(legs)||legs.length<2||!legs[0]?.result||!legs[1]?.result) return null;
   const [l1,l2]=legs;
@@ -16719,23 +17157,20 @@ function getUCLTwoLegWinner(legs){
   if(aggB>aggA) return l1.away;
   const penLeg=[l2,l1].find(l=>l?.penWinner!=null);
   if(penLeg && (penLeg.penWinner===l1.home || penLeg.penWinner===l1.away)) return penLeg.penWinner;
-  // v5.3 FIX: серія пенальті більше не монетка — зважуємо силою команд
-  // і рейтингом воротарів. Фаворит отримує максимум ~68%, тобто сенсація
-  // лишається можливою, але аутсайдер уже не виграє половину серій.
-  const shootoutStrength = (clubId) => {
-    let base = (typeof STR !== 'undefined' && STR[clubId]) || 70;
-    try {
-      const squad = (G.clubSquads && G.clubSquads[clubId]) ||
-                    (clubId === G.club?.id ? G.players : null) || [];
-      const gks = squad.filter(p => p && p.p === 'ВРТ' && p.r);
-      if (gks.length) base = base * 0.72 + Math.max(...gks.map(p => p.r)) * 0.28;
-    } catch(_) {}
-    return base;
-  };
-  const sHome = shootoutStrength(l1.home), sAway = shootoutStrength(l1.away);
-  const pHome = Math.max(0.32, Math.min(0.68, 0.5 + (sHome - sAway) * 0.012));
-  const winner = Math.random() < pHome ? l1.home : l1.away;
-  l2.penWinner=winner;
+  if(!l2.extraTime){
+    const et=simulateClubExtraTime(l2.home,l2.away);
+    l2.extraTime={hg:et.hg,ag:et.ag};
+    if(et.hg!==et.ag){
+      const updated={hg:s2.hg+et.hg,ag:s2.ag+et.ag};
+      l2.result=typeof l2.result==='string'?`${updated.hg}:${updated.ag}`:updated;
+      return et.hg>et.ag?l2.home:l2.away;
+    }
+  } else if(l2.extraTime.hg!==l2.extraTime.ag){
+    return l2.extraTime.hg>l2.extraTime.ag?l2.home:l2.away;
+  }
+  const pen=simulateClubPenaltyShootout(l1.home,l1.away);
+  const winner=pen.winnerId;
+  l2.penWinner=winner;l2.penScore={home:pen.home,away:pen.away};
   l2.penNote=l2.penNote || 'пен.';
   return winner;
 }
@@ -16803,7 +17238,7 @@ function playerSeasonStats(p, clubName){
     if(!s) return;
     out.goals   += s.goals   || 0;
     out.assists += s.assists || 0;
-    out.apps     = Math.max(out.apps, s.apps || 0);
+    out.apps     += s.apps || 0;
   });
   return out;
 }
@@ -16873,10 +17308,44 @@ function getUefaSuperCupMatch(rd){
   return rd?.uefaSuperCup ? rd.matches?.[0] : null;
 }
 
-function ensureNoDrawScore(hg, ag){
-  if(hg!==ag) return {hg,ag};
-  if(Math.random()<0.5) hg++; else ag++;
-  return {hg,ag};
+function penaltyPlayerSkill(p){
+  if(!p) return 65;
+  const posBonus=['ЦН','НАП','ЛВ','ПВ'].includes(p.p)?3:p.p==='ПЗ'||p.p==='АМ'?2:p.p==='ВРТ'?-7:0;
+  const seed=(p.n||'').split('').reduce((s,c)=>s+c.charCodeAt(0),0);
+  return (p.r||65)+posBonus+((seed%5)-2);
+}
+function simulateClubExtraTime(homeId,awayId){
+  const hs=STR[homeId]||75,as=STR[awayId]||75;
+  const poisson=lambda=>{let n=0,p=Math.exp(-lambda),c=p,r=Math.random();while(c<r&&n<3){n++;p*=lambda/n;c+=p;}return n;};
+  return{hg:poisson(Math.max(.12,Math.min(.60,.32+(hs-as)*.012))),ag:poisson(Math.max(.12,Math.min(.60,.32+(as-hs)*.012)))};
+}
+function simulateClubPenaltyShootout(homeId,awayId){
+  const squad=id=>(id===G.club?.id?G.players:getSquad(id)||[]).filter(p=>p&&p.n);
+  // AI matches use a plausible XI: one goalkeeper and the ten best available outfield players.
+  const order=id=>{
+    const all=squad(id),gk=all.find(p=>p.p==='ВРТ'),out=all.filter(p=>p.p!=='ВРТ').sort((a,b)=>penaltyPlayerSkill(b)-penaltyPlayerSkill(a)).slice(0,10);
+    return [...out,...(gk?[gk]:[])].sort((a,b)=>penaltyPlayerSkill(b)-penaltyPlayerSkill(a));
+  };
+  const h=order(homeId),a=order(awayId),hgk=h.find(p=>p.p==='ВРТ')||{r:70},agk=a.find(p=>p.p==='ВРТ')||{r:70};
+  const kick=(p,g)=>Math.random()<Math.min(.88,Math.max(.58,.76+(penaltyPlayerSkill(p)-78)*.004-((g.r||70)-78)*.003));
+  let hs=0,as=0,ht=0,at=0;
+  const first=Math.random()<.5?'home':'away';
+  const take=team=>{
+    if(team==='home'){if(kick(h[ht%Math.max(1,h.length)]||{r:68},agk))hs++;ht++;}
+    else{if(kick(a[at%Math.max(1,a.length)]||{r:68},hgk))as++;at++;}
+  };
+  const decided=()=>hs>as+Math.max(0,5-at)||as>hs+Math.max(0,5-ht);
+  for(let i=0;i<5;i++){
+    take(first);if(decided())break;
+    take(first==='home'?'away':'home');if(decided())break;
+  }
+  let sd=0;
+  while(hs===as&&sd<30){
+    take(first);take(first==='home'?'away':'home');
+    sd++;
+  }
+  if(hs===as){Math.random()<.5?hs++:as++;}
+  return{winnerId:hs>as?homeId:awayId,home:hs,away:as,firstTeam:first};
 }
 
 function awardUefaSuperCupPrize(winnerId, loserId, playedByUser=false){
@@ -16891,16 +17360,20 @@ function awardUefaSuperCupPrize(winnerId, loserId, playedByUser=false){
 
 function finalizeUefaSuperCupResult(rd, match, hg, ag, playedByUser=false){
   if(!rd||!match) return null;
-  const fixed=ensureNoDrawScore(hg,ag);
-  hg=fixed.hg; ag=fixed.ag;
   match.result={hg,ag};
-  const winnerId=hg>ag?match.home:match.away;
+  if(hg===ag && !(match.penWinner===match.home||match.penWinner===match.away)){
+    const pen=simulateClubPenaltyShootout(match.home,match.away);
+    match.penWinner=pen.winnerId;match.penScore={home:pen.home,away:pen.away};match.penNote='пен.';
+  }
+  const winnerId=hg===ag?match.penWinner:(hg>ag?match.home:match.away);
   const loserId=winnerId===match.home?match.away:match.home;
   if(!G.uefaSuperCup) G.uefaSuperCup={};
   G.uefaSuperCup.winner=winnerId;
   G.uefaSuperCup.finalistId=loserId;
   G.uefaSuperCup.played=true;
   G.uefaSuperCup.score={hg,ag};
+  G.uefaSuperCup.penWinner=match.penWinner||null;
+  G.uefaSuperCup.penScore=match.penScore||null;
   awardUefaSuperCupPrize(winnerId, loserId, playedByUser);
   if(!G.trophyHistory) G.trophyHistory=[];
   const seasonLabel=`${G.seasonStartYear||2025}/${((G.seasonStartYear||2025)+1).toString().slice(-2)}`;
@@ -16935,6 +17408,19 @@ function continuePastUefaSuperCupRound(){
 
 function finishUefaSuperCupMatch(rd){
   if(!LS||LS.done) return;
+  const pendingMatch=LS.matchRef || getUefaSuperCupMatch(rd);
+  const pendingHg=LS.score?.h ?? LS.hg, pendingAg=LS.score?.a ?? LS.ag;
+  if(pendingHg===pendingAg && !(pendingMatch?.penWinner===pendingMatch?.home||pendingMatch?.penWinner===pendingMatch?.away)){
+    LS.done=true;matchPaused=false;fieldActionLocked=true;walkOffPitch();
+    addEvent({type:'info',text:'⚽ Нічия після 90 хвилин — одразу серія пенальті!',min:90});
+    startPenaltyShootout((myWon,myPen,oppPen,detail)=>{
+      pendingMatch.penWinner=myWon?G.club.id:LS.oppId;
+      pendingMatch.penScore={home:LS.isHome?myPen:oppPen,away:LS.isHome?oppPen:myPen};
+      pendingMatch.penNote='пен.';pendingMatch.penDetail=detail;
+      LS.done=false;fieldActionLocked=false;finishUefaSuperCupMatch(rd);
+    });
+    return;
+  }
   LS.done=true;
   matchPaused=false;
   fieldActionLocked=false;
@@ -17043,6 +17529,16 @@ function calcUCLPrize(phase, result, isPlayoff, advanced){
 }
 
 function finishUCLMatch(rd){
+  if(!LS||LS.done)return;
+  const preHg=LS.score?.h ?? LS.hg, preAg=LS.score?.a ?? LS.ag;
+  const preFinal=rd?.ucl_po==='final', preUserMatch=rd?.matches?.find(m=>m.home===G.club.id||m.away===G.club.id);
+  let extraTimeNeeded=preFinal&&preHg===preAg;
+  if(rd?.phase==='ucl_playoff'&&!preFinal&&(preUserMatch?.leg??2)===2){
+    const preLegs=getUCLTieLegsForMatch(preUserMatch,rd),preFirst=Array.isArray(preLegs)?(preLegs.find(l=>l.leg===1)||preLegs[0]):null;
+    const preAgg=getTwoLegAggregateAtScore(preFirst,preUserMatch,preHg,preAg);
+    extraTimeNeeded=preAgg?.aggA===preAgg?.aggB;
+  }
+  if(extraTimeNeeded&&!LS._extraTimePlayed){startLiveExtraTime(()=>finishUCLMatch(rd));return;}
   LS.done=true;
   matchPaused=false;
   fieldActionLocked=false;
@@ -17067,25 +17563,23 @@ function finishUCLMatch(rd){
       const legs = getUCLTieLegsForMatch(userMatch, rd);
       if(Array.isArray(legs) && legs.length >= 1){
         const first = legs.find(l=>l.leg===1)||legs[0];
-        if(first?.result){
-          const s1 = scoreParts(first.result);
-          const aggHome = s1.hg + (isHome ? hg : ag);
-          const aggAway = s1.ag + (isHome ? ag : hg);
-          if(aggHome === aggAway) needsPenalties = true;
-        }
+        const aggregate=getTwoLegAggregateAtScore(first,userMatch,hg,ag);
+        if(aggregate?.aggA===aggregate?.aggB) needsPenalties=true;
       }
     }
   }
 
   // UCL final on draw → penalty shootout
   if((isFinal && hg===ag) || needsPenalties){
-    const label = needsPenalties ? '⚽ Нічия за сумою двох матчів! Серія пенальті!' : '⚽ Нічия після 90 хвилин! Серія пенальті!';
-    addEvent({type:'info',text:label,min:90});
+    const label = needsPenalties ? '⚽ Рівний рахунок за сумою двох матчів після додаткового часу! Серія пенальті!' : '⚽ Нічия після 120 хвилин! Серія пенальті!';
+    addEvent({type:'info',text:label,min:120});
     startPenaltyShootout((myWon, myPen, oppPen, penDetail)=>{
       const userMatch=rd.matches?.find(m=>m.home===G.club.id||m.away===G.club.id);
       if(userMatch){
         userMatch.result=hg+':'+ag;
         userMatch.penWinner = myWon ? G.club.id : oppId;
+        userMatch.penScore={home:isHome?myPen:oppPen,away:isHome?oppPen:myPen};
+        userMatch.penDetail=penDetail;
         userMatch.penNote='пен.';
       }
       const res = myWon ? 'win' : 'loss';
@@ -17105,7 +17599,15 @@ function _finalizeUCLMatch(rd, hg, ag, res, penNote, penDetail){
   const ug=isHome?hg:ag, og=isHome?ag:hg;
   const isFinal = rd?.ucl_po==='final';
   const isPlayoff = rd?.phase==='ucl_playoff';
-  const advanced = res==='win' || (res==='draw' && !isFinal);
+  let advanced = res==='win' || (res==='draw' && !isFinal);
+  // A two-leg tie is decided only after leg two and by aggregate, not by the
+  // result of this single match. This also prevents premature advancement prizes.
+  if(isPlayoff && !isFinal){
+    const userMatch=rd.matches?.find(m=>m.home===G.club.id||m.away===G.club.id);
+    const isLeg2=(userMatch?.leg??2)===2;
+    const legs=isLeg2?getUCLTieLegsForMatch(userMatch,rd):null;
+    advanced=!!(isLeg2 && getUCLTwoLegWinner(legs)===G.club.id);
+  }
 
   recordLiveMatchScorers('ucl');
   // Suspension served — tick bans AFTER the match
@@ -17145,7 +17647,7 @@ function _finalizeUCLMatch(rd, hg, ag, res, penNote, penDetail){
   document.getElementById('liveHalfLabel').textContent='Матч ЛЧ завершено';
   document.getElementById('liveStatus').textContent='Фінальний свисток';
   document.getElementById('progressFill').style.width='100%';
-  document.getElementById('liveMin').textContent="90'";
+  document.getElementById('liveMin').textContent=LS._extraTimePlayed?"120'":"90'";
   document.getElementById('subsLeftBadge').textContent=`🔄 ${LS.subsLeft}`;
   addEvent({type:res==='win'?'goal':'info',text:res==='win'?'🏆 Фінальний свисток — перемога в ЛЧ!':res==='draw'?'🤝 Фінальний свисток — нічия в ЛЧ!':'😔 Фінальний свисток — поразка в ЛЧ',min:90});
   SFX.fulltime?.();
@@ -17170,6 +17672,15 @@ function _finalizeUCLMatch(rd, hg, ag, res, penNote, penDetail){
 
 function finishUELMatch(rd){
   if(!LS||LS.done) return;
+  const preHg=LS.score?.h ?? LS.hg,preAg=LS.score?.a ?? LS.ag;
+  const preFinal=rd?.uel_po==='final',preUserMatch=rd?.matches?.find(m=>m.home===G.club.id||m.away===G.club.id);
+  let extraTimeNeeded=preFinal&&preHg===preAg;
+  if(rd?.phase==='uel_playoff'&&!preFinal&&(preUserMatch?.leg??2)===2){
+    const preLegs=getUELTieLegsForMatch(preUserMatch,rd),preFirst=Array.isArray(preLegs)?(preLegs.find(l=>l.leg===1)||preLegs[0]):null;
+    const preAgg=getTwoLegAggregateAtScore(preFirst,preUserMatch,preHg,preAg);
+    extraTimeNeeded=preAgg?.aggA===preAgg?.aggB;
+  }
+  if(extraTimeNeeded&&!LS._extraTimePlayed){startLiveExtraTime(()=>finishUELMatch(rd));return;}
   LS.done=true;
   walkOffPitch();
   const hg=LS.score.h, ag=LS.score.a;
@@ -17178,12 +17689,22 @@ function finishUELMatch(rd){
   const isFinal=rd?.uel_po==='final';
   const userMatch=rd.matches?.find(m=>m.home===G.club.id||m.away===G.club.id);
 
-  if(isFinal && hg===ag){
-    addEvent({type:'info',text:'⚽ Нічия після 90 хвилин! Серія пенальті!',min:90});
+  let needsPenalties=false;
+  if(rd?.phase==='uel_playoff'&&!isFinal&&(userMatch?.leg??2)===2){
+    const legs=getUELTieLegsForMatch(userMatch,rd);
+    const first=Array.isArray(legs)?(legs.find(l=>l.leg===1)||legs[0]):null;
+    const aggregate=getTwoLegAggregateAtScore(first,userMatch,hg,ag);
+    if(aggregate?.aggA===aggregate?.aggB) needsPenalties=true;
+  }
+
+  if((isFinal && hg===ag)||needsPenalties){
+    addEvent({type:'info',text:needsPenalties?'⚽ Рівний рахунок за сумою двох матчів після додаткового часу! Серія пенальті!':'⚽ Нічия після 120 хвилин! Серія пенальті!',min:120});
     startPenaltyShootout((myWon, myPen, oppPen, penDetail)=>{
       if(userMatch){
         userMatch.result=hg+':'+ag;
         userMatch.penWinner=myWon ? G.club.id : oppId;
+        userMatch.penScore={home:isHome?myPen:oppPen,away:isHome?oppPen:myPen};
+        userMatch.penDetail=penDetail;
         userMatch.penNote='пен.';
       }
       const res=myWon?'win':'loss';
@@ -17235,7 +17756,7 @@ function _finalizeUELMatch(rd, hg, ag, res, penNote='', penDetail=''){
   document.getElementById('liveHalfLabel').textContent='Матч ЛЄ завершено';
   document.getElementById('liveStatus').textContent='Фінальний свисток';
   document.getElementById('progressFill').style.width='100%';
-  document.getElementById('liveMin').textContent="90'";
+  document.getElementById('liveMin').textContent=LS._extraTimePlayed?"120'":"90'";
   document.getElementById('subsLeftBadge').textContent=`🔄 ${LS.subsLeft}`;
   addEvent({type:res==='win'?'goal':'info',text:res==='win'?'🏆 Фінальний свисток — перемога в ЛЄ!':res==='draw'?'🤝 Фінальний свисток — нічия в ЛЄ!':'😔 Фінальний свисток — поразка в ЛЄ',min:90});
   if(penNote) addEvent({type:res==='win'?'goal':'info',text:`Серія пенальті${penNote}${penDetail?' · '+penDetail:''}`,min:90});
@@ -17344,7 +17865,7 @@ function finishMatch(){
   // ── SALARY DEDUCTION (before incrementing round so payday check matches correctly) ──
   const salaryResult=checkAndPaySalary();
   if(salaryResult){
-    G.salary.salaryBlocked=!salaryResult.paid;
+    G.salary.salaryBlocked=!salaryResult.paid||(Number(G.salary.debt)||0)>0;
   }
   // Suspension served — tick bans AFTER the match
   tickSuspensions();
@@ -18245,12 +18766,13 @@ function pickClub(id){
 function confirmClub(){
   if(!pendingClub)return;
   G.club=pendingClub;G.players=(PLAYERS[pendingClub.id]||[]).map(p=>({...p}));
-  G.budget=pendingClub.budget;G.tactic='balanced';G.currentRound=0;G.suspended=[];G.suspensionBans={};G.formation='4-3-3';G.injuredPlayers={};G.cup=null;G.ucl=null;G.uclInUCL=false;G.uclParticipants=[];G._seasonPrizeGiven=false;G._winterBreakNotified=false;G._tvPayments=[];G.salary={salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0};G.academy={level:1,totalInvested:0};G._academyRound=null;G.aiAcademyDrift={};
+  const startingAcademyLevel=Math.max(1,Math.min(7,ACADEMY_LEVEL[pendingClub.id]||ACADEMY_LEVEL._default||3));
+  G.budget=pendingClub.budget;G.tactic='balanced';G.currentRound=0;G.suspended=[];G.suspensionBans={};G.formation='4-3-3';G.injuredPlayers={};G.cup=null;G.ucl=null;G.uclInUCL=false;G.uclParticipants=[];G._seasonPrizeGiven=false;G._winterBreakNotified=false;G._tvPayments=[];G.salary={salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0};G.academy={level:startingAcademyLevel,totalInvested:0,lastUpgradeSeason:null};G._academyRound=null;G.aiAcademyDrift={};
   G.captainName=null; autoAssignCaptain();
   G._channelBonusClaimed=false; // FIX16: reset channel bonus on new club so it can be earned again
   G._channelBonusWarned=false;
-  scheduleAcademyRound(); // FIX: schedule first academy player for this season
   G._academyWavesThisSeason = 0;
+  scheduleAcademyRound(); // one stable intake window per season
   if(!G.journal) G.journal=[];
   const _yr=G.seasonStartYear||2025;
   // Призначаємо контракти всім гравцям нового клубу
@@ -18869,7 +19391,7 @@ function generateFreeAgent(pos, minR, maxR, clubId){
   return player;
 }
 
-const PLAYER_DATABASE_VERSION='2026-07-28-achievements-v4';
+const PLAYER_DATABASE_VERSION='2026-07-31-season-performance-v3';
 // ── Хмарна синхронізація прогресу між пристроями (той самий Telegram-акаунт) ──
 // Кожне writeSaveGame() ще й тихо надсилає той самий JSON на сервер (fire-and-forget).
 // На новому пристрої, де localStorage порожній, _pullSavesFromServer() підтягує
@@ -18978,6 +19500,8 @@ function writeSaveGame(){
         _fromAcademy:!!p._fromAcademy,_isStar:!!p._isStar,
         _potentialCap:p._potentialCap!=null&&Number.isFinite(Number(p._potentialCap))?Number(p._potentialCap):null,
         _academyContract:!!p._academyContract,
+        _academyPromotedSeason:p._academyPromotedSeason!=null?Number(p._academyPromotedSeason):null,
+        _academyPromotedRound:p._academyPromotedRound!=null?Number(p._academyPromotedRound):null,
         _rentedIn:p._rentedIn&&typeof p._rentedIn==='object'?p._rentedIn:null,
         _rentedInSalary:p._rentedInSalary!=null&&Number.isFinite(Number(p._rentedInSalary))?Number(p._rentedInSalary):null
       })),
@@ -18990,7 +19514,7 @@ function writeSaveGame(){
       seasonStartYear:G.seasonStartYear||2025,
       cup:G.cup,uefaSuperCup:G.uefaSuperCup||null,_seasonPrizeGiven:G._seasonPrizeGiven||false,academy:G.academy||{level:1,totalInvested:0},
       _academyRound:G._academyRound!=null&&Number.isFinite(Number(G._academyRound))?Number(G._academyRound):null,
-      _academyWavesThisSeason:Math.max(0,Math.min(3,Math.floor(Number(G._academyWavesThisSeason)||0))),
+      _academyWavesThisSeason:Math.max(0,Math.min(1,Math.floor(Number(G._academyWavesThisSeason)||0))),
       _tvPayments:G._tvPayments||[],
       clubSquads:clubSquadsLight,
       leagueId:G.leagueId||'other',leagueName:G.leagueName||'Інші',
@@ -19056,7 +19580,7 @@ function loadGame(rawData){
 
     // ── Validate and sanitize loaded data to prevent cheating/corruption ──
     const MAX_BUDGET = 2_000_000_000; // €2B hard cap
-    const MIN_BUDGET = -50_000_000;   // allow some debt
+    const MIN_BUDGET = 0;             // club balance can never be negative
     const MAX_ROUND  = 500;
     const MAX_PLAYER_RATING = 99;
     const MIN_PLAYER_RATING = 1;
@@ -19064,6 +19588,7 @@ function loadGame(rawData){
     // Budget bounds check
     const loadedBudget = Number(d.budget);
     if(!isFinite(loadedBudget)) return false;
+    const legacyBudgetDebt = Math.max(0, -loadedBudget);
     const safeBudget = Math.max(MIN_BUDGET, Math.min(MAX_BUDGET, loadedBudget));
 
     // Round bounds check
@@ -19086,8 +19611,10 @@ function loadGame(rawData){
         ballonAwards:Array.isArray(p.ballonAwards)?p.ballonAwards.filter(x=>typeof x==='string'&&/^\d{4}\/\d{2}$/.test(x)).slice(-30):[],
         _fromAcademy:!!p._fromAcademy,
         _isStar:!!p._isStar,
-        _potentialCap:p._potentialCap!=null&&Number.isFinite(Number(p._potentialCap))?Math.max(50,Math.min(99,Math.floor(Number(p._potentialCap)))):null,
+        _potentialCap:p._potentialCap!=null&&Number.isFinite(Number(p._potentialCap))?Math.max(Math.floor(Number(p.r)||50),Math.min(99,Math.floor(Number(p._potentialCap)))):null,
         _academyContract:!!p._academyContract,
+        _academyPromotedSeason:p._academyPromotedSeason!=null&&Number.isFinite(Number(p._academyPromotedSeason))?Math.max(2025,Math.min(2100,Math.floor(Number(p._academyPromotedSeason)))):null,
+        _academyPromotedRound:p._academyPromotedRound!=null&&Number.isFinite(Number(p._academyPromotedRound))?Math.max(0,Math.min(MAX_ROUND,Math.floor(Number(p._academyPromotedRound)))):null,
         _rentedIn:p._rentedIn&&typeof p._rentedIn==='object'?{
           fromClubId:Number(p._rentedIn.fromClubId)||0,
           fromClubName:typeof p._rentedIn.fromClubName==='string'?p._rentedIn.fromClubName.replace(/[<>]/g,'').slice(0,80):'',
@@ -19137,7 +19664,13 @@ function loadGame(rawData){
     const _migYear = Math.max(2025, Math.min(2100, Math.floor(Number(d.seasonStartYear)||2026)));
     G.players.forEach(p=>{ if(!p.contractEnd) assignDefaultContract(p, _migYear); });
     G.schedule=sanitizeSchedule(d.schedule);G.scorers=sanitizeScorers(d.scorers);
-    G.salary=sanitizeSalary(d.salary);G.sponsor=sanitizeSponsor(d.sponsor);
+    G.salary=sanitizeSalary(d.salary);
+    // Migrate old saves: a formerly negative balance becomes €0 and its absolute value becomes salary debt.
+    if(legacyBudgetDebt>0){
+      G.salary.debt=Math.max(G.salary.debt,legacyBudgetDebt);
+      G.salary.salaryBlocked=true;
+    }
+    G.sponsor=sanitizeSponsor(d.sponsor);
     G.transfers=sanitizeTransfers(d.transfers);
     G.seasonStartYear=Math.max(2025,Math.min(2100,Math.floor(Number(d.seasonStartYear)||2026)));
     G.cup=(d.cup&&typeof d.cup==='object')?d.cup:null;
@@ -19152,10 +19685,10 @@ function loadGame(rawData){
   }G._seasonPrizeGiven=!!d._seasonPrizeGiven;
     G._channelBonusClaimed=!!d._channelBonusClaimed;
     G._channelBonusWarned=!!d._channelBonusWarned;
-    G.academy=(d.academy&&typeof d.academy==='object')?{level:Math.max(1,Math.min(7,d.academy.level||1)),totalInvested:d.academy.totalInvested||0}:{level:1,totalInvested:0};
+    G.academy=(d.academy&&typeof d.academy==='object')?{level:Math.max(1,Math.min(7,d.academy.level||1)),totalInvested:d.academy.totalInvested||0,lastUpgradeSeason:Number.isFinite(Number(d.academy.lastUpgradeSeason))?Number(d.academy.lastUpgradeSeason):null}:{level:1,totalInvested:0,lastUpgradeSeason:null};
     const _hasSavedAcademySchedule=Object.prototype.hasOwnProperty.call(d,'_academyRound');
     G._academyRound=d._academyRound!=null&&Number.isFinite(Number(d._academyRound))?Math.max(0,Math.min((G.schedule?.length||600)-1,Math.floor(Number(d._academyRound)))):null;
-    G._academyWavesThisSeason=Math.max(0,Math.min(3,Math.floor(Number(d._academyWavesThisSeason)||0)));
+    G._academyWavesThisSeason=Math.max(0,Math.min(1,Math.floor(Number(d._academyWavesThisSeason)||0)));
     G.aiAcademyDrift=(d.aiAcademyDrift&&typeof d.aiAcademyDrift==='object')?d.aiAcademyDrift:{};
     G.aiSuspended=(d.aiSuspended&&typeof d.aiSuspended==='object')?d.aiSuspended:{};
     G.aiEnergy=(d.aiEnergy&&typeof d.aiEnergy==='object')?d.aiEnergy:{};
@@ -19279,7 +19812,7 @@ function showConfirm(msg, onYes){
 /**
  * Логіка академії:
  * - Кожен клуб має власну академію з рейтингом (1–10)
- * - Раз на сезон у рандомний момент (тур 3–15) виходить 1–3 вихованці
+ * - Раз на сезон у випадковий момент виходить 1–2 вихованці
  * - Рейтинг гравців залежить від рівня академії клубу
  * - Національність: 80% — рідна країна клубу, 20% — іноземці
  * - Вік: 16–20 років
@@ -19304,38 +19837,38 @@ const ACADEMY_LEVEL = {
 const ACADEMY_TIERS = [
   // lvl 1 — Дворова академія (стартова)
   { level:1, name:'Дворова академія',   emoji:'⛺', cost:0,
-    rMin:50, rMax:56,  starChance:0.02, countWeights:[0.85,0.14,0.01],
+    rMin:50, rMax:55,  starChance:0.01, countWeights:[1.00,0.00,0.00],
     desc:'Базова інфраструктура. Юнаки з двору.',
     colorFrom:'#374151', colorTo:'#4b5563', borderColor:'rgba(156,163,175,.3)' },
   // lvl 2 — Аматорська школа
   { level:2, name:'Аматорська школа',   emoji:'🏫', cost:3_000_000,
-    rMin:52, rMax:59,  starChance:0.05, countWeights:[0.75,0.22,0.03],
+    rMin:52, rMax:57,  starChance:0.02, countWeights:[0.90,0.10,0.00],
     desc:'Перші тренери, базовий інвентар.',
     colorFrom:'#1e3a5f', colorTo:'#1d4ed8', borderColor:'rgba(96,165,250,.3)' },
   // lvl 3 — Регіональний центр
   { level:3, name:'Регіональний центр', emoji:'🏟️', cost:7_000_000,
-    rMin:55, rMax:63,  starChance:0.09, countWeights:[0.65,0.28,0.07],
+    rMin:54, rMax:60,  starChance:0.04, countWeights:[0.80,0.20,0.00],
     desc:'Скаути в регіоні, відбір кращих.',
     colorFrom:'#1a3a2a', colorTo:'#15803d', borderColor:'rgba(74,222,128,.3)' },
   // lvl 4 — Академія
   { level:4, name:'Академія клубу',     emoji:'🎓', cost:15_000_000,
-    rMin:58, rMax:67,  starChance:0.14, countWeights:[0.55,0.34,0.11],
+    rMin:57, rMax:63,  starChance:0.06, countWeights:[0.70,0.30,0.00],
     desc:'Власні поля, штаб тренерів, система виховання.',
     colorFrom:'#312e81', colorTo:'#6d28d9', borderColor:'rgba(167,139,250,.35)' },
   // lvl 5 — Елітна академія
   { level:5, name:'Елітна академія',    emoji:'⭐', cost:28_000_000,
-    rMin:62, rMax:71,  starChance:0.20, countWeights:[0.45,0.38,0.17],
+    rMin:60, rMax:67,  starChance:0.08, countWeights:[0.60,0.40,0.00],
     desc:'Топ-умови, міжнародні скаути, відбір по всій країні.',
     colorFrom:'#78350f', colorTo:'#d97706', borderColor:'rgba(251,191,36,.35)' },
   // lvl 6 — Академія UEFA
   { level:6, name:'Академія UEFA',      emoji:'🏅', cost:50_000_000,
-    rMin:65, rMax:75,  starChance:0.28, countWeights:[0.35,0.40,0.25],
+    rMin:63, rMax:71,  starChance:0.10, countWeights:[0.50,0.50,0.00],
     desc:'Стандарти UEFA. Таланти з усієї Європи.',
     colorFrom:'#0c2340', colorTo:'#1d4ed8', borderColor:'rgba(56,189,248,.4)' },
   // lvl 7 — Академія світового класу
   { level:7, name:'Академія світового класу', emoji:'🌟', cost:90_000_000,
-    rMin:68, rMax:80,  starChance:0.38, countWeights:[0.25,0.42,0.33],
-    desc:'Найкраща інфраструктура планети. Зірки гарантовані.',
+    rMin:66, rMax:75,  starChance:0.12, countWeights:[0.35,0.65,0.00],
+    desc:'Найкраща інфраструктура планети. Найвищий шанс знайти топталанта.',
     colorFrom:'#7f1d1d', colorTo:'#dc2626', borderColor:'rgba(252,165,165,.4)' },
 ];
 
@@ -19355,12 +19888,17 @@ function getNextAcademyTier(){
 function upgradeAcademy(){
   const next = getNextAcademyTier();
   if(!next){ showToast('🌟 Академія вже максимального рівня!','rgba(245,166,35,.4)',3000); return; }
+  const seasonKey=G.seasonStartYear||2025;
+  if(G.academy?.lastUpgradeSeason===seasonKey){
+    showToast('⏳ Академію можна покращувати лише один раз за сезон','rgba(245,166,35,.4)',3500); return;
+  }
   if(G.budget < next.cost){
     showToast('❌ Недостатньо коштів. Потрібно ' + fmtPrice(next.cost - G.budget) + ' ще','rgba(240,76,90,.4)',3500); return;
   }
   G.budget -= next.cost;
   G.academy.level = next.level;
   G.academy.totalInvested = (G.academy.totalInvested||0) + next.cost;
+  G.academy.lastUpgradeSeason = seasonKey;
   updateHeader();
   saveGame();
   renderSettings(); // оновити UI
@@ -19446,10 +19984,6 @@ function getClubNationality(clubId) {
     '🇺🇦':'🇺🇦','🇪🇸':'🇪🇸','🇬🇧':'🇬🇧','🇩🇪':'🇩🇪',
     '🇮🇹':'🇮🇹','🇳🇱':'🇳🇱','🇵🇹':'🇵🇹','🇫🇷':'🇫🇷',
     '🇦🇷':'🇦🇷','🇧🇷':'🇧🇷',
-    '🇬🇧':'🇬🇧',  // Англійський county flag → англійські імена
-    '🇸🇦':'🇫🇷',  // Саудівська Аравія → франц. стиль
-    '🇺🇸':'🇬🇧',  // США → англійські імена
-    '🇹🇷':'🇩🇪',  // Туреччина → нім. стиль
   };
   if(flagToNat[flag]) return flagToNat[flag];
   // Fallback по тексту country
@@ -19503,10 +20037,10 @@ function updateAIAcademyDrift(){
   CLUBS.forEach(c=>{
     if(c.id===G.club?.id) return; // академія гравця розвивається окремо, через власний апгрейд
     const cur = G.aiAcademyDrift[c.id]||0;
-    if(winners.has(c.id)){
-      G.aiAcademyDrift[c.id] = Math.min(2, cur + 1); // +1 за трофейний сезон, стеля +2 рівні
-    } else if(cur>0){
-      G.aiAcademyDrift[c.id] = cur - 1; // без нових трофеїв надбавка тане на 1 рівень за сезон
+    if(winners.has(c.id) && Math.random()<0.15){
+      G.aiAcademyDrift[c.id] = Math.min(2, cur + 1); // трофеї дають шанс на повільний структурний прогрес
+    } else if(cur>0 && Math.random()<0.15){
+      G.aiAcademyDrift[c.id] = cur - 1; // спад також поступовий, а не автоматичний щосезону
     } else if(cur===0){
       delete G.aiAcademyDrift[c.id];
     }
@@ -19517,23 +20051,24 @@ function updateAIAcademyDrift(){
 function generateAcademyPlayer(clubId) {
   // Фінальний рівень = базовий клубу + бонус від апгрейду гравця + дрейф успіху
   const baseLevel  = (ACADEMY_LEVEL[clubId] || ACADEMY_LEVEL['_default'] || 3) + (clubId===G.club?.id ? 0 : (G.aiAcademyDrift?.[clubId]||0));
-  const userUpgrade = (clubId === G.club?.id) ? (G.academy?.level || 1) : baseLevel;
   // Для AI клубів використовуємо базовий рівень
   const tier = (clubId === G.club?.id)
     ? getAcademyTier()
     : ACADEMY_TIERS[Math.max(0, Math.min(6, baseLevel - 1))];
 
   const homeNat = getClubNationality(clubId);
-  const useHomeNat = Math.random() < 0.80;
+  const homeChance = [0.95,0.92,0.90,0.86,0.82,0.78,0.72][tier.level-1] || 0.85;
+  const useHomeNat = Math.random() < homeChance;
   const foreignNats = ['🇧🇷','🇫🇷','🇦🇷','🇳🇱','🇵🇹','🇩🇪','🇪🇸','🇬🇧','🇮🇹','🇺🇦'];
+  const foreignPool = foreignNats.filter(n => n !== homeNat);
   const nat = useHomeNat
     ? homeNat
-    : foreignNats.filter(n => n !== homeNat)[Math.floor(Math.random() * (foreignNats.length - 1))];
+    : foreignPool[Math.floor(Math.random() * foreignPool.length)];
 
   // Рейтинг з діапазону tier + шанс на зірку
   let r = tier.rMin + Math.floor(Math.random() * (tier.rMax - tier.rMin + 1));
   const isStar = Math.random() < tier.starChance;
-  if(isStar) r = Math.min(88, r + Math.floor(8 + Math.random() * 8)); // зірка: +8..+15
+  if(isStar) r = Math.min(84, r + Math.floor(4 + Math.random() * 5)); // рідкісний бонус +4..+8, без готової суперзірки
 
   // Вік 16–20
   const age = 16 + Math.floor(Math.random() * 5);
@@ -19554,19 +20089,20 @@ function generateAcademyPlayer(clubId) {
     age, nat,
     _fromAcademy: true,
     _isStar: isStar,
-    // Потенційна стеля: 30% не ростуть далі ~65-70, 40% ростуть до 75-82, 30% — до максимуму
+    // Потенціал завжди не нижчий за стартовий рейтинг: старі сейви більше не отримують обвал рейтингу.
     _potentialCap: (()=>{
       const roll = Math.random();
-      if(isStar) return 88 + Math.floor(Math.random()*5); // зірки: 88-92
-      if(roll < 0.30) return 62 + Math.floor(Math.random()*9);  // низький потенціал: 62-70
-      if(roll < 0.70) return 72 + Math.floor(Math.random()*11); // середній: 72-82
-      return 82 + Math.floor(Math.random()*7); // високий: 82-88
+      if(isStar) return Math.min(92, Math.max(rFinal + 3, 86 + Math.floor(Math.random()*7)));
+      if(roll < 0.30) return Math.min(88, rFinal + Math.floor(Math.random()*4));
+      if(roll < 0.75) return Math.min(90, rFinal + 4 + Math.floor(Math.random()*5));
+      return Math.min(92, rFinal + 8 + Math.floor(Math.random()*6));
     })()
   };
 }
 
 // Визначає чи цей тур є «академічним»
 function scheduleAcademyRound() {
+  if((G._academyWavesThisSeason||0)>=1){ G._academyRound=null; return; }
   const base = G.currentRound || 0;
   const maxRound = Math.max(0,(G.schedule||[]).length-3);
   const target = base + 5 + Math.floor(Math.random() * 8);
@@ -19577,13 +20113,21 @@ function scheduleAcademyRound() {
 function checkAcademyPromotion() {
   if (!G.club) return;
   if (G._academyRound == null) return;
-  if (G.currentRound !== G._academyRound) return;
+  if (G.currentRound < G._academyRound) return;
 
   // Кількість вихованців: залежить від tier
   const tier = getAcademyTier();
   const [w1, w2, w3] = tier.countWeights; // ваги для 1, 2, 3 гравців
   const r = Math.random();
-  const count = r < w1 ? 1 : r < w1 + w2 ? 2 : 3;
+  const wantedCount = r < w1 ? 1 : r < w1 + w2 ? 2 : 3;
+  const availableSlots = Math.max(0, 30 - G.players.length);
+  if(availableSlots===0){
+    G._academyRound = Math.min((G.schedule?.length||600)-1, G.currentRound+2);
+    saveGame();
+    showToast('🎓 Академія чекає: звільніть місце у складі (максимум 30)','rgba(245,166,35,.4)',4000);
+    return;
+  }
+  const count = Math.min(wantedCount, availableSlots);
 
   const promoted = [];
   for (let i = 0; i < count; i++) {
@@ -19597,25 +20141,17 @@ function checkAcademyPromotion() {
     const marketSalary = calcPlayerSalary(player);
     player.salary = snapSalary(Math.round(marketSalary * (0.15 + Math.random() * 0.10)));
     player._academyContract = true; // маркер — юнацький контракт (не оновлюється автоматично)
+    player._academyPromotedSeason = curYear;
+    player._academyPromotedRound = G.currentRound;
 
     G.players.push(player);
     promoted.push(player);
   }
 
   syncUserSquad();
-  saveGame();
   G._academyRound = null;
-  // FIX: reschedule next academy wave (up to 3 per season total)
-  // Track how many waves happened this season
-  if(!G._academyWavesThisSeason) G._academyWavesThisSeason = 0;
-  G._academyWavesThisSeason++;
-  const maxScheduleRound = Math.max(0,(G.schedule||[]).length-3);
-  if(G._academyWavesThisSeason < 3){
-    const nextBase = G.currentRound + 8 + Math.floor(Math.random() * 8);
-    if(nextBase <= maxScheduleRound){
-      G._academyRound = nextBase;
-    }
-  }
+  G._academyWavesThisSeason = 1;
+  saveGame(); // save only after the intake state is finalized, preventing duplicate reload intakes
   setTimeout(() => showAcademyModal(promoted), 600);
 }
 
@@ -19645,7 +20181,7 @@ function showAcademyModal(players) {
         </div>
         <div style="text-align:right;flex-shrink:0">
           <div style="font-size:9px;color:var(--mut);margin-bottom:2px">вартість</div>
-          <div style="font-size:12px;font-weight:700;color:var(--gold)">${fmtPrice(p.mv*1_000_000)}</div>
+          <div style="font-size:12px;font-weight:700;color:var(--gold)">${fmtPrice(playerValue(p,G.club?.name))}</div>
           <div style="font-size:9px;color:var(--mut);margin-top:4px">контракт</div>
           <div style="font-size:11px;font-weight:700;color:#6ee7b7">5 сезонів 📋</div>
           <div style="font-size:10px;color:var(--mut)">${fmtPrice(p.salary||0)}/рік</div>
@@ -19691,7 +20227,8 @@ function showAcademyModal(players) {
 function renderAcademyBlock(){
   const tier = getAcademyTier();
   const next = getNextAcademyTier();
-  const canAfford = next && G.budget >= next.cost;
+  const upgradedThisSeason = G.academy?.lastUpgradeSeason === (G.seasonStartYear||2025);
+  const canAfford = next && G.budget >= next.cost && !upgradedThisSeason;
   const invested = G.academy?.totalInvested || 0;
 
   // Progress dots
@@ -19703,7 +20240,7 @@ function renderAcademyBlock(){
 
   const upgradeBtn = next
     ? `<button onclick="upgradeAcademy()" style="width:100%;background:${canAfford?`linear-gradient(135deg,${next.colorFrom},${next.colorTo})`:'rgba(255,255,255,.06)'};color:${canAfford?'#fff':'rgba(148,163,184,.5)'};border:1px solid ${canAfford?next.borderColor:'rgba(255,255,255,.08)'};border-radius:14px;padding:13px;font-size:14px;font-weight:700;cursor:${canAfford?'pointer':'not-allowed'};margin-top:10px">
-        ${canAfford?`${next.emoji} Покращити до рівня ${next.level} — ${next.name}`:`🔒 Потрібно ${fmtPrice(next.cost)} · не вистачає ${fmtPrice(next.cost - G.budget)}`}
+        ${upgradedThisSeason?'⏳ Наступне покращення — у новому сезоні':canAfford?`${next.emoji} Покращити до рівня ${next.level} — ${next.name}`:`🔒 Потрібно ${fmtPrice(next.cost)} · не вистачає ${fmtPrice(Math.max(0,next.cost - G.budget))}`}
       </button>`
     : `<div style="margin-top:10px;padding:12px;background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.25);border-radius:12px;text-align:center;font-size:13px;font-weight:700;color:#f5a623">🌟 Максимальний рівень досягнуто!</div>`;
 
@@ -19737,7 +20274,7 @@ function renderAcademyBlock(){
         ${[
           {l:'Рейтинг вихованців', v: next.rMin + '–' + next.rMax},
           {l:'Шанс зірки', v: Math.round(next.starChance*100) + '%'},
-          {l:'Макс. вихованців', v: next.countWeights[2]>0.05?'до 3':'до 2'},
+          {l:'Макс. вихованців', v: next.countWeights[1]>0?'до 2':'1'},
           {l:'Вартість', v: fmtPrice(next.cost)},
         ].map(b=>`<div style="background:rgba(255,255,255,.04);border-radius:9px;padding:8px 10px">
           <div style="font-size:9px;color:var(--mut);margin-bottom:2px">${b.l}</div>
@@ -20430,6 +20967,8 @@ function getSeasonLabel(){
 
 function updateHeader(){
   if(!G.club)return;
+  // Global invariant: the available club balance is never allowed below zero.
+  G.budget=Math.max(0,Number(G.budget)||0);
   ensureTableStats();
   if(!G.tableStats[G.club.id]) return;
   document.getElementById('hTitle').textContent=G.club.name;
@@ -20457,7 +20996,7 @@ function updateHeader(){
   document.getElementById('sW').textContent=ts.w||0;
   document.getElementById('sM').textContent=`${ts.m||0}/${total||0}`;
   // Squad total value
-  const squadVal=G.players.reduce((s,p)=>s+(p.mv||0)*1e6,0);
+  const squadVal=G.players.reduce((s,p)=>s+playerValue(p,G.club?.name),0);
   const valEl=document.getElementById('sSquadVal');
   if(valEl){
     let v;
@@ -20804,7 +21343,7 @@ function renderHome(){
       </div>
       <div style="text-align:right;flex-shrink:0;min-width:50px">
         <div style="font-size:18px;font-weight:900;color:${ratingColor};line-height:1">${p.r}</div>
-        <div style="font-size:9px;color:rgba(148,163,184,.38);font-weight:600;margin-top:2px">${fmt(p.mv*1e6||0)}</div>
+        <div style="font-size:9px;color:rgba(148,163,184,.38);font-weight:600;margin-top:2px">${fmt(playerValue(p,G.club?.name))}</div>
       </div>
     </div>`;
   }
@@ -20894,7 +21433,8 @@ function _applyHomeTab(tab){
 function renderAcademyHomePanel(){
   const tier     = getAcademyTier();
   const next     = getNextAcademyTier();
-  const canAfford = next && G.budget >= next.cost;
+  const upgradedThisSeason = G.academy?.lastUpgradeSeason === (G.seasonStartYear||2025);
+  const canAfford = next && G.budget >= next.cost && !upgradedThisSeason;
   const invested  = G.academy?.totalInvested || 0;
 
   // Academy players already in squad
@@ -20946,7 +21486,7 @@ function renderAcademyHomePanel(){
           </div>
           <div style="text-align:right">
             <div style="font-size:15px;font-weight:800;color:${rCol}">${p.r}</div>
-            <div style="font-size:9px;color:var(--mut);font-weight:600">${fmt(p.mv*1e6||0)}</div>
+            <div style="font-size:9px;color:var(--mut);font-weight:600">${fmt(playerValue(p,G.club?.name))}</div>
           </div>
         </div>`;
       }).join('')
@@ -20960,7 +21500,7 @@ function renderAcademyHomePanel(){
         ${[
           {l:'Рейтинг',     v: next.rMin+'–'+next.rMax},
           {l:'Шанс зірки',  v: Math.round(next.starChance*100)+'%'},
-          {l:'Макс. гравців', v: next.countWeights[2]>0.05?'до 3':'до 2'},
+          {l:'Макс. гравців', v: next.countWeights[1]>0?'до 2':'1'},
           {l:'Вартість',    v: fmtPrice(next.cost)},
         ].map(b=>`<div style="background:rgba(255,255,255,.04);border-radius:9px;padding:8px 10px">
           <div style="font-size:9px;color:var(--mut);margin-bottom:2px">${b.l}</div>
@@ -20971,7 +21511,7 @@ function renderAcademyHomePanel(){
 
   const upgradeBtn = next
     ? `<button onclick="upgradeAcademy();switchHomeTab('academy')" style="width:100%;background:${canAfford?`linear-gradient(135deg,${next.colorFrom},${next.colorTo})`:'rgba(255,255,255,.06)'};color:${canAfford?'#fff':'rgba(148,163,184,.5)'};border:1px solid ${canAfford?next.borderColor:'rgba(255,255,255,.08)'};border-radius:14px;padding:13px;font-size:14px;font-weight:700;cursor:${canAfford?'pointer':'not-allowed'};margin-bottom:10px">
-        ${canAfford?`${next.emoji} Покращити до рівня ${next.level} — ${next.name}`:`🔒 Потрібно ${fmtPrice(next.cost)} · не вистачає ${fmtPrice(next.cost-G.budget)}`}
+        ${upgradedThisSeason?'⏳ Наступне покращення — у новому сезоні':canAfford?`${next.emoji} Покращити до рівня ${next.level} — ${next.name}`:`🔒 Потрібно ${fmtPrice(next.cost)} · не вистачає ${fmtPrice(Math.max(0,next.cost-G.budget))}`}
       </button>`
     : `<div style="padding:12px;background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.25);border-radius:12px;text-align:center;font-size:13px;font-weight:700;color:#f5a623;margin-bottom:10px">🌟 Максимальний рівень досягнуто!</div>`;
 
@@ -21527,20 +22067,21 @@ function renderNextMatch(){
         G.ballonHistory.push({name:ballonWinner.n, club:ballonWinner.club, nat:ballonWinner.nat||'', season:seasonLabel,clubId:isBallonWinner?G.club?.id:null,managed:!!isBallonWinner,fromAcademy:!!(isBallonWinner&&winnerP?._fromAcademy)});
       }
       // Boost winner's rating and market value (if they're in our squad)
-      if(winnerP){
-        winnerP.r=Math.min(99, (winnerP.r||70)+(Math.random()<0.5?3:4));
-        winnerP.mv=Math.min(300, Math.round(((winnerP.mv||1)*(1.25+Math.random()*0.15))*10)/10);
+      if(winnerP&&!winnerP.ballonAwards?.includes(seasonLabel)){
+        ensureMarketValueBaseline(winnerP);
+        winnerP.r=Math.min(99,(winnerP.r||70)+2);
         if(!winnerP.ballonAwards) winnerP.ballonAwards=[];
         if(!winnerP.ballonAwards.includes(seasonLabel)) winnerP.ballonAwards.push(seasonLabel);
       }
       // Also boost in AI club squads (so value persists in transfer market)
       if(G.clubSquads){
-        Object.values(G.clubSquads).forEach(sq=>{
+        Object.entries(G.clubSquads).forEach(([cid,sq])=>{
+          if(isBallonWinner&&String(cid)===String(G.club?.id))return;
           if(!Array.isArray(sq)) return;
           const wp=sq.find(p=>p.n===ballonWinner.n);
-          if(wp){
-            wp.r=Math.min(99,(wp.r||70)+(Math.random()<0.5?3:4));
-            wp.mv=Math.min(300, Math.round(((wp.mv||1)*(1.25+Math.random()*0.15))*10)/10);
+          if(wp&&!wp.ballonAwards?.includes(seasonLabel)){
+            ensureMarketValueBaseline(wp);
+            wp.r=Math.min(99,(wp.r||70)+2);
             if(!wp.ballonAwards) wp.ballonAwards=[];
             if(!wp.ballonAwards.includes(seasonLabel)) wp.ballonAwards.push(seasonLabel);
           }
@@ -22029,7 +22570,12 @@ function developPlayers(isWinter){
         perfScore=Math.max(-3,Math.min(4.5,perfScore));
       } else {
         // AI clubs: random performance
-        perfScore=(Math.random()-0.45)*3;
+        const aiClub=clubById(clubId),aiStats=playerSeasonStats(p,aiClub?.name||'');
+        if(aiStats.apps>=5){
+          const rate=((aiStats.goals||0)+(aiStats.assists||0)*0.65)/Math.max(1,aiStats.apps);
+          const expected=isFwd(pos)?0.28+Math.max(0,(p.r-65))*0.014:isDef(pos)?0.04:0.14+Math.max(0,(p.r-65))*0.008;
+          perfScore=Math.max(-2.5,Math.min(3,(rate-expected)*6));
+        }else perfScore=(Math.random()-.5)*0.8;
       }
 
       // 🤝 Бонус розвитку для молодих гравців в оренді (до 26 р)
@@ -22093,7 +22639,8 @@ function developPlayers(isWinter){
 
       // Вихованці: якщо наближаються до стелі потенціалу — сповільнення росту
       if(p._fromAcademy && rDelta > 0) {
-        const cap = p._potentialCap || (p._isStar ? 92 : 88);
+        const cap = Math.max(p.r, p._potentialCap || (p._isStar ? 92 : 88));
+        if(!p._potentialCap || p._potentialCap<p.r) p._potentialCap=cap;
         const distToCap = cap - p.r;
         if(distToCap <= 0) { rDelta = 0; } // досягли стелі — зупинка
         else if(distToCap <= 2) { if(Math.random() > 0.25) rDelta = 0; } // дуже близько — рідко
@@ -22103,14 +22650,15 @@ function developPlayers(isWinter){
       if(rDelta===0) return;
 
       const oldR=p.r;
+      ensureMarketValueBaseline(p); // capture the pre-change rating/age/value once
       // FIX17: academy players capped at _potentialCap or 88/92 during development
-      const rCap = p._fromAcademy ? (p._potentialCap || (p._isStar ? 92 : 88)) : 99;
+      const rCap = p._fromAcademy ? Math.max(p.r, p._potentialCap || (p._isStar ? 92 : 88)) : 99;
       p.r=Math.max(50, Math.min(rCap, p.r+rDelta));
       const actualDelta=p.r-oldR;
       if(actualDelta===0) return;
 
-      // Update market value proportionally
-      if(p.mv){
+      // Legacy persistent mv mutation is disabled: playerValue() now applies the rating delta once.
+      if(false&&p.mv){
         if(p._fromAcademy){
           // Academy players: recalculate mv from rating (like real players)
           // Use same formula as playerValue() but without the p.mv branch
@@ -23974,7 +24522,7 @@ function renderUCLTab(){
         if(!match?.result) return null;
         const s=scoreParts(match.result);
         if(s.hg>s.ag) return match.home; if(s.ag>s.hg) return match.away;
-        return null;
+        return (match.penWinner===match.home||match.penWinner===match.away)?match.penWinner:null;
       };
 
       // ── bracket card ──
@@ -24204,7 +24752,7 @@ function renderUELTab(){
       if(!match?.result) return null;
       const s=scoreParts(match.result);
       if(s.hg>s.ag) return match.home; if(s.ag>s.hg) return match.away;
-      return null;
+      return (match.penWinner===match.home||match.penWinner===match.away)?match.penWinner:null;
     };
     const uelBracketCard = (clubId, isHighlight, isElim) => {
       const c = clubById(clubId);
@@ -26182,11 +26730,14 @@ function advanceUCLPlayoff(rd){
       G.ucl.winner = fm.penWinner;
     // If draw after 90 min — penalty shootout (handled in finishUCLMatch for user; here for AI)
     } else if(hg===ag && fm.home!==G.club?.id && fm.away!==G.club?.id){
-      // AI final: coin-flip but record as penalty
-      const winner = Math.random()<0.5 ? fm.home : fm.away;
-      fm.penWinner = winner;
-      fm.penNote = 'пен.';
-      G.ucl.winner = winner;
+      const et=fm.extraTime||simulateClubExtraTime(fm.home,fm.away);fm.extraTime=et;
+      if(et.hg!==et.ag){
+        fm.result={hg:hg+et.hg,ag:ag+et.ag};G.ucl.winner=et.hg>et.ag?fm.home:fm.away;
+      }else{
+        const pen=simulateClubPenaltyShootout(fm.home,fm.away);
+        const winner = pen.winnerId;
+        fm.penWinner = winner;fm.penScore={home:pen.home,away:pen.away};fm.penNote = 'пен.';G.ucl.winner = winner;
+      }
     } else if(hg>ag){
       G.ucl.winner = fm.home;
     } else if(ag>hg){
@@ -26472,9 +27023,9 @@ function advanceUELPlayoff(rd){
     if(fm.penWinner===fm.home || fm.penWinner===fm.away){
       G.uel.winner=fm.penWinner;
     } else if(hg===ag){
-      G.uel.winner=Math.random()<0.5?fm.home:fm.away;
-      fm.penWinner=G.uel.winner;
-      fm.penNote='пен.';
+      const et=fm.extraTime||simulateClubExtraTime(fm.home,fm.away);fm.extraTime=et;
+      if(et.hg!==et.ag){fm.result={hg:hg+et.hg,ag:ag+et.ag};G.uel.winner=et.hg>et.ag?fm.home:fm.away;}
+      else{const pen=simulateClubPenaltyShootout(fm.home,fm.away);G.uel.winner=pen.winnerId;fm.penScore={home:pen.home,away:pen.away};fm.penWinner=G.uel.winner;fm.penNote='пен.';}
     } else {
       G.uel.winner=hg>ag?fm.home:fm.away;
     }
@@ -26531,7 +27082,7 @@ function cupMatchWinnerFromScore(homeId,awayId,sc){
   const hg=sc.hg||0, ag=sc.ag||0;
   if(hg>ag) return homeId;
   if(ag>hg) return awayId;
-  return Math.random()<0.5?homeId:awayId;
+  return simulateClubPenaltyShootout(homeId,awayId).winnerId;
 }
 
 // Симулює фінальну таблицю ліги (strength + noise) → повертає масив id за місцями
@@ -26820,6 +27371,11 @@ function advanceCupStage(rd){
     if(m.result) return;
     if(m.home===G.club.id||m.away===G.club.id) return;
     m.result=simCupMatchScore(m.home,m.away);
+    const cupScore=scoreParts(m.result);
+    if(cupScore.hg===cupScore.ag){
+      const pen=simulateClubPenaltyShootout(m.home,m.away);
+      m.penWinner=pen.winnerId;m.penScore={home:pen.home,away:pen.away};m.penNote='пен.';
+    }
     // FIX: record scorers for AI cup matches (was missing — caused cup scorers to show only user matches)
     const s=scoreParts(m.result);
     recordRandomMatchScorers(m.home, m.away, s.hg, s.ag, 'cup');
@@ -26889,7 +27445,6 @@ function simCupMatchScore(homeId,awayId){
   else if(d>-3){hg=rnd(0,3);ag=rnd(0,3);}
   else if(d>-8){hg=rnd(0,2);ag=rnd(1,3);}
   else{hg=rnd(0,1);ag=rnd(2,4);}
-  if(hg===ag){Math.random()<.5?hg++:ag++;} // no draws in cup
   return{hg,ag};
 }
 
@@ -26898,7 +27453,13 @@ function cupMatchWinner(m){
   // result може бути об'єктом {hg,ag} або рядком "1:0"
   const hg = typeof m.result === 'object' ? (m.result.hg||0) : (parseInt(m.result.split(':')[0])||0);
   const ag = typeof m.result === 'object' ? (m.result.ag||0) : (parseInt(m.result.split(':')[1])||0);
-  if(hg===ag && (m.penWinner===m.home || m.penWinner===m.away)) return m.penWinner;
+  if(hg===ag){
+    if(m.penWinner===m.home || m.penWinner===m.away) return m.penWinner;
+    // Repair old saves with a drawn cup match and no recorded shootout.
+    const pen=simulateClubPenaltyShootout(m.home,m.away);
+    m.penWinner=pen.winnerId;m.penScore={home:pen.home,away:pen.away};m.penNote='пен.';
+    return m.penWinner;
+  }
   return hg>ag?m.home:m.away;
 }
 
@@ -28307,8 +28868,13 @@ function admSimRound(silent=false){
     const as_ = STR[m.away] || 75;
     const neutral = !!rd.uefaSuperCup;
     const s = simScore(hs + (neutral?0:2.2) + (Math.random()*6-3), as_ + (Math.random()*6-3));
-    if(rd.uefaSuperCup && s.hg===s.ag){ Math.random()<0.5 ? s.hg++ : s.ag++; }
     m.result = { hg: s.hg, ag: s.ag };
+    if(rd.uefaSuperCup && s.hg===s.ag){
+      const pen=simulateClubPenaltyShootout(m.home,m.away);
+      m.penWinner=pen.winnerId;
+      m.penScore={home:pen.home,away:pen.away};
+      m.penNote='пен.';
+    }
     if(rd.ucl && !rd.ucl_po) newlySimmedUCL.push(m);
     if(rd.uel && !rd.uel_po) newlySimmedUEL.push(m);
 
@@ -29262,7 +29828,7 @@ body.theme-light .coach-name{color:#20133d}body.theme-light .coach-meta,body.the
 (function(){
 'use strict';
 // База наставників на старт сезону 2026/27. Формат: ім'я|країна|прапор|рік народження|стартовий рейтинг.
-const COACH_DB_VERSION='2026.07.26';
+const COACH_DB_VERSION='2026.07.31-ratings-v2';
 const RAW={
  1:"Гансі Флік|Німеччина|🇩🇪|1965|92|01.07.2024|30.06.2028",
  2:"Мікель Артета|Іспанія|🇪🇸|1982|90|22.12.2019|30.06.2027",
@@ -29363,6 +29929,39 @@ const RAW={
  97:"Dino Toppmöller|Німеччина|🇩🇪|1981|79|01.07.2026|30.06.2028"
 };
 const COACH_DB={}; Object.keys(RAW).forEach(id=>{const a=RAW[id].split('|');COACH_DB[id]={clubId:+id,name:a[0],nation:a[1],flag:a[2],born:+a[3],base:+a[4],appointed:a[5]||'',contract:a[6]||'-'};});
+// 2026/27 balance pass: current form (mainly 2025/26), trophies and long-term level.
+// IDs are club IDs. Keeping the corrections separate makes future seasonal updates auditable.
+const COACH_RATING_REBALANCE_2026_27={
+ 1:94,  // Hansi Flick
+ 2:92,  // Mikel Arteta
+ 3:88,  // Enzo Maresca
+ 5:94,  // Vincent Kompany
+ 7:85,  // Ruben Amorim
+ 11:89, // Diego Simeone
+ 13:75, // Guillermo Hoyos
+ 14:82, // Ange Postecoglou
+ 18:92, // Unai Emery
+ 22:84, // Fabian Huerzeler
+ 50:87, // Luciano Spalletti
+ 51:88, // Cristian Chivu
+ 52:86, // Niko Kovac
+ 53:87, // Massimiliano Allegri
+ 54:87, // Okan Buruk
+ 58:88, // Francesco Farioli
+ 60:81, // Carles Martinez
+ 61:85, // Rui Borges
+ 64:88, // Jose Mourinho
+ 65:84, // Maurizio Sarri
+ 75:87, // Cesc Fabregas
+ 78:83, // Ismail Kartal
+ 83:85, // Sebastian Hoeness
+ 95:80  // Martin O'Neill
+};
+const COACH_PREVIOUS_BASE_2026_27={};
+Object.entries(COACH_RATING_REBALANCE_2026_27).forEach(([id,rating])=>{
+ const coach=COACH_DB[id];
+ if(coach){COACH_PREVIOUS_BASE_2026_27[id]=coach.base;coach.base=Math.max(45,Math.min(99,Math.round(Number(rating)||coach.base)));}
+});
 window.COACH_DB=COACH_DB;
 const EXTRA_COACHES= {
   "zidane": {
@@ -29608,8 +30207,20 @@ function coachState(){
  // слабкого клубу, зазвичай на батьківщині».
  s.retired=s.retired||{};s.playerCoaches=s.playerCoaches||{};s.futureLegends=Array.isArray(s.futureLegends)?s.futureLegends:[];
  if(s.databaseVersion!==COACH_DB_VERSION){
-  s.assignments={};Object.keys(COACH_DB).forEach(id=>{s.assignments[id]='club:'+id;s.ratings['club:'+id]=COACH_DB[id].base;});
-  s.freeAgents=Object.keys(EXTRA_COACHES);s.nationalJobs={};s.databaseVersion=COACH_DB_VERSION;
+  const hasCoachCareer=Object.keys(s.assignments).length>0||Object.keys(s.ratings).length>0;
+  if(!hasCoachCareer){
+   Object.keys(COACH_DB).forEach(id=>{s.assignments[id]='club:'+id;s.ratings['club:'+id]=COACH_DB[id].base;});
+   s.freeAgents=Object.keys(EXTRA_COACHES);
+  }else{
+   // Preserve career moves and the coach's earned rating progress; apply only the seasonal base-rating delta.
+   Object.keys(COACH_DB).forEach(id=>{if(!s.assignments[id])s.assignments[id]='club:'+id;});
+   Object.entries(COACH_RATING_REBALANCE_2026_27).forEach(([id,newBase])=>{
+    const key='club:'+id,oldBase=COACH_PREVIOUS_BASE_2026_27[id],saved=Number(s.ratings[key]);
+    s.ratings[key]=Math.max(45,Math.min(99,Number.isFinite(saved)?saved+(newBase-oldBase):newBase));
+   });
+   Object.entries(EXTRA_COACHES).forEach(([k,c])=>{if(c.status==='free'&&!s.retired[k]&&!s.freeAgents.includes(k)&&!Object.values(s.assignments).includes(k))s.freeAgents.push(k);});
+  }
+  s.databaseVersion=COACH_DB_VERSION;
  }else{
   Object.keys(COACH_DB).forEach(id=>{if(!s.assignments[id])s.assignments[id]='club:'+id;});
   Object.entries(EXTRA_COACHES).forEach(([k,c])=>{if(c.status==='free'&&!s.retired[k]&&!s.freeAgents.includes(k)&&!Object.values(s.assignments).includes(k))s.freeAgents.push(k);});
@@ -30762,7 +31373,8 @@ renderAchievementsContent=function(){
     LS._oppTactic=LS._oppTactic||defaultOppTactic(STR[LS.oppId]||75,unitStrength(LS.onField,cur,G.tactic).overall,cur,-scoreDiff);
     const ex=expectation(LS.onField,LS.oppOnField,{min:cur,myTac:G.tactic,oppTac:LS._oppTactic,myForm,oppForm,isHome:LS.isHome,neutral:LS.isUefaSuperCup});
     const nMy=poisson(ex.myXg*frac),nOpp=poisson(ex.oppXg*frac);
-    const past=(LS.events||[]).filter(e=>e.min<=cur),futureOther=(LS.events||[]).filter(e=>e.min>cur&&e.type!=='goal'&&e.type!=='penalty');
+    // A tactical change may recalculate open-play goals, but an already awarded/scheduled penalty is immutable.
+    const past=(LS.events||[]).filter(e=>e.min<=cur),futureOther=(LS.events||[]).filter(e=>e.min>cur&&e.type!=='goal');
     const used=new Set(past.map(e=>e.min));
     const goals=[];
     const make=(mine)=>{
@@ -30893,9 +31505,9 @@ renderAchievementsContent=function(){
     const annual=G.salary?.annualBill||totalSalaryBill(),quarter=snapSalary(annual/4),paid=(G.salary?.history||[]).filter(h=>h.paid).reduce((s,h)=>s+(h.amount||0),0),paidQ=G.salary?.paidQuarters||[];
     const sponsor=(G.sponsor?.history||[]).reduce((s,h)=>s+(h.amount||0),0),tv=(G._tvPayments||[]).reduce((s,h)=>s+(h.amount||0),0);
     const hist=(G.transfers?.history||[]).filter(h=>h.type!=='ai'),sales=hist.filter(h=>h.type==='sell'||h.type==='case_sell').reduce((s,h)=>s+(h.price||0),0),buys=hist.filter(h=>['buy','flash','negotiate','case'].includes(h.type)).reduce((s,h)=>s+(h.price||0),0);
-    const start=G.club?.budget||0,knownIn=sponsor+tv+sales,knownOut=paid+buys,other=Math.max(0,(G.budget-start)+knownOut-knownIn),income=knownIn+other,out=knownOut,net=income-out,remainingSalary=Math.max(0,annual-paid),safe=Math.max(0,G.budget-remainingSalary),nextQ=[0,1,2,3].find(q=>!paidQ.includes(q));
-    const rounds=getPaydayRounds(),nextRound=nextQ===undefined?-1:rounds[nextQ],until=nextRound<0?-1:Math.max(0,nextRound-G.currentRound),afterSeason=G.budget-remainingSalary;
-    return{annual,quarter,paid,paidQ,sponsor,tv,sales,buys,other,income,out,net,remainingSalary,safe,nextQ,nextRound,until,afterSeason,hist};
+    const start=G.club?.budget||0,knownIn=sponsor+tv+sales,knownOut=paid+buys,other=Math.max(0,(G.budget-start)+knownOut-knownIn),income=knownIn+other,out=knownOut,net=income-out,debt=Math.max(0,Number(G.salary?.debt)||0),remainingSalary=Math.max(0,annual-paid),safe=Math.max(0,G.budget-remainingSalary-debt),nextQ=[0,1,2,3].find(q=>!paidQ.includes(q));
+    const rounds=getPaydayRounds(),nextRound=nextQ===undefined?-1:rounds[nextQ],until=nextRound<0?-1:Math.max(0,nextRound-G.currentRound),afterSeason=G.budget-remainingSalary-debt;
+    return{annual,quarter,paid,paidQ,sponsor,tv,sales,buys,other,income,out,net,debt,remainingSalary,safe,nextQ,nextRound,until,afterSeason,hist};
   }
   function finStatus(d){
     if(G.salary?.salaryBlocked||d.afterSeason<0)return{label:'Критичний',color:'#fb7185',note:'Бюджету не вистачає на гарантовані виплати.'};
@@ -30917,7 +31529,7 @@ renderAchievementsContent=function(){
     return`${channelPromoHTML()}<div class="fin2-hero"><div class="fin2-hero-top"><div><div class="fin2-label">Кошти, доступні для рішень</div><div class="fin2-money" style="color:${d.safe>0?'#f8fafc':'#fb7185'}">${money(d.safe)}</div><div class="fin2-delta" style="color:${d.net>=0?'#34d399':'#fb7185'}">${d.net>=0?'+':'−'}${money(Math.abs(d.net))} · чистий потік сезону</div></div><span class="fin2-health" style="color:${st.color}">${st.label}</span></div><div class="fin2-rail"><i style="width:${budgetPct}%;background:linear-gradient(90deg,#3b82f6,#34d399)"></i></div><div class="fin2-caption"><span>Поточний бюджет ${money(G.budget)}</span><span>${budgetPct}% від стартового</span></div></div>
     <div class="fin2-metrics"><div class="fin2-metric good"><div class="fin2-label">Надходження</div><div class="value">+${money(d.income)}</div><div class="hint">Усі підтверджені доходи сезону</div></div><div class="fin2-metric bad"><div class="fin2-label">Витрачено</div><div class="value">−${money(d.out)}</div><div class="hint">Трансфери та виплачена зарплата</div></div><div class="fin2-metric warn"><div class="fin2-label">Зобов’язання</div><div class="value">${money(d.remainingSalary)}</div><div class="hint">Зарплати до кінця сезону</div></div><div class="fin2-metric info"><div class="fin2-label">Прогноз залишку</div><div class="value">${d.afterSeason<0?'−':''}${money(Math.abs(d.afterSeason))}</div><div class="hint">Після гарантованих зарплат</div></div></div>
     <div class="fin2-callout"><div style="font-size:17px">${st.label==='Стабільний'?'🟢':st.label==='Критичний'?'🔴':'🟡'}</div><div><b>Фінансовий висновок</b><span>${st.note} Покриття майбутніх зарплат: ${salaryCover}%.</span></div></div>
-    ${G.salary?.salaryBlocked?`<div class="fin2-callout" style="border-color:rgba(251,113,133,.4);background:rgba(251,113,133,.07)"><div style="font-size:17px">⛔</div><div style="flex:1"><b style="color:#fda4af">Борг по зарплаті — трансфери заблоковано</b><span>${G.budget>=0?'Кошти вже є на рахунку. Погасіть борг, щоб одразу розблокувати трансфери.':`Потрібно ще ${money(Math.abs(G.budget))}, щоб погасити борг.`}</span></div>${G.budget>=0?`<button onclick="paySalaryDebt()" style="flex:none;padding:9px 14px;border-radius:11px;font-size:11px;font-weight:850;border:1px solid rgba(251,113,133,.45);background:rgba(251,113,133,.18);color:#fecdd3;cursor:pointer">Погасити борг</button>`:''}</div>`:''}
+    ${G.salary?.salaryBlocked?`<div class="fin2-callout" style="border-color:rgba(251,113,133,.4);background:rgba(251,113,133,.07)"><div style="font-size:17px">⛔</div><div style="flex:1"><b style="color:#fda4af">Борг по зарплаті ${money(d.debt)} — трансфери заблоковано</b><span>${G.budget>=d.debt?'Коштів достатньо. Погасіть борг, щоб розблокувати трансфери.':`Потрібно заробити ще ${money(d.debt-G.budget)}.`}</span></div>${G.budget>=d.debt?`<button onclick="paySalaryDebt()" style="flex:none;padding:9px 14px;border-radius:11px;font-size:11px;font-weight:850;border:1px solid rgba(251,113,133,.45);background:rgba(251,113,133,.18);color:#fecdd3;cursor:pointer">Погасити борг</button>`:''}</div>`:''}
     <div class="fin2-panel"><div class="fin2-panel-head"><b>Найближче зобов’язання</b><span>${nextText}</span></div>${d.nextQ===undefined?row('✓','Зарплати сплачено','Усі чотири квартали закрито','Готово','#34d399'):row('◷',`${d.nextQ+1}-й квартал`,`Після платежу залишиться ${money(G.budget-d.quarter)}`,money(d.quarter),G.budget>=d.quarter?'#fbbf24':'#fb7185')}</div>
     <div class="fin2-panel"><div class="fin2-panel-head"><b>Грошовий потік</b><span>поточний сезон</span></div>${row('↗','Доходи',`${Math.round(d.income/flowMax*100)}% найбільшого потоку`,'+'+money(d.income),'#34d399')}${row('↘','Витрати',`${Math.round(d.out/flowMax*100)}% найбільшого потоку`,'−'+money(d.out),'#fb7185')}</div>`;
   }
@@ -31804,7 +32416,7 @@ if(typeof resimRemainingGoals==='function'){
       isHome:LS.isHome,neutral:LS.isUefaSuperCup,oppId:LS.oppId});
     const nMy=poisson(e.myXg*frac),nOp=poisson(e.oppXg*frac);
     const past=(LS.events||[]).filter(function(v){return v.min<=cur;});
-    const other=(LS.events||[]).filter(function(v){return v.min>cur&&v.type!=='goal'&&v.type!=='penalty';});
+    const other=(LS.events||[]).filter(function(v){return v.min>cur&&v.type!=='goal';});
     const used=new Set(past.map(function(v){return v.min;}));
     const minuteFor=function(){
       for(let i=0;i<40;i++){
@@ -32415,6 +33027,50 @@ body.light #liveOverlay .match-console .live-lineup-section-head small,
 body.light #liveOverlay .match-console .live-bench-head small{color:#7a889c}
 </style>
 
-<script>window.TM_DATABASE_VERSION="2026-07-26";window.TM_DATABASE_MATCHES=353;</script>
+<script>
+/* La Liga 2026/27 — Transfermarkt snapshot (30.07.2026).
+   Market values are exact TM values in €m; ratings are balanced for this game. */
+(function applyLaLigaTransfermarktUpdate(){
+  const remove={
+    64:["Фран Гарсія"],1:["Рашфорд","Левандовський"],11:["Грізман","Ніко Гонсалес"],
+    28:["Браіс Мендес","Елустондо"],30:["Нюланд","Гудель","Азпілікуета","Янузай","Алексіс Санчес"],
+    31:["Агірресабала","Комерт","Сарав'я","Рамазані","Лукас Бельтран"],47:["Хуан Крус"],48:["Нобель Менді"],
+    56:["Тер Штеген","Vitor Reis","Рінкон","Екеверрі","Лемар"],
+    57:["М. Раян","Пабло Мартінес","Дієго Пампін","Хосе Луїс Моралес","Ману Санчес","Матіас Морено","Алан Маттурро","Рагубер","Ікер Лосада","Унай Венседор"]
+  };
+  const update={
+    64:{"Куртуа":[88,15],"Лунін":[82,12],"Мілітао":[84,20],"Рюдіґер":[84,6],"Асенсіо Р.":[80,20],"Беллінгем":[92,130],"Мбаппе":[95,180],"Родріго":[85,45],"Гонсало Г.":[81,30]},
+    1:{"Жоан Гарсія":[84,45],"Шченсний":[78,.8],"Кохен":[70,1.5],"Кубарсі":[87,80],"Е. Гарсія":[83,40],"Крістенсен":[80,8],"Казадо":[81,18],"Де Йонг":[85,35],"Ямаль":[94,200],"Бардхі":[79,15],"Ферран Торрес":[84,50]},
+    11:{"Облак":[88,15],"Мусо":[78,3],"Ле Нормань":[85,30],"Льоренте":[83,20],"Барріос":[86,55],"Кардосо":[82,20]},
+    26:{"Папе Ге":[82,20],"Альберто Молейро":[83,30],"Пау Наварро":[77,5],"Серхі Кардона":[80,10],"Томас Парті":[79,5]},
+    45:{"Мігель Роман":[76,2.5],"Сотело":[79,9],"Свеберг":[80,10],"Ель-Абделлауї":[77,4],"Аспас":[78,1.8]},
+    48:{"Карлос Мартін":[73,2.5],"Алемао":[75,3.5]},
+    49:{"Рідель":[76,4],"Рубіо":[73,1.5],"Кабрера":[75,.9],"Салінас":[73,2]},
+    56:{"Газанига":[77,1.8],"Рубен Бланко":[72,.7],"Крапівцов":[67,.3],"Блінд":[75,1.2],"Давід Лопес":[72,.6],"Морено А.":[77,3],"Вітсель":[73,1.2],"Іван Мартін":[78,5],"Фран Бельтран":[77,4],"Ван де Бек":[75,1.8],"Браян Гіл":[79,8],"Джоел Рока":[75,6],"Портю":[72,1.2],"Абель Руїс":[74,2],"Стуані":[71,.7]}
+  };
+  const add={
+    64:[["Ібраїма Конате","ЦЗ",86,50,27,"🇫🇷"],["Марк Кукурелья","ЛЗ",86,50,28,"🇪🇸"],["Дензел Дюмфріс","ПЗ",84,25,30,"🇳🇱"],["Бернарду Сілва","АП",87,22,32,"🇵🇹"],["Тьяго Пітарч","ЦП",78,20,19,"🇪🇸"]],
+    1:[["Марк-Андре тер Штеген","ВРТ",82,3,34,"🇩🇪"],["Арон Яакобішвілі","ВРТ",72,3,20,"🇭🇺"],["Альваро Кортес","ЦЗ",73,4,21,"🇪🇸"],["Ектор Форт","ПЗ",76,12,19,"🇪🇸"],["Хаві Еспарт","ПЗ",73,5,19,"🇪🇸"],["Томмі Маркес","ОПЗ",72,3,19,"🇪🇸"],["Фермін Лопес","АП",88,100,23,"🇪🇸"],["Тоні Фернандес","АП",72,3,17,"🇪🇸"],["Ентоні Гордон","ЛВ",86,65,25,"🏴"]],
+    11:[["Давід Ганцко","ЦЗ",85,35,28,"🇸🇰"],["Алехандро Грімальдо","ЛЗ",86,25,30,"🇪🇸"],["Родріго Мендоса","ЦП",81,20,21,"🇪🇸"],["Обед Варгас","ЦП",78,10,20,"🇲🇽"],["Тома Лемар","АП",77,2,30,"🇫🇷"],["Карлос Мартін","ЛВ",74,2.5,24,"🇪🇸"]],
+    27:[["Унаї Егілуз","ЦЗ",70,.4,24,"🇪🇸"],["Уго Рінкон","ПЗ",73,3.5,23,"🇪🇸"],["Селтон Санчес","ЦП",72,2.8,18,"🇪🇸"],["Пейо Каналес","АП",78,10,21,"🇪🇸"],["Альваро Джало","ЛВ",75,4,26,"🇪🇸"],["Ніко Серрано","ПВ",72,1.5,23,"🇪🇸"],["Урко Ісета","ЦН",72,1.4,26,"🇪🇸"]],
+    28:[["Кадзунарі Кіта","ЦЗ",73,4,22,"🇯🇵"],["Іньякі Руперес","ПЗ",72,3,23,"🇪🇸"]],
+    29:[["Гільєрме Фернандес","ВРТ",72,2,25,"🇵🇹"],["Нобель Менді","ЦЗ",76,6,21,"🇸🇳"],["Серхіо Аррібас","ЦЗ",72,2.5,22,"🇪🇸"],["Фран Гарсія","ЛЗ",79,12,26,"🇪🇸"],["Факундо Берналь","ОПЗ",78,7,22,"🇺🇾"],["Матео Флорес","ЦП",73,3,22,"🇪🇸"],["Ікер Лосада","АП",74,3,24,"🇪🇸"],["Гонсало Петі","ЦН",74,6,19,"🇺🇾"]],
+    30:[["Аруна Санганте","ЦЗ",79,8,24,"🇸🇳"],["Андрес Кастрін","ЦЗ",77,6,23,"🇪🇸"],["Фабіу Кардозу","ЦЗ",75,1.5,32,"🇵🇹"],["Хуан Іглесіас","ПЗ",76,5,28,"🇪🇸"],["Хон Гуріді","ЦП",74,1.8,31,"🇪🇸"],["Патрік Меркадо","АП",77,5.5,22,"🇪🇨"],["Альфон Гонсалес","ЛВ",75,3,27,"🇪🇸"],["Рафа Мір","ЦН",76,4,29,"🇪🇸"]],
+    31:[["Хустін де Гаас","ЦЗ",75,3,26,"🇳🇱"],["Дженк Озкачар","ЦЗ",76,4,25,"🇹🇷"]],
+    45:[["Йоель Лаго","ЦЗ",75,4,22,"🇪🇸"],["Ману Фернандес","ЦЗ",72,1.5,24,"🇪🇸"],["Фер Лопес","АП",81,16,22,"🇪🇸"],["Ману Санчес","ЛЗ",77,6,25,"🇪🇸"]],
+    48:[["Джошуа Вертрауд","ЦЗ",73,3,22,"🇳🇱"],["Саму Бесерра","ПВ",68,.3,20,"🇪🇸"],["Оскар Трехо","АП",72,.4,38,"🇦🇷"]],
+    56:[["Тоні Фуідіас","ВРТ",67,.15,25,"🇪🇸"],["Хуан Карлос","ВРТ",66,.1,38,"🇪🇸"],["Антал Яакобішвілі","ЦЗ",68,.2,22,"🇭🇺"],["Джон Соліс","ОПЗ",75,4.5,21,"🇨🇴"],["Габріель Місехоуї","АП",71,.9,21,"🇳🇱"],["Мін-Су Кім","ЛВ",76,5,20,"🇰🇷"],["Хастін Гарсія","ПВ",70,.5,22,"🇪🇸"],["Ясер Аспрілья","АП",80,14,22,"🇨🇴"],["Дауда Камара","ЦН",71,1,21,"🇲🇷"]],
+    57:[["Дані Мартін","ВРТ",70,1.5,20,"🇪🇸"],["Хорхе Кабельйо","ЦЗ",72,2.5,22,"🇪🇸"],["Начо Перес","ПЗ",68,.4,17,"🇪🇸"],["Хаві Гранде","ПЗ",71,1.5,21,"🇪🇸"],["Енцо Барделі","ЦП",76,4.5,25,"🇫🇷"],["Едгар Альканьїс","ЦП",70,.8,21,"🇪🇸"]]
+  };
+  Object.entries(remove).forEach(([id,names])=>{if(PLAYERS[id]) PLAYERS[id]=PLAYERS[id].filter(p=>!names.includes(p.n));});
+  Object.entries(update).forEach(([id,changes])=>(PLAYERS[id]||[]).forEach(p=>{const v=changes[p.n];if(v){p.r=v[0];p.mv=v[1];}}));
+  Object.entries(add).forEach(([id,rows])=>{const list=PLAYERS[id]||(PLAYERS[id]=[]);rows.forEach(([n,p,r,mv,age,nat])=>{if(!list.some(x=>x.n===n))list.push({n,p,r,mv,age,nat});});});
+  const strength={64:94,1:93,11:88,26:84,27:84,28:82,29:82,30:78,31:78,45:79,46:76,47:78,48:77,49:77,56:76,57:75};
+  CLUBS.forEach(c=>{if(strength[c.id]){c.strength=strength[c.id];STR[c.id]=strength[c.id];}});
+  window.TM_DATABASE_VERSION="2026-07-30";
+  window.TM_DATABASE_MATCHES=421;
+})();
+</script>
+<script>window.TM_DATABASE_VERSION="2026-07-30";window.TM_DATABASE_MATCHES=421;</script>
 </body>
 </html>
