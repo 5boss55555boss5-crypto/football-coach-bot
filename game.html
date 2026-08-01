@@ -33072,5 +33072,126 @@ body.light #liveOverlay .match-console .live-bench-head small{color:#7a889c}
 })();
 </script>
 <script>window.TM_DATABASE_VERSION="2026-07-30";window.TM_DATABASE_MATCHES=421;</script>
+<style id="ucl33-styles">
+/* ──────────────────────────────────────────────────────────────────────────
+   UCL PRISMATIC NIGHT v33 — inspired by the 24/27 light-refraction language
+   ────────────────────────────────────────────────────────────────────────── */
+#uclTabBody{--ucl-navy:#05004e;--ucl-blue:#08009b;--ucl-cyan:#64eaff;--ucl-violet:#8b3dff;--ucl-pink:#ff3da5;--ucl-yellow:#ffe13b;color:#fff;background:#030326;min-height:100%;padding-bottom:24px;overflow:hidden}
+.ucl33-shell{position:relative;background:radial-gradient(circle at 72% 5%,rgba(88,38,255,.35),transparent 27%),linear-gradient(180deg,#08045a 0,#050430 30%,#03031d 100%);min-height:100%}
+.ucl33-hero{position:relative;min-height:244px;padding:22px 20px 18px;overflow:hidden;border-bottom:1px solid rgba(151,183,255,.17);isolation:isolate}
+.ucl33-hero:before{content:"";position:absolute;inset:-70% -30% auto 26%;height:330px;background:conic-gradient(from 210deg,transparent 0 16%,rgba(82,238,255,.72) 19%,rgba(64,90,255,.48) 24%,rgba(255,38,154,.6) 29%,rgba(255,224,55,.45) 32%,transparent 38% 100%);filter:blur(14px);transform:rotate(-9deg);opacity:.72;z-index:-2;animation:ucl33Prism 9s ease-in-out infinite alternate}
+.ucl33-hero:after{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(ellipse at 75% 38%,rgba(17,135,255,.38),transparent 32%),linear-gradient(130deg,transparent 0 42%,rgba(255,255,255,.045) 43%,transparent 46%)}
+.ucl33-eyebrow{display:flex;align-items:center;gap:7px;font-size:8px;font-weight:900;letter-spacing:2.1px;text-transform:uppercase;color:rgba(205,225,255,.66)}
+.ucl33-eyebrow i{width:28px;height:1px;background:linear-gradient(90deg,var(--ucl-cyan),var(--ucl-pink));box-shadow:0 0 9px var(--ucl-cyan)}
+.ucl33-brand{display:flex;align-items:center;gap:13px;margin-top:13px;max-width:330px}
+.ucl33-starball{position:relative;width:76px;height:76px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.22),rgba(61,107,255,.12) 45%,rgba(0,0,40,.15) 72%);border:1px solid rgba(210,239,255,.3);box-shadow:inset 0 0 20px rgba(116,225,255,.15),0 0 35px rgba(71,84,255,.35)}
+.ucl33-starball:before,.ucl33-starball:after{content:"";position:absolute;inset:-8px;border-radius:50%;border:1px solid transparent;border-top-color:var(--ucl-cyan);border-right-color:rgba(255,53,172,.65);transform:rotate(18deg);animation:ucl33Orbit 12s linear infinite}
+.ucl33-starball:after{inset:-14px;border-top-color:rgba(255,225,59,.55);border-right-color:transparent;border-left-color:rgba(139,61,255,.55);animation-duration:17s;animation-direction:reverse}
+.ucl33-starball img{position:relative;z-index:2;filter:brightness(0) invert(1) drop-shadow(0 0 8px rgba(168,225,255,.75))!important}
+.ucl33-title{font-family:'Bebas Neue',Impact,sans-serif;font-size:34px;line-height:.88;letter-spacing:.8px;text-transform:uppercase;text-shadow:0 4px 22px rgba(0,0,0,.34)}
+.ucl33-title span{display:block;font-size:16px;letter-spacing:4.5px;font-family:Inter,Arial,sans-serif;font-weight:500;color:#8befff;margin-bottom:7px}
+.ucl33-meta{font-size:10px;color:rgba(215,228,255,.68);margin-top:10px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.ucl33-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border:1px solid rgba(127,222,255,.28);border-radius:999px;background:rgba(20,22,103,.5);color:#bdefff;font-size:8px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;backdrop-filter:blur(10px)}
+.ucl33-chip.live{border-color:rgba(255,224,59,.35);color:#ffe875;background:rgba(122,91,0,.17)}
+.ucl33-wave{position:absolute;left:-16%;right:-16%;bottom:-56px;height:118px;transform:rotate(-5deg);opacity:.7;pointer-events:none}
+.ucl33-wave i{position:absolute;inset:0;border-radius:50%;border-top:2px solid var(--c);filter:drop-shadow(0 0 5px var(--c));transform:translateY(var(--y)) scaleX(var(--s))}
+.ucl33-stats{position:relative;z-index:3;display:grid;grid-template-columns:repeat(3,1fr);margin:-18px 14px 14px;border:1px solid rgba(161,192,255,.2);border-radius:17px;overflow:hidden;background:linear-gradient(145deg,rgba(18,20,83,.93),rgba(8,9,45,.95));box-shadow:0 18px 45px rgba(0,0,20,.35);backdrop-filter:blur(15px)}
+.ucl33-stat{padding:13px 8px;text-align:center;border-right:1px solid rgba(163,194,255,.13)}.ucl33-stat:last-child{border-right:0}
+.ucl33-stat b{display:block;font:24px/1 'Bebas Neue',sans-serif;color:white}.ucl33-stat small{display:block;margin-top:5px;font-size:7px;font-weight:850;letter-spacing:1.3px;color:rgba(183,205,239,.5);text-transform:uppercase}
+.ucl33-section{padding:0 14px 16px}
+.ucl33-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:19px 2px 10px}
+.ucl33-section-kicker{font-size:7px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase;color:#70e9ff;margin-bottom:4px}.ucl33-section-title{font:22px/1 'Bebas Neue',sans-serif;letter-spacing:.7px;color:white}
+.ucl33-section-note{font-size:8px;color:rgba(183,205,239,.48);text-align:right;line-height:1.45}
+.ucl33-progress{height:3px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin:0 2px 11px}.ucl33-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--ucl-cyan),#675cff,var(--ucl-pink));box-shadow:0 0 10px #6beaff}
+.ucl33-table{border:1px solid rgba(150,184,255,.14);border-radius:16px;overflow:hidden;background:rgba(5,7,38,.62);box-shadow:inset 0 1px rgba(255,255,255,.04)}
+.ucl33-th,.ucl33-row{display:grid;grid-template-columns:26px minmax(0,1fr) 30px 38px 36px;align-items:center;column-gap:4px}.ucl33-th{padding:8px 11px;font-size:7px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;color:rgba(181,204,240,.38)}
+.ucl33-row{position:relative;min-height:47px;padding:5px 11px;border-top:1px solid rgba(150,184,255,.075);background:linear-gradient(90deg,rgba(255,255,255,.025),transparent);transition:.18s ease}
+.ucl33-row.qualify:before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:2px;background:linear-gradient(var(--ucl-cyan),#6c50ff);box-shadow:0 0 8px var(--ucl-cyan)}
+.ucl33-row.me{background:linear-gradient(90deg,rgba(61,207,255,.16),rgba(82,52,255,.09) 55%,rgba(255,61,165,.05));box-shadow:inset 0 0 0 1px rgba(99,226,255,.22)}
+.ucl33-pos{font:17px/1 'Bebas Neue',sans-serif;color:rgba(202,220,255,.42);text-align:center}.ucl33-row.qualify .ucl33-pos{color:#78eaff}.ucl33-row:first-of-type .ucl33-pos{color:#ffe25d}
+.ucl33-club{display:flex;align-items:center;gap:8px;min-width:0}.ucl33-logo{width:27px;height:27px;border-radius:9px;padding:3px;display:grid;place-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09);overflow:hidden;flex:0 0 auto}.ucl33-logo>*{max-width:100%!important;max-height:100%!important}.ucl33-club-name{font-size:11px;font-weight:760;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ucl33-row.me .ucl33-club-name{color:#9cf3ff}.ucl33-club-sub{font-size:7px;color:rgba(181,204,240,.36);margin-top:2px}
+.ucl33-num{text-align:center;font-size:10px;color:rgba(205,220,245,.58)}.ucl33-gd{font-size:9px;font-weight:800}.ucl33-gd.plus{color:#6ef5bd}.ucl33-gd.minus{color:#ff7897}.ucl33-points{text-align:center;font:18px/1 'Bebas Neue',sans-serif;color:white}.ucl33-row.me .ucl33-points{color:#78eaff;text-shadow:0 0 12px rgba(100,234,255,.55)}
+.ucl33-my-status{display:flex;align-items:center;gap:11px;margin-top:10px;padding:11px 12px;border-radius:13px;background:linear-gradient(115deg,rgba(23,42,119,.58),rgba(31,12,91,.55));border:1px solid rgba(107,211,255,.19)}
+.ucl33-my-status .rank{font:30px/1 'Bebas Neue',sans-serif;color:#81edff}.ucl33-my-status b{font-size:10px}.ucl33-my-status p{margin:3px 0 0;font-size:8px;color:rgba(194,214,245,.5)}
+.ucl33-stage{position:relative;display:flex;align-items:center;gap:9px;margin:20px 0 9px}.ucl33-stage:before,.ucl33-stage:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,rgba(117,218,255,.34))}.ucl33-stage:after{transform:scaleX(-1)}.ucl33-stage span{font-size:8px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#bcefff}.ucl33-stage.final span{color:#ffe870}
+.ucl33-tie{position:relative;border-radius:15px;padding:9px;margin-bottom:8px;background:linear-gradient(135deg,rgba(21,22,82,.78),rgba(7,8,42,.82));border:1px solid rgba(148,188,255,.14);overflow:hidden}.ucl33-tie.me{border-color:rgba(91,230,255,.37);box-shadow:0 8px 25px rgba(25,96,255,.12)}
+.ucl33-tie:after{content:"";position:absolute;width:90px;height:90px;border:1px solid rgba(109,219,255,.11);border-radius:50%;right:-35px;top:-45px;box-shadow:0 0 25px rgba(94,61,255,.12)}
+.ucl33-team{position:relative;z-index:1;display:grid;grid-template-columns:27px minmax(0,1fr) 28px;align-items:center;gap:8px;min-height:36px;padding:3px 5px}.ucl33-team+.ucl33-team{border-top:1px solid rgba(145,182,245,.09)}.ucl33-team.winner{color:#fff}.ucl33-team.loser{opacity:.42}.ucl33-team-name{font-size:11px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ucl33-team-score{font:19px/1 'Bebas Neue',sans-serif;text-align:right;color:#fff}.ucl33-team.winner .ucl33-team-score{color:#75ebff;text-shadow:0 0 10px rgba(86,225,255,.45)}
+.ucl33-legline{position:relative;z-index:1;display:flex;justify-content:center;gap:12px;padding:6px 4px 1px;border-top:1px solid rgba(145,182,245,.08);font-size:7px;color:rgba(189,207,239,.45)}.ucl33-legline b{color:#a8efff}
+.ucl33-champion{position:relative;text-align:center;padding:25px 15px;margin-top:10px;border-radius:20px;overflow:hidden;background:radial-gradient(circle at 50% 0,rgba(86,226,255,.29),transparent 34%),linear-gradient(150deg,#15106d,#080535 62%,#250845);border:1px solid rgba(145,226,255,.35);box-shadow:0 18px 48px rgba(0,0,25,.42)}
+.ucl33-champion:before{content:"";position:absolute;inset:-100% -10%;background:conic-gradient(transparent 0 38%,rgba(255,224,59,.12) 42%,rgba(90,234,255,.22) 48%,rgba(255,61,165,.14) 55%,transparent 62%);animation:ucl33Orbit 18s linear infinite}.ucl33-champion>*{position:relative}.ucl33-champion-logo{width:58px;height:58px;margin:0 auto 10px;display:grid;place-items:center;border-radius:18px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);box-shadow:0 0 28px rgba(82,224,255,.22);overflow:hidden}.ucl33-champion h3{margin:0;font:28px/1 'Bebas Neue',sans-serif;letter-spacing:1px}.ucl33-champion p{margin:5px 0 0;color:#ffe869;font-size:9px;font-weight:900;letter-spacing:1.3px;text-transform:uppercase}
+.ucl33-empty{min-height:470px;display:grid;place-items:center;text-align:center;padding:30px;background:radial-gradient(circle at 50% 25%,rgba(51,82,220,.35),transparent 38%),#030326}.ucl33-empty h3{font:30px/1 'Bebas Neue',sans-serif;margin:15px 0 7px}.ucl33-empty p{font-size:10px;color:rgba(195,215,245,.48);line-height:1.6}
+@keyframes ucl33Orbit{to{transform:rotate(378deg)}}@keyframes ucl33Prism{to{transform:rotate(-3deg) translateY(28px);opacity:.92}}
+@media(max-width:380px){.ucl33-hero{min-height:230px;padding-left:16px}.ucl33-starball{width:66px;height:66px}.ucl33-title{font-size:30px}.ucl33-title span{font-size:14px}.ucl33-section{padding-left:10px;padding-right:10px}.ucl33-th,.ucl33-row{grid-template-columns:23px minmax(0,1fr) 26px 33px 31px;padding-left:8px;padding-right:8px}}
+@media(prefers-reduced-motion:reduce){.ucl33-hero:before,.ucl33-starball:before,.ucl33-starball:after,.ucl33-champion:before{animation:none!important}}
+
+/* Match night broadcast package */
+#liveOverlay.live-overlay.ucl-match{background:radial-gradient(circle at 50% -8%,#1711a0 0,#090451 28%,#02031a 74%)!important}
+#liveOverlay.live-overlay.ucl-match:before{background:linear-gradient(115deg,transparent 15%,rgba(63,229,255,.1) 31%,transparent 42%),linear-gradient(245deg,transparent 26%,rgba(255,44,166,.1) 38%,transparent 50%)!important;opacity:1!important}
+#liveOverlay.live-overlay.ucl-match .live-sticky{background:linear-gradient(180deg,rgba(8,5,75,.98),rgba(4,5,37,.98))!important;border-bottom:1px solid rgba(111,216,255,.22)!important;box-shadow:0 18px 50px rgba(0,0,30,.44)!important}
+#liveOverlay.live-overlay.ucl-match .live-sticky:before{content:""!important;position:absolute!important;inset:0!important;background:linear-gradient(110deg,transparent 0 44%,rgba(85,231,255,.09) 46%,rgba(131,60,255,.1) 49%,rgba(255,56,167,.08) 52%,transparent 55%)!important;pointer-events:none!important}
+#liveOverlay.live-overlay.ucl-match .ucl-ceremony-strip{background:linear-gradient(110deg,rgba(21,27,125,.88),rgba(23,8,83,.88))!important;border-color:rgba(120,226,255,.25)!important;border-radius:14px!important;box-shadow:inset 0 1px rgba(255,255,255,.06)!important}
+#liveOverlay.live-overlay.ucl-match .ucl-ceremony-mark{background:radial-gradient(circle at 35% 25%,#fff,#74eaff 30%,#6043ff 66%,#18074f)!important;box-shadow:0 0 22px rgba(99,229,255,.5)!important}
+#liveOverlay.live-overlay.ucl-match .live-score{color:#fff!important;text-shadow:0 0 24px rgba(101,225,255,.28)!important}
+#liveOverlay.live-overlay.ucl-match .live-badge{background:linear-gradient(100deg,#4b39ff,#973bff)!important;border:1px solid rgba(151,231,255,.38)!important;box-shadow:0 0 18px rgba(86,77,255,.34)!important}
+#liveOverlay.live-overlay.ucl-match .progress-bar-fill{background:linear-gradient(90deg,#61e9ff 0,#634cff 48%,#ff3da5 78%,#ffe13b 100%)!important;box-shadow:0 0 12px rgba(86,231,255,.7)!important}
+#liveOverlay.live-overlay.ucl-match .live-field-area{border-color:rgba(103,224,255,.36)!important;box-shadow:0 0 0 1px rgba(114,63,255,.2),0 18px 45px rgba(0,0,32,.52)!important}
+#liveOverlay.live-overlay.ucl-match .live-scroll{background:linear-gradient(180deg,#05052d,#020319)!important}
+#liveOverlay.live-overlay.ucl-match .event-row{border-color:rgba(132,183,255,.13)!important;background:linear-gradient(110deg,rgba(25,29,87,.72),rgba(7,9,44,.72))!important}
+</style>
+
+<script>
+/* UCL Prismatic Night v33 */
+(function installUCLPrismaticUI(){
+  window.renderUCLTab=function renderUCLTab(){
+    const el=document.getElementById('uclTabBody');if(!el)return;
+    const rawParts=(G.uclParticipants||[]).map(Number);
+    const stats=G.ucl?.groupStats||{};
+    const parts=rawParts.length?rawParts:Object.keys(stats).map(Number);
+    const myId=G.club?.id,inUCL=!!G.uclInUCL,phase=G.ucl?.phase||'group';
+    const season=`${G.seasonStartYear||2025}/${String((G.seasonStartYear||2025)+1).slice(-2)}`;
+    if(!parts.length&&!Object.keys(stats).length){
+      el.innerHTML=`<div class="ucl33-empty"><div><div class="ucl33-starball" style="margin:auto">${uclLogoImg('48px')}</div><h3>Європейська ніч ще попереду</h3><p>Ліга чемпіонів стартує у новому сезоні.<br>Виведіть клуб на найвищу сцену Європи.</p></div></div>`;return;
+    }
+    const sorted=parts.map(id=>({id,c:clubById(id),...(stats[id]||{pts:0,w:0,d:0,l:0,m:0,gf:0,ga:0})})).sort((a,b)=>b.pts-a.pts||(b.gf-b.ga)-(a.gf-a.ga)||b.gf-a.gf);
+    const myRank=Math.max(0,sorted.findIndex(r=>r.id===myId)+1);
+    const matchesPlayed=Math.round(sorted.reduce((s,r)=>s+(r.m||0),0)/2);
+    const totalPossible=Math.max(1,Math.round(parts.length*8/2));
+    const progress=Math.min(100,Math.round(matchesPlayed/totalPossible*100));
+    const phaseNames={group:'Етап ліги',playoff_pending:'Жеребкування',playoff:'Плей-оф',done:'Завершено'};
+    let html=`<div class="ucl33-shell"><section class="ucl33-hero">
+      <div class="ucl33-eyebrow"><i></i>UEFA · ELITE EUROPEAN FOOTBALL</div>
+      <div class="ucl33-brand"><div class="ucl33-starball">${uclLogoImg('52px')}</div><div><div class="ucl33-title"><span>UEFA</span>Champions<br>League</div><div class="ucl33-meta"><b>${season}</b><span class="ucl33-chip">${phaseNames[phase]||'Турнір'}</span>${inUCL?'<span class="ucl33-chip live">◆ Ви у грі</span>':''}</div></div></div>
+      <div class="ucl33-wave">${[['#62e9ff','-5px','.94'],['#6150ff','7px','1'],['#ff3da5','19px','.92'],['#ffe13b','31px','.82']].map(x=>`<i style="--c:${x[0]};--y:${x[1]};--s:${x[2]}"></i>`).join('')}</div>
+    </section>
+    <div class="ucl33-stats"><div class="ucl33-stat"><b>${parts.length}</b><small>Клубів</small></div><div class="ucl33-stat"><b>${matchesPlayed}</b><small>Матчів зіграно</small></div><div class="ucl33-stat"><b>${myRank||'—'}</b><small>Ваше місце</small></div></div>`;
+
+    html+=`<section class="ucl33-section"><div class="ucl33-section-head"><div><div class="ucl33-section-kicker">League phase</div><div class="ucl33-section-title">Єдина таблиця</div></div><div class="ucl33-section-note">Топ-16<br>виходять у 1/8</div></div><div class="ucl33-progress"><i style="width:${progress}%"></i></div><div class="ucl33-table"><div class="ucl33-th"><span>#</span><span>Команда</span><span style="text-align:center">М</span><span style="text-align:center">±</span><span style="text-align:center">О</span></div>`;
+    sorted.forEach((r,i)=>{
+      const me=r.id===myId,q=i<16,gd=(r.gf||0)-(r.ga||0),c=r.c||{};
+      html+=`<div class="ucl33-row ${q?'qualify':''} ${me?'me':''}"><div class="ucl33-pos">${i+1}</div><div class="ucl33-club"><span class="ucl33-logo">${c.logo||''}</span><div style="min-width:0"><div class="ucl33-club-name">${esc(c.name||'?')}${me?' · ВИ':''}</div><div class="ucl33-club-sub">${r.w||0}В · ${r.d||0}Н · ${r.l||0}П</div></div></div><div class="ucl33-num">${r.m||0}</div><div class="ucl33-num ucl33-gd ${gd>0?'plus':gd<0?'minus':''}">${gd>0?'+':''}${gd}</div><div class="ucl33-points">${r.pts||0}</div></div>`;
+    });
+    html+='</div>';
+    if(inUCL){const safeRank=myRank||'—',status=myRank&&myRank<=16?'Зона плей-оф':'Поза зоною плей-оф';html+=`<div class="ucl33-my-status"><div class="rank">${safeRank}</div><div><b>${esc(G.club?.name||'Ваш клуб')} · ${status}</b><p>${myRank&&myRank<=16?'Продовжуйте тримати темп серед європейської еліти.':'Потрібні очки, щоб повернутися у топ-16.'}</p></div></div>`}
+    html+='</section>';
+
+    if(phase==='playoff'||phase==='done'){
+      const po=rebuildUCLPlayoffFromSchedule()||G.ucl?.playoff;
+      if(po){
+        const resultText=r=>{if(!r)return null;const s=scoreParts(r);return `${s.hg}:${s.ag}`};
+        const aggregate=legs=>{const a=Array.isArray(legs)?legs[0]:legs,b=Array.isArray(legs)?legs[1]:null;if(!a?.result||!b?.result)return null;const s1=scoreParts(a.result),s2=scoreParts(b.result);return{s1,s2,h:s1.hg+s2.ag,a:s1.ag+s2.hg}};
+        const winner=(legs,isFinal)=>{const a=Array.isArray(legs)?legs[0]:legs;if(!a?.result)return null;if(isFinal){const s=scoreParts(a.result);if(s.hg!==s.ag)return s.hg>s.ag?a.home:a.away;return a.penWinner||null}const ag=aggregate(legs);if(!ag)return null;if(ag.h!==ag.a)return ag.h>ag.a?a.home:a.away;const arr=Array.isArray(legs)?[legs[1],legs[0]]:[legs];return arr.find(x=>x?.penWinner)?.penWinner||null};
+        const tieCard=(legs,isFinal=false)=>{const a=Array.isArray(legs)?legs[0]:legs,b=Array.isArray(legs)?legs[1]:null;if(!a)return'';const w=winner(legs,isFinal),c1=clubById(a.home)||{},c2=clubById(a.away)||{},me=a.home===myId||a.away===myId,ag=aggregate(legs),single=a.result?scoreParts(a.result):null;const score1=isFinal?(single?single.hg:'—'):(ag?ag.h:'—'),score2=isFinal?(single?single.ag:'—'):(ag?ag.a:'—');return `<div class="ucl33-tie ${me?'me':''}"><div class="ucl33-team ${w===a.home?'winner':w?'loser':''}"><span class="ucl33-logo">${c1.logo||''}</span><span class="ucl33-team-name">${esc(c1.name||'?')}${a.home===myId?' · ВИ':''}</span><span class="ucl33-team-score">${score1}</span></div><div class="ucl33-team ${w===a.away?'winner':w?'loser':''}"><span class="ucl33-logo">${c2.logo||''}</span><span class="ucl33-team-name">${esc(c2.name||'?')}${a.away===myId?' · ВИ':''}</span><span class="ucl33-team-score">${score2}</span></div>${!isFinal&&a.result?`<div class="ucl33-legline"><span>М1 ${resultText(a.result)}</span>${b?.result?`<span>М2 ${resultText(b.result)}</span>`:''}${ag?`<b>ЗАГ ${ag.h}:${ag.a}</b>`:''}</div>`:a.penScore?`<div class="ucl33-legline"><b>ПЕН. ${a.penScore.home}:${a.penScore.away}</b></div>`:''}</div>`};
+        const stage=(label,arr,isFinal=false)=>{if(!arr?.length)return'';return `<div class="ucl33-stage ${isFinal?'final':''}"><span>${label}</span></div>${arr.map(x=>tieCard(x,isFinal)).join('')}`};
+        html+=`<section class="ucl33-section"><div class="ucl33-section-head"><div><div class="ucl33-section-kicker">Road to glory</div><div class="ucl33-section-title">Шлях до фіналу</div></div><div class="ucl33-section-note">Кожен матч<br>має значення</div></div>${stage('✦ 1/8 фіналу',po.r16)}${stage('◆ Чвертьфінал',po.qf)}${stage('◈ Півфінал',po.sf)}${stage('★ Фінал',po.final,true)}`;
+        if(G.ucl?.winner){const c=clubById(G.ucl.winner)||{},me=G.ucl.winner===myId;html+=`<div class="ucl33-champion"><div class="ucl33-champion-logo">${c.logo||uclLogoImg('42px')}</div><h3>${esc(c.name||'Чемпіон')}</h3><p>${me?'Ви підкорили Європу':'Переможець UEFA Champions League'}</p></div>`}
+        html+='</section>';
+      }
+    }
+    if(!inUCL&&phase==='group')html+=`<section class="ucl33-section"><div class="ucl33-my-status" style="border-color:rgba(255,225,59,.18)"><div class="rank" style="color:#ffe66a">◆</div><div><b>Ваш клуб не кваліфікувався</b><p>Завершіть сезон у зоні Ліги чемпіонів, щоб повернутися на Ultimate Stage.</p></div></div></section>`;
+    el.innerHTML=html+'</div>';
+  };
+})();
+</script>
 </body>
 </html>
