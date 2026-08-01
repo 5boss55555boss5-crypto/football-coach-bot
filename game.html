@@ -1109,6 +1109,54 @@ body.theme-light .elite-terms-card{background:radial-gradient(circle at 90% 0%,r
 @media(max-width:390px){.etc-actions{grid-template-columns:1fr}.etc-salary{grid-template-columns:1fr 38px 1fr}.etc-salary b{font-size:10px}}
 
 </style>
+<style id="transfer-clean-v36">
+/* Transfer Center v36 — clean command UI aligned with the club redesign */
+:root{--tr36-bg:#050910;--tr36-panel:#0b1422;--tr36-panel-2:#101b2b;--tr36-line:#223047;--tr36-muted:#728098;--tr36-text:#f2f6fb;--tr36-blue:#4285f4;--tr36-green:#20c98b;--tr36-red:#ff6673;--tr36-gold:#f6b94b}
+#s-transfers.transfer-v36{padding-top:14px;background:radial-gradient(circle at 100% 0,rgba(66,133,244,.055),transparent 29%)}
+.tr-command-card{margin-bottom:12px;border:1px solid var(--tr36-line);border-radius:20px;background:#09121f;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.18)}
+.tr-command-head{min-height:52px;padding:12px 15px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(148,163,184,.1)}
+.tr-command-head>div{display:flex;flex-direction:column;gap:3px}.tr-command-kicker{font-size:8px;font-weight:900;letter-spacing:1.7px;color:#5f91e8}.tr-command-head strong{font-size:14px;color:var(--tr36-text);letter-spacing:-.1px}
+.tr-command-status{display:inline-flex;align-items:center;gap:6px;padding:6px 8px;border:1px solid rgba(32,201,139,.22);border-radius:9px;background:rgba(32,201,139,.07);color:#44d9a4;font-size:7px;font-weight:900;letter-spacing:.7px}.tr-command-status i{width:5px;height:5px;border-radius:50%;background:#20c98b;box-shadow:0 0 0 3px rgba(32,201,139,.1)}
+.tr-finance-grid{display:grid;grid-template-columns:1fr 1px 1fr;align-items:stretch;padding:14px 15px 15px}.tr-finance-divider{background:rgba(148,163,184,.13)}
+.tr-finance-item{padding:0 12px}.tr-finance-item:first-child{padding-left:0}.tr-finance-item:last-child{padding-right:0}.tr-finance-item span,.tr-finance-item small{display:block}.tr-finance-item span{font-size:8px;font-weight:850;color:#77859c;text-transform:uppercase;letter-spacing:.8px}.tr-finance-item b{display:block;margin:5px 0 4px;font-size:25px;line-height:1;font-weight:950;letter-spacing:-1px}.tr-finance-item small{font-size:8px;color:#4e5c71}.tr-finance-item.available b{color:#39d8a1}.tr-finance-item.spent b{color:#f7f9fc}.tr-finance-item.spent span{color:#8b6971}
+#s-transfers .tr-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;height:auto;padding:4px;margin:0 0 10px!important;border:1px solid var(--tr36-line);border-radius:15px;background:#0a1320}
+#s-transfers .tr-tab{height:46px;padding:0 4px;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#66748a;background:transparent;font-weight:800}
+#s-transfers .tr-tab span{font-size:11px}.tr-tab small{font-size:7px;font-weight:750;color:#445166;letter-spacing:.25px}.tr-tab.active{background:#17243a!important;color:#eef4ff!important;box-shadow:0 4px 10px rgba(0,0,0,.22)}.tr-tab.active small{color:#6fa3ff}
+#s-transfers .tr-market-cycle{min-height:32px!important;margin:0 0 9px!important;padding:8px 10px!important;display:flex;align-items:center!important;border:1px solid rgba(66,133,244,.12);border-radius:10px;background:rgba(66,133,244,.045);color:#61718a!important;font-size:8px!important;font-weight:700;letter-spacing:.15px!important}
+#s-transfers .tr-market-cycle:before{content:'';width:6px;height:6px;border:1.5px solid #4285f4;border-left-color:transparent;border-radius:50%;margin-right:7px}
+#s-transfers #trFilter{margin-bottom:9px!important;gap:6px!important}#s-transfers #trFilter>div{gap:5px!important}
+#s-transfers #trFilter button{min-height:34px!important;padding:7px 11px!important;border:1px solid #202d42!important;border-radius:10px!important;background:#0a1320!important;color:#728098!important;box-shadow:none!important;font-size:10px!important;font-weight:800!important}
+#s-transfers #trFilter button span:first-child{opacity:.72}#s-transfers #trFilter button[style*="var(--acc)"],#s-transfers #trFilter button[style*="#2563eb"],#s-transfers #trFilter button[style*="#dc2626"]{border-color:rgba(66,133,244,.38)!important;background:#14233a!important;color:#80adff!important}
+#s-transfers #trAdvFilters>div{margin-bottom:10px!important;gap:6px!important}#s-transfers #trAdvFilters button{height:42px!important;padding:0 12px!important;border:1px solid #223047!important;border-radius:12px!important;background:#0b1422!important;box-shadow:none!important}#s-transfers #trAdvFilters button span{font-size:10px!important}
+#s-transfers #trContent{padding-bottom:18px}
+.tr-market-card,.tr-squad-card{margin-bottom:8px!important;border:1px solid #202d42!important;border-radius:17px!important;background:#0a1320!important;background-image:none!important;box-shadow:none!important;overflow:hidden}
+.tr-market-card.is-listed{border-color:rgba(32,201,139,.24)!important}.tr-market-card.is-negotiable{border-color:#26334a!important}.tr-market-card.is-unaffordable{opacity:.82}.tr-market-card>div:first-of-type:not([style*="display:flex"]){opacity:.65}
+.tr-market-card>div[style*="display:flex;align-items:center"],.tr-squad-card>div[style*="display:flex;align-items:center"]{padding-top:12px!important;padding-bottom:12px!important;gap:11px!important}
+.tr-market-card [style*="font-size:14px;font-weight:800"],.tr-squad-card [style*="font-size:13px;font-weight:800"]{font-size:13px!important;color:#eef3f9!important}.tr-market-card [style*="font-size:17px;font-weight:900"]{font-size:15px!important;letter-spacing:-.2px!important}
+.tr-market-card .tbtn,.tr-squad-card .tbtn,.tr-market-card button{border-radius:10px!important;box-shadow:none!important}.tr-market-card .tbtn-buy{background:#0c5b46!important;border:1px solid rgba(32,201,139,.3)!important;color:#8af0ca!important}.tr-market-card .tbtn-offer{background:#13284a!important;border-color:rgba(66,133,244,.38)!important;color:#7eacff!important}
+.tr-flash-card{border-color:rgba(255,102,115,.26)!important;background:#15111a!important;background-image:none!important}
+.tr-flash-card>div[style*="position:absolute;top:0;right:0"]{background:#8d2d38!important;border-radius:0 16px 0 9px!important}.tr-flash-card button{box-shadow:none!important}
+.tr-squad-card>div:first-child{width:2px!important}.tr-active-loan{border-color:rgba(66,133,244,.2)!important;background:#0c1728!important;border-radius:15px!important}
+.tr-history-group{border:1px solid #202d42!important;border-radius:17px!important;background:#0a1320!important;box-shadow:none!important}.tr-history-group-head{min-height:32px;padding:7px 12px!important;background:#0d1827!important;border-bottom-color:#202d42!important}.tr-history-row{min-height:66px;padding:10px 12px!important;border-bottom-color:rgba(148,163,184,.08)!important}.tr-history-row:last-child{border-bottom:0!important}
+#trModal{padding-top:54px;background:rgba(2,5,10,.86)!important;backdrop-filter:blur(8px);align-items:flex-end!important}
+#trModal>.modal{width:100%;max-width:580px;max-height:calc(100vh - 46px);padding:0 14px calc(14px + env(safe-area-inset-bottom));border:1px solid #26344a;border-bottom:0;border-radius:24px 24px 0 0;background:#08111e!important;box-shadow:0 -20px 60px rgba(0,0,0,.5);overflow-y:auto}
+#trModal>.modal:before{content:'';display:block;width:34px;height:4px;margin:10px auto 14px;border-radius:3px;background:#26344a}
+#trModalTitle{padding-right:42px;color:#f3f6fb;font-size:21px!important;font-weight:900!important;letter-spacing:-.45px!important}#trModalSub{min-height:16px;margin-top:3px!important;color:#66758d!important;font-size:10px!important}#trModal .modal-close{top:18px!important;right:14px!important;width:34px!important;height:34px!important;border:1px solid #26344a!important;background:#101b2b!important;color:#9aa7b9!important;box-shadow:none!important}
+#trModalBody{margin-top:12px}#trModalBody [style*="linear-gradient"]{box-shadow:none!important}#trModalBody button{box-shadow:none!important}#trModalBody>div>button:last-child{min-height:50px;border-radius:14px!important}
+.transfer-offer,.loan-offer{grid-template-columns:42px minmax(0,1fr) auto auto!important;min-height:72px!important;margin-bottom:7px!important;padding:10px!important;border:1px solid #223047!important;border-radius:15px!important;background:#0c1726!important;background-image:none!important;box-shadow:none!important}.transfer-offer.best{border-color:rgba(32,201,139,.35)!important}.transfer-club-logo{border:1px solid rgba(255,255,255,.12)!important;border-radius:11px!important;box-shadow:none!important}.transfer-action{border-radius:10px!important;background:#0e352e!important;color:#65e4ba!important;box-shadow:none!important}
+.elite-terms-card{border-color:#26344a!important;background:#0b1422!important;background-image:none!important;box-shadow:none!important}.elite-terms-card .etc-actions button{box-shadow:none!important}
+#fltSheet.open{background:rgba(2,5,10,.84)!important;backdrop-filter:blur(6px)}#fltSheetInner,#sortSheetInner{border:1px solid #26344a!important;border-bottom:0!important;border-radius:24px 24px 0 0!important;background:#08111e!important;box-shadow:0 -20px 60px rgba(0,0,0,.48)}
+.flt-header{padding:8px 15px 13px!important;border-bottom-color:#1e2a3e!important}.flt-title{font-size:12px!important;color:#edf2f8!important;letter-spacing:.4px!important;text-transform:none!important}.flt-body{padding:15px 15px 28px!important}.flt-section-label{color:#68778f!important;font-size:8px!important}.flt-chip,.flt-sort-btn{min-height:37px;border-color:#223047!important;border-radius:10px!important;background:#0d1827!important;color:#8794a7!important}.flt-chip.act-blue,.flt-sort-btn.active{background:#14284a!important;border-color:rgba(66,133,244,.45)!important;color:#86b0ff!important}.flt-chip.act-gold{background:#2d2514!important;border-color:rgba(246,185,75,.35)!important;color:#f6c760!important}.flt-chip.act-purple{background:#211936!important;border-color:rgba(167,139,250,.35)!important;color:#b8a3ff!important}.flt-num-input,.flt-select{border-color:#223047!important;border-radius:10px!important;background:#0c1726!important;color:#eef3f9!important}.flt-apply{min-height:50px;border-radius:14px!important;background:#2869d8!important;box-shadow:none!important;font-size:14px!important}
+#sortSheetOptions button{min-height:56px!important;border:1px solid #223047!important;border-radius:13px!important;background:#0c1726!important;box-shadow:none!important}
+#natSheet>div,#natOtherSub>div{border-color:#26344a!important;background:#08111e!important;box-shadow:0 -20px 60px rgba(0,0,0,.5)!important}#natSheet button,#natOtherSub button{border-color:#223047!important;background:#0c1726!important;border-radius:12px!important;box-shadow:none!important}
+.tr-empty-state{min-height:190px;padding:34px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border:1px dashed #26344a;border-radius:17px;background:#09121f}.tr-empty-state>span{width:42px;height:42px;margin-bottom:12px;display:grid;place-items:center;border:1px solid #2b3a52;border-radius:13px;background:#101b2b;color:#6f9cea;font-size:20px}.tr-empty-state b{font-size:13px;color:#e7edf6}.tr-empty-state small{max-width:240px;margin-top:5px;color:#5d6b80;font-size:9px;line-height:1.5}
+#trModalBody .negotiate-log{border:1px solid #202d42!important;border-radius:12px!important;background:#0a1320!important;color:#8390a4!important}#trModalBody #offerSlider{accent-color:#4285f4}#trModalBody input[type="range"]::-webkit-slider-thumb{box-shadow:none!important}#trModalBody [style*="justify-content:flex-end"]>div{box-shadow:none!important}
+#s-transfers #trFilter .tr-history-switch{display:grid!important;grid-template-columns:1fr 1fr;gap:6px!important;width:100%;padding:4px;border:1px solid #223047;border-radius:14px;background:#08111e}
+#s-transfers #trFilter .tr-history-switch button{height:39px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;border:1px solid transparent!important;border-radius:10px!important;background:transparent!important;color:#748299!important}
+#s-transfers #trFilter .tr-history-switch button.active{border-color:rgba(66,133,244,.4)!important;background:#172844!important;color:#9bbdff!important;box-shadow:inset 0 1px rgba(255,255,255,.04)!important}
+.tr-history-switch button b{min-width:19px;height:19px;padding:0 5px;display:inline-grid;place-items:center;border-radius:8px;background:rgba(148,163,184,.1);color:#8e9bae;font-size:8px}.tr-history-switch button.active b{background:rgba(66,133,244,.18);color:#b7d0ff}
+@media(max-width:380px){.tr-finance-item b{font-size:21px}.tr-command-head strong{font-size:13px}.tr-market-card>div[style*="display:flex;align-items:center"]{gap:8px!important;padding-left:10px!important;padding-right:9px!important}.transfer-offer,.loan-offer{grid-template-columns:38px minmax(0,1fr) auto!important}.transfer-offer .transfer-action,.loan-offer .transfer-action{grid-column:2/4;width:100%}}
+</style>
 </head>
 <body onpointerup="onPointerUpGlobal();onPrePointerUpGlobal()">
 <div id="dragGhost" style="display:none"></div>
@@ -2739,25 +2787,35 @@ body.theme-light .elite-terms-card{background:radial-gradient(circle at 90% 0%,r
     </div>
   </div>
 
-  <div class="screen" id="s-transfers">
-    <!-- Budget header -->
-    <div style="display:flex;gap:8px;margin-bottom:12px">
-      <div style="flex:1;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.15);border-radius:12px;padding:12px 14px">
-        <div style="font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:rgba(16,185,129,.5);margin-bottom:4px">Бюджет</div>
-        <div id="trBudgetDisplay" style="font-size:22px;font-weight:900;color:#10b981;line-height:1;letter-spacing:-.5px">€0</div>
+  <div class="screen transfer-v36" id="s-transfers">
+    <section class="tr-command-card" aria-label="Фінанси трансферів">
+      <div class="tr-command-head">
+        <div>
+          <span class="tr-command-kicker">TRANSFER CENTER</span>
+          <strong>Кадрове планування</strong>
+        </div>
+        <span class="tr-command-status"><i></i> РИНОК ВІДКРИТО</span>
       </div>
-      <div style="flex:1;background:rgba(248,113,113,.06);border:1px solid rgba(248,113,113,.12);border-radius:12px;padding:12px 14px">
-        <div style="font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:rgba(248,113,113,.45);margin-bottom:4px">Витрачено</div>
-        <div id="trSpentDisplay" style="font-size:22px;font-weight:900;color:#f87171;line-height:1;letter-spacing:-.5px">€0</div>
+      <div class="tr-finance-grid">
+        <div class="tr-finance-item available">
+          <span>Доступний бюджет</span>
+          <b id="trBudgetDisplay">€0</b>
+          <small>Кошти для нових угод</small>
+        </div>
+        <div class="tr-finance-divider"></div>
+        <div class="tr-finance-item spent">
+          <span>Витрати сезону</span>
+          <b id="trSpentDisplay">€0</b>
+          <small>Завершені трансфери</small>
+        </div>
       </div>
-    </div>
-    <!-- Tabs -->
-    <div class="tr-tabs" style="margin-bottom:12px">
-      <div class="tr-tab active" id="tt-market" onclick="switchTrTab('market')">Ринок</div>
-      <div class="tr-tab" id="tt-squad" onclick="switchTrTab('squad')">Склад</div>
-      <div class="tr-tab" id="tt-history" onclick="switchTrTab('history')">Історія</div>
-    </div>
-    <div id="trMarketHint" style="display:none;font-size:10px;color:rgba(148,163,184,.35);margin-bottom:8px;align-items:center;gap:4px;letter-spacing:.3px"></div>
+    </section>
+    <nav class="tr-tabs" aria-label="Розділи трансферів">
+      <div class="tr-tab active" id="tt-market" onclick="switchTrTab('market')"><span>Ринок</span><small>Пошук</small></div>
+      <div class="tr-tab" id="tt-squad" onclick="switchTrTab('squad')"><span>Мій склад</span><small>Контракти</small></div>
+      <div class="tr-tab" id="tt-history" onclick="switchTrTab('history')"><span>Історія</span><small>Угоди</small></div>
+    </nav>
+    <div id="trMarketHint" class="tr-market-cycle"></div>
     <div class="tfilter" id="trFilter"></div>
     <div id="trAdvFilters" style="display:none"></div>
     <div id="trContent"></div>
@@ -9441,7 +9499,7 @@ function doAITransfers(isWinter){
     G.transfers.history.push({
       name:player.n,pos:player.p,
       club:`${buyer.name} ← ${seller.name}`,
-      price,type:'ai',round:G.currentRound
+      price,type:'ai',owner:'ai',round:G.currentRound
     });
   }
   return events;
@@ -9488,6 +9546,16 @@ function renderTransfers(){
   renderTrContent();
 }
 
+// Reliable ownership check for transfer history.
+// New records carry `owner`; legacy saves are recognized by their old AI route format.
+function isUserTransferHistoryRecord(h){
+  if(!h||typeof h!=='object') return false;
+  if(h.owner==='user') return true;
+  if(h.owner==='ai'||h.type==='ai') return false;
+  if(typeof h.club==='string'&&h.club.includes(' ← ')) return false;
+  return ['buy','sell','flash','negotiate','loan_out','loan_in'].includes(h.type);
+}
+
 function renderTrContent(){
   buildMarket(); // завжди оновлюємо ринок якщо він порожній або застарілий
   document.getElementById('trBudgetDisplay').textContent=fmtPrice(G.budget);
@@ -9498,7 +9566,7 @@ function renderTrContent(){
     hintEl.style.display='flex';
     const lastR = G.transfers.lastRefresh >= 0 ? G.transfers.lastRefresh : G.currentRound;
     const nextR = lastR + TRANSFER_MARKET_REFRESH_INTERVAL;
-    hintEl.textContent=`🔄 Оновлення ринку кожні ${TRANSFER_MARKET_REFRESH_INTERVAL} матчі · наступне: тур ${nextR+1}`;
+    hintEl.textContent=`Оновлення складу ринку кожні ${TRANSFER_MARKET_REFRESH_INTERVAL} матчі · наступне: тур ${nextR+1}`;
   } else if(hintEl){
     hintEl.style.display='none';
   }
@@ -9510,18 +9578,16 @@ function renderTrContent(){
 
   if(trTab==='history'){
     advEl.style.display='none';
-    // My/All filter toggle
-    if(!window._trHistFilter) window._trHistFilter = 'my';
-    filterEl.innerHTML = `<div style="display:flex;gap:4px;padding:2px;background:rgba(255,255,255,.05);border-radius:10px;margin-bottom:2px">
-      <button onclick="window._trHistFilter='my';renderTrContent()" style="flex:1;padding:5px 0;border-radius:7px;border:none;font-size:11px;font-weight:700;cursor:pointer;transition:all .18s;background:${window._trHistFilter==='my'?'var(--acc)':'transparent'};color:${window._trHistFilter==='my'?'#fff':'var(--mut)'}">Мої</button>
-      <button onclick="window._trHistFilter='all';renderTrContent()" style="flex:1;padding:5px 0;border-radius:7px;border:none;font-size:11px;font-weight:700;cursor:pointer;transition:all .18s;background:${window._trHistFilter==='all'?'var(--acc)':'transparent'};color:${window._trHistFilter==='all'?'#fff':'var(--mut)'}">Всі</button>
-    </div>`;
+    if(window._trHistFilter!=='my'&&window._trHistFilter!=='all') window._trHistFilter='my';
     const _showAll = window._trHistFilter === 'all';
     const _allItems = G.transfers.history.slice().reverse();
-    // "Мої" = only buy/sell/negotiate/flash (user's own deals), not AI
-    const _myItems = _allItems.filter(h => h.type!=='ai');
+    const _myItems = _allItems.filter(isUserTransferHistoryRecord);
+    filterEl.innerHTML = `<div class="tr-history-switch" role="tablist" aria-label="Фільтр історії трансферів">
+      <button class="${!_showAll?'active':''}" role="tab" aria-selected="${!_showAll}" onclick="window._trHistFilter='my';renderTrContent()"><span>Мої</span><b>${_myItems.length}</b></button>
+      <button class="${_showAll?'active':''}" role="tab" aria-selected="${_showAll}" onclick="window._trHistFilter='all';renderTrContent()"><span>Всі клуби</span><b>${_allItems.length}</b></button>
+    </div>`;
     if(!G.transfers.history.length || (!_showAll && !_myItems.length)){
-      contentEl.innerHTML=`<div style="text-align:center;padding:40px 20px;color:var(--mut);font-size:13px">📋 ${!G.transfers.history.length?'Трансферів ще не було':'Ваших угод ще не було'}</div>`;
+      contentEl.innerHTML=`<div class="tr-empty-state"><span>↔</span><b>${!G.transfers.history.length?'Трансферів ще не було':'Ваших угод ще не було'}</b><small>Завершені переходи з’являться тут за турами.</small></div>`;
     } else {
       const items = _showAll ? _allItems : _myItems;
       // Group by round+season
@@ -9570,7 +9636,7 @@ function renderTrContent(){
 
           const flashBadge = isFlash ? `<span style="font-size:8px;font-weight:800;padding:1px 5px;border-radius:8px;background:rgba(239,68,68,.18);color:#f87171;border:1px solid rgba(239,68,68,.3)">🔥 АКЦІЯ</span>` : '';
 
-          return `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);position:relative">
+          return `<div class="tr-history-row" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.04);position:relative">
             <!-- Player avatar -->
             ${playerAvatar(h.name, h.pos, 38, 11)}
             <!-- Main info -->
@@ -9597,8 +9663,8 @@ function renderTrContent(){
           </div>`;
         }).join('');
 
-        return `<div style="background:var(--surf);border:1px solid var(--brd);border-radius:16px;overflow:hidden;margin-bottom:10px">
-          <div style="padding:7px 14px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:6px">
+        return `<div class="tr-history-group" style="background:var(--surf);border:1px solid var(--brd);border-radius:16px;overflow:hidden;margin-bottom:10px">
+          <div class="tr-history-group-head" style="padding:7px 14px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.05);display:flex;align-items:center;gap:6px">
             ${group.season!==G.seasonStartYear?`<span style="font-size:8px;font-weight:800;padding:1px 5px;border-radius:5px;background:rgba(148,163,184,.1);color:var(--mut)">${group.season}/${String(group.season+1).slice(-2)}</span><span style="font-size:9px;color:rgba(255,255,255,.15)">·</span>`:''}
             <span style="font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--mut)">Тур ${group.round}</span>
             <span style="font-size:9px;color:rgba(255,255,255,.15)">·</span>
@@ -9792,7 +9858,7 @@ function renderTrContent(){
           const rColor=f.r>=85?'var(--grn)':f.r>=75?'var(--acc)':f.r>=65?'var(--gold)':'var(--mut)';
           const roundsLeft=f.expiresAfterRound-G.currentRound;
           const fi=G.transfers.flashSales.indexOf(f);
-          return`<div style="border-radius:16px;margin-bottom:8px;overflow:hidden;position:relative;border:1.5px solid rgba(239,68,68,.4);background:linear-gradient(135deg,rgba(239,68,68,.09),rgba(239,68,68,.03))">
+          return`<article class="tr-market-card tr-flash-card" style="border-radius:16px;margin-bottom:8px;overflow:hidden;position:relative;border:1.5px solid rgba(239,68,68,.4);background:linear-gradient(135deg,rgba(239,68,68,.09),rgba(239,68,68,.03))">
             <div style="position:absolute;top:0;right:0;background:linear-gradient(135deg,#ef4444,#b91c1c);padding:3px 10px;border-radius:0 16px 0 10px;font-size:10px;font-weight:900;color:#fff">-${f.discountPct}%</div>
             <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#ef4444,#f87171);border-radius:16px 0 0 16px"></div>
             <div style="display:flex;align-items:center;gap:10px;padding:10px 10px 10px 13px">
@@ -9817,12 +9883,12 @@ function renderTrContent(){
                 </button>
               </div>
             </div>
-          </div>`;
+          </article>`;
         }).join('')}
       </div>`;
     }
 
-    if(!players.length&&!flashSales.length){contentEl.innerHTML=`<div style="text-align:center;padding:40px;color:var(--mut)">Немає гравців за вибраними фільтрами</div>`;return;}
+    if(!players.length&&!flashSales.length){contentEl.innerHTML=`<div class="tr-empty-state"><span>⌕</span><b>Гравців не знайдено</b><small>Зміни позицію, бюджет або додаткові фільтри.</small></div>`;return;}
     contentEl.innerHTML=flashHTML+players.map((p)=>{
       const mi=G.transfers.marketPlayers.indexOf(p);
       const rColor=p.r>=85?'var(--grn)':p.r>=75?'var(--acc)':p.r>=65?'var(--gold)':'var(--mut)';
@@ -9832,7 +9898,7 @@ function renderTrContent(){
         const rTierBg=p.r>=85?'rgba(251,191,36,.06)':p.r>=78?'rgba(79,142,247,.05)':'rgba(255,255,255,.02)';
         const borderCol=p.listed&&canAfford?rColor+'55':p.listed?rColor+'28':'rgba(255,255,255,.09)';
         const priceCol=canAfford?'#fbbf24':'#f87171';
-        return`<div style="position:relative;border-radius:16px;margin-bottom:8px;overflow:hidden;background:linear-gradient(145deg,${rTierBg},rgba(13,17,30,.97));border:1.5px solid ${borderCol};${p.listed&&canAfford?`box-shadow:0 0 16px ${rColor}18,0 2px 10px rgba(0,0,0,.4)`:''}" >
+        return`<article class="tr-market-card ${p.listed?'is-listed':'is-negotiable'} ${!canAfford?'is-unaffordable':''}" style="position:relative;border-radius:16px;margin-bottom:8px;overflow:hidden;background:linear-gradient(145deg,${rTierBg},rgba(13,17,30,.97));border:1.5px solid ${borderCol};${p.listed&&canAfford?`box-shadow:0 0 16px ${rColor}18,0 2px 10px rgba(0,0,0,.4)`:''}" >
           <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,${rColor},${rColor}55);border-radius:16px 0 0 16px"></div>
           <div style="display:flex;align-items:center;gap:10px;padding:11px 12px 11px 15px">
 
@@ -9892,7 +9958,7 @@ function renderTrContent(){
             </div>
 
           </div>
-        </div>`;
+        </article>`;
       })();}).join('');
   }
 
@@ -9948,7 +10014,7 @@ function renderTrContent(){
       const borderStyle = isRentedIn
         ? 'border-color:rgba(59,130,246,.4);box-shadow:0 0 0 1px rgba(59,130,246,.15)'
         : inj?'border-color:rgba(251,146,60,.3)':isSusp?'border-color:rgba(239,68,68,.3)':cBorderColor?`border-color:${cBorderColor}`:'';
-      return`<div class="tplayer" style="position:relative;overflow:hidden;${borderStyle}">
+      return`<article class="tplayer tr-squad-card" style="position:relative;overflow:hidden;${borderStyle}">
         <div style="position:absolute;left:0;top:0;bottom:0;width:3px;background:${isRentedIn?'#3b82f6':inj?'#fb923c':isSusp?'#ef4444':rColor};opacity:.8;border-radius:18px 0 0 18px"></div>
         <div style="display:flex;align-items:center;gap:10px;padding:10px 10px 10px 13px">
           ${playerAvatar(p.n, p.p, 44, 12)}
@@ -9994,7 +10060,7 @@ function renderTrContent(){
             }
           </div>
         </div>
-      </div>`;}).join('');
+      </article>`;}).join('');
     // Active loans section
     const _activeLoans=(G.transfers?.loans||[]).filter(l=>{
       const cur=G.seasonStartYear||2025;
@@ -10002,7 +10068,7 @@ function renderTrContent(){
     });
     const _loansBlock=_activeLoans.length?`<div style="margin-bottom:12px">
       <div style="font-size:10px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">🤝 Зараз в оренді (${_activeLoans.length})</div>
-      ${_activeLoans.map(l=>{const bc=CLUBS.find(c=>c.id===l.toClubId);return`<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:12px;margin-bottom:6px">
+      ${_activeLoans.map(l=>{const bc=CLUBS.find(c=>c.id===l.toClubId);return`<div class="tr-active-loan" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:12px;margin-bottom:6px">
         ${playerAvatar(l.name,l.pos,38,11)}
         <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700">${l.nat||''} ${l.name}</div><div style="font-size:11px;color:var(--mut)">${l.pos} · ${l.r} · ${l.age}р.</div></div>
         <div style="text-align:right;flex-shrink:0">${bc?`<div style="display:flex;align-items:center;gap:4px;justify-content:flex-end;margin-bottom:2px"><div style="width:18px;height:18px;border-radius:5px;background:${bc.bg};padding:2px;overflow:hidden">${bc.logo}</div><span style="font-size:11px;font-weight:700">${bc.name}</span></div>`:''}<div style="font-size:10px;color:#60a5fa;font-weight:700">+${fmtPrice(l.fee)}</div><div style="font-size:9px;color:var(--mut)">${l.returnDesc||(l.loanWindow==='winter'?'❄️ до зимової паузи':'☀️ до літа')}</div></div>
@@ -10595,7 +10661,7 @@ function confirmFlashBuy(idx){
   removeFromClub(f.n,f.fromClub);
   G.transfers.flashSales.splice(idx,1);
   removePlayerFromMarket(f);
-  G.transfers.history.push({name:f.n,pos:f.p,club:f.fromClubName,price,type:'flash',round:G.currentRound});
+  G.transfers.history.push({name:f.n,pos:f.p,club:f.fromClubName,price,type:'flash',owner:'user',round:G.currentRound});
   addJournalEntry('transfer_buy',{name:f.n,pos:f.p,price,from:f.fromClubName||'?'});
   closeTrModalDirect();renderTrContent();updateHeader();SFX.buy?.();
   if(document.getElementById('s-salary')?.classList.contains('active'))renderSalaryScreen();
@@ -10708,7 +10774,7 @@ function confirmBuy(idx){
   removeFromClub(p.n, p.fromClub);
   // Прибираємо лише придбаного гравця; статуси решти ринку не змінюються.
   removePlayerFromMarket(p);
-  G.transfers.history.push({name:p.n,pos:p.p,club:p.fromClubName,price:p.listPrice,type:'buy',round:G.currentRound});
+  G.transfers.history.push({name:p.n,pos:p.p,club:p.fromClubName,price:p.listPrice,type:'buy',owner:'user',round:G.currentRound});
   addJournalEntry('transfer_buy',{name:p.n,pos:p.p,price:p.listPrice,from:p.fromClubName||'?'});
   closeTrModalDirect();
   renderTrContent();
@@ -10957,7 +11023,7 @@ function submitOffer(idx,amount){
       syncUserSquad();
       removeFromClub(p.n,p.fromClub);
       removePlayerFromMarket(p);
-      G.transfers.history.push({name:p.n,pos:p.p,club:p.fromClubName,price:amount,type:'buy',round:G.currentRound});
+      G.transfers.history.push({name:p.n,pos:p.p,club:p.fromClubName,price:amount,type:'buy',owner:'user',round:G.currentRound});
       addJournalEntry('transfer_buy',{name:p.n,pos:p.p,price:amount,from:p.fromClubName||'?'});
       closeTrModalDirect();renderTrContent();SFX.win?.();
       showTrMsg(`✅ Угода! ${esc(p.n)} — твій за ${fmtPrice(amount)}! 🎉`);
@@ -11164,7 +11230,7 @@ function confirmSell(name,price,buyerClubId){
   // Add player to buying club's squad
   addToClub({...p}, buyerClubId);
   // Проданий гравець з'явиться на ринку лише під час наступного планового оновлення.
-  G.transfers.history.push({name:p.n,pos:p.p,club:buyer?buyer.name:'Вільний агент',price,type:'sell',round:G.currentRound});
+  G.transfers.history.push({name:p.n,pos:p.p,club:buyer?buyer.name:'Вільний агент',price,type:'sell',owner:'user',round:G.currentRound});
   addJournalEntry('transfer_sell',{name:p.n,pos:p.p,price,to:buyer?buyer.name:'Вільний агент'});
   initPreMatchLineup(true); // force — squad changed by transfer
   closeTrModalDirect();
@@ -11358,7 +11424,7 @@ function confirmLoanOut(name,clubId,fee,feePct,window){
   addToClub({...p},clubId);
   G.budget+=fee;
   const windowLabel=loanPlan.phase==='winter'?'❄️ до наступної зими':'☀️ до літа';
-  G.transfers.history.push({name:p.n,pos:p.p,club:club.name,price:fee,type:'loan_out',nat:p.nat||'',round:G.currentRound,_season:G.seasonStartYear||2025,loanWindow:loanPlan.legacyWindow,returnPhase:loanPlan.phase,returnSeason:loanPlan.season});
+  G.transfers.history.push({name:p.n,pos:p.p,club:club.name,price:fee,type:'loan_out',owner:'user',nat:p.nat||'',round:G.currentRound,_season:G.seasonStartYear||2025,loanWindow:loanPlan.legacyWindow,returnPhase:loanPlan.phase,returnSeason:loanPlan.season});
   addJournalEntry('transfer_sell',{name:p.n,pos:p.p,price:fee,to:`${club.name} (оренда, ${windowLabel})`});
   // Оренда не повинна перегенеровувати статуси всього трансферного ринку.
   initPreMatchLineup(true);
@@ -11518,7 +11584,7 @@ function confirmRentPlayerIn(mi, window, loanFee){
 
   G.transfers.history.push({
     name:p.n,pos:p.p,club:p.fromClubName||'',price:finalLoanFee,
-    type:'loan_in',nat:p.nat||'',round:G.currentRound,_season:G.seasonStartYear||2025,returnPhase:loanPlan.phase,returnSeason:loanPlan.season
+    type:'loan_in',owner:'user',nat:p.nat||'',round:G.currentRound,_season:G.seasonStartYear||2025,returnPhase:loanPlan.phase,returnSeason:loanPlan.season
   });
   addJournalEntry('transfer_buy',{name:p.n,pos:p.p,price:finalLoanFee,from:`${p.fromClubName||''} (оренда)`});
 
@@ -19238,7 +19304,7 @@ function doAISquadNeeds(){
           G.transfers.history.push({
             name: player.n, pos: player.p,
             club: `${club.name} ← ${seller.name}`,
-            price, type: 'ai', round: G.currentRound,
+            price, type: 'ai', owner: 'ai', round: G.currentRound,
             _reason: `потреба у ${grpKey}`,
           });
 
@@ -19266,7 +19332,7 @@ function doAISquadNeeds(){
               G.transfers.history.push({
                 name: freeAgent.n, pos: freeAgent.p,
                 club: club.name + ' ← Вільний агент',
-                price: playerValue(freeAgent), type: 'ai', round: G.currentRound,
+                price: playerValue(freeAgent), type: 'ai', owner: 'ai', round: G.currentRound,
                 _reason: 'брак ' + grpKey,
               });
               events.push((club.emoji||'') + ' ' + club.name + ' підписав вільного агента ' + freeAgent.p + ' ' + freeAgent.n + ' (' + freeAgent.r + ')');
@@ -19310,7 +19376,7 @@ function doAISquadNeeds(){
         G.transfers.history.push({
           name: toSell.n, pos: toSell.p,
           club: `${buyer.name} ← ${club.name}`,
-          price, type: 'ai', round: G.currentRound,
+          price, type: 'ai', owner: 'ai', round: G.currentRound,
           _reason: `надлишок ${grpKey}`,
         });
 
@@ -25381,7 +25447,7 @@ function renderSettings(){
   </div>
 
   `;
-  renderClubDashboard({ts,league,pos,posCol,played,totalRd,wins,draws,losses,gf,ga,form5,careerRep,repLabel,repColor,cupStage,cupElim,cupWon,inUCL,uclPhase,uclElim,uclWon,topSc});
+  renderClubDashboardIdentity({ts,league,pos,posCol,played,totalRd,wins,draws,losses,gf,ga,form5,careerRep,repLabel,repColor,cupStage,cupElim,cupWon,inUCL,uclPhase,uclElim,uclWon,topSc});
 }
 
 function renderClubDashboard(d){
@@ -25669,6 +25735,220 @@ function renderClubDashboard(d){
 
 
 
+  </div>`;
+}
+
+// ── CLUB TAB · IDENTITY MASTERPLAN V1 ────────────────────────────────────────
+function renderClubDashboardIdentity(d){
+  const root=document.getElementById('settingsContent');
+  if(!root)return;
+
+  const {ts,league,pos,posCol,played,totalRd,wins,draws,losses,gf,ga,form5,careerRep,repLabel,repColor,cupStage,cupElim,cupWon,inUCL,uclPhase,uclElim,uclWon,topSc}=d;
+  const clubHex=String(G.club?.color||'').trim();
+  const clubColor=/^#[0-9a-fA-F]{6}$/.test(clubHex)?clubHex:'#3b82f6';
+  const plural=(n,one,few,many)=>{
+    const a=Math.abs(n)%100,b=a%10;
+    if(a>10&&a<20)return many;
+    if(b>1&&b<5)return few;
+    return b===1?one:many;
+  };
+  const icon=(paths)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
+  const ICON={
+    trophy:icon('<path d="M8 4h8v4a4 4 0 01-8 0V4z"/><path d="M8 6H4v1a4 4 0 004 4M16 6h4v1a4 4 0 01-4 4M12 12v5M8 21h8M9 17h6"/>'),
+    star:icon('<path d="M12 2l3.1 6.25L22 9.25l-5 4.88 1.18 6.87L12 17.75 5.82 21 7 14.13 2 9.25l6.9-1z"/>'),
+    medal:icon('<circle cx="12" cy="14" r="6"/><path d="M8.5 8.8L6 3h4l2 5 2-5h4l-2.5 5.8M12 11v6M9 14h6"/>'),
+    coach:icon('<circle cx="12" cy="7" r="3"/><path d="M5 21v-3a7 7 0 0114 0v3M8 13l4 3 4-3"/>'),
+    academy:icon('<path d="M3 9l9-5 9 5-9 5-9-5z"/><path d="M7 12v4c3 2 7 2 10 0v-4M21 9v6"/>'),
+    theme:icon('<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 000 16z" fill="currentColor" stroke="none"/>'),
+    sound:icon('<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9.5a4 4 0 010 5M19.5 7a7.5 7.5 0 010 10"/>'),
+    soundOff:icon('<path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 10l4 4M21 10l-4 4"/>'),
+    vibe:icon('<rect x="8" y="3" width="8" height="18" rx="2"/><path d="M4.5 9v6M19.5 9v6"/>'),
+    save:icon('<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 14h5"/>'),
+    reset:icon('<path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/>'),
+    bug:icon('<path d="M9 9h6v8a3 3 0 01-6 0V9zM10 5h4l1 4H9l1-4zM5 12h4M15 12h4M5 16h4M15 16h4M7 7l2 2M17 7l-2 2"/>'),
+    arrow:icon('<path d="M9 6l6 6-6 6"/>')
+  };
+
+  const squad=G.players||[];
+  const avgRating=squad.length?Math.round(squad.reduce((sum,p)=>sum+(Number(p.r)||0),0)/squad.length):0;
+  const academyGraduates=squad.filter(p=>p._fromAcademy).length;
+  const academyLevel=G.academy?.level||1;
+  const goalDiff=(gf||0)-(ga||0);
+  const winRate=played?Math.round((wins||0)/played*100):0;
+  const seasonProgress=totalRd?Math.min(100,Math.round(played/totalRd*100)):0;
+  const achievementState=G.achievements||{};
+  const achievementDone=Object.keys(achievementState).length;
+  const achievementTotal=typeof ACHIEVEMENTS!=='undefined'?ACHIEVEMENTS.length:50;
+  const achievementPct=Math.round(achievementDone/Math.max(1,achievementTotal)*100);
+  const achievementBonus=typeof ACHIEVEMENTS!=='undefined'?ACHIEVEMENTS.filter(a=>achievementState[a.id]&&!achievementState[a.id].bonusClaimed&&a.bonus>0).length:0;
+  const careerSeasons=(G.careerLog||[]).length;
+  const trophies=(G.trophyHistory||[]).length;
+  const slotCount=[1,2,3].filter(n=>getSlotPreview(n)).length;
+  const mutedNow=typeof _muted!=='undefined'&&_muted;
+  const seasonLabel=String(getSeasonLabel()).replace(/^Сезон\s*/i,'');
+  const cupName=(LEAGUES.find(l=>l.id===G.leagueId)||{cupName:'Кубок'}).cupName;
+  const formHtml=form5.length?form5.map(r=>`<span class="id-form ${r.toLowerCase()}">${r==='W'?'В':r==='D'?'Н':'П'}</span>`).join(''):'<span class="id-no-form">Матчів ще не було</span>';
+
+  const competition=(tone,ico,title,meta,status,statusTone,progress)=>`
+    <article class="id-competition ${tone}">
+      <span class="id-competition-icon">${ico}</span>
+      <span class="id-competition-copy"><small>${tone==='league'?'НАЦІОНАЛЬНА ЛІГА':tone==='cup'?'КУБОК':'ЄВРОПЕЙСЬКА СЦЕНА'}</small><b>${title}</b><em>${meta}</em></span>
+      <span class="id-competition-side"><strong class="id-status ${statusTone}">${status}</strong>${progress!==null?`<i class="id-mini-progress"><u style="width:${progress}%"></u></i>`:''}</span>
+    </article>`;
+
+  const leagueCard=competition('league',leagueIconHtml(league,'27px'),league.fullName||league.name||'Ліга',`Тур ${played}/${totalRd} · ${ts.pts||0} очок`,`${pos} місце`,'info',seasonProgress);
+  const cupCard=G.cup?competition('cup',ICON.trophy,cupName,`Поточна стадія · ${cupStage}`,cupWon?'Трофей':cupElim?'Вибули':'У грі',cupWon?'gold':cupElim?'danger':'good',null):'';
+  let europeCard='';
+  if(inUCL){
+    const phase=uclPhase==='group'?'Груповий етап':uclPhase==='playoff'||uclPhase==='playoff_pending'?'Плей-оф':uclPhase==='done'?'Турнір завершено':'Очікує старту';
+    europeCard=competition('europe',ICON.star,'Ліга чемпіонів',phase,uclWon?'Трофей':uclElim?'Вибули':'У грі',uclWon?'gold':uclElim?'danger':'info',null);
+  }
+
+  root.innerHTML=`
+  <style>
+    .id-club{--club:${clubColor};--id-bg:#05080e;--id-app:#08111f;--id-surface:#0d1726;--id-raised:#132033;--id-border:#223149;--id-text:#f5f7fb;--id-text-2:#a8b3c5;--id-text-3:#69778c;--id-blue:#3b82f6;--id-blue-2:#2563eb;--id-green:#22c55e;--id-amber:#f5a623;--id-red:#ef4444;position:relative;isolation:isolate;padding:10px 12px 106px;color:var(--id-text);background:radial-gradient(circle at 88% 3%,color-mix(in srgb,var(--club) 12%,transparent),transparent 23%),linear-gradient(180deg,var(--id-bg),var(--id-app) 55%,var(--id-bg));font-family:Inter,sans-serif}
+    .id-club *{box-sizing:border-box}.id-club button,.id-club a{font-family:inherit}.id-club svg{display:block;width:21px;height:21px}
+    .id-club:before{content:'';position:absolute;z-index:-1;inset:0;pointer-events:none;opacity:.28;background-image:linear-gradient(rgba(168,179,197,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(168,179,197,.025) 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(#000,transparent 68%)}
+
+    .id-hero{position:relative;overflow:hidden;padding:16px;border:1px solid #29405f;border-radius:20px;background:radial-gradient(circle at 85% 14%,color-mix(in srgb,var(--club) 24%,transparent),transparent 31%),linear-gradient(145deg,#13233a,#091321 75%);box-shadow:0 18px 44px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.05)}
+    .id-hero:before{content:'';position:absolute;right:-88px;top:-100px;width:230px;height:230px;border:1px solid color-mix(in srgb,var(--club) 18%,transparent);border-radius:50%;box-shadow:0 0 0 34px color-mix(in srgb,var(--club) 4%,transparent),0 0 0 68px color-mix(in srgb,var(--club) 2%,transparent);pointer-events:none}
+    .id-hero:after{content:'';position:absolute;left:0;top:22px;bottom:22px;width:3px;border-radius:0 3px 3px 0;background:linear-gradient(var(--club),#60a5fa);box-shadow:0 0 14px color-mix(in srgb,var(--club) 65%,transparent)}
+    .id-eyebrow{position:relative;z-index:1;margin:0 0 12px 2px;color:#60a5fa;font-size:10px;font-weight:900;letter-spacing:1.4px}
+    .id-identity{position:relative;z-index:1;display:grid;grid-template-columns:66px minmax(0,1fr) auto;align-items:center;gap:13px}
+    .id-crest{width:66px;height:66px;display:grid;place-items:center;overflow:hidden;border:1px solid rgba(255,255,255,.14);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.1),rgba(255,255,255,.035));box-shadow:0 12px 28px rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.08)}.id-crest>span,.id-crest img,.id-crest svg{width:100%;height:100%}
+    .id-club-copy{min-width:0}.id-club-copy h2{margin:0;color:var(--id-text);font-size:23px;font-weight:900;line-height:1.04;letter-spacing:-.45px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.id-club-copy p{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin:7px 0 0;color:var(--id-text-2);font-size:10px;line-height:1.35}.id-club-copy p svg,.id-club-copy p img{width:13px!important;height:13px!important}
+    .id-rep{align-self:start;padding:5px 7px;border:1px solid ${repColor}40;border-radius:8px;background:${repColor}14;color:${repColor};font-size:9px;font-weight:950;letter-spacing:.65px;text-transform:uppercase}
+    .id-scoreboard{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);margin-top:16px;border:1px solid #263a56;border-radius:15px;background:rgba(4,9,17,.42);overflow:hidden}.id-stat{padding:11px 5px;text-align:center}.id-stat+.id-stat{border-left:1px solid #21324a}.id-stat b{display:block;color:var(--id-text);font:25px/.9 'Bebas Neue',sans-serif;letter-spacing:.4px;font-variant-numeric:tabular-nums}.id-stat.primary b{color:${posCol}}.id-stat.positive b{color:#4ade80}.id-stat.negative b{color:#fb7185}.id-stat span{display:block;margin-top:6px;color:var(--id-text-3);font-size:9px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}
+    .id-season-progress{position:relative;z-index:1;margin-top:13px}.id-progress-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;color:var(--id-text-3);font-size:10px}.id-progress-head b{color:var(--id-text-2);font-size:10px}.id-progress-track{height:4px;overflow:hidden;border-radius:99px;background:#1c2b40}.id-progress-track i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--id-blue-2),#60a5fa);box-shadow:0 0 12px rgba(59,130,246,.55)}
+    .id-hero-foot{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}.id-record{display:flex;align-items:center;gap:5px;color:var(--id-text-3);font-size:9px;font-weight:800}.id-record b{padding:4px 6px;border:1px solid #26384f;border-radius:7px;background:rgba(19,32,51,.68);color:var(--id-text-2);font-size:9px}.id-form-row{display:flex;align-items:center;gap:5px}.id-form-label{margin-right:2px;color:var(--id-text-3);font-size:9px;font-weight:850;letter-spacing:.65px;text-transform:uppercase}.id-form{width:22px;height:22px;display:grid;place-items:center;border-radius:7px;font-size:9px;font-weight:950}.id-form.w{color:#86efac;border:1px solid rgba(34,197,94,.28);background:rgba(34,197,94,.14)}.id-form.d{color:#fde047;border:1px solid rgba(245,166,35,.28);background:rgba(245,166,35,.12)}.id-form.l{color:#fda4af;border:1px solid rgba(239,68,68,.28);background:rgba(239,68,68,.13)}.id-no-form{color:var(--id-text-3);font-size:9px}
+
+    .id-section{margin-top:22px}.id-section-head{display:flex;align-items:center;justify-content:space-between;margin:0 3px 10px}.id-section-title{display:flex;align-items:center;gap:8px;color:#91a0b5;font-size:10px;font-weight:950;letter-spacing:1.4px;text-transform:uppercase}.id-section-title:before{content:'';width:3px;height:16px;border-radius:3px;background:linear-gradient(var(--club),var(--id-blue));box-shadow:0 0 9px color-mix(in srgb,var(--club) 45%,transparent)}.id-section-meta{padding:4px 7px;border:1px solid rgba(168,179,197,.08);border-radius:99px;background:rgba(168,179,197,.05);color:var(--id-text-3);font-size:9px;font-weight:800}
+
+    .id-season-strip{display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden;border:1px solid rgba(71,91,124,.42);border-radius:16px;background:linear-gradient(145deg,var(--id-surface),#091421);box-shadow:0 11px 26px rgba(0,0,0,.18)}.id-season-cell{min-width:0;padding:12px 10px}.id-season-cell+.id-season-cell{border-left:1px solid var(--id-border)}.id-season-cell small{display:block;color:var(--id-text-3);font-size:9px;font-weight:850;letter-spacing:.65px;text-transform:uppercase}.id-season-cell b{display:block;margin-top:6px;color:var(--id-text);font:22px/.95 'Bebas Neue',sans-serif;letter-spacing:.25px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.id-season-cell em{display:block;margin-top:4px;color:var(--id-text-3);font-size:9px;font-style:normal}
+
+    .id-competition-list{display:grid;gap:9px}.id-competition{position:relative;overflow:hidden;display:grid;grid-template-columns:45px minmax(0,1fr) auto;align-items:center;gap:12px;min-height:78px;padding:11px 13px;border:1px solid rgba(71,91,124,.43);border-radius:18px;background:radial-gradient(circle at 92% 0%,rgba(59,130,246,.1),transparent 31%),linear-gradient(145deg,#101d31,#091421);box-shadow:0 11px 26px rgba(0,0,0,.19),inset 0 1px rgba(255,255,255,.035)}.id-competition:after{content:'';position:absolute;right:-44px;bottom:-64px;width:128px;height:128px;border:1px solid rgba(168,179,197,.055);border-radius:50%;box-shadow:0 0 0 19px rgba(168,179,197,.015)}.id-competition.cup{background:radial-gradient(circle at 92% 0%,rgba(245,166,35,.13),transparent 31%),linear-gradient(145deg,#171b26,#091421)}.id-competition.europe{background:radial-gradient(circle at 90% 0%,rgba(139,92,246,.17),transparent 29%),radial-gradient(circle at 74% 90%,rgba(34,211,238,.08),transparent 30%),linear-gradient(145deg,#11152c,#090f21)}
+    .id-competition-icon{width:45px;height:45px;display:grid;place-items:center;border:1px solid rgba(96,165,250,.26);border-radius:14px;background:linear-gradient(145deg,rgba(59,130,246,.2),rgba(19,32,51,.65));color:#60a5fa}.id-competition.cup .id-competition-icon{color:var(--id-amber);border-color:rgba(245,166,35,.28);background:linear-gradient(145deg,rgba(245,166,35,.18),rgba(44,32,17,.55))}.id-competition.europe .id-competition-icon{color:#a78bfa;border-color:rgba(167,139,250,.3);background:linear-gradient(145deg,rgba(139,92,246,.22),rgba(18,18,54,.58))}.id-competition-icon svg{width:23px;height:23px}.id-competition-copy{min-width:0}.id-competition-copy small{display:block;color:var(--id-text-3);font-size:9px;font-weight:900;letter-spacing:.7px}.id-competition-copy b{display:block;margin-top:4px;color:var(--id-text);font-size:13px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.id-competition-copy em{display:block;margin-top:4px;color:#748399;font-size:10px;font-style:normal}.id-competition-side{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-end;gap:10px}.id-status{padding:5px 8px;border-radius:99px;font-size:9px;font-weight:950;white-space:nowrap}.id-status.info{color:#60a5fa;background:rgba(59,130,246,.13)}.id-status.good{color:#4ade80;background:rgba(34,197,94,.12)}.id-status.gold{color:#fbbf24;background:rgba(245,166,11,.12)}.id-status.danger{color:#fb7185;background:rgba(239,68,68,.12)}.id-mini-progress{width:52px;height:3px;overflow:hidden;border-radius:99px;background:#26364e}.id-mini-progress u{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--id-blue-2),#60a5fa);text-decoration:none}
+
+    .id-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.id-action{--action:var(--id-blue);position:relative;appearance:none;min-width:0;min-height:112px;padding:13px;border:1px solid rgba(71,91,124,.42);border-radius:17px;background:radial-gradient(circle at 100% 0%,color-mix(in srgb,var(--action) 15%,transparent),transparent 38%),linear-gradient(145deg,#101d31,#091421);color:var(--id-text);text-align:left;cursor:pointer;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,.18);transition:transform .16s,border-color .16s}.id-action:hover{transform:translateY(-1px);border-color:color-mix(in srgb,var(--action) 40%,#334155)}.id-action:active{transform:scale(.985)}.id-action.ach{--action:#8b5cf6}.id-action.career{--action:var(--id-amber)}.id-action.coaches{--action:var(--id-blue);grid-column:1/-1;min-height:76px;display:grid;grid-template-columns:44px minmax(0,1fr) 28px;align-items:center;gap:11px}
+    .id-action-icon{width:42px;height:42px;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--action) 32%,transparent);border-radius:13px;background:color-mix(in srgb,var(--action) 14%,var(--id-raised));color:color-mix(in srgb,var(--action) 78%,white)}.id-action-icon svg{width:20px;height:20px}.id-action b{display:block;margin-top:11px;font-size:12px;font-weight:900}.id-action small{display:block;margin-top:5px;color:#748399;font-size:10px;line-height:1.35}.id-action-top{display:flex;align-items:flex-start;justify-content:space-between}.id-action-value{font:22px/.95 'Bebas Neue',sans-serif;color:color-mix(in srgb,var(--action) 78%,white)}.id-action.coaches b{margin:0}.id-action.coaches small{margin-top:4px}.id-action-arrow{display:grid;place-items:center;width:28px;height:28px;border:1px solid rgba(168,179,197,.08);border-radius:9px;background:rgba(168,179,197,.06);color:var(--id-text-3)}.id-action-arrow svg{width:15px;height:15px}.id-ach-badge{position:absolute;right:8px;top:8px;min-width:19px;height:19px;padding:0 5px;display:grid;place-items:center;border:2px solid #111827;border-radius:99px;background:var(--id-red);box-shadow:0 4px 10px rgba(239,68,68,.45);color:#fff;font-size:9px;font-weight:950}
+
+    .id-insights{display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden;border:1px solid rgba(71,91,124,.42);border-radius:17px;background:linear-gradient(145deg,#101d31,#091421);box-shadow:0 10px 24px rgba(0,0,0,.17)}.id-insight{position:relative;min-width:0;min-height:92px;padding:13px 10px}.id-insight+.id-insight{border-left:1px solid var(--id-border)}.id-insight:before{content:'';position:absolute;left:10px;right:10px;top:0;height:2px;border-radius:0 0 3px 3px;background:var(--insight,var(--id-blue))}.id-insight small{display:block;color:var(--id-text-3);font-size:9px;font-weight:900;letter-spacing:.6px;text-transform:uppercase}.id-insight b{display:block;margin-top:9px;color:var(--id-text);font-size:12px;font-weight:950;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.id-insight em{display:block;margin-top:5px;color:#65748a;font-size:9px;font-style:normal}.id-insight.scorer{--insight:var(--id-amber)}.id-insight.academy{--insight:#8b5cf6}
+
+    .id-settings{overflow:hidden;border:1px solid rgba(71,91,124,.42);border-radius:17px;background:linear-gradient(145deg,#101d31,#091421);box-shadow:0 10px 24px rgba(0,0,0,.17)}.id-setting{--setting:var(--id-blue);appearance:none;width:100%;min-height:62px;display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:11px;padding:10px 12px;border:0;border-bottom:1px solid var(--id-border);background:transparent;color:var(--id-text);text-align:left;cursor:pointer}.id-setting:last-child{border-bottom:0}.id-setting:active{background:rgba(59,130,246,.045)}.id-setting-icon{width:36px;height:36px;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--setting) 28%,transparent);border-radius:11px;background:color-mix(in srgb,var(--setting) 12%,var(--id-raised));color:color-mix(in srgb,var(--setting) 72%,white)}.id-setting-icon svg{width:18px;height:18px}.id-setting b{display:block;font-size:11px;font-weight:850}.id-setting small{display:block;margin-top:3px;color:#6e7d92;font-size:9px}.id-setting.sound{--setting:#22d3ee}.id-setting.vibe{--setting:var(--id-green)}
+    .id-switch{position:relative;width:36px;height:20px;border:1px solid rgba(168,179,197,.13);border-radius:99px;background:#26364e;box-shadow:inset 0 2px 5px rgba(0,0,0,.25)}.id-switch:after{content:'';position:absolute;left:3px;top:3px;width:12px;height:12px;border-radius:50%;background:#fff;transition:left .18s}.id-setting.on .id-switch{background:var(--setting)}.id-setting.on .id-switch:after{left:19px}
+
+    .id-manage-row{display:grid;grid-template-columns:minmax(0,1fr) 54px;gap:9px}.id-save,.id-reset{appearance:none;border:1px solid rgba(71,91,124,.42);border-radius:17px;background:linear-gradient(145deg,#101d31,#091421);color:var(--id-text);cursor:pointer;box-shadow:0 10px 24px rgba(0,0,0,.17)}.id-save{min-height:72px;display:grid;grid-template-columns:42px minmax(0,1fr) 28px;align-items:center;gap:11px;padding:11px 12px;text-align:left}.id-save .id-action-icon{width:40px;height:40px;--action:var(--id-blue)}.id-save b{display:block;font-size:11px;font-weight:900}.id-save small{display:block;margin-top:4px;color:#6e7d92;font-size:9px}.id-slots{display:flex;gap:4px;margin-top:6px}.id-slots i{width:16px;height:3px;border-radius:4px;background:#26364e}.id-slots i.filled{background:var(--id-green);box-shadow:0 0 7px rgba(34,197,94,.4)}.id-reset{display:grid;place-items:center;color:#fb7185;border-color:rgba(239,68,68,.24);background:linear-gradient(145deg,rgba(74,18,35,.64),#130c14)}.id-reset svg{width:19px;height:19px}
+    .id-bug{display:grid;grid-template-columns:38px minmax(0,1fr) auto;align-items:center;gap:10px;margin-top:9px;padding:10px 11px;border:1px solid rgba(34,211,238,.21);border-radius:16px;background:radial-gradient(circle at 92% 0%,rgba(34,211,238,.1),transparent 32%),linear-gradient(145deg,#0e1c2c,#08141f)}.id-bug-icon{width:36px;height:36px;display:grid;place-items:center;border:1px solid rgba(34,211,238,.25);border-radius:11px;background:rgba(34,211,238,.09);color:#67e8f9}.id-bug-icon svg{width:18px;height:18px}.id-bug b{display:block;font-size:10px;font-weight:900}.id-bug small{display:block;margin-top:3px;color:#6e7d92;font-size:9px}.id-bug a{min-height:32px;display:flex;align-items:center;padding:0 10px;border:1px solid rgba(96,165,250,.3);border-radius:9px;background:linear-gradient(135deg,var(--id-blue-2),var(--id-blue));color:#fff;text-decoration:none;font-size:9px;font-weight:900}
+
+    body.theme-light .id-club{--id-bg:#f3f6fa;--id-app:#eef3f8;--id-surface:#fff;--id-raised:#eaf0f7;--id-border:#d8e1ec;--id-text:#172033;--id-text-2:#475569;--id-text-3:#64748b;background:radial-gradient(circle at 88% 3%,color-mix(in srgb,var(--club) 9%,transparent),transparent 22%),linear-gradient(180deg,#f3f6fa,#eef3f8)}
+    body.theme-light .id-hero{border-color:#d6e0eb;background:radial-gradient(circle at 85% 14%,color-mix(in srgb,var(--club) 12%,transparent),transparent 30%),linear-gradient(145deg,#fff,#edf3f9);box-shadow:0 14px 35px rgba(37,51,74,.09)}body.theme-light .id-crest{background:#fff;border-color:#d8e1ec;box-shadow:0 9px 22px rgba(37,51,74,.1)}body.theme-light .id-scoreboard{background:rgba(255,255,255,.68);border-color:#d8e1ec}body.theme-light .id-stat+.id-stat{border-color:#d8e1ec}
+    body.theme-light .id-season-strip,body.theme-light .id-competition,body.theme-light .id-action,body.theme-light .id-insights,body.theme-light .id-settings,body.theme-light .id-save{border-color:#d8e1ec;background:radial-gradient(circle at 92% 0%,rgba(59,130,246,.045),transparent 30%),linear-gradient(145deg,#fff,#f4f7fb);box-shadow:0 9px 23px rgba(37,51,74,.07)}body.theme-light .id-season-cell+.id-season-cell,body.theme-light .id-insight+.id-insight,body.theme-light .id-setting{border-color:#d8e1ec}body.theme-light .id-competition.cup{background:radial-gradient(circle at 92% 0%,rgba(245,166,35,.08),transparent 30%),#fff}body.theme-light .id-competition.europe{background:radial-gradient(circle at 92% 0%,rgba(139,92,246,.09),transparent 30%),#fff}body.theme-light .id-ach-badge{border-color:#fff}
+    body.theme-light .id-reset{background:#fff1f3;box-shadow:0 9px 23px rgba(159,18,57,.06)}body.theme-light .id-bug{background:#f0f9ff;border-color:#bae6fd}body.theme-light .id-bug b{color:#172033}
+    @media(max-width:390px){.id-club{padding-left:8px;padding-right:8px}.id-identity{grid-template-columns:58px minmax(0,1fr) auto;gap:10px}.id-crest{width:58px;height:58px}.id-club-copy h2{font-size:20px}.id-rep{font-size:8px}.id-stat b{font-size:22px}.id-action{padding:11px}.id-insight{padding-left:8px;padding-right:8px}.id-insight b{font-size:11px}.id-setting{grid-template-columns:36px minmax(0,1fr) auto}.id-bug small{display:none}}
+    @media(prefers-reduced-motion:reduce){.id-action,.id-switch:after{transition:none}}
+
+    /* v35 · clean club UI — менше декору, сильніша ієрархія */
+    .id-club{padding:8px 12px 104px;background:linear-gradient(180deg,#05080e,#08111f 54%,#05080e)}
+    .id-club:before{opacity:.12;background-size:32px 32px}
+    .id-hero{padding:14px 14px 13px;border-color:#223149;border-radius:18px;background:linear-gradient(145deg,#101b2c,#091321 78%);box-shadow:0 12px 30px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.035)}
+    .id-hero:before{display:none}.id-hero:after{top:17px;bottom:17px;width:3px;background:linear-gradient(#60a5fa,#2563eb);box-shadow:none}
+    .id-hero-top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 1px 11px 6px}
+    .id-eyebrow{margin:0;color:#8190a5;font-size:9px;letter-spacing:1.25px}.id-rep{align-self:auto;padding:4px 7px;font-size:8px;letter-spacing:.55px}
+    .id-identity{grid-template-columns:56px minmax(0,1fr);gap:12px}.id-crest{width:56px;height:56px;padding:5px;overflow:hidden;border-color:rgba(255,255,255,.12);border-radius:15px;background:#f8fafc;box-shadow:0 7px 18px rgba(0,0,0,.23)}
+    .id-crest>span{width:100%;height:100%;display:grid;place-items:center}.id-crest>span>img,.id-crest>span>svg,.id-crest img,.id-crest svg{width:100%!important;height:100%!important;max-width:46px!important;max-height:46px!important;object-fit:contain!important}
+    .id-club-copy h2{font-size:21px;letter-spacing:-.25px}.id-club-copy p{margin-top:6px;color:#8b99ad;font-size:10px}
+    .id-scoreboard{margin-top:13px;border-color:#223149;border-radius:14px;background:#08111f}.id-stat{padding:10px 4px}.id-stat+.id-stat{border-color:#223149}.id-stat b{font-size:24px}.id-stat span{margin-top:5px;font-size:8px;color:#738197}
+    .id-season-progress{margin-top:11px}.id-progress-head{font-size:9px}.id-progress-head b{font-size:9px}.id-progress-track{height:4px;background:#1b293d}.id-progress-track i{box-shadow:none}
+    .id-hero-foot{margin-top:10px;padding-top:10px;border-top:1px solid rgba(34,49,73,.7)}.id-record,.id-record b,.id-form-label,.id-form,.id-no-form{font-size:8px}.id-record b{padding:3px 5px}.id-form{width:20px;height:20px;border-radius:6px}
+    .id-section{margin-top:19px}.id-section-title:before{width:2px;height:14px;background:#3b82f6;box-shadow:none}.id-section-title{font-size:9px;color:#8593a7;letter-spacing:1.25px}.id-section-meta{font-size:8px;background:transparent;border-color:#1c2a3d}
+    .id-season-strip,.id-competition,.id-action,.id-insights,.id-settings,.id-save{border-color:#223149;background:#0d1726;box-shadow:0 7px 18px rgba(0,0,0,.16)}
+    .id-season-strip{border-radius:15px}.id-season-cell{padding:11px 10px}.id-season-cell small{font-size:8px}.id-season-cell b{font-size:21px}.id-season-cell em{font-size:8px}
+    .id-competition{min-height:70px;padding:10px 12px;border-radius:16px;background:#0d1726}.id-competition.cup,.id-competition.europe{background:#0d1726}.id-competition:after{display:none}.id-competition-icon{width:42px;height:42px;border-radius:12px;background:#132033}.id-competition-copy small{font-size:8px}.id-competition-copy b{font-size:12px}.id-competition-copy em{font-size:9px}.id-status{font-size:8px}
+    .id-actions{gap:8px}.id-action{min-height:103px;padding:12px;border-radius:16px;background:#0d1726}.id-action.ach,.id-action.career,.id-action.coaches{background:#0d1726}.id-action.coaches{min-height:70px}.id-action small{font-size:9px}.id-action-icon{background:#132033}.id-action-value{font-size:20px}
+    .id-insights{border-radius:16px}.id-insight{min-height:84px;padding-top:12px}.id-insight:before{left:9px;right:9px;height:2px}.id-insight small{font-size:8px}.id-insight em{font-size:8px}
+    .id-settings{border-radius:16px}.id-setting{min-height:59px;padding:9px 11px}.id-setting small{font-size:8px}.id-setting-icon{background:#132033}
+    .id-save,.id-reset{border-radius:16px}.id-save{min-height:68px}.id-bug{border-color:#1e3a4b;border-radius:15px;background:#0b1825}.id-bug small{font-size:8px}
+    body.theme-light .id-club{background:#f3f6fa}.theme-light .id-hero{background:#fff;border-color:#d8e1ec;box-shadow:0 8px 22px rgba(37,51,74,.08)}.theme-light .id-scoreboard{background:#f4f7fb}.theme-light .id-season-strip,.theme-light .id-competition,.theme-light .id-action,.theme-light .id-insights,.theme-light .id-settings,.theme-light .id-save{background:#fff!important;border-color:#d8e1ec;box-shadow:0 6px 18px rgba(37,51,74,.06)}
+    @media(max-width:390px){.id-club{padding-left:8px;padding-right:8px}.id-hero{padding-left:12px;padding-right:12px}.id-identity{grid-template-columns:52px minmax(0,1fr)}.id-crest{width:52px;height:52px}.id-club-copy h2{font-size:19px}.id-rep{font-size:7px}.id-stat b{font-size:22px}.id-hero-foot{gap:7px}}
+  </style>
+
+  <div class="id-club">
+    <section class="id-hero">
+      <div class="id-hero-top"><div class="id-eyebrow">ОГЛЯД КЛУБУ</div><span class="id-rep">${repLabel}</span></div>
+      <div class="id-identity">
+        <div class="id-crest"><span>${G.club.logo}</span></div>
+        <div class="id-club-copy"><h2>${G.club.name}</h2><p>${leagueIconHtml(league,'13px')}<span>${league.fullName||league.name||'Ліга'}</span><span>·</span><span>Сезон ${seasonLabel}</span></p></div>
+      </div>
+      <div class="id-scoreboard">
+        <div class="id-stat primary"><b>${pos}</b><span>Місце</span></div>
+        <div class="id-stat"><b>${ts.pts||0}</b><span>Очки</span></div>
+        <div class="id-stat"><b>${played}</b><span>Матчі</span></div>
+        <div class="id-stat ${goalDiff>0?'positive':goalDiff<0?'negative':''}"><b>${goalDiff>0?'+':''}${goalDiff}</b><span>Різниця</span></div>
+      </div>
+      <div class="id-season-progress"><div class="id-progress-head"><span>Прогрес чемпіонату</span><b>${played} з ${totalRd} турів · ${seasonProgress}%</b></div><div class="id-progress-track"><i style="width:${seasonProgress}%"></i></div></div>
+      <div class="id-hero-foot"><div class="id-record"><span>Баланс</span><b>${wins}В</b><b>${draws}Н</b><b>${losses}П</b></div><div class="id-form-row"><span class="id-form-label">Форма</span>${formHtml}</div></div>
+    </section>
+
+    <section class="id-section">
+      <div class="id-section-head"><div class="id-section-title">Сезон зараз</div><span class="id-section-meta">${played?played+' матчів':'Старт сезону'}</span></div>
+      <div class="id-season-strip">
+        <div class="id-season-cell"><small>Ефективність</small><b>${winRate}%</b><em>перемог</em></div>
+        <div class="id-season-cell"><small>Атака</small><b>${gf}</b><em>${plural(gf,'гол','голи','голів')}</em></div>
+        <div class="id-season-cell"><small>Оборона</small><b>${ga}</b><em>пропущено</em></div>
+      </div>
+    </section>
+
+    <section class="id-section">
+      <div class="id-section-head"><div class="id-section-title">Турніри</div><span class="id-section-meta">${[leagueCard,cupCard,europeCard].filter(Boolean).length} активні</span></div>
+      <div class="id-competition-list">${leagueCard}${cupCard}${europeCard}</div>
+    </section>
+
+    <section class="id-section">
+      <div class="id-section-head"><div class="id-section-title">Тренерський штаб</div><span class="id-section-meta">Репутація ${careerRep}</span></div>
+      <div class="id-actions">
+        <button class="id-action ach" onclick="showAchievementsScreen()">
+          ${achievementBonus?`<span class="id-ach-badge" aria-label="${achievementBonus} незабраних нагород">${achievementBonus>99?'99+':achievementBonus}</span>`:''}
+          <span class="id-action-top"><span class="id-action-icon">${ICON.medal}</span><span class="id-action-value">${achievementPct}%</span></span>
+          <b>Досягнення</b><small>${achievementDone}/${achievementTotal} виконано</small>
+        </button>
+        <button class="id-action career" onclick="openCareerModal()">
+          <span class="id-action-top"><span class="id-action-icon">${ICON.trophy}</span><span class="id-action-value">${trophies}</span></span>
+          <b>Моя кар’єра</b><small>${careerSeasons?careerSeasons+' '+plural(careerSeasons,'сезон','сезони','сезонів'):'Перший сезон триває'}</small>
+        </button>
+        <button class="id-action coaches" onclick="window.openCoachHub()">
+          <span class="id-action-icon">${ICON.coach}</span>
+          <span><b>Тренерський центр</b><small>Рейтинг тренерів · ринок · історія призначень</small></span>
+          <span class="id-action-arrow">${ICON.arrow}</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="id-section">
+      <div class="id-section-head"><div class="id-section-title">Пульс клубу</div><span class="id-section-meta">${seasonLabel}</span></div>
+      <div class="id-insights">
+        <div class="id-insight scorer"><small>Бомбардир</small><b>${topSc?topSc.n:'Поки немає'}</b><em>${topSc?topSc.goals+' '+plural(topSc.goals,'гол','голи','голів'):'без матчів'}</em></div>
+        <div class="id-insight"><small>Склад</small><b>Ø ${avgRating}</b><em>${squad.length} ${plural(squad.length,'гравець','гравці','гравців')}</em></div>
+        <div class="id-insight academy"><small>Академія</small><b>Рівень ${academyLevel}</b><em>${academyGraduates} вихованців</em></div>
+      </div>
+    </section>
+
+    <section class="id-section">
+      <div class="id-section-head"><div class="id-section-title">Налаштування</div><span class="id-section-meta">Персоналізація</span></div>
+      <div class="id-settings">
+        <button class="id-setting ${G.theme==='light'?'on':''}" onclick="toggleTheme()" aria-pressed="${G.theme==='light'}"><span class="id-setting-icon">${ICON.theme}</span><span><b>${G.theme==='light'?'Світла тема':'Темна тема'}</b><small>Нейтральна світла або стадіонна темна палітра</small></span><span class="id-switch"></span></button>
+        <button class="id-setting sound ${!mutedNow?'on':''}" onclick="toggleMuteFromSettings()" aria-pressed="${!mutedNow}"><span class="id-setting-icon">${mutedNow?ICON.soundOff:ICON.sound}</span><span><b>Звуки гри</b><small>Матчі, натискання та атмосфера стадіону</small></span><span class="id-switch"></span></button>
+        <button class="id-setting vibe ${G.vibration!==false?'on':''}" onclick="toggleVibration()" aria-pressed="${G.vibration!==false}"><span class="id-setting-icon">${ICON.vibe}</span><span><b>Вібровідгук</b><small>Голи, трансфери та ключові події</small></span><span class="id-switch"></span></button>
+      </div>
+    </section>
+
+    <section class="id-section">
+      <div class="id-section-head"><div class="id-section-title">Кар’єра та підтримка</div><span class="id-section-meta">${slotCount}/3 слотів</span></div>
+      <div class="id-manage-row">
+        <button class="id-save" onclick="openSlotPicker(false)"><span class="id-action-icon">${ICON.save}</span><span><b>Мої кар’єри</b><small>Продовжити або змінити збереження</small><span class="id-slots">${[1,2,3].map(n=>`<i class="${getSlotPreview(n)?'filled':''}"></i>`).join('')}</span></span><span class="id-action-arrow">${ICON.arrow}</span></button>
+        <button class="id-reset" onclick="resetAll()" aria-label="Почати нову кар’єру">${ICON.reset}</button>
+      </div>
+      <div class="id-bug"><span class="id-bug-icon">${ICON.bug}</span><span><b>Знайшли баг?</b><small>Опишіть проблему — ми перевіримо</small></span><a href="https://t.me/ADM_FMG" target="_blank" rel="noopener noreferrer">Написати</a></div>
+    </section>
   </div>`;
 }
 
@@ -29423,7 +29703,7 @@ function admSellAll(){
   G.players.forEach(p=>{
     const val=typeof playerValue==='function'?playerValue(p):(p.mv||0)*1e6||p.r*500000;
     total+=val;
-    G.transfers.history.push({type:'sell',name:p.n,pos:p.p,club:G.club.name,price:val,round:G.currentRound});
+    G.transfers.history.push({type:'sell',owner:'user',name:p.n,pos:p.p,club:G.club.name,price:val,round:G.currentRound});
   });
   G.budget+=total;
   G.players=[];
@@ -29448,7 +29728,7 @@ function admSellExpensive(){
   toSell.forEach(p=>{
     const val=typeof playerValue==='function'?playerValue(p):(p.mv||0)*1e6;
     total+=val;
-    G.transfers.history.push({type:'sell',name:p.n,pos:p.p,club:G.club.name,price:val,round:G.currentRound});
+    G.transfers.history.push({type:'sell',owner:'user',name:p.n,pos:p.p,club:G.club.name,price:val,round:G.currentRound});
   });
   G.budget+=total;
   G.players=G.players.filter(p=>!toSell.includes(p));
@@ -33190,6 +33470,370 @@ body.light #liveOverlay .match-console .live-bench-head small{color:#7a889c}
     }
     if(!inUCL&&phase==='group')html+=`<section class="ucl33-section"><div class="ucl33-my-status" style="border-color:rgba(255,225,59,.18)"><div class="rank" style="color:#ffe66a">◆</div><div><b>Ваш клуб не кваліфікувався</b><p>Завершіть сезон у зоні Ліги чемпіонів, щоб повернутися на Ultimate Stage.</p></div></div></section>`;
     el.innerHTML=html+'</div>';
+  };
+})();
+</script>
+<style id="club-identity-v2-v38">
+/* Presentation is injected by renderClubDashboardIdentity v38 below. */
+</style>
+<script>
+(function installClubIdentityV2(){
+  'use strict';
+  window.renderClubDashboardIdentity=function renderClubDashboardIdentityV2(d){
+    const root=document.getElementById('settingsContent');
+    if(!root||!G?.club)return;
+
+    const {ts,league,pos,posCol,played,totalRd,wins,draws,losses,gf,ga,form5,careerRep,repLabel,repColor,cupStage,cupElim,cupWon,inUCL,uclPhase,uclElim,uclWon,topSc}=d;
+    const clubHex=String(G.club.color||'').trim();
+    const clubColor=/^#[0-9a-fA-F]{6}$/.test(clubHex)?clubHex:'#3478f6';
+    const squad=Array.isArray(G.players)?G.players:[];
+    const avgRating=squad.length?Math.round(squad.reduce((sum,p)=>sum+(Number(p.r)||0),0)/squad.length):0;
+    const academyLevel=G.academy?.level||1;
+    const academyGraduates=squad.filter(p=>p._fromAcademy).length;
+    const goalDiff=(gf||0)-(ga||0);
+    const winRate=played?Math.round((wins||0)/played*100):0;
+    const progress=totalRd?Math.min(100,Math.round(played/totalRd*100)):0;
+    const seasonLabel=String(getSeasonLabel()).replace(/^Сезон\s*/i,'');
+    const achievementState=G.achievements||{};
+    const achievementDone=Object.keys(achievementState).length;
+    const achievementTotal=typeof ACHIEVEMENTS!=='undefined'?ACHIEVEMENTS.length:50;
+    const achievementBonus=typeof ACHIEVEMENTS!=='undefined'?ACHIEVEMENTS.filter(a=>achievementState[a.id]&&!achievementState[a.id].bonusClaimed&&a.bonus>0).length:0;
+    const achievementPct=Math.round(achievementDone/Math.max(1,achievementTotal)*100);
+    const careerSeasons=(G.careerLog||[]).length;
+    const trophies=(G.trophyHistory||[]).length;
+    const slotCount=[1,2,3].filter(n=>getSlotPreview(n)).length;
+    const mutedNow=typeof _muted!=='undefined'&&_muted;
+    const cupName=(LEAGUES.find(l=>l.id===G.leagueId)||{cupName:'Кубок'}).cupName;
+    const plural=(n,one,few,many)=>{const a=Math.abs(n)%100,b=a%10;if(a>10&&a<20)return many;if(b>1&&b<5)return few;return b===1?one:many};
+    const ico=(paths)=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${paths}</svg>`;
+    const ICON={
+      arrow:ico('<path d="M5 12h14M13 6l6 6-6 6"/>'),
+      trophy:ico('<path d="M8 4h8v4a4 4 0 01-8 0V4zM8 6H4v1a4 4 0 004 4M16 6h4v1a4 4 0 01-4 4M12 12v5M8 21h8M9 17h6"/>'),
+      star:ico('<path d="M12 2l3.1 6.25L22 9.25l-5 4.88 1.18 6.87L12 17.75 5.82 21 7 14.13 2 9.25l6.9-1z"/>'),
+      medal:ico('<circle cx="12" cy="14" r="6"/><path d="M8.5 8.8L6 3h4l2 5 2-5h4l-2.5 5.8M9 14h6"/>'),
+      coach:ico('<circle cx="12" cy="7" r="3"/><path d="M5 21v-3a7 7 0 0114 0v3M8 13l4 3 4-3"/>'),
+      academy:ico('<path d="M3 9l9-5 9 5-9 5-9-5zM7 12v4c3 2 7 2 10 0v-4M21 9v6"/>'),
+      theme:ico('<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 000 16z" fill="currentColor" stroke="none"/>'),
+      sound:ico('<path d="M4 9v6h4l5 4V5L8 9H4zM17 9.5a4 4 0 010 5M19.5 7a7.5 7.5 0 010 10"/>'),
+      soundOff:ico('<path d="M4 9v6h4l5 4V5L8 9H4zM17 10l4 4M21 10l-4 4"/>'),
+      vibe:ico('<rect x="8" y="3" width="8" height="18" rx="2"/><path d="M4.5 9v6M19.5 9v6"/>'),
+      save:ico('<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 14h5"/>'),
+      reset:ico('<path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/>'),
+      bug:ico('<path d="M9 9h6v8a3 3 0 01-6 0V9zM10 5h4l1 4H9l1-4zM5 12h4M15 12h4M5 16h4M15 16h4M7 7l2 2M17 7l-2 2"/>')
+    };
+    const formHtml=form5.length?form5.map(r=>`<span class="cv2-form ${r.toLowerCase()}">${r==='W'?'В':r==='D'?'Н':'П'}</span>`).join(''):'<span class="cv2-form-empty">Ще без форми</span>';
+    const comp=(tone,iconHtml,kicker,title,meta,status,statusTone,bar)=>`<article class="cv2-comp ${tone}">
+      <div class="cv2-comp-icon">${iconHtml}</div><div class="cv2-comp-copy"><small>${kicker}</small><b>${title}</b><span>${meta}</span></div>
+      <div class="cv2-comp-side"><strong class="${statusTone}">${status}</strong>${bar!==null?`<i><u style="width:${bar}%"></u></i>`:''}</div>
+    </article>`;
+    const leagueCard=comp('league',leagueIconHtml(league,'31px'),'НАЦІОНАЛЬНА ЛІГА',league.fullName||league.name||'Ліга',`Тур ${played}/${totalRd} · ${ts.pts||0} очок`,`${pos} місце`,'blue',progress);
+    const cupCard=G.cup?comp('cup',ICON.trophy,'КУБОК',cupName,`Поточна стадія · ${cupStage}`,cupWon?'Трофей':cupElim?'Вибули':'У грі',cupWon?'gold':cupElim?'red':'green',null):'';
+    let europeCard='';
+    if(inUCL){const phase=uclPhase==='group'?'Груповий етап':uclPhase==='playoff'||uclPhase==='playoff_pending'?'Плей-оф':uclPhase==='done'?'Турнір завершено':'Очікує старту';europeCard=comp('europe',ICON.star,'ЄВРОПЕЙСЬКА СЦЕНА','Ліга чемпіонів',phase,uclWon?'Трофей':uclElim?'Вибули':'У грі',uclWon?'gold':uclElim?'red':'blue',null)}
+
+    root.innerHTML=`
+    <style>
+      .clubv2{--club:${clubColor};--night:#04070d;--ink:#07101c;--panel:#0b1524;--panel2:#101d30;--line:#24334a;--txt:#f6f9ff;--soft:#a8b3c4;--mut:#66758b;--blue:#3478f6;--lime:#b8ff35;--coral:#ff5967;--gold:#f6bb4b;--cyan:#25d5e8;position:relative;isolation:isolate;margin:-1px -1px 0;padding:12px 12px 108px;background:linear-gradient(180deg,#04070d,#07101c 56%,#04070d);color:var(--txt);font-family:Inter,sans-serif;overflow:hidden}
+      .clubv2 *{box-sizing:border-box}.clubv2 button,.clubv2 a{font:inherit}.clubv2 button{color:inherit}.clubv2 svg{width:22px;height:22px;display:block}.clubv2:before{content:'';position:absolute;z-index:-1;inset:0;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(#000,transparent 72%)}
+      .cv2-hero{position:relative;min-height:390px;border:1px solid #293a52;border-radius:25px;overflow:hidden;background:#07101c;box-shadow:0 22px 56px rgba(0,0,0,.32)}
+      .cv2-hero-photo{position:absolute;inset:0;background:url('identity_v2_assets/fmua-key-visual-wide-v1.webp') 62% center/cover no-repeat;filter:saturate(.96) contrast(1.02)}
+      .cv2-hero-photo:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,7,13,.98) 0%,rgba(3,7,13,.91) 38%,rgba(3,7,13,.22) 71%,rgba(3,7,13,.42)),linear-gradient(0deg,rgba(3,7,13,.98) 0%,transparent 53%),radial-gradient(circle at 9% 3%,color-mix(in srgb,var(--club) 38%,transparent),transparent 34%)}
+      .cv2-tracer{position:absolute;z-index:2;right:-18px;top:68px;width:250px;height:190px;opacity:.65}.cv2-tracer path{fill:none;stroke:var(--lime);stroke-width:1.3;stroke-dasharray:6 7}.cv2-tracer circle{fill:var(--lime);stroke:#061007;stroke-width:4}
+      .cv2-hero-body{position:relative;z-index:3;min-height:390px;padding:21px 18px 16px;display:flex;flex-direction:column}.cv2-hero-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.cv2-kicker{font-size:8px;font-weight:950;letter-spacing:1.7px;color:var(--lime)}.cv2-rep{padding:5px 8px;border:1px solid rgba(255,255,255,.16);border-radius:8px;background:rgba(3,7,13,.5);color:#c5cfdb;font-size:7px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;backdrop-filter:blur(8px)}
+      .cv2-club-id{display:grid;grid-template-columns:72px minmax(0,1fr);gap:13px;align-items:center;margin-top:37px;max-width:360px}.cv2-crest{width:72px;height:72px;padding:8px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.2);border-radius:19px;background:rgba(255,255,255,.94);box-shadow:0 15px 34px rgba(0,0,0,.36)}.cv2-crest>div,.cv2-crest img,.cv2-crest svg{width:100%!important;height:100%!important;object-fit:contain}.cv2-club-name{font-size:25px;font-weight:950;line-height:1.04;letter-spacing:-.7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cv2-club-meta{margin-top:6px;color:#a9b4c3;font-size:10px}.cv2-season-mark{display:inline-flex;margin-top:8px;padding:4px 7px;border-left:2px solid var(--lime);background:rgba(184,255,53,.08);color:#c8ff75;font-size:7px;font-weight:900;letter-spacing:1px}
+      .cv2-hero-spacer{flex:1}.cv2-scoreline{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid rgba(148,163,184,.22);border-radius:15px;background:rgba(5,10,18,.74);backdrop-filter:blur(12px);overflow:hidden}.cv2-kpi{min-width:0;padding:11px 5px;text-align:center}.cv2-kpi+.cv2-kpi{border-left:1px solid rgba(148,163,184,.18)}.cv2-kpi b{display:block;font:27px/1 'Bebas Neue',sans-serif;letter-spacing:.4px}.cv2-kpi:first-child b{color:var(--lime)}.cv2-kpi:last-child b{color:${goalDiff>=0?'#63e6b1':'#ff7883'}}.cv2-kpi span{display:block;margin-top:5px;color:#78869a;font-size:7px;font-weight:850;letter-spacing:.7px;text-transform:uppercase}
+      .cv2-progress{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:9px;margin-top:11px}.cv2-progress span{font-size:7px;font-weight:800;color:#77869a;text-transform:uppercase;letter-spacing:.7px}.cv2-progress i{height:4px;border-radius:4px;background:#1a293e;overflow:hidden}.cv2-progress u{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue),var(--lime));text-decoration:none}.cv2-progress b{font-size:8px;color:#bcc6d3}.cv2-hero-foot{display:flex;align-items:center;justify-content:space-between;margin-top:11px}.cv2-form-list{display:flex;gap:5px}.cv2-form{width:23px;height:23px;display:grid;place-items:center;border-radius:7px;font-size:8px;font-weight:950}.cv2-form.w{color:#69e8aa;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.25)}.cv2-form.d{color:#f7cc55;background:rgba(246,187,75,.13);border:1px solid rgba(246,187,75,.22)}.cv2-form.l{color:#ff7883;background:rgba(255,89,103,.13);border:1px solid rgba(255,89,103,.22)}.cv2-form-empty{font-size:8px;color:#718096}.cv2-record{color:#8795a8;font-size:8px}.cv2-record b{color:#d5dce6}
+      .cv2-section{margin-top:25px}.cv2-section-head{display:flex;align-items:flex-end;justify-content:space-between;margin:0 3px 10px}.cv2-section-head div{display:flex;align-items:center;gap:8px;color:#a9b4c4;font-size:9px;font-weight:950;letter-spacing:1.35px;text-transform:uppercase}.cv2-section-head div:before{content:'';width:3px;height:17px;border-radius:3px;background:var(--lime)}.cv2-section-head span{font-size:7px;color:#5c6a7f;text-transform:uppercase;letter-spacing:.5px}
+      .cv2-season-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:9px}.cv2-metric{min-height:112px;padding:14px;border:1px solid #23334a;border-radius:17px;background:#0b1524;overflow:hidden}.cv2-metric.hero{position:relative;grid-row:span 2;background:linear-gradient(155deg,rgba(52,120,246,.22),#0b1524 55%)}.cv2-metric.hero:before{content:'${winRate}';position:absolute;right:-6px;bottom:-29px;font:132px/1 'Bebas Neue';color:rgba(255,255,255,.045)}.cv2-metric small{font-size:7px;color:#718097;font-weight:900;letter-spacing:.8px;text-transform:uppercase}.cv2-metric b{display:block;margin-top:8px;font:34px/1 'Bebas Neue';color:#f8fbff}.cv2-metric.hero b{font-size:56px;color:var(--lime)}.cv2-metric span{display:block;margin-top:5px;color:#69778b;font-size:8px}.cv2-metric.attack b{color:#8db4ff}.cv2-metric.defence b{color:#ff7d87}
+      .cv2-comps{display:grid;gap:8px}.cv2-comp{position:relative;min-height:86px;padding:12px;display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:11px;align-items:center;border:1px solid #24344b;border-radius:18px;background:#0b1524;overflow:hidden}.cv2-comp:after{content:'';position:absolute;right:-32px;top:-40px;width:130px;height:130px;border:1px solid rgba(255,255,255,.05);border-radius:50%}.cv2-comp.league{background:linear-gradient(100deg,rgba(52,120,246,.12),#0b1524 56%)}.cv2-comp.cup{background:linear-gradient(100deg,rgba(246,187,75,.12),#0b1524 56%)}.cv2-comp.europe{background:linear-gradient(100deg,rgba(156,107,255,.14),#0b1524 56%)}.cv2-comp-icon{width:48px;height:48px;padding:9px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:#111f32;color:#8fb6ff}.cv2-comp-icon img,.cv2-comp-icon svg,.cv2-comp-icon>div{width:100%!important;height:100%!important;object-fit:contain}.cup .cv2-comp-icon{color:var(--gold)}.europe .cv2-comp-icon{color:#b99cff}.cv2-comp-copy{min-width:0}.cv2-comp-copy small{display:block;color:#627187;font-size:6.5px;font-weight:900;letter-spacing:1px}.cv2-comp-copy b{display:block;margin-top:3px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cv2-comp-copy span{display:block;margin-top:3px;color:#748297;font-size:8px}.cv2-comp-side{position:relative;z-index:2;text-align:right}.cv2-comp-side strong{display:inline-flex;padding:4px 7px;border-radius:8px;font-size:7px;font-weight:950;white-space:nowrap}.cv2-comp-side .blue{color:#8bb2ff;background:rgba(52,120,246,.15);border:1px solid rgba(52,120,246,.22)}.cv2-comp-side .green{color:#5ee0a9;background:rgba(34,197,94,.13);border:1px solid rgba(34,197,94,.22)}.cv2-comp-side .red{color:#ff7d87;background:rgba(255,89,103,.13);border:1px solid rgba(255,89,103,.22)}.cv2-comp-side .gold{color:#f8c65f;background:rgba(246,187,75,.14);border:1px solid rgba(246,187,75,.24)}.cv2-comp-side i{display:block;width:66px;height:3px;margin-top:8px;border-radius:3px;background:#213047;overflow:hidden}.cv2-comp-side u{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--lime));text-decoration:none}
+      .cv2-story-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:9px}.cv2-story{position:relative;min-height:270px;border:1px solid #28384f;border-radius:20px;overflow:hidden;background:#0b1524;text-align:left;cursor:pointer}.cv2-story.photo{background:url('identity_v2_assets/fmua-player-celebration-portrait-v1.webp') center 29%/cover}.cv2-story.photo:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,7,13,.98),rgba(4,7,13,.08) 70%)}.cv2-story-content{position:absolute;z-index:2;left:15px;right:15px;bottom:15px}.cv2-story-content small{color:var(--lime);font-size:6.5px;font-weight:950;letter-spacing:1px}.cv2-story-content b{display:block;margin:5px 0 3px;font:30px/.92 'Bebas Neue';letter-spacing:.3px}.cv2-story-content span{display:block;color:#9aa7b8;font-size:8px}.cv2-story-content em{display:inline-flex;margin-top:10px;padding:8px 10px;border-radius:9px;background:var(--lime);color:#081009;font-size:7px;font-weight:950;font-style:normal}.cv2-story-stack{display:grid;gap:9px}.cv2-action{position:relative;min-height:130px;padding:15px;border:1px solid #27374e;border-radius:18px;background:#0b1524;text-align:left;cursor:pointer;overflow:hidden}.cv2-action:after{content:'→';position:absolute;right:13px;bottom:10px;color:#506079;font-size:18px}.cv2-action.ach{background:linear-gradient(145deg,rgba(156,107,255,.18),#0b1524 62%)}.cv2-action.coach{background:linear-gradient(145deg,rgba(52,120,246,.2),#0b1524 62%)}.cv2-action-icon{width:37px;height:37px;padding:8px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.12);border-radius:11px;background:rgba(255,255,255,.05);color:#a98cff}.coach .cv2-action-icon{color:#78a7ff}.cv2-action b{display:block;margin-top:11px;font-size:11px}.cv2-action small{display:block;margin-top:3px;color:#6f7e92;font-size:7.5px}.cv2-badge{position:absolute;right:11px;top:11px;min-width:21px;height:21px;padding:0 6px;display:grid;place-items:center;border-radius:9px;background:var(--coral);color:#fff;font-size:7px;font-weight:950}
+      .cv2-pulse{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #25354c;border-radius:18px;background:#0b1524;overflow:hidden}.cv2-pulse-item{position:relative;min-width:0;padding:15px 12px}.cv2-pulse-item+.cv2-pulse-item{border-left:1px solid #25354c}.cv2-pulse-item:before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:var(--tone,var(--blue))}.cv2-pulse-item small{display:block;color:#69788d;font-size:6.5px;font-weight:900;letter-spacing:.8px;text-transform:uppercase}.cv2-pulse-item b{display:block;margin-top:8px;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cv2-pulse-item span{display:block;margin-top:4px;color:#68768a;font-size:7.5px}
+      .cv2-settings{border:1px solid #26364d;border-radius:18px;background:#0b1524;overflow:hidden}.cv2-setting{width:100%;min-height:66px;padding:10px 13px;display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:11px;align-items:center;border:0;border-bottom:1px solid #223149;background:transparent;text-align:left;cursor:pointer}.cv2-setting:last-child{border-bottom:0}.cv2-setting-icon{width:38px;height:38px;padding:9px;display:grid;place-items:center;border:1px solid #29405f;border-radius:11px;background:#101f33;color:#77a8ff}.cv2-setting.sound .cv2-setting-icon{color:var(--cyan)}.cv2-setting.vibe .cv2-setting-icon{color:#55daa4}.cv2-setting b{display:block;font-size:10px}.cv2-setting small{display:block;margin-top:3px;color:#6d7b90;font-size:7.5px}.cv2-switch{width:36px;height:21px;padding:2px;border-radius:12px;background:#223149}.cv2-switch:after{content:'';display:block;width:17px;height:17px;border-radius:50%;background:#8290a3;transition:transform .2s}.cv2-setting.on .cv2-switch{background:var(--blue)}.cv2-setting.on .cv2-switch:after{transform:translateX(15px);background:#fff}
+      .cv2-manage{display:grid;grid-template-columns:1fr 52px;gap:8px}.cv2-save,.cv2-reset{min-height:66px;border:1px solid #26364d;border-radius:17px;background:#0b1524;cursor:pointer}.cv2-save{padding:11px 13px;display:grid;grid-template-columns:38px minmax(0,1fr) auto;gap:10px;align-items:center;text-align:left}.cv2-save .cv2-setting-icon{color:#7da9ff}.cv2-save b{display:block;font-size:10px}.cv2-save small{display:block;margin-top:3px;color:#6d7b90;font-size:7.5px}.cv2-slots{display:flex;gap:4px;margin-top:7px}.cv2-slots i{width:17px;height:3px;border-radius:3px;background:#26364c}.cv2-slots i.filled{background:var(--lime)}.cv2-save>.arr{color:#5e6d82}.cv2-reset{display:grid;place-items:center;color:#ff7180;border-color:rgba(255,89,103,.24);background:rgba(255,89,103,.07)}
+      .cv2-bug{min-height:62px;margin-top:8px;padding:10px 11px;display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid rgba(255,89,103,.2);border-radius:16px;background:linear-gradient(100deg,rgba(255,89,103,.09),#0b1524)}.cv2-bug-icon{width:36px;height:36px;padding:8px;display:grid;place-items:center;border-radius:10px;background:rgba(255,89,103,.11);color:#ff7180}.cv2-bug b{display:block;font-size:10px}.cv2-bug small{display:block;margin-top:2px;color:#79869a;font-size:7.5px}.cv2-bug a{padding:8px 10px;border:1px solid rgba(255,89,103,.28);border-radius:9px;background:rgba(255,89,103,.12);color:#ff8a94;text-decoration:none;font-size:7px;font-weight:950}
+      body.theme-light .clubv2{--night:#f5f7fb;--ink:#edf1f7;--panel:#fff;--panel2:#eef3fa;--line:#d5deea;--txt:#162033;--soft:#59677a;--mut:#7b8798;background:linear-gradient(180deg,#f4f7fb,#eaf0f7 55%,#f4f7fb)}body.theme-light .cv2-hero{border-color:#c8d4e3}body.theme-light .cv2-section-head div{color:#3d4b5f}body.theme-light .cv2-metric,body.theme-light .cv2-comp,body.theme-light .cv2-action,body.theme-light .cv2-pulse,body.theme-light .cv2-settings,body.theme-light .cv2-save{background-color:#fff;border-color:#d4deea}body.theme-light .cv2-setting{border-color:#dce4ee}body.theme-light .cv2-metric b,body.theme-light .cv2-comp-copy b,body.theme-light .cv2-action b,body.theme-light .cv2-pulse-item b,body.theme-light .cv2-setting b,body.theme-light .cv2-save b{color:#162033}
+      @media(max-width:390px){.clubv2{padding-left:8px;padding-right:8px}.cv2-hero{min-height:372px}.cv2-hero-body{min-height:372px;padding-left:14px;padding-right:14px}.cv2-club-id{grid-template-columns:62px minmax(0,1fr);margin-top:31px}.cv2-crest{width:62px;height:62px}.cv2-club-name{font-size:21px}.cv2-scoreline{grid-template-columns:repeat(2,1fr)}.cv2-kpi:nth-child(3){border-left:0;border-top:1px solid rgba(148,163,184,.18)}.cv2-kpi:nth-child(4){border-top:1px solid rgba(148,163,184,.18)}.cv2-season-grid,.cv2-story-grid{grid-template-columns:1fr}.cv2-metric.hero{grid-row:auto;min-height:145px}.cv2-story{min-height:290px}.cv2-pulse-item{padding-left:8px;padding-right:8px}.cv2-pulse-item b{font-size:10px}}
+    </style>
+    <div class="clubv2">
+      <section class="cv2-hero">
+        <div class="cv2-hero-photo"></div>
+        <svg class="cv2-tracer" viewBox="0 0 250 190" aria-hidden="true"><path d="M14 151C73 182 88 57 145 83s43 71 91 31"/><circle cx="15" cy="151" r="5"/><circle cx="145" cy="83" r="5"/><circle cx="236" cy="114" r="5"/></svg>
+        <div class="cv2-hero-body">
+          <div class="cv2-hero-top"><span class="cv2-kicker">CLUB COMMAND · ${seasonLabel}</span><span class="cv2-rep" style="color:${repColor};border-color:${repColor}55">${repLabel}</span></div>
+          <div class="cv2-club-id"><div class="cv2-crest"><div>${G.club.logo}</div></div><div><div class="cv2-club-name">${G.club.name}</div><div class="cv2-club-meta">${league.flag||''} ${league.fullName||league.name||G.leagueName} · ${seasonLabel}</div><span class="cv2-season-mark">THE SEASON IS YOURS</span></div></div>
+          <div class="cv2-hero-spacer"></div>
+          <div class="cv2-scoreline"><div class="cv2-kpi"><b>${pos}</b><span>місце</span></div><div class="cv2-kpi"><b>${ts.pts||0}</b><span>очки</span></div><div class="cv2-kpi"><b>${played}</b><span>матчі</span></div><div class="cv2-kpi"><b>${goalDiff>0?'+':''}${goalDiff}</b><span>різниця</span></div></div>
+          <div class="cv2-progress"><span>Прогрес ліги</span><i><u style="width:${progress}%"></u></i><b>${played}/${totalRd} · ${progress}%</b></div>
+          <div class="cv2-hero-foot"><div class="cv2-form-list">${formHtml}</div><div class="cv2-record"><b>${wins}</b>П · <b>${draws}</b>Н · <b>${losses}</b>П</div></div>
+        </div>
+      </section>
+
+      <section class="cv2-section"><div class="cv2-section-head"><div>Сезон у цифрах</div><span>${played} ${plural(played,'матч','матчі','матчів')}</span></div><div class="cv2-season-grid"><article class="cv2-metric hero"><small>Ефективність</small><b>${winRate}%</b><span>перемог у зіграних матчах</span></article><article class="cv2-metric attack"><small>Атака</small><b>${gf||0}</b><span>${plural(gf||0,'гол','голи','голів')}</span></article><article class="cv2-metric defence"><small>Оборона</small><b>${ga||0}</b><span>пропущено</span></article></div></section>
+
+      <section class="cv2-section"><div class="cv2-section-head"><div>Турніри</div><span>${[leagueCard,cupCard,europeCard].filter(Boolean).length} активні</span></div><div class="cv2-comps">${leagueCard}${cupCard}${europeCard}</div></section>
+
+      <section class="cv2-section"><div class="cv2-section-head"><div>Тренерська історія</div><span>Editorial moments</span></div><div class="cv2-story-grid">
+        <button class="cv2-story photo" onclick="openCareerModal()"><span class="cv2-story-content"><small>CAREER STORY · ${seasonLabel}</small><b>${topSc?topSc.n:'WRITE THE NEXT CHAPTER'}</b><span>${topSc?`${topSc.goals} ${plural(topSc.goals,'гол','голи','голів')} · лідер команди`:'Перший великий момент цього сезону ще попереду'}</span><em>Відкрити кар’єру →</em></span></button>
+        <div class="cv2-story-stack"><button class="cv2-action ach" onclick="showAchievementsScreen()"><span class="cv2-action-icon">${ICON.medal}</span>${achievementBonus?`<span class="cv2-badge">${achievementBonus}</span>`:''}<b>Досягнення · ${achievementPct}%</b><small>${achievementDone}/${achievementTotal} виконано</small></button><button class="cv2-action coach" onclick="window.openCoachHub()"><span class="cv2-action-icon">${ICON.coach}</span><b>Тренерський центр</b><small>Рейтинг · ринок · призначення</small></button></div>
+      </div></section>
+
+      <section class="cv2-section"><div class="cv2-section-head"><div>Пульс клубу</div><span>${seasonLabel}</span></div><div class="cv2-pulse"><div class="cv2-pulse-item" style="--tone:var(--gold)"><small>Бомбардир</small><b>${topSc?topSc.n:'Поки немає'}</b><span>${topSc?`${topSc.goals} ${plural(topSc.goals,'гол','голи','голів')}`:'без матчів'}</span></div><div class="cv2-pulse-item" style="--tone:var(--blue)"><small>Склад</small><b>Ø ${avgRating}</b><span>${squad.length} ${plural(squad.length,'гравець','гравці','гравців')}</span></div><div class="cv2-pulse-item" style="--tone:var(--lime)"><small>Академія</small><b>Рівень ${academyLevel}</b><span>${academyGraduates} вихованців</span></div></div></section>
+
+      <section class="cv2-section"><div class="cv2-section-head"><div>Налаштування</div><span>Utility zone</span></div><div class="cv2-settings"><button class="cv2-setting ${G.theme==='light'?'on':''}" onclick="toggleTheme()"><span class="cv2-setting-icon">${ICON.theme}</span><span><b>${G.theme==='light'?'Світла тема':'Темна тема'}</b><small>Змінити палітру інтерфейсу</small></span><span class="cv2-switch"></span></button><button class="cv2-setting sound ${!mutedNow?'on':''}" onclick="toggleMuteFromSettings()"><span class="cv2-setting-icon">${mutedNow?ICON.soundOff:ICON.sound}</span><span><b>Звуки гри</b><small>Матчі, натискання та атмосфера</small></span><span class="cv2-switch"></span></button><button class="cv2-setting vibe ${G.vibration!==false?'on':''}" onclick="toggleVibration()"><span class="cv2-setting-icon">${ICON.vibe}</span><span><b>Вібровідгук</b><small>Голи, трансфери й ключові події</small></span><span class="cv2-switch"></span></button></div></section>
+
+      <section class="cv2-section"><div class="cv2-section-head"><div>Кар’єра та підтримка</div><span>${slotCount}/3 слотів</span></div><div class="cv2-manage"><button class="cv2-save" onclick="openSlotPicker(false)"><span class="cv2-setting-icon">${ICON.save}</span><span><b>Мої кар’єри</b><small>${careerSeasons?`${careerSeasons} ${plural(careerSeasons,'сезон','сезони','сезонів')} · ${trophies} трофеїв`:'Продовжити або змінити збереження'}</small><span class="cv2-slots">${[1,2,3].map(n=>`<i class="${getSlotPreview(n)?'filled':''}"></i>`).join('')}</span></span><span class="arr">${ICON.arrow}</span></button><button class="cv2-reset" onclick="resetAll()" aria-label="Почати нову кар’єру">${ICON.reset}</button></div><div class="cv2-bug"><span class="cv2-bug-icon">${ICON.bug}</span><span><b>Знайшли баг?</b><small>Опишіть проблему — ми перевіримо</small></span><a href="https://t.me/ADM_FMG" target="_blank" rel="noopener noreferrer">Написати</a></div></section>
+    </div>`;
+  };
+})();
+</script>
+<style id="club-coach-banner-v2">
+  .clubv2 .cv2-story.photo{
+    background-image:url('identity_v2_assets/fmua-elite-coach-career-banner-v1.png') !important;
+    background-position:center 24% !important;
+  }
+  .clubv2 .cv2-story.photo:before{
+    content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(115deg,rgba(4,7,13,.08),transparent 55%),linear-gradient(0deg,rgba(4,7,13,.99),rgba(4,7,13,.12) 72%);
+  }
+  .clubv2 .cv2-story.photo:after{
+    content:'';position:absolute;left:0;right:auto;top:18px;bottom:auto;width:3px;height:58px;
+    border-radius:0 4px 4px 0;background:#b8ff35;box-shadow:0 0 18px rgba(184,255,53,.45);
+  }
+  .clubv2 .cv2-story-content b{font-size:26px;line-height:.94}
+</style>
+<script>
+(function installCoachCareerBanner(){
+  'use strict';
+  const baseClubRenderer = window.renderClubDashboardIdentity;
+  if(typeof baseClubRenderer !== 'function') return;
+  window.renderClubDashboardIdentity = function renderClubDashboardIdentityWithCoachBanner(d){
+    baseClubRenderer(d);
+    const card = document.querySelector('.clubv2 .cv2-story.photo .cv2-story-content');
+    if(!card) return;
+    const season = typeof getSeasonLabel === 'function' ? String(getSeasonLabel()).replace(/^Сезон\s*/i,'') : '2026/27';
+    const reputation = Math.max(0, Math.round(Number(d && d.careerRep) || 0));
+    const trophyCount = Array.isArray(window.G && G.trophyHistory) ? G.trophyHistory.length : 0;
+    const a = Math.abs(trophyCount)%100, b = a%10;
+    const trophyWord = a>10&&a<20 ? 'трофеїв' : b>1&&b<5 ? 'трофеї' : b===1 ? 'трофей' : 'трофеїв';
+    card.innerHTML = '<small>MANAGER STORY · '+season+'</small><b>ВАША ТРЕНЕРСЬКА КАР’ЄРА</b><span>Репутація '+reputation+' · '+trophyCount+' '+trophyWord+'</span><em>Відкрити кар’єру →</em>';
+  };
+})();
+</script>
+<style id="career-identity-v2-v40">
+  #careerModalOverlay.cv2-career-overlay{background:rgba(1,4,9,.82)!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding-top:34px}
+  #careerModalOverlay .cv2-career-panel{position:relative;width:min(100%,540px)!important;max-width:540px!important;max-height:92vh!important;background:#050a12!important;border:1px solid #1f3046!important;border-bottom:0!important;border-radius:28px 28px 0 0!important;box-shadow:0 -24px 80px rgba(0,0,0,.58)!important;overflow:hidden}
+  #careerModalOverlay .cv2-career-panel:before{content:'';position:absolute;z-index:5;left:26px;top:0;width:76px;height:3px;background:linear-gradient(90deg,#b8ff35,#25d5e8);box-shadow:0 0 20px rgba(184,255,53,.36)}
+  #careerModalOverlay .cv2-career-head{position:relative;min-height:118px!important;padding:22px 22px 18px!important;display:flex!important;align-items:flex-end!important;border:0!important;overflow:hidden;background:linear-gradient(90deg,rgba(5,10,18,.99) 0%,rgba(5,10,18,.93) 48%,rgba(5,10,18,.22) 100%),url('identity_v2_assets/fmua-elite-coach-career-banner-v1.png') right 27%/230px auto no-repeat!important}
+  #careerModalOverlay .cv2-career-head:after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,#050a12 0%,transparent 42%),linear-gradient(100deg,transparent 52%,rgba(52,120,246,.17));}
+  #careerModalOverlay .cv2-career-title{position:relative;z-index:2;display:block!important;max-width:305px}
+  #careerModalOverlay .cv2-career-title small{display:block;color:#b8ff35;font:800 8px/1.1 Inter,sans-serif;letter-spacing:1.5px;text-transform:uppercase}
+  #careerModalOverlay .cv2-career-title b{display:block;margin-top:7px;color:#f5f8fd;font:30px/.95 'Bebas Neue',Impact,sans-serif;letter-spacing:.6px;text-transform:uppercase}
+  #careerModalOverlay .cv2-career-title em{display:block;margin-top:8px;color:#8290a4;font:500 9px/1.3 Inter,sans-serif;font-style:normal}
+  #careerModalOverlay .cv2-career-close{position:absolute!important;z-index:4;right:16px;top:16px;width:36px!important;height:36px!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:12px!important;background:rgba(5,10,18,.72)!important;color:#a7b2c1!important;font-size:16px!important;backdrop-filter:blur(8px)}
+  #careerModalOverlay .cv2-career-body{padding:5px 20px 30px!important;background:linear-gradient(180deg,#050a12,#070d17)!important;scrollbar-width:thin;scrollbar-color:#26364d transparent}
+  #careerModalOverlay .cv2-career-summary{display:grid!important;grid-template-columns:1.18fr repeat(3,1fr)!important;gap:7px!important;margin:0 0 20px!important}
+  #careerModalOverlay .cv2-career-summary>div{position:relative;min-height:78px;padding:13px 8px!important;border:1px solid #1c2a3e;border-radius:15px!important;background:#0b1422!important;text-align:left!important;overflow:hidden}
+  #careerModalOverlay .cv2-career-summary>div:first-child{background:linear-gradient(145deg,rgba(52,120,246,.23),#0b1422 68%)!important;border-color:#294469}
+  #careerModalOverlay .cv2-career-summary>div:after{content:'';position:absolute;left:9px;right:9px;bottom:8px;height:2px;border-radius:2px;background:#27364b}
+  #careerModalOverlay .cv2-career-summary>div:nth-child(1):after{background:#3478f6}#careerModalOverlay .cv2-career-summary>div:nth-child(2):after{background:#f6bb4b}#careerModalOverlay .cv2-career-summary>div:nth-child(3):after{background:#21d29b}#careerModalOverlay .cv2-career-summary>div:nth-child(4):after{background:#9c6bff}
+  #careerModalOverlay .cv2-career-summary>div>div:first-child{font:29px/1 'Bebas Neue',Impact,sans-serif!important;letter-spacing:.3px}#careerModalOverlay .cv2-career-summary>div>div:last-child{margin-top:6px!important;color:#718097!important;font-size:7px!important;font-weight:850!important;line-height:1.25;letter-spacing:.8px!important}
+  #careerModalOverlay .cv2-career-records{margin:0 0 21px!important;padding:0!important}
+  #careerModalOverlay .cv2-career-records-title{display:flex;align-items:center;gap:8px;margin:0 0 9px!important;padding:0!important;color:#9ba8ba!important;font-size:8px!important;letter-spacing:1.35px!important}
+  #careerModalOverlay .cv2-career-records-title:before{content:'';width:3px;height:17px;border-radius:3px;background:#9c6bff;box-shadow:0 0 12px rgba(156,107,255,.4)}
+  #careerModalOverlay .cv2-career-records-grid{gap:7px!important}
+  #careerModalOverlay .cv2-career-records-grid>div{min-height:68px;padding:11px 7px!important;border:1px solid #1d2b3e!important;border-radius:14px!important;background:linear-gradient(155deg,#0c1625,#09111d)!important;text-align:left!important}
+  #careerModalOverlay .cv2-career-records-grid>div>div:first-child{font:24px/1 'Bebas Neue',Impact,sans-serif!important}#careerModalOverlay .cv2-career-records-grid>div>div:last-child{margin-top:7px!important;color:#6f7d91!important;font-size:6.7px!important;line-height:1.25;letter-spacing:.55px!important}
+  #careerModalOverlay .cv2-season-card{position:relative;margin:0 0 10px!important;padding:15px 15px 14px 18px!important;border:1px solid #203149!important;border-radius:18px!important;background:linear-gradient(145deg,#0b1625,#08111e)!important;overflow:hidden}
+  #careerModalOverlay .cv2-season-card:before{content:'';position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:0 4px 4px 0;background:#3478f6}
+  #careerModalOverlay .cv2-season-card.is-live{border-color:rgba(33,210,155,.42)!important;background:linear-gradient(145deg,rgba(33,210,155,.10),#08131e 62%)!important}#careerModalOverlay .cv2-season-card.is-live:before{background:#21d29b;box-shadow:0 0 15px rgba(33,210,155,.5)}
+  #careerModalOverlay .cv2-season-card.is-champion{border-color:rgba(246,187,75,.42)!important;background:linear-gradient(145deg,rgba(246,187,75,.11),#11131b 64%)!important}#careerModalOverlay .cv2-season-card.is-champion:before{background:#f6bb4b}
+  #careerModalOverlay .cv2-season-head{margin-bottom:13px!important;gap:10px!important}#careerModalOverlay .cv2-season-crest{width:38px!important;height:38px!important;border-radius:12px!important;background:#f4f7fb!important;border:0!important;box-shadow:0 6px 18px rgba(0,0,0,.2)}#careerModalOverlay .cv2-season-copy>div:first-child{font-size:13px!important;color:#f5f8fd}#careerModalOverlay .cv2-season-copy>div:last-child{margin-top:3px;color:#76859a!important;font-size:8px!important;letter-spacing:.25px}
+  #careerModalOverlay .cv2-season-result{padding:10px 12px!important;border:1px solid #1c2b3f;border-radius:12px!important;background:rgba(3,8,15,.48)!important}#careerModalOverlay .cv2-season-result>div:first-child>div:first-child{font:30px/1 'Bebas Neue',Impact,sans-serif!important}#careerModalOverlay .cv2-season-result>div:last-child>div:first-child{font:27px/1 'Bebas Neue',Impact,sans-serif!important;color:#b8ff35!important}
+  #careerModalOverlay .cv2-season-extra{margin-top:6px!important;padding:7px 10px!important;border:1px solid #1c2d42!important;border-radius:10px!important;background:#0a1826!important}#careerModalOverlay .cv2-season-progress{margin:10px 0 8px!important}
+  @media(max-width:390px){#careerModalOverlay .cv2-career-body{padding-left:13px!important;padding-right:13px!important}#careerModalOverlay .cv2-career-head{min-height:108px!important;padding-left:16px!important;background-size:205px auto!important}#careerModalOverlay .cv2-career-title b{font-size:26px}#careerModalOverlay .cv2-career-summary{grid-template-columns:repeat(2,1fr)!important}#careerModalOverlay .cv2-career-summary>div{min-height:67px}#careerModalOverlay .cv2-career-records-grid{grid-template-columns:repeat(2,1fr)!important}}
+  body.light #careerModalOverlay .cv2-career-panel,body.light #careerModalOverlay .cv2-career-body{background:#eef3fa!important}body.light #careerModalOverlay .cv2-career-head{background:linear-gradient(90deg,rgba(238,243,250,.99),rgba(238,243,250,.88) 52%,rgba(238,243,250,.18)),url('identity_v2_assets/fmua-elite-coach-career-banner-v1.png') right 27%/230px auto no-repeat!important}body.light #careerModalOverlay .cv2-career-title b{color:#0b1524}body.light #careerModalOverlay .cv2-career-summary>div,body.light #careerModalOverlay .cv2-career-records-grid>div,body.light #careerModalOverlay .cv2-season-card{background:#fff!important;color:#0b1524!important}
+</style>
+<script>
+(function installCareerIdentityV2(){
+  'use strict';
+  const baseOpenCareerModal = window.openCareerModal;
+  if(typeof baseOpenCareerModal !== 'function') return;
+  window.openCareerModal = function openCareerModalIdentityV2(){
+    baseOpenCareerModal();
+    const overlay=document.getElementById('careerModalOverlay');
+    if(!overlay) return;
+    overlay.classList.add('cv2-career-overlay');
+    overlay.setAttribute('role','dialog');overlay.setAttribute('aria-modal','true');overlay.setAttribute('aria-label','Тренерська кар’єра');
+    const panel=overlay.firstElementChild, head=panel&&panel.children[0], body=panel&&panel.children[1];
+    if(!panel||!head||!body) return;
+    panel.classList.add('cv2-career-panel');head.classList.add('cv2-career-head');body.classList.add('cv2-career-body');
+    const summary=body.firstElementChild;
+    if(summary){
+      summary.classList.add('cv2-career-summary');
+      [...summary.children].forEach((el,i)=>el.classList.add('cv2-career-metric','tone-'+(i+1)));
+    }
+    const totalSeasons=summary?.children?.[0]?.firstElementChild?.textContent?.trim()||'0';
+    const totalTrophies=summary?.children?.[1]?.firstElementChild?.textContent?.trim()||'0';
+    const title=head.firstElementChild;
+    if(title){title.className='cv2-career-title';title.innerHTML='<small>MANAGER LEGACY · ARCHIVE</small><b>Тренерська кар’єра</b><em>'+totalSeasons+' сезонів · '+totalTrophies+' трофеїв · історія в процесі</em>';}
+    const close=head.lastElementChild;if(close)close.classList.add('cv2-career-close');
+    let index=1;
+    const possibleRecords=body.children[index];
+    if(possibleRecords&&possibleRecords.textContent.includes('Рекорди кар')){
+      possibleRecords.classList.add('cv2-career-records');
+      possibleRecords.children[0]?.classList.add('cv2-career-records-title');
+      possibleRecords.children[1]?.classList.add('cv2-career-records-grid');
+      index++;
+    }
+    [...body.children].slice(index).forEach(card=>{
+      card.classList.add('cv2-season-card');
+      if(card.textContent.includes('В процесі'))card.classList.add('is-live');
+      if(card.textContent.includes('Чемпіон'))card.classList.add('is-champion');
+      const cardHead=card.children[0], result=card.children[1];
+      if(cardHead){cardHead.classList.add('cv2-season-head');cardHead.children[0]?.classList.add('cv2-season-crest');cardHead.children[1]?.classList.add('cv2-season-copy');}
+      if(result)result.classList.add('cv2-season-result');
+      [...card.children].slice(2).forEach(extra=>extra.classList.add(extra.textContent.includes('Тур ')?'cv2-season-progress':'cv2-season-extra'));
+    });
+  };
+})();
+</script>
+<style id="club-hero-rebalance-v41">
+  .clubv2 .cv2-hero{min-height:332px;background:#07101c;box-shadow:0 22px 56px rgba(0,0,0,.30),inset 0 1px rgba(255,255,255,.025)}
+  .clubv2 .cv2-hero-photo{filter:none!important;background:radial-gradient(circle at 82% 15%,color-mix(in srgb,var(--club) 32%,transparent),transparent 31%),radial-gradient(circle at 13% 0%,rgba(184,255,53,.10),transparent 24%),linear-gradient(145deg,#071321 0%,#07101c 48%,#040911 100%)!important}
+  .clubv2 .cv2-hero-photo:before{content:'';position:absolute;inset:-25%;opacity:.30;transform:perspective(500px) rotateX(58deg) rotateZ(-10deg) translateY(30%);transform-origin:center;background-image:linear-gradient(rgba(114,151,198,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(114,151,198,.22) 1px,transparent 1px);background-size:34px 34px;mask-image:radial-gradient(ellipse at center,#000 0%,transparent 69%)}
+  .clubv2 .cv2-hero-photo:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,9,16,.30),transparent 58%),linear-gradient(0deg,rgba(4,9,16,.74),transparent 46%),linear-gradient(116deg,transparent 0 62%,rgba(52,120,246,.10) 62% 63%,transparent 63% 70%,rgba(184,255,53,.055) 70% 71%,transparent 71%)!important}
+  .clubv2 .cv2-hero-body{min-height:332px;padding-top:19px}
+  .clubv2 .cv2-club-id{margin-top:29px}
+  .clubv2 .cv2-hero-spacer{min-height:28px}
+  .clubv2 .cv2-hero:after{content:'';position:absolute;z-index:2;right:-74px;top:-82px;width:250px;height:250px;border:1px solid color-mix(in srgb,var(--club) 38%,transparent);border-radius:50%;box-shadow:0 0 0 34px rgba(255,255,255,.018),0 0 0 68px rgba(255,255,255,.012);pointer-events:none}
+  .clubv2 .cv2-tracer{right:-25px;top:39px;opacity:.45;transform:scale(.83)}
+  .clubv2 .cv2-season-feature{position:relative;grid-column:1/-1;min-height:154px;border:1px solid #29415d;border-radius:20px;overflow:hidden;background:url('identity_v2_assets/fmua-key-visual-wide-v1.webp') 64% 28%/cover no-repeat;box-shadow:0 15px 34px rgba(0,0,0,.24)}
+  .clubv2 .cv2-season-feature:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,8,15,.98) 0%,rgba(3,8,15,.88) 43%,rgba(3,8,15,.14) 78%),linear-gradient(0deg,rgba(3,8,15,.88),transparent 58%)}
+  .clubv2 .cv2-season-feature:after{content:'';position:absolute;left:0;top:19px;width:3px;height:56px;border-radius:0 4px 4px 0;background:var(--lime);box-shadow:0 0 18px rgba(184,255,53,.42)}
+  .clubv2 .cv2-season-feature-copy{position:relative;z-index:2;width:61%;min-height:154px;padding:18px 15px;display:flex;flex-direction:column;justify-content:flex-end}
+  .clubv2 .cv2-season-feature-copy small{color:var(--lime);font-size:6.5px;font-weight:950;letter-spacing:1.35px;text-transform:uppercase}
+  .clubv2 .cv2-season-feature-copy b{display:block;margin-top:7px;color:#f7faff;font:27px/.95 'Bebas Neue',Impact,sans-serif;letter-spacing:.35px;text-transform:uppercase}
+  .clubv2 .cv2-season-feature-copy span{display:block;margin-top:6px;color:#9ba8ba;font-size:8px;line-height:1.35}
+  .clubv2 .cv2-season-feature-chip{display:inline-flex;align-self:flex-start;margin-top:10px;padding:6px 8px;border:1px solid rgba(184,255,53,.22);border-radius:8px;background:rgba(184,255,53,.10);color:#d7ff95!important;font-size:6.5px!important;font-weight:900;letter-spacing:.55px;text-transform:uppercase}
+  .clubv2 .cv2-season-grid{grid-template-columns:1.15fr .85fr}
+  @media(max-width:390px){.clubv2 .cv2-hero,.clubv2 .cv2-hero-body{min-height:318px}.clubv2 .cv2-club-id{margin-top:25px}.clubv2 .cv2-season-feature{min-height:142px;background-position:67% 25%}.clubv2 .cv2-season-feature-copy{min-height:142px;width:67%;padding:15px 12px}.clubv2 .cv2-season-feature-copy b{font-size:23px}}
+  body.light .clubv2 .cv2-hero-photo{background:radial-gradient(circle at 82% 15%,color-mix(in srgb,var(--club) 24%,transparent),transparent 31%),linear-gradient(145deg,#f7faff,#e9f0f8)!important}body.light .clubv2 .cv2-hero-photo:after{background:linear-gradient(0deg,rgba(225,234,245,.76),transparent 50%),linear-gradient(116deg,transparent 0 62%,rgba(52,120,246,.08) 62% 63%,transparent 63%)!important}
+</style>
+<script>
+(function installClubHeroRebalance(){
+  'use strict';
+  const baseClubRendererV41=window.renderClubDashboardIdentity;
+  if(typeof baseClubRendererV41!=='function')return;
+  window.renderClubDashboardIdentity=function renderClubDashboardIdentityV41(d){
+    baseClubRendererV41(d);
+    const grid=document.querySelector('.clubv2 .cv2-season-grid');
+    if(!grid||grid.querySelector('.cv2-season-feature'))return;
+    const feature=document.createElement('article');
+    feature.className='cv2-season-feature';
+    feature.setAttribute('aria-label','Головний момент сезону');
+    feature.innerHTML='<div class="cv2-season-feature-copy"><small>SEASON SPOTLIGHT</small><b></b><span></span><i class="cv2-season-feature-chip"></i></div>';
+    const scorer=d&&d.topSc;
+    const played=Math.max(0,Number(d&&d.played)||0),wins=Math.max(0,Number(d&&d.wins)||0);
+    const rate=played?Math.round(wins/played*100):0;
+    feature.querySelector('b').textContent=scorer&&scorer.n?scorer.n:'СЕЗОН НАБИРАЄ ОБЕРТІВ';
+    const goals=Math.max(0,Number(scorer&&scorer.goals)||0),g100=goals%100,g10=goals%10;
+    const goalWord=g100>10&&g100<20?'голів':g10===1?'гол':g10>1&&g10<5?'голи':'голів';
+    feature.querySelector('.cv2-season-feature-copy>span').textContent=goals?goals+' '+goalWord+' · лідер атаки':'Головний герой цього сезону ще визначається';
+    feature.querySelector('i').textContent=played?rate+'% перемог · '+played+' матчів':'НОВА ІСТОРІЯ ПОЧИНАЄТЬСЯ';
+    grid.insertBefore(feature,grid.firstChild);
+  };
+})();
+</script>
+<style id="club-data-identity-v42">
+  .clubv2 .cv2-club-id{position:relative;max-width:405px;grid-template-columns:78px minmax(0,1fr);gap:14px;margin-top:25px;padding:11px 14px 11px 10px;border:1px solid rgba(139,164,199,.16);border-left:3px solid var(--lime);border-radius:18px;background:linear-gradient(90deg,rgba(4,10,18,.78),rgba(8,17,29,.48));box-shadow:0 14px 34px rgba(0,0,0,.19);backdrop-filter:blur(9px)}
+  .clubv2 .cv2-club-id:after{content:'';position:absolute;right:15px;top:12px;width:34px;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--club) 75%,white));opacity:.8}
+  .clubv2 .cv2-crest{position:relative;width:74px;height:74px;padding:8px;border:1px solid color-mix(in srgb,var(--club) 56%,#52657e);border-radius:21px;background:radial-gradient(circle at 40% 30%,color-mix(in srgb,var(--club) 24%,transparent),rgba(10,20,34,.94) 67%);box-shadow:inset 0 1px rgba(255,255,255,.08),0 12px 26px rgba(0,0,0,.31),0 0 26px color-mix(in srgb,var(--club) 16%,transparent)}
+  .clubv2 .cv2-crest:before{content:'';position:absolute;inset:5px;border:1px solid rgba(255,255,255,.055);border-radius:16px;pointer-events:none}
+  .clubv2 .cv2-crest>div,.clubv2 .cv2-crest img,.clubv2 .cv2-crest svg{position:relative;z-index:1;filter:drop-shadow(0 4px 5px rgba(0,0,0,.42));transform:scale(.92)}
+  .clubv2 .cv2-club-name{font-size:24px;letter-spacing:-.55px;text-shadow:0 3px 15px rgba(0,0,0,.35)}
+  .clubv2 .cv2-club-meta{font-size:9px;color:#9ba8ba}
+  .clubv2 .cv2-season-mark{background:linear-gradient(90deg,rgba(184,255,53,.12),transparent);padding-right:15px}
+  .clubv2 .cv2-season-feature{min-height:158px;background:radial-gradient(circle at 76% 22%,rgba(52,120,246,.19),transparent 34%),linear-gradient(145deg,#081625,#050b14 67%)!important;border-color:#263b56}
+  .clubv2 .cv2-season-feature:before{background:linear-gradient(90deg,rgba(5,12,21,.97),rgba(5,12,21,.80) 51%,rgba(5,12,21,.18)),linear-gradient(0deg,rgba(4,9,16,.65),transparent 58%)}
+  .clubv2 .cv2-season-feature:after{height:52px;background:#25d5e8;box-shadow:0 0 18px rgba(37,213,232,.42)}
+  .clubv2 .cv2-season-feature-copy{width:58%;min-height:158px;padding:18px 16px}
+  .clubv2 .cv2-season-feature-copy small{color:#25d5e8}
+  .clubv2 .cv2-season-feature-copy b{font-size:26px}
+  .clubv2 .cv2-season-feature-chip{border-color:rgba(37,213,232,.25);background:rgba(37,213,232,.10);color:#8cebf5!important}
+  .clubv2 .cv2-season-visual{position:absolute;z-index:2;right:5px;top:8px;width:47%;height:142px;opacity:.92}
+  .clubv2 .cv2-season-visual .pitch{fill:none;stroke:rgba(126,156,194,.20);stroke-width:1}.clubv2 .cv2-season-visual .data-line{fill:none;stroke:#b8ff35;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(184,255,53,.42))}.clubv2 .cv2-season-visual .data-fill{fill:url(#cv2SeasonFill)}.clubv2 .cv2-season-visual .dot{fill:#07101c;stroke:#25d5e8;stroke-width:2}.clubv2 .cv2-season-visual .dot.hot{fill:#b8ff35;stroke:#07101c;stroke-width:3}.clubv2 .cv2-season-visual text{fill:#71839a;font:700 7px Inter,sans-serif;letter-spacing:.5px}
+  @media(max-width:390px){.clubv2 .cv2-club-id{grid-template-columns:66px minmax(0,1fr);padding:9px 10px 9px 8px}.clubv2 .cv2-crest{width:64px;height:64px;border-radius:18px}.clubv2 .cv2-club-name{font-size:21px}.clubv2 .cv2-season-feature-copy{width:62%;min-height:150px;padding:14px 12px}.clubv2 .cv2-season-visual{right:-8px;width:49%;opacity:.72}.clubv2 .cv2-season-feature-copy b{font-size:22px}}
+  body.light .clubv2 .cv2-club-id{background:linear-gradient(90deg,rgba(255,255,255,.90),rgba(238,244,251,.64));border-color:#cad6e5}body.light .clubv2 .cv2-crest{background:radial-gradient(circle at 40% 30%,color-mix(in srgb,var(--club) 20%,transparent),#e7eef7 70%)}body.light .clubv2 .cv2-season-feature{background:radial-gradient(circle at 76% 22%,rgba(52,120,246,.12),transparent 34%),linear-gradient(145deg,#f8fbff,#e8f0f8)!important}
+</style>
+<script>
+(function installClubDataIdentity(){
+  'use strict';
+  const baseClubRendererV42=window.renderClubDashboardIdentity;
+  if(typeof baseClubRendererV42!=='function')return;
+  window.renderClubDashboardIdentity=function renderClubDashboardIdentityV42(d){
+    baseClubRendererV42(d);
+    const feature=document.querySelector('.clubv2 .cv2-season-feature');
+    if(!feature)return;
+    const scorer=d&&d.topSc;
+    const goals=Math.max(0,Number(scorer&&scorer.goals)||0),g100=goals%100,g10=goals%10;
+    const goalWord=g100>10&&g100<20?'голів':g10===1?'гол':g10>1&&g10<5?'голи':'голів';
+    const played=Math.max(0,Number(d&&d.played)||0),wins=Math.max(0,Number(d&&d.wins)||0);
+    const rate=played?Math.round(wins/played*100):0;
+    feature.innerHTML='<div class="cv2-season-feature-copy"><small>SEASON DATA · ATTACK</small><b></b><span></span><i class="cv2-season-feature-chip"></i></div><svg class="cv2-season-visual" viewBox="0 0 210 132" aria-hidden="true"><defs><linearGradient id="cv2SeasonFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3478f6" stop-opacity=".28"/><stop offset="1" stop-color="#3478f6" stop-opacity="0"/></linearGradient></defs><path class="pitch" d="M20 15h170v102H20zM105 15v102M20 66h170M105 50a16 16 0 1 1 0 32 16 16 0 0 1 0-32M20 39h28v54H20M162 39h28v54h-28"/><path class="data-fill" d="M27 101L58 86 88 92 119 59 151 70 184 31V112H27z"/><path class="data-line" d="M27 101L58 86 88 92 119 59 151 70 184 31"/><circle class="dot" cx="27" cy="101" r="4"/><circle class="dot" cx="58" cy="86" r="4"/><circle class="dot" cx="88" cy="92" r="4"/><circle class="dot" cx="119" cy="59" r="4"/><circle class="dot" cx="151" cy="70" r="4"/><circle class="dot hot" cx="184" cy="31" r="5"/><text x="144" y="20">FORM INDEX</text></svg>';
+    feature.querySelector('b').textContent=scorer&&scorer.n?scorer.n:'ЛІДЕР ЩЕ ВИЗНАЧАЄТЬСЯ';
+    feature.querySelector('.cv2-season-feature-copy>span').textContent=goals?goals+' '+goalWord+' · найкращий бомбардир клубу':'Після перших голів тут з’явиться бомбардир';
+    feature.querySelector('i').textContent=played?rate+'% перемог · '+played+' матчів':'СЕЗОН ЩОЙНО РОЗПОЧАТО';
+  };
+})();
+</script>
+<style id="finance-identity-v2-v43">
+  #s-salary .fin2{--fin-blue:#3478f6;--fin-cyan:#25d5e8;--fin-lime:#b8ff35;--fin-green:#21d29b;--fin-red:#ff5967;--fin-gold:#f6bb4b;padding:16px 18px 100px!important;background:linear-gradient(180deg,#04070d,#060b13 46%,#04070d);color:#f5f8fd}
+  #s-salary .fin2-head{position:relative;min-height:168px;margin:0 0 12px!important;padding:22px 18px 18px!important;display:flex!important;align-items:flex-end!important;border:1px solid #263b55;border-radius:24px;overflow:hidden;background:linear-gradient(90deg,rgba(3,8,15,.99) 0%,rgba(3,8,15,.91) 44%,rgba(3,8,15,.21) 78%),linear-gradient(0deg,rgba(3,8,15,.9),transparent 58%),url('identity_v2_assets/fmua-finance-command-center-wide-v1.png') 66% center/cover no-repeat;box-shadow:0 20px 48px rgba(0,0,0,.32)}
+  #s-salary .fin2-head:before{content:'';position:absolute;z-index:1;left:18px;top:0;width:74px;height:3px;background:linear-gradient(90deg,var(--fin-lime),var(--fin-cyan));box-shadow:0 0 18px rgba(184,255,53,.32)}
+  #s-salary .fin2-head:after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(118deg,transparent 0 66%,rgba(52,120,246,.11) 66% 67%,transparent 67% 74%,rgba(184,255,53,.05) 74% 75%,transparent 75%)}
+  #s-salary .fin2-head>div{position:relative;z-index:2}#s-salary .fin2-kicker{color:var(--fin-lime)!important;font-size:7px!important;letter-spacing:1.65px!important}#s-salary .fin2-title{margin-top:7px!important;color:#f8fbff;font:31px/.95 'Bebas Neue',Impact,sans-serif!important;letter-spacing:.4px!important;text-transform:uppercase}#s-salary .fin2-season{margin-top:7px!important;color:#8b99ac!important;font-size:8px!important;letter-spacing:.45px}
+  #s-salary .fin2-wallet{min-width:126px;padding:10px 12px;border:1px solid rgba(184,255,53,.22);border-radius:14px;background:rgba(3,10,16,.68);text-align:right!important;backdrop-filter:blur(10px)}#s-salary .fin2-wallet b{color:var(--fin-lime)!important;font:26px/1 'Bebas Neue',Impact,sans-serif!important;letter-spacing:.3px}#s-salary .fin2-wallet span{display:block;margin-top:5px;color:#8290a4!important;font-size:6.5px!important;letter-spacing:1px!important}
+  #s-salary .fin2-tabs{position:sticky;top:0;z-index:12;margin:0 0 15px!important;padding:5px!important;gap:5px!important;border:1px solid #1d2c40!important;border-radius:15px!important;background:rgba(7,15,26,.92)!important;backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(0,0,0,.16)}
+  #s-salary .fin2-tab{min-height:42px;padding:8px 5px!important;display:flex;align-items:center;justify-content:center;gap:7px;border-radius:11px!important;color:#718096!important;font-size:9px!important;letter-spacing:.15px;transition:.18s ease}#s-salary .fin2-tab svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8}#s-salary .fin2-tab.on{background:linear-gradient(145deg,rgba(52,120,246,.27),rgba(52,120,246,.13))!important;color:#90b7ff!important;box-shadow:inset 0 0 0 1px rgba(87,147,255,.18),0 5px 15px rgba(0,0,0,.18)!important}#s-salary .fin2-tab.on:after{content:'';position:absolute;bottom:4px;width:18px;height:2px;border-radius:2px;background:var(--fin-cyan);box-shadow:0 0 9px rgba(37,213,232,.5)}#s-salary .fin2-tab{position:relative}
+  #s-salary .fin3-context{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:0 2px 11px;padding-left:10px;border-left:3px solid var(--fin-blue)}#s-salary .fin3-context small{display:block;color:#75849a;font-size:6.5px;font-weight:900;letter-spacing:1.35px;text-transform:uppercase}#s-salary .fin3-context b{display:block;margin-top:4px;color:#e9eef6;font-size:13px}#s-salary .fin3-context span{color:#64748b;font-size:7px;white-space:nowrap}
+  #s-salary .fin2-promo-big{margin-bottom:12px!important;padding:14px!important;border-color:rgba(246,187,75,.25)!important;border-radius:18px!important;background:radial-gradient(circle at 88% 10%,rgba(246,187,75,.13),transparent 28%),linear-gradient(145deg,#11150f,#091019 68%)!important;box-shadow:0 13px 28px rgba(0,0,0,.19),inset 0 1px rgba(255,255,255,.035)!important;animation:none!important}#s-salary .fin2-promo-big .fp-eyebrow{margin-bottom:8px!important;color:#e2b84e!important}#s-salary .fin2-promo-big .fp-icon{background:linear-gradient(145deg,rgba(246,187,75,.18),rgba(104,75,11,.12))!important;color:#f6bb4b}#s-salary .fin2-promo-big .fp-icon svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8}#s-salary .fin2-promo-big .fp-title{font-size:12px!important}#s-salary .fin2-promo-big .fp-sub{font-size:8px!important}#s-salary .fin2-promo-big .fp-actions{grid-template-columns:1.05fr .95fr!important}#s-salary .fin2-promo-big a,#s-salary .fin2-promo-big button{min-height:39px!important;border-radius:11px!important;font-size:9px!important}#s-salary .fin2-promo-big a{background:linear-gradient(135deg,#1768c8,#198ed2)!important}#s-salary .fin2-promo-big button{color:#ffe28a!important}
+  #s-salary .fin2-hero{position:relative;margin-bottom:11px!important;padding:17px!important;border:1px solid #29415e!important;border-radius:19px!important;background:radial-gradient(circle at 92% 0%,rgba(52,120,246,.18),transparent 33%),linear-gradient(145deg,#0b1829,#08121f 70%)!important;overflow:hidden}#s-salary .fin2-hero:after{content:'';position:absolute;right:-44px;bottom:-70px;width:164px;height:164px;border:1px solid rgba(52,120,246,.10);border-radius:50%;box-shadow:0 0 0 22px rgba(52,120,246,.026),0 0 0 44px rgba(52,120,246,.016);pointer-events:none}#s-salary .fin2-label{color:#75849a!important;font-size:7px!important;letter-spacing:1.25px!important}#s-salary .fin2-money{position:relative;z-index:1;margin:8px 0 3px!important;color:#f8fbff;font-size:48px!important}#s-salary .fin2-delta{font-size:9px!important}#s-salary .fin2-health{position:relative;z-index:2;padding:6px 9px!important;background:rgba(3,8,15,.46);font-size:7px!important;letter-spacing:.5px;text-transform:uppercase}#s-salary .fin2-rail{position:relative;z-index:1;height:4px!important;margin-top:15px!important;background:#1a2a3d!important}#s-salary .fin2-caption{position:relative;z-index:1;margin-top:7px!important;font-size:7px!important}
+  #s-salary .finance-tab-salary .fin2-hero{border-color:rgba(246,187,75,.28)!important;background:radial-gradient(circle at 92% 0%,rgba(246,187,75,.13),transparent 33%),linear-gradient(145deg,#18160e,#0b121b 70%)!important}#s-salary .finance-tab-salary .fin2-hero .fin2-money{color:var(--fin-gold)}#s-salary .finance-tab-income .fin3-context{border-left-color:var(--fin-cyan)}
+  #s-salary .fin2-metrics{gap:8px!important;margin-bottom:11px!important}#s-salary .fin2-metric{position:relative;min-height:105px;padding:13px!important;border:1px solid #1d2d42!important;border-radius:16px!important;background:linear-gradient(150deg,#0b1624,#09111c)!important;overflow:hidden}#s-salary .fin2-metric:before{content:'';position:absolute;left:13px;right:13px;top:0;height:2px;border-radius:2px;background:#33445b}#s-salary .fin2-metric.good:before{background:var(--fin-green)}#s-salary .fin2-metric.bad:before{background:var(--fin-red)}#s-salary .fin2-metric.warn:before{background:var(--fin-gold)}#s-salary .fin2-metric.info:before{background:var(--fin-blue)}#s-salary .fin2-metric .value{margin:8px 0 5px!important;font:27px/1 'Bebas Neue',Impact,sans-serif!important;letter-spacing:.2px}#s-salary .fin2-metric .hint{font-size:7px!important;line-height:1.4!important}
+  #s-salary .fin2-callout{padding:12px!important;border-color:#203148!important;border-radius:15px!important;background:linear-gradient(145deg,rgba(16,26,40,.84),rgba(9,16,27,.86))!important}#s-salary .fin2-callout b{font-size:9px!important}#s-salary .fin2-callout span{font-size:7px!important}
+  #s-salary .fin2-panel{margin-bottom:10px!important;border:1px solid #1d2c40!important;border-radius:17px!important;background:#09131f!important;box-shadow:0 9px 24px rgba(0,0,0,.12)}#s-salary .fin2-panel-head{position:relative;padding:12px 13px 11px 16px!important;border-bottom-color:#19283a!important;background:linear-gradient(90deg,rgba(52,120,246,.07),transparent 54%)}#s-salary .fin2-panel-head:before{content:'';position:absolute;left:0;top:11px;bottom:11px;width:3px;border-radius:0 3px 3px 0;background:var(--fin-blue)}#s-salary .finance-tab-salary .fin2-panel-head:before{background:var(--fin-gold)}#s-salary .finance-tab-income .fin2-panel-head:before{background:var(--fin-cyan)}#s-salary .fin2-panel-head b{font-size:10px!important}#s-salary .fin2-panel-head span{font-size:7px!important}
+  #s-salary .fin2-row{min-height:57px;padding:10px 12px!important;border-bottom-color:#162536!important;transition:background .15s}#s-salary .fin2-row:hover{background:rgba(52,120,246,.04)}#s-salary .fin2-row-icon{width:34px!important;height:34px!important;border:1px solid rgba(129,154,187,.10);border-radius:11px!important;background:#101d2c!important}#s-salary .fin2-row-main b{font-size:9.5px!important}#s-salary .fin2-row-main span{font-size:7px!important}#s-salary .fin2-row-val{font:18px/1 'Bebas Neue',Impact,sans-serif!important;letter-spacing:.25px}
+  #s-salary .fin2-quarter{min-height:62px;padding:11px 13px!important;border-bottom-color:#182638!important}#s-salary .fin2-qdot{border-radius:10px!important}#s-salary .fin2-qname{font-size:9px!important}#s-salary .fin2-qsub{font-size:7px!important}#s-salary .fin2-qsum{font:17px/1 'Bebas Neue',Impact,sans-serif!important}
+  @media(max-width:390px){#s-salary .fin2{padding-left:12px!important;padding-right:12px!important}#s-salary .fin2-head{min-height:150px;padding:18px 13px 14px!important;background-position:62% center}#s-salary .fin2-title{font-size:27px!important}#s-salary .fin2-wallet{min-width:105px;padding:9px}#s-salary .fin2-wallet b{font-size:22px!important}#s-salary .fin2-tab{font-size:8px!important;gap:5px}#s-salary .fin2-promo-big .fp-actions{grid-template-columns:1fr!important}#s-salary .fin2-money{font-size:42px!important}#s-salary .fin2-metric{min-height:96px}}
+  body.theme-light #s-salary .fin2,body.light #s-salary .fin2{background:#eef3f9;color:#0b1524}body.theme-light #s-salary .fin2-head,body.light #s-salary .fin2-head{background:linear-gradient(90deg,rgba(241,246,252,.98),rgba(241,246,252,.83) 46%,rgba(241,246,252,.16) 80%),url('identity_v2_assets/fmua-finance-command-center-wide-v1.png') 66% center/cover no-repeat}body.theme-light #s-salary .fin2-title,body.light #s-salary .fin2-title{color:#0b1524}body.theme-light #s-salary .fin2-tabs,body.light #s-salary .fin2-tabs{background:rgba(242,246,251,.94)!important}body.theme-light #s-salary .fin2-hero,body.light #s-salary .fin2-hero,body.theme-light #s-salary .fin2-metric,body.light #s-salary .fin2-metric,body.theme-light #s-salary .fin2-panel,body.light #s-salary .fin2-panel{background:#fff!important;color:#0b1524!important}
+</style>
+<script>
+(function installFinanceIdentityV2(){
+  'use strict';
+  const baseRenderSalaryV43=window.renderSalaryScreen;
+  if(typeof baseRenderSalaryV43!=='function')return;
+  const icons=[
+    '<svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 17h6M17 14v6"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M4 7h16v11H4zM4 10h16M8 15h3"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M7 4v15M4 7l3-3 3 3M17 20V5M14 17l3 3 3-3"/></svg>'
+  ];
+  const gift='<svg viewBox="0 0 24 24"><path d="M4 10h16v10H4zM3 7h18v3H3zM12 7v13M12 7H8.5a2.5 2.5 0 1 1 2.1-3.85L12 7zm0 0h3.5a2.5 2.5 0 1 0-2.1-3.85L12 7z"/></svg>';
+  window.renderSalaryScreen=function renderSalaryScreenIdentityV2(){
+    baseRenderSalaryV43();
+    const root=document.querySelector('#s-salary .fin2');
+    if(!root)return;
+    const tab=G._finTab||'overview';
+    root.classList.remove('finance-tab-overview','finance-tab-salary','finance-tab-income');
+    root.classList.add('finance-tab-'+tab);
+    const tabs=[...root.querySelectorAll('.fin2-tab')];
+    const labels=['Огляд','Зарплати','Операції'];
+    tabs.forEach((button,i)=>{button.innerHTML=(icons[i]||'')+'<span>'+labels[i]+'</span>';});
+    const tabBar=root.querySelector('.fin2-tabs');
+    if(tabBar&&!root.querySelector('.fin3-context')){
+      const copy={overview:['ФІНАНСОВА СТІЙКІСТЬ','Контроль бюджету','поточний сезон'],salary:['КОНТРАКТНИЙ КОНТРОЛЬ','Зарплатний фонд','4 квартальні виплати'],income:['CASH FLOW LEDGER','Операції клубу','доходи · витрати']}[tab];
+      const context=document.createElement('div');context.className='fin3-context';context.innerHTML='<div><small>'+copy[0]+'</small><b>'+copy[1]+'</b></div><span>'+copy[2]+'</span>';tabBar.insertAdjacentElement('afterend',context);
+    }
+    const promoIcon=root.querySelector('.fin2-promo-big .fp-icon');if(promoIcon)promoIcon.innerHTML=gift;
   };
 })();
 </script>
