@@ -157,4 +157,9 @@ def create_app(bot=None):
     app.router.add_post('/api/save-game', save_game)
     app.router.add_get('/api/load-game', load_game)
     app.router.add_get('/api/active-slot', active_slot)
+    app.router.add_static(
+        '/identity_v2_assets/',
+        path=os.path.join(os.path.dirname(__file__), 'identity_v2_assets'),
+        show_index=False,
+    )
     return app
