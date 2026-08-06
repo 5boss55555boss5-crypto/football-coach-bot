@@ -31434,6 +31434,11 @@ const ACHIEVEMENTS = [
   {id:'cup_winner',icon:'🥇',name:'Кубковий тріумф',desc:'Виграйте національний кубок',cat:'season',tier:3,bonus:2500000,check:()=>_achTrophies('cup').length>=1},
   {id:'season_3',icon:'📆',name:'Сформований тренер',desc:'Завершіть 3 сезони',cat:'season',tier:2,bonus:1500000,check:()=>(G.careerLog||[]).length>=3},
   {id:'season_5',icon:'🎖️',name:'П’ятирічний план',desc:'Завершіть 5 сезонів',cat:'season',tier:4,bonus:5000000,check:()=>(G.careerLog||[]).length>=5},
+  {id:'season_10',icon:'👴',name:'Династія',desc:'Завершіть 10 сезонів',cat:'season',tier:5,bonus:10000000,check:()=>(G.careerLog||[]).length>=10},
+  {id:'season_15',icon:'🕰️',name:'Довгожитель',desc:'Завершіть 15 сезонів',cat:'season',tier:5,bonus:15000000,check:()=>(G.careerLog||[]).length>=15},
+  {id:'season_20',icon:'🏺',name:'Історична епоха',desc:'Завершіть 20 сезонів',cat:'season',tier:5,bonus:25000000,check:()=>(G.careerLog||[]).length>=20},
+  {id:'season_25',icon:'⏳',name:'Чверть століття',desc:'Завершіть 25 сезонів',cat:'season',tier:5,bonus:40000000,check:()=>(G.careerLog||[]).length>=25},
+  {id:'season_30',icon:'🗿',name:'Жива легенда',desc:'Завершіть 30 сезонів',cat:'season',tier:5,bonus:60000000,check:()=>(G.careerLog||[]).length>=30},
   {id:'champion_repeat',icon:'🔁',name:'Захист титулу',desc:'Виграйте чемпіонат два сезони поспіль',cat:'season',tier:4,bonus:5000000,check:()=>_achBackToBackTitles()},
   {id:'unbeaten_season',icon:'🛡️',name:'Непереможний сезон',desc:'Завершіть чемпіонат без жодної поразки',cat:'season',tier:5,bonus:10000000,check:()=>_achUnbeatenSeason()},
   {id:'cup_two_leagues',icon:'🗺️',name:'Кубковий мандрівник',desc:'Виграйте національні кубки у двох різних чемпіонатах',cat:'season',tier:4,bonus:7000000,check:()=>_achUniqueTrophyField('cup','leagueId')>=2},
@@ -31442,6 +31447,9 @@ const ACHIEVEMENTS = [
   {id:'champion_two_clubs',icon:'🏟️',name:'Будівничий чемпіонів',desc:'Станьте чемпіоном із двома різними клубами',cat:'season',tier:5,bonus:12000000,check:()=>_achUniqueTrophyField('league','clubId')>=2},
   {id:'underdog_champion',icon:'🐺',name:'Футбольне диво',desc:'Виграйте лігу з клубом стартової сили 68 або нижче',cat:'season',tier:5,bonus:12000000,check:()=>_achUnderdogTrophy('league',68)},
   {id:'trophy_5',icon:'🏛️',name:'Колекція тренера',desc:'Зберіть 5 офіційних трофеїв',cat:'season',tier:4,bonus:6000000,check:()=>(G.trophyHistory||[]).length>=5},
+  {id:'trophy_10',icon:'🏛️',name:'Музей трофеїв',desc:'Зберіть 10 офіційних трофеїв',cat:'season',tier:5,bonus:12000000,check:()=>(G.trophyHistory||[]).length>=10},
+  {id:'trophy_20',icon:'💠',name:'Скарбниця трофеїв',desc:'Зберіть 20 офіційних трофеїв',cat:'season',tier:5,bonus:20000000,check:()=>(G.trophyHistory||[]).length>=20},
+  {id:'trophy_30',icon:'🔱',name:'Імперія трофеїв',desc:'Зберіть 30 офіційних трофеїв',cat:'season',tier:5,bonus:30000000,check:()=>(G.trophyHistory||[]).length>=30},
 
   // Європа
   {id:'uel_winner',icon:'◆',name:'Тріумф у Лізі Європи',desc:'Виграйте Лігу Європи',cat:'europe',tier:4,bonus:6000000,check:()=>_achTrophies('uel').length>=1},
