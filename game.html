@@ -6688,6 +6688,10 @@ function processSilentEvent(ev){
           p.yellowCards=0; // reset after ban
           if(!G.suspended.includes(ev.scorer)){
             G.suspended.push(ev.scorer);
+            if(!G.suspensionBans) G.suspensionBans={};
+            if(!G.suspensionRound) G.suspensionRound={};
+            G.suspensionBans[ev.scorer]=1;
+            G.suspensionRound[ev.scorer]=G.currentRound;
             addJournalEntry('suspension',{name:ev.scorer,reason:'5 жовтих карток',matches:1});
             // Show a notable event in feed
             setTimeout(()=>addEvent({type:'red',text:`🟨×5 ${esc(ev.scorer)} — пропустить наступний матч (5 жовтих)`,min:ev.min+1}),200);
@@ -6727,13 +6731,25 @@ function processSilentEvent(ev){
           G.suspended.push(ev.scorer);
           // Store ban length for display (we use a map for multi-match bans)
           if(!G.suspensionBans) G.suspensionBans={};
+          if(!G.suspensionRound) G.suspensionRound={};
           G.suspensionBans[ev.scorer]=banMatches;
+          G.suspensionRound[ev.scorer]=G.currentRound;
           addJournalEntry('suspension',{name:ev.scorer,reason:ev.subtype==='direct'?'Пряма червона':'Дві жовті',matches:banMatches});
         }
       }
     } else {
       const idx=LS.oppOnField?.findIndex(p=>p&&!p.subbed&&p.n===ev.scorer);
       if(idx>=0&&LS.oppStats[idx]) LS.oppStats[idx].red=true;
+      // FIX: opponents sent off (direct red / 2nd yellow) used to face no
+      // consequence at all — only 5-yellow accumulation banned AI players.
+      // Mirror that same next-match ban for red cards too.
+      const sq=(G.clubSquads&&G.clubSquads[LS.oppId])||[];
+      const op=sq.find(x=>x&&x.n===ev.scorer);
+      if(op){
+        if(!G.aiSuspended) G.aiSuspended={};
+        const list=G.aiSuspended[LS.oppId]||(G.aiSuspended[LS.oppId]=[]);
+        if(list.indexOf(ev.scorer)<0) list.push(ev.scorer);
+      }
     }
   } else if(ev.type==='opp_sub'){
     // NOTE: old duplicate 'penalty' block removed — handled by the unified block below (processEvent v2)
@@ -14351,14 +14367,22 @@ function renderMiniBench(){
 // Tick suspension bans: decrement multi-match bans, release expired ones
 function tickSuspensions(){
   if(!G.suspensionBans) G.suspensionBans={};
+  if(!G.suspensionRound) G.suspensionRound={};
   Object.keys(G.suspensionBans).forEach(name=>{
+    // FIX: this runs right after the SAME match the card was shown in — the
+    // ban was only just created and hasn't blocked any lineup selection yet,
+    // so decrementing it now would let the player skip serving it entirely
+    // (1-match bans became a no-op, 2-match bans only cost 1 match). Skip a
+    // ban on the round it was earned; only tick it down on later rounds.
+    if(G.suspensionRound[name]===G.currentRound) return;
     G.suspensionBans[name]--;
     if(G.suspensionBans[name]<=0){
       delete G.suspensionBans[name];
+      delete G.suspensionRound[name];
       G.suspended=G.suspended.filter(n=>n!==name);
     }
   });
-  // Clean up suspended players who have no ban entry (legacy 1-match bans)
+  // Clean up suspended players who have no ban entry (legacy/corrupted state)
   G.suspended=G.suspended.filter(n=>G.suspensionBans[n]!==undefined);
 }
 
@@ -19046,7 +19070,7 @@ function confirmClub(){
   if(!pendingClub)return;
   G.club=pendingClub;G.players=(PLAYERS[pendingClub.id]||[]).map(p=>({...p}));
   const startingAcademyLevel=Math.max(1,Math.min(7,ACADEMY_LEVEL[pendingClub.id]||ACADEMY_LEVEL._default||3));
-  G.budget=pendingClub.budget;G.tactic='balanced';G.currentRound=0;G.suspended=[];G.suspensionBans={};G.formation='4-3-3';G.injuredPlayers={};G.cup=null;G.ucl=null;G.uclInUCL=false;G.uclParticipants=[];G._seasonPrizeGiven=false;G._winterBreakNotified=false;G._tvPayments=[];G.salary={salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0};G.academy={level:startingAcademyLevel,totalInvested:0,lastUpgradeSeason:null};G._academyRound=null;G.aiAcademyDrift={};
+  G.budget=pendingClub.budget;G.tactic='balanced';G.currentRound=0;G.suspended=[];G.suspensionBans={};G.suspensionRound={};G.formation='4-3-3';G.injuredPlayers={};G.cup=null;G.ucl=null;G.uclInUCL=false;G.uclParticipants=[];G._seasonPrizeGiven=false;G._winterBreakNotified=false;G._tvPayments=[];G.salary={salaryBlocked:false,lastPaidHalf:-1,paidQuarters:[],history:[],annualBill:0};G.academy={level:startingAcademyLevel,totalInvested:0,lastUpgradeSeason:null};G._academyRound=null;G.aiAcademyDrift={};
   G.captainName=null; autoAssignCaptain();
   G._channelBonusClaimed=false; // FIX16: reset channel bonus on new club so it can be earned again
   G._channelBonusWarned=false;
@@ -19786,7 +19810,7 @@ function writeSaveGame(){
       })),
       budget:G.budget,_channelBonusClaimed:G._channelBonusClaimed||false,_channelBonusWarned:G._channelBonusWarned||false,tactic:G.tactic,formation:G.formation,
       currentRound:G.currentRound,tableStats:G.tableStats,
-      suspended:G.suspended,suspensionBans:G.suspensionBans||{},injuredPlayers:G.injuredPlayers||{},
+      suspended:G.suspended,suspensionBans:G.suspensionBans||{},suspensionRound:G.suspensionRound||{},injuredPlayers:G.injuredPlayers||{},
       schedule:G.schedule,scorers:G.scorers,
       salary:G.salary,sponsor:G.sponsor,
       transfers:{spent:G.transfers.spent,history:G.transfers.history,lastRefresh:-1,marketPlayers:[],flashSales:G.transfers.flashSales||[],loans:Array.isArray(G.transfers.loans)?G.transfers.loans.slice(-100):[]},
@@ -19919,6 +19943,7 @@ function loadGame(rawData){
     G.currentRound=safeRound;G.tableStats=sanitizeTableStats(d.tableStats);
     G.suspended=Array.isArray(d.suspended)?d.suspended.filter(x=>typeof x==='string').map(x=>x.slice(0,60)):[];
     G.suspensionBans=(d.suspensionBans&&typeof d.suspensionBans==='object')?d.suspensionBans:{};
+    G.suspensionRound=(d.suspensionRound&&typeof d.suspensionRound==='object')?d.suspensionRound:{};
     G.injuredPlayers=(d.injuredPlayers&&typeof d.injuredPlayers==='object')?d.injuredPlayers:{};
     // Restore yellowCards, _recovering, contractEnd, salary on players
     if(Array.isArray(d.players)){
