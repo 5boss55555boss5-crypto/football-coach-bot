@@ -33726,6 +33726,115 @@ body.light #liveOverlay .match-console .live-bench-head small{color:#7a889c}
   };
 })();
 </script>
+<style id="uel33-styles">
+/* ──────────────────────────────────────────────────────────────────────────
+   UEL PRISMATIC NIGHT v33 — Europa League companion to the UCL treatment,
+   same structure/system, retextured in the tournament's own black/red/orange/gold.
+   ────────────────────────────────────────────────────────────────────────── */
+#uelTabBody{--uel-void:#0d0301;--uel-maroon:#3d0a00;--uel-red:#8c1400;--uel-orange:#ff7a1a;--uel-gold:#ffc233;--uel-amber:#ffe08a;color:#fff;background:#0d0301;min-height:100%;padding-bottom:24px;overflow:hidden}
+.uel33-shell{position:relative;background:radial-gradient(circle at 72% 5%,rgba(255,110,20,.32),transparent 27%),linear-gradient(180deg,#3d0a00 0,#210500 30%,#0d0301 100%);min-height:100%}
+.uel33-hero{position:relative;min-height:244px;padding:22px 20px 18px;overflow:hidden;border-bottom:1px solid rgba(255,170,110,.16);isolation:isolate}
+.uel33-hero:before{content:"";position:absolute;inset:-70% -30% auto 26%;height:330px;background:conic-gradient(from 210deg,transparent 0 16%,rgba(255,120,20,.72) 19%,rgba(140,20,0,.5) 24%,rgba(255,194,51,.6) 29%,rgba(255,224,138,.45) 32%,transparent 38% 100%);filter:blur(14px);transform:rotate(-9deg);opacity:.72;z-index:-2;animation:uel33Prism 9s ease-in-out infinite alternate}
+.uel33-hero:after{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(ellipse at 75% 38%,rgba(255,90,10,.36),transparent 32%),linear-gradient(130deg,transparent 0 42%,rgba(255,255,255,.045) 43%,transparent 46%)}
+.uel33-eyebrow{display:flex;align-items:center;gap:7px;font-size:8px;font-weight:900;letter-spacing:2.1px;text-transform:uppercase;color:rgba(255,214,190,.68)}
+.uel33-eyebrow i{width:28px;height:1px;background:linear-gradient(90deg,var(--uel-orange),var(--uel-gold));box-shadow:0 0 9px var(--uel-orange)}
+.uel33-brand{display:flex;align-items:center;gap:13px;margin-top:13px;max-width:330px}
+.uel33-starball{position:relative;width:76px;height:76px;display:grid;place-items:center;flex:0 0 auto;border-radius:50%;background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.2),rgba(255,120,20,.14) 45%,rgba(30,5,0,.2) 72%);border:1px solid rgba(255,205,160,.3);box-shadow:inset 0 0 20px rgba(255,150,60,.18),0 0 35px rgba(200,40,10,.4)}
+.uel33-starball:before,.uel33-starball:after{content:"";position:absolute;inset:-8px;border-radius:50%;border:1px solid transparent;border-top-color:var(--uel-orange);border-right-color:rgba(255,194,51,.65);transform:rotate(18deg);animation:uel33Orbit 12s linear infinite}
+.uel33-starball:after{inset:-14px;border-top-color:rgba(255,224,138,.55);border-right-color:transparent;border-left-color:rgba(140,20,0,.55);animation-duration:17s;animation-direction:reverse}
+.uel33-starball img{position:relative;z-index:2;filter:brightness(0) invert(1) drop-shadow(0 0 8px rgba(255,190,140,.75))!important}
+.uel33-title{font-family:'Bebas Neue',Impact,sans-serif;font-size:34px;line-height:.88;letter-spacing:.8px;text-transform:uppercase;text-shadow:0 4px 22px rgba(0,0,0,.4)}
+.uel33-title span{display:block;font-size:16px;letter-spacing:4.5px;font-family:Inter,Arial,sans-serif;font-weight:500;color:#ffbf6e;margin-bottom:7px}
+.uel33-meta{font-size:10px;color:rgba(255,224,205,.68);margin-top:10px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.uel33-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border:1px solid rgba(255,170,90,.32);border-radius:999px;background:rgba(90,20,0,.5);color:#ffd9a8;font-size:8px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;backdrop-filter:blur(10px)}
+.uel33-chip.live{border-color:rgba(255,201,60,.4);color:#ffe37a;background:rgba(90,50,0,.22)}
+.uel33-wave{position:absolute;left:-16%;right:-16%;bottom:-56px;height:118px;transform:rotate(-5deg);opacity:.7;pointer-events:none}
+.uel33-wave i{position:absolute;inset:0;border-radius:50%;border-top:2px solid var(--c);filter:drop-shadow(0 0 5px var(--c));transform:translateY(var(--y)) scaleX(var(--s))}
+.uel33-stats{position:relative;z-index:3;display:grid;grid-template-columns:repeat(3,1fr);margin:-18px 14px 14px;border:1px solid rgba(255,170,110,.2);border-radius:17px;overflow:hidden;background:linear-gradient(145deg,rgba(90,20,0,.93),rgba(35,8,0,.95));box-shadow:0 18px 45px rgba(20,0,0,.35);backdrop-filter:blur(15px)}
+.uel33-stat{padding:13px 8px;text-align:center;border-right:1px solid rgba(255,180,120,.13)}.uel33-stat:last-child{border-right:0}
+.uel33-stat b{display:block;font:24px/1 'Bebas Neue',sans-serif;color:white}.uel33-stat small{display:block;margin-top:5px;font-size:7px;font-weight:850;letter-spacing:1.3px;color:rgba(255,205,175,.5);text-transform:uppercase}
+.uel33-section{padding:0 14px 16px}
+.uel33-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:19px 2px 10px}
+.uel33-section-kicker{font-size:7px;font-weight:900;letter-spacing:1.8px;text-transform:uppercase;color:#ff9d4d;margin-bottom:4px}.uel33-section-title{font:22px/1 'Bebas Neue',sans-serif;letter-spacing:.7px;color:white}
+.uel33-legend{display:flex;align-items:center;gap:10px}.uel33-legend span{display:flex;align-items:center;gap:4px;font-size:7px;font-weight:800;color:rgba(255,205,175,.55);text-transform:uppercase;letter-spacing:.5px}.uel33-legend i{width:6px;height:6px;border-radius:2px}
+.uel33-progress{height:3px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin:0 2px 11px}.uel33-progress i{display:block;height:100%;background:linear-gradient(90deg,var(--uel-orange),var(--uel-red),var(--uel-gold));box-shadow:0 0 10px #ff7a1a}
+.uel33-table{border:1px solid rgba(255,170,110,.16);border-radius:16px;overflow:hidden;background:rgba(30,6,0,.62);box-shadow:inset 0 1px rgba(255,255,255,.04)}
+.uel33-th,.uel33-row{display:grid;grid-template-columns:26px minmax(0,1fr) 30px 38px 36px;align-items:center;column-gap:4px}.uel33-th{padding:8px 11px;font-size:7px;font-weight:900;letter-spacing:1.2px;text-transform:uppercase;color:rgba(255,200,170,.4)}
+.uel33-row{position:relative;min-height:47px;padding:5px 11px;border-top:1px solid rgba(255,170,110,.09);background:linear-gradient(90deg,rgba(255,255,255,.025),transparent);transition:.18s ease}
+.uel33-row.qa:before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:2px;background:linear-gradient(var(--uel-orange),var(--uel-red));box-shadow:0 0 8px var(--uel-orange)}
+.uel33-row.qb:before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:2px;background:linear-gradient(var(--uel-gold),#b87b00);box-shadow:0 0 8px var(--uel-gold)}
+.uel33-row.me{background:linear-gradient(90deg,rgba(255,122,26,.17),rgba(140,20,0,.1) 55%,rgba(255,194,51,.05));box-shadow:inset 0 0 0 1px rgba(255,160,100,.22)}
+.uel33-pos{font:17px/1 'Bebas Neue',sans-serif;color:rgba(255,210,185,.45);text-align:center}.uel33-row.qa .uel33-pos{color:#ff9d4d}.uel33-row.qb .uel33-pos{color:#ffd75d}.uel33-row:first-of-type .uel33-pos{color:#ffd75d}
+.uel33-club{display:flex;align-items:center;gap:8px;min-width:0}.uel33-logo{width:27px;height:27px;border-radius:9px;padding:3px;display:grid;place-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.09);overflow:hidden;flex:0 0 auto}.uel33-logo>*{max-width:100%!important;max-height:100%!important}.uel33-club-name{font-size:11px;font-weight:760;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.uel33-row.me .uel33-club-name{color:#ffbd85}.uel33-club-sub{font-size:7px;color:rgba(255,200,170,.4);margin-top:2px}
+.uel33-num{text-align:center;font-size:10px;color:rgba(255,215,195,.58)}.uel33-gd{font-size:9px;font-weight:800}.uel33-gd.plus{color:#6ef5bd}.uel33-gd.minus{color:#ff8a7a}.uel33-points{text-align:center;font:18px/1 'Bebas Neue',sans-serif;color:white}.uel33-row.me .uel33-points{color:#ffb066;text-shadow:0 0 12px rgba(255,150,60,.55)}
+.uel33-my-status{display:flex;align-items:center;gap:11px;margin-top:10px;padding:11px 12px;border-radius:13px;background:linear-gradient(115deg,rgba(120,30,5,.58),rgba(70,10,40,.5));border:1px solid rgba(255,170,110,.22)}
+.uel33-my-status .rank{font:30px/1 'Bebas Neue',sans-serif;color:#ffab5c}.uel33-my-status b{font-size:10px}.uel33-my-status p{margin:3px 0 0;font-size:8px;color:rgba(255,210,190,.5)}
+.uel33-stage{position:relative;display:flex;align-items:center;gap:9px;margin:20px 0 9px}.uel33-stage:before,.uel33-stage:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,rgba(255,170,110,.4))}.uel33-stage:after{transform:scaleX(-1)}.uel33-stage span{font-size:8px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:#ffcf9e}.uel33-stage.final span{color:#ffe066}
+.uel33-tie{position:relative;border-radius:15px;padding:9px;margin-bottom:8px;background:linear-gradient(135deg,rgba(70,15,0,.78),rgba(30,6,0,.82));border:1px solid rgba(255,170,110,.16);overflow:hidden}.uel33-tie.me{border-color:rgba(255,170,110,.4);box-shadow:0 8px 25px rgba(255,110,20,.14)}
+.uel33-tie:after{content:"";position:absolute;width:90px;height:90px;border:1px solid rgba(255,170,110,.11);border-radius:50%;right:-35px;top:-45px;box-shadow:0 0 25px rgba(200,40,10,.12)}
+.uel33-team{position:relative;z-index:1;display:grid;grid-template-columns:27px minmax(0,1fr) 28px;align-items:center;gap:8px;min-height:36px;padding:3px 5px}.uel33-team+.uel33-team{border-top:1px solid rgba(255,180,130,.09)}.uel33-team.winner{color:#fff}.uel33-team.loser{opacity:.42}.uel33-team-name{font-size:11px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.uel33-team-score{font:19px/1 'Bebas Neue',sans-serif;text-align:right;color:#fff}.uel33-team.winner .uel33-team-score{color:#ffb066;text-shadow:0 0 10px rgba(255,140,50,.5)}
+.uel33-legline{position:relative;z-index:1;display:flex;justify-content:center;gap:12px;padding:6px 4px 1px;border-top:1px solid rgba(255,180,130,.08);font-size:7px;color:rgba(255,210,190,.5)}.uel33-legline b{color:#ffcf9e}
+.uel33-champion{position:relative;text-align:center;padding:25px 15px;margin-top:10px;border-radius:20px;overflow:hidden;background:radial-gradient(circle at 50% 0,rgba(255,140,40,.3),transparent 34%),linear-gradient(150deg,#5a1200,#210500 62%,#3a0a00);border:1px solid rgba(255,180,110,.35);box-shadow:0 18px 48px rgba(20,0,0,.42)}
+.uel33-champion:before{content:"";position:absolute;inset:-100% -10%;background:conic-gradient(transparent 0 38%,rgba(255,224,138,.14) 42%,rgba(255,120,20,.24) 48%,rgba(140,20,0,.16) 55%,transparent 62%);animation:uel33Orbit 18s linear infinite}.uel33-champion>*{position:relative}.uel33-champion-logo{width:58px;height:58px;margin:0 auto 10px;display:grid;place-items:center;border-radius:18px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);box-shadow:0 0 28px rgba(255,140,40,.24);overflow:hidden}.uel33-champion h3{margin:0;font:28px/1 'Bebas Neue',sans-serif;letter-spacing:1px}.uel33-champion p{margin:5px 0 0;color:#ffd75d;font-size:9px;font-weight:900;letter-spacing:1.3px;text-transform:uppercase}
+.uel33-empty{min-height:470px;display:grid;place-items:center;text-align:center;padding:30px;background:radial-gradient(circle at 50% 25%,rgba(255,120,30,.32),transparent 38%),#0d0301}.uel33-empty h3{font:30px/1 'Bebas Neue',sans-serif;margin:15px 0 7px}.uel33-empty p{font-size:10px;color:rgba(255,210,190,.5);line-height:1.6}
+@keyframes uel33Orbit{to{transform:rotate(378deg)}}@keyframes uel33Prism{to{transform:rotate(-3deg) translateY(28px);opacity:.92}}
+@media(max-width:380px){.uel33-hero{min-height:230px;padding-left:16px}.uel33-starball{width:66px;height:66px}.uel33-title{font-size:30px}.uel33-title span{font-size:14px}.uel33-section{padding-left:10px;padding-right:10px}.uel33-th,.uel33-row{grid-template-columns:23px minmax(0,1fr) 26px 33px 31px;padding-left:8px;padding-right:8px}}
+@media(prefers-reduced-motion:reduce){.uel33-hero:before,.uel33-starball:before,.uel33-starball:after,.uel33-champion:before{animation:none!important}}
+</style>
+
+<script>
+/* UEL Prismatic Night v33 */
+(function installUELPrismaticUI(){
+  window.renderUELTab=function renderUELTab(){
+    if(migrateUELToCurrentFormatIfPristine?.()) saveGame({immediate:true});
+    const el=document.getElementById('uelTabBody');if(!el)return;
+    const parts=G.uelParticipants||[];
+    const stats=G.uel?.groupStats||{};
+    const myId=G.club?.id,inUEL=!!G.uelInUEL,phase=G.uel?.phase||'group';
+    const season=`${G.seasonStartYear||2025}/${String((G.seasonStartYear||2025)+1).slice(-2)}`;
+    if(!parts.length&&!Object.keys(stats).length){
+      el.innerHTML=`<div class="uel33-empty"><div><div class="uel33-starball" style="margin:auto">${uelTrophyImg('48px')}</div><h3>Європейська ніч ще попереду</h3><p>Ліга Європи стартує у новому сезоні.<br>Виведіть клуб на другу сцену Європи.</p></div></div>`;return;
+    }
+    const sorted=parts.map(id=>({id,c:clubById(id),...(stats[id]||{pts:0,w:0,d:0,l:0,m:0,gf:0,ga:0})})).sort((a,b)=>b.pts-a.pts||(b.gf-b.ga)-(a.gf-a.ga)||b.gf-a.gf);
+    const myRank=Math.max(0,sorted.findIndex(r=>r.id===myId)+1);
+    const matchesPlayed=Math.round(sorted.reduce((s,r)=>s+(r.m||0),0)/2);
+    const totalPossible=Math.max(1,Math.round(parts.length*8/2));
+    const progress=Math.min(100,Math.round(matchesPlayed/totalPossible*100));
+    const phaseNames={group:'Етап ліги',playoff_pending:'Жеребкування',playoff:'Плей-оф',done:'Завершено'};
+    let html=`<div class="uel33-shell"><section class="uel33-hero">
+      <div class="uel33-eyebrow"><i></i>UEFA · EUROPEAN FOOTBALL NIGHTS</div>
+      <div class="uel33-brand"><div class="uel33-starball">${uelTrophyImg('52px')}</div><div><div class="uel33-title"><span>UEFA</span>Europa<br>League</div><div class="uel33-meta"><b>${season}</b><span class="uel33-chip">${phaseNames[phase]||'Турнір'}</span>${inUEL?'<span class="uel33-chip live">◆ Ви у грі</span>':''}</div></div></div>
+      <div class="uel33-wave">${[['#ff7518','-5px','.94'],['#c81e0a','7px','1'],['#ffc233','19px','.92'],['#ffe38a','31px','.82']].map(x=>`<i style="--c:${x[0]};--y:${x[1]};--s:${x[2]}"></i>`).join('')}</div>
+    </section>
+    <div class="uel33-stats"><div class="uel33-stat"><b>${parts.length}</b><small>Клубів</small></div><div class="uel33-stat"><b>${matchesPlayed}</b><small>Матчів зіграно</small></div><div class="uel33-stat"><b>${myRank||'—'}</b><small>Ваше місце</small></div></div>`;
+
+    html+=`<section class="uel33-section"><div class="uel33-section-head"><div><div class="uel33-section-kicker">League phase</div><div class="uel33-section-title">Єдина таблиця</div></div><div class="uel33-legend"><span><i style="background:var(--uel-orange)"></i>Топ-4 · 1/4</span><span><i style="background:var(--uel-gold)"></i>5-12 · 1/8</span></div></div><div class="uel33-progress"><i style="width:${progress}%"></i></div><div class="uel33-table"><div class="uel33-th"><span>#</span><span>Команда</span><span style="text-align:center">М</span><span style="text-align:center">±</span><span style="text-align:center">О</span></div>`;
+    sorted.forEach((r,i)=>{
+      const me=r.id===myId,qa=i<4,qb=i>=4&&i<12,gd=(r.gf||0)-(r.ga||0),c=r.c||{};
+      html+=`<div class="uel33-row ${qa?'qa':qb?'qb':''} ${me?'me':''}"><div class="uel33-pos">${i+1}</div><div class="uel33-club"><span class="uel33-logo">${c.logo||''}</span><div style="min-width:0"><div class="uel33-club-name">${esc(c.name||'?')}${me?' · ВИ':''}</div><div class="uel33-club-sub">${r.w||0}В · ${r.d||0}Н · ${r.l||0}П</div></div></div><div class="uel33-num">${r.m||0}</div><div class="uel33-num uel33-gd ${gd>0?'plus':gd<0?'minus':''}">${gd>0?'+':''}${gd}</div><div class="uel33-points">${r.pts||0}</div></div>`;
+    });
+    html+='</div>';
+    if(inUEL){const safeRank=myRank||'—',status=myRank&&myRank<=4?'Пряма путівка у 1/4':myRank&&myRank<=12?'Зона 1/8 фіналу':'Поза зоною плей-оф';html+=`<div class="uel33-my-status"><div class="rank">${safeRank}</div><div><b>${esc(G.club?.name||'Ваш клуб')} · ${status}</b><p>${myRank&&myRank<=12?'Продовжуйте тримати темп у боротьбі за Європу.':'Потрібні очки, щоб повернутися у зону плей-оф.'}</p></div></div>`}
+    html+='</section>';
+
+    if(phase==='playoff'||phase==='done'){
+      const po=G.uel?.playoff;
+      if(po){
+        const resultText=r=>{if(!r)return null;const s=scoreParts(r);return `${s.hg}:${s.ag}`};
+        const aggregate=legs=>{const a=Array.isArray(legs)?legs[0]:legs,b=Array.isArray(legs)?legs[1]:null;if(!a?.result||!b?.result)return null;const s1=scoreParts(a.result),s2=scoreParts(b.result);return{s1,s2,h:s1.hg+s2.ag,a:s1.ag+s2.hg}};
+        const winner=(legs,isFinal)=>{const a=Array.isArray(legs)?legs[0]:legs;if(!a?.result)return null;if(isFinal){const s=scoreParts(a.result);if(s.hg!==s.ag)return s.hg>s.ag?a.home:a.away;return a.penWinner||null}const ag=aggregate(legs);if(!ag)return null;if(ag.h!==ag.a)return ag.h>ag.a?a.home:a.away;const arr=Array.isArray(legs)?[legs[1],legs[0]]:[legs];return arr.find(x=>x?.penWinner)?.penWinner||null};
+        const tieCard=(legs,isFinal=false)=>{const a=Array.isArray(legs)?legs[0]:legs,b=Array.isArray(legs)?legs[1]:null;if(!a)return'';const w=winner(legs,isFinal),c1=clubById(a.home)||{},c2=clubById(a.away)||{},me=a.home===myId||a.away===myId,ag=aggregate(legs),single=a.result?scoreParts(a.result):null;const score1=isFinal?(single?single.hg:'—'):(ag?ag.h:'—'),score2=isFinal?(single?single.ag:'—'):(ag?ag.a:'—');return `<div class="uel33-tie ${me?'me':''}"><div class="uel33-team ${w===a.home?'winner':w?'loser':''}"><span class="uel33-logo">${c1.logo||''}</span><span class="uel33-team-name">${esc(c1.name||'?')}${a.home===myId?' · ВИ':''}</span><span class="uel33-team-score">${score1}</span></div><div class="uel33-team ${w===a.away?'winner':w?'loser':''}"><span class="uel33-logo">${c2.logo||''}</span><span class="uel33-team-name">${esc(c2.name||'?')}${a.away===myId?' · ВИ':''}</span><span class="uel33-team-score">${score2}</span></div>${!isFinal&&a.result?`<div class="uel33-legline"><span>М1 ${resultText(a.result)}</span>${b?.result?`<span>М2 ${resultText(b.result)}</span>`:''}${ag?`<b>ЗАГ ${ag.h}:${ag.a}</b>`:''}</div>`:a.penScore?`<div class="uel33-legline"><b>ПЕН. ${a.penScore.home}:${a.penScore.away}</b></div>`:''}</div>`};
+        const stage=(label,arr,isFinal=false)=>{if(!arr?.length)return'';return `<div class="uel33-stage ${isFinal?'final':''}"><span>${label}</span></div>${arr.map(x=>tieCard(x,isFinal)).join('')}`};
+        html+=`<section class="uel33-section"><div class="uel33-section-head"><div><div class="uel33-section-kicker">Road to glory</div><div class="uel33-section-title">Шлях до фіналу</div></div><div class="uel33-section-note">Кожен матч<br>має значення</div></div>${stage('✦ 1/8 фіналу',po.r16)}${stage('◆ Чвертьфінал',po.qf)}${stage('◈ Півфінал',po.sf)}${stage('★ Фінал',po.final,true)}`;
+        if(G.uel?.winner){const c=clubById(G.uel.winner)||{},me=G.uel.winner===myId;html+=`<div class="uel33-champion"><div class="uel33-champion-logo">${c.logo||uelTrophyImg('42px')}</div><h3>${esc(c.name||'Чемпіон')}</h3><p>${me?'Ви підкорили Європу':'Переможець UEFA Europa League'}</p></div>`}
+        html+='</section>';
+      }
+    }
+    if(!inUEL&&phase==='group')html+=`<section class="uel33-section"><div class="uel33-my-status" style="border-color:rgba(255,201,60,.18)"><div class="rank" style="color:#ffd75d">◆</div><div><b>Ваш клуб не бере участі</b><p>Кваліфікуйтеся до Ліги Європи, щоб повернутися на цю сцену.</p></div></div></section>`;
+    el.innerHTML=html+'</div>';
+  };
+})();
+</script>
 <style id="club-identity-v2-v38">
 /* Presentation is injected by renderClubDashboardIdentity v38 below. */
 </style>
