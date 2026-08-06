@@ -13939,6 +13939,7 @@ function applyInjuryToPlayer(name, games, injuryType){
     typeName: injuryType?.name || 'Травма',
     emoji:    injuryType?.emoji || '🩹',
     round:    G.currentRound,  // коли отримав
+    justApplied: true,         // see tickInjuries() below
   };
 }
 
@@ -13946,8 +13947,15 @@ function applyInjuryToPlayer(name, games, injuryType){
 function tickInjuries(){
   if(!G.injuredPlayers) return;
   Object.keys(G.injuredPlayers).forEach(name=>{
-    G.injuredPlayers[name].remaining--;
-    if(G.injuredPlayers[name].remaining<=0){
+    const rec=G.injuredPlayers[name];
+    // FIX: this runs right after the SAME match the injury happened in —
+    // the player hasn't actually missed anything yet, so counting it down
+    // now let 1-match injuries be a no-op and multi-match ones fall short
+    // by one (same bug pattern fixed for suspension bans). Skip exactly the
+    // first tick after creation, then count down normally from then on.
+    if(rec.justApplied){ rec.justApplied=false; return; }
+    rec.remaining--;
+    if(rec.remaining<=0){
       delete G.injuredPlayers[name];
       // Mark player as recovering for next 2 matches (recidivism risk)
       const p = G.players.find(x=>x.n===name);
