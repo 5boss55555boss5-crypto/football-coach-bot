@@ -29588,7 +29588,16 @@ function admSimRound(silent=false){
     try{ advanceCupStage(rd); }catch(_){}
   }
 
+  // FIX: admin sim used to skip salary billing and the suspension/injury
+  // countdown entirely — a banned or injured player would stay stuck
+  // "unavailable" forever no matter how many rounds you admin-simmed past,
+  // because tickSuspensions()/tickInjuries() (which live match finalize
+  // always calls) never ran here. Mirror that same per-round bookkeeping.
+  const _admSalaryResult=checkAndPaySalary();
+  if(_admSalaryResult) G.salary.salaryBlocked=!_admSalaryResult.paid||(Number(G.salary.debt)||0)>0;
+  if(typeof tickSuspensions==='function') tickSuspensions();
   advanceRound('admin-sim-round',{processUCL:false,save:false,skipAcademy:false});
+  if(typeof tickInjuries==='function') tickInjuries();
   // Академія під час симуляції: перевіряємо синхронно (без setTimeout)
   if(typeof checkAcademyPromotion === 'function') checkAcademyPromotion();
   saveGame();
