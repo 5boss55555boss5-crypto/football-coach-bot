@@ -21535,6 +21535,14 @@ function _doNewSeason(){
   syncUserSquad();
   initPreMatchLineup(true);
   renderHome();
+  // FIX: checkAchievements() only ran via an advanceRound() hook, but
+  // G.careerLog.push() (what season_10/15/20/etc. check) happens earlier
+  // in renderNextMatch()'s season-end block, after that season's last
+  // advanceRound() already fired — so a milestone crossed right at season
+  // end wasn't marked unlocked until the next round or an achievements-
+  // screen visit. Check right here too, immediately after the new season
+  // state (careerLog, trophies) is fully settled.
+  if(typeof checkAchievements==='function') checkAchievements();
 
   // ── Оновлення карʼєрної репутації тренера ──────────────────────────────
   const _repUpdate = updateCareerReputation();
@@ -29837,6 +29845,14 @@ function admSimRound(silent=false){
   const rd = G.schedule[G.currentRound];
   if(!rd) return false;
   if(!rd.matches || rd.matches.every(m => m.result)) {
+    // FIX: winter-break rounds carry matches:[], so [].every(...) is
+    // vacuously true and this fast-path stepped straight past them via
+    // advanceRound() — silently skipping the winter sponsor installment,
+    // which otherwise only fires from the player-facing skipWinterBreak().
+    // Same admin-sim-skips-a-side-effect pattern as the other fixes above.
+    if(typeof isWinterBreak==='function' && isWinterBreak(rd) && typeof checkSponsorPayment==='function'){
+      checkSponsorPayment(true);
+    }
     advanceRound('admin-sim-done',{processUCL:false,save:false});
     saveGame();
     return true;
