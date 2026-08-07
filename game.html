@@ -23321,12 +23321,36 @@ function developPlayers(isWinter){
         else if(distToCap <= 5) { if(Math.random() > 0.55) rDelta = 0; } // близько — часто стоять
       }
 
+      // FIX: real (non-academy) players had NO potential ceiling at all —
+      // with enough lucky rolls over a few seasons an entire squad could
+      // drift to 99, even squad players who realistically shouldn't become
+      // world-beaters. Roll a one-time ceiling based on their quality when
+      // they first develop (bigger room for lower-rated/younger types,
+      // little room left for players already near the top), then apply the
+      // same near-cap slowdown academy players already get.
+      if(!p._fromAcademy && rDelta > 0) {
+        if(p._potentialCap == null) {
+          const base=p.r;
+          const room = base>=88 ? 3+Math.floor(Math.random()*5)
+                     : base>=80 ? 5+Math.floor(Math.random()*8)
+                     : base>=70 ? 8+Math.floor(Math.random()*10)
+                     : 10+Math.floor(Math.random()*12);
+          p._potentialCap=Math.min(99, base+room);
+        }
+        const cap=Math.max(p.r, p._potentialCap);
+        const distToCap=cap-p.r;
+        if(distToCap <= 0) { rDelta = 0; }
+        else if(distToCap <= 2) { if(Math.random() > 0.25) rDelta = 0; }
+        else if(distToCap <= 5) { if(Math.random() > 0.55) rDelta = 0; }
+      }
+
       if(rDelta===0) return;
 
       const oldR=p.r;
       ensureMarketValueBaseline(p); // capture the pre-change rating/age/value once
-      // FIX17: academy players capped at _potentialCap or 88/92 during development
-      const rCap = p._fromAcademy ? Math.max(p.r, p._potentialCap || (p._isStar ? 92 : 88)) : 99;
+      // FIX17: academy players capped at _potentialCap or 88/92 during development.
+      // Real players now also carry a rolled _potentialCap (see above) instead of a flat 99.
+      const rCap = Math.max(p.r, p._potentialCap || (p._fromAcademy ? (p._isStar ? 92 : 88) : 99));
       p.r=Math.max(50, Math.min(rCap, p.r+rDelta));
       const actualDelta=p.r-oldR;
       if(actualDelta===0) return;
