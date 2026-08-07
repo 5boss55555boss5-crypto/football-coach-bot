@@ -13400,7 +13400,12 @@ function resimRemainingGoals(){
   const remaining=(90-curMin)/90;
   if(remaining<=0) return;
 
-  const activePlayers=LS.onField.filter(p=>p&&p.n&&!p.subbed&&!p.injured);
+  // FIX: sent-off players used to keep counting toward team strength here
+  // (only .subbed/.injured were excluded, not a red card) and being a man
+  // down had no effect on the goal model at all — the red-card flags were
+  // computed elsewhere but never consumed. Exclude sent-off players and
+  // apply a real man-advantage swing to both lambdas.
+  const activePlayers=LS.onField.filter((p,i)=>p&&p.n&&!p.subbed&&!p.injured&&!isSentOffLive(true,i));
   const myStr=calibratedUserStr(activePlayers, G.tactic, G.club?.id);
   const oppStr=STR[LS.oppId]||75;
   const homeBonus=calcDynamicHomeBonus(LS.isHome);
@@ -13413,6 +13418,14 @@ function resimRemainingGoals(){
   if((tac.id==='ultra_defense'||tac.id==='defense')&&isTopOpp){ const cb=tac.id==='ultra_defense'?0.22:0.12; myLambda+=cb; oppLambda-=cb*0.6; }
   if((tac.id==='ultra_attack'||tac.id==='attack')&&isTopOpp){ const pp=tac.id==='ultra_attack'?0.28:0.14; oppLambda+=pp; }
   if(tac.id==='ultra_defense'&&isWeakOpp) oppLambda+=0.18;
+
+  // Man advantage — a red card should actually hurt: less scoring threat,
+  // more exposure at the back, roughly -18%/+14% per player sent off.
+  const myRedCount=LS.onField.filter((p,i)=>p&&p.n&&!p.subbed&&isSentOffLive(true,i)).length;
+  const oppRedCount=(LS.oppOnField||[]).filter((p,i)=>p&&p.n&&!p.subbed&&isSentOffLive(false,i)).length;
+  if(myRedCount>0){ myLambda*=Math.max(0.55,1-0.18*myRedCount); oppLambda*=1+0.14*myRedCount; }
+  if(oppRedCount>0){ oppLambda*=Math.max(0.55,1-0.18*oppRedCount); myLambda*=1+0.14*oppRedCount; }
+
   myLambda=Math.min(3.5,myLambda); oppLambda=Math.min(3.5,oppLambda);
 
   function poissonFrac(lambda, frac){
@@ -14064,6 +14077,7 @@ function removeLiveDot(isMyTeam, idx){
 
 // ===== DRAG AND DROP SUBSTITUTION =====
 let dragState={active:false,fromBench:false,benchIdx:null,fieldIdx:null};
+let liveFieldSelectedIdx=null; // tap-to-select for swapping two on-field players live (e.g. after a red card, pull a mid back into defense)
 
 function setupDragAndDrop(){
   // Bench players: drag to field players
@@ -14087,12 +14101,61 @@ function onBenchPointerDown(e,benchIdx){
 }
 
 function onFieldPointerUp(e,fieldIdx){
-  if(!dragState.active||!dragState.fromBench) return;
+  if(!dragState.active||!dragState.fromBench){
+    // No bench drag in progress — tap-to-select two starters to swap their
+    // positions live (e.g. reposition after a red card).
+    if(LS.done||fieldActionLocked) return;
+    if(LS.onField[fieldIdx]?.subbed||isSentOffLive(true,fieldIdx)) return;
+    e.preventDefault();
+    if(liveFieldSelectedIdx===null){
+      liveFieldSelectedIdx=fieldIdx;
+      highlightFieldForLiveSwap(fieldIdx);
+    } else if(liveFieldSelectedIdx===fieldIdx){
+      liveFieldSelectedIdx=null;
+      renderStaticField();
+    } else {
+      doLiveFieldSwap(liveFieldSelectedIdx, fieldIdx);
+      liveFieldSelectedIdx=null;
+    }
+    return;
+  }
   e.preventDefault();
   document.querySelectorAll('.bench-dot').forEach(el=>el.classList.remove('drag-source'));
   document.querySelectorAll('.stf-player').forEach(el=>{el.classList.remove('drop-target');el.classList.remove('drop-target-same');});
   doSubstitution(dragState.benchIdx, fieldIdx);
   dragState={active:false,fromBench:false,benchIdx:null,fieldIdx:null};
+}
+
+function highlightFieldForLiveSwap(selectedIdx){
+  const selPos=LS.onField[selectedIdx]?.p;
+  document.querySelectorAll('#staticPlayers .stf-player').forEach((el,i)=>{
+    el.classList.remove('drop-target','drop-target-same','stf-selected');
+    if(LS.onField[i]?.subbed||isSentOffLive(true,i)) return;
+    if(i===selectedIdx){ el.classList.add('stf-selected'); return; }
+    const fieldPos=LS.onField[i]?.p;
+    el.classList.add(fieldPos===selPos?'drop-target-same':'drop-target');
+  });
+}
+
+function doLiveFieldSwap(idxA, idxB){
+  const a=LS.onField[idxA], b=LS.onField[idxB];
+  if(!a?.n||!b?.n||a.subbed||b.subbed) { renderStaticField(); return; }
+  const aIsGK=a.p==='ВРТ', bIsGK=b.p==='ВРТ';
+  if(aIsGK!==bIsGK){
+    const prev=document.getElementById('fieldAction').textContent;
+    document.getElementById('fieldAction').textContent='⚠️ Воротаря можна поміняти лише з воротарем';
+    setTimeout(()=>{document.getElementById('fieldAction').textContent=prev;},2200);
+    renderStaticField();
+    return;
+  }
+  const aFx=a.fx,aFy=a.fy,aSlot=a.slotPos, bFx=b.fx,bFy=b.fy,bSlot=b.slotPos;
+  LS.onField[idxA]={...b, fx:aFx, fy:aFy, slotPos:aSlot, fieldIdx:idxA};
+  LS.onField[idxB]={...a, fx:bFx, fy:bFy, slotPos:bSlot, fieldIdx:idxB};
+  const tmpStat=playerStats[idxA]; playerStats[idxA]=playerStats[idxB]; playerStats[idxB]=tmpStat;
+  SFX.sub?.();
+  renderStaticField();
+  initLivePlayerDots();
+  if(!LS.done&&LS.curMin<88) resimRemainingGoals();
 }
 
 // FIX 3: touchend fallback — на деяких мобільних Safari pointer events не завжди fire
@@ -16871,6 +16934,7 @@ function processEvent(ev){
         removeLiveDot(true, idx);
         purgeFutureEventsForSentOff(ev.scorer, ev.team, ev.min);
         renderStaticField();
+        if(!LS.done&&LS.curMin<88&&typeof resimRemainingGoals==='function') resimRemainingGoals();
       }
     } else {
       const idx=LS.oppOnField?.findIndex(p=>p&&!p.subbed&&!LS.oppStats[LS.oppOnField.indexOf(p)]?.red&&p.n===ev.scorer);
@@ -16879,6 +16943,7 @@ function processEvent(ev){
         removeLiveDot(false, idx);
         purgeFutureEventsForSentOff(ev.scorer, ev.team, ev.min);
         refreshOppIfOpen();
+        if(!LS.done&&LS.curMin<88&&typeof resimRemainingGoals==='function') resimRemainingGoals();
       }
     }
 
