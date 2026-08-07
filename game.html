@@ -13508,7 +13508,7 @@ function generateGoalEvents(hg,ag,homeId,awayId,userClubId,onField){
         cleaned.push(ev);
         return;
       }
-      if(['goal','penalty','corner','free_kick'].includes(ev.type)){
+      if(['goal','penalty','corner','free_kick','freekick_direct'].includes(ev.type)){
         if(banned.has(ev.scorer)){
           const replacement=pickAvailableEventPlayer(ev.team,banned,'',true);
           if(!replacement) return;
@@ -13825,6 +13825,45 @@ function generateGoalEvents(hg,ag,homeId,awayId,userClubId,onField){
       keeperName,
       direction,
       isMyTeam: myTeamGetspen,
+    });
+  }
+
+  // ── DIRECT FREE KICKS ──
+  // A real scoring chance (unlike the flavour-only free_kick/corner events
+  // below, which never actually decide a goal). Rarer and much less likely
+  // to score than a penalty — real direct free kicks convert roughly 5-12%.
+  const fkBase = Math.min(0.30, Math.max(0.14, 0.20 + attBonus));
+  const fkCount = Math.random() < fkBase ? 1 : 0;
+  function calcFKChance(takerR, keeperR){
+    return Math.min(0.16, Math.max(0.04, 0.09 + (takerR-78)*0.0025 - (keeperR-78)*0.0015));
+  }
+  for(let _fi=0; _fi<fkCount; _fi++){
+    const fkMin = rMin(10, 87);
+    const myFKShare = Math.min(0.65,Math.max(0.35,0.50+(myAttRating-oppAttRating)*0.007+(homeIsUser?0.02:-0.02)));
+    const myTeamGetsFK = Math.random() < myFKShare;
+    const fkTeam = myTeamGetsFK ? (homeIsUser?'home':'away') : (homeIsUser?'away':'home');
+    const fkGK  = myPlayers.find(p=>p.p==='ВРТ');
+    const fkOppGK = oppPlayers.find(p=>p.p==='ВРТ');
+    const fkTakerObj = myTeamGetsFK ? pickPenTaker(myPlayers) : pickPenTaker(oppPlayers);
+    const fkKeeperR = myTeamGetsFK ? (fkOppGK?.r||70) : (fkGK?.r||70);
+    const fkKeeperName = myTeamGetsFK ? (fkOppGK?.n||'Воротар') : (fkGK?.n||'Воротар');
+    const fkTakerR = fkTakerObj.r || 75;
+    const fkScoreChance = calcFKChance(fkTakerR, fkKeeperR);
+    const fkScored = Math.random() < fkScoreChance;
+    // Non-scores: mostly blocked by the wall, sometimes saved, sometimes wide
+    const fkMissRoll = Math.random();
+    const fkOutcome = fkScored ? 'goal' : fkMissRoll<0.45 ? 'wall' : fkMissRoll<0.75 ? 'save' : 'wide';
+    events.push({
+      min: fkMin,
+      type: 'freekick_direct',
+      team: fkTeam,
+      scorer: fkTakerObj.n,
+      outcome: fkOutcome,
+      takerR: fkTakerR,
+      keeperR: fkKeeperR,
+      keeperName: fkKeeperName,
+      direction: PEN_DIRS[rnd(0,PEN_DIRS.length-1)],
+      isMyTeam: myTeamGetsFK,
     });
   }
 
@@ -15921,7 +15960,7 @@ function purgeFutureEventsForSentOff(name,team,min){
   const isMyTeam=(team==='home'&&LS.isHome)||(team==='away'&&!LS.isHome);
   LS.events=LS.events.filter(ev=>{
     if(!ev||ev.min<=min||ev.team!==team) return true;
-    if(['goal','penalty','corner','free_kick'].includes(ev.type)){
+    if(['goal','penalty','corner','free_kick','freekick_direct'].includes(ev.type)){
       if(ev.scorer===name){
         const repl=pickActiveLiveName(isMyTeam,name);
         if(!repl) return false;
@@ -17177,6 +17216,131 @@ function processEvent(ev){
         }, spd(400));
       }, spd(2500));
     }, spd(7000));
+
+  } else if(ev.type==='freekick_direct'){
+    const isMyFK = ev.isMyTeam;
+    const fkTeamNow = isMyFK ? LS.onField : (LS.oppOnField||[]);
+    if(!fkTeamNow.some((p,i)=>p&&p.n===ev.scorer&&!p.subbed&&!isSentOffLive(isMyFK,i))){
+      const repl=pickActiveLiveName(isMyFK,ev.scorer);
+      if(!repl) return;
+      ev.scorer=repl;
+    }
+    const dir = ev.direction||'';
+    const keeper = ev.keeperName||'Воротар';
+    const takerShort=(ev.scorer||'Гравець').split(' ').pop();
+    const keeperShort=keeper.split(' ').pop();
+    showMatchPenaltyCinematic(ev.scorer,keeper,isMyFK,`ШТРАФНИЙ · ${ev.min}’ · ${LS.score.h}:${LS.score.a}`);
+
+    if(liveTimer){clearInterval(liveTimer);liveTimer=null;}
+    fieldActionLocked=true;
+
+    const attackTop=teamAttackRight(isMyFK);
+    const fkSpotX=Math.max(30,Math.min(70,50+(Math.random()*30-15)));
+    const fkSpotY=attackTop?30:70;
+    const wallY=attackTop?17:83;
+    const goalLineY=attackTop?6:94;
+    const goalX=dir.includes('лів')?38:dir.includes('прав')?62:50;
+
+    const fkTeam=isMyFK?LS.onField:(LS.oppOnField||[]);
+    const defTeam=isMyFK?(LS.oppOnField||[]):LS.onField;
+    const takerIdx=fkTeam.findIndex(p=>p&&p.n===ev.scorer&&!p.subbed);
+    const keeperIdx=defTeam.findIndex(p=>p&&p.p==='ВРТ'&&!p.subbed);
+    const wallIdxs=defTeam.map((p,i)=>({p,i})).filter(o=>o.p&&o.p.n&&!o.p.subbed&&o.i!==keeperIdx).slice(0,3).map(o=>o.i);
+
+    document.getElementById('fieldAction').textContent='⚠️ ШТРАФНИЙ! Стінка вишиковується...';
+    moveBall(fkSpotX,fkSpotY);
+    updateLivePlayerDots(isMyFK?'my_attack':'opp_attack',-1,-1);
+    SFX.yellow?.();
+
+    // ── КРОК 1: стінка й виконавець стають на місце ──
+    setTimeout(()=>{
+      if(!LS||LS.done) return;
+      document.getElementById('fieldAction').textContent=`⚽ ${takerShort} готується пробити зі штрафного...`;
+      if(takerIdx>=0) setLiveDotPosition(isMyFK,takerIdx,fkSpotX,fkSpotY,{active:true,dur:700,allowLong:true});
+      if(keeperIdx>=0) setLiveDotPosition(!isMyFK,keeperIdx,50,attackTop?8:92,{dur:700,allowLong:true});
+      wallIdxs.forEach((wi,k)=>{
+        const wx=goalX+(k-1)*6;
+        setLiveDotPosition(!isMyFK,wi,Math.max(30,Math.min(70,wx)),wallY,{dur:700,allowLong:true});
+      });
+    }, spd(1300));
+
+    // ── КРОК 2: удар ──
+    setTimeout(()=>{
+      if(!LS||LS.done) return;
+      document.getElementById('fieldAction').textContent=`💥 ${takerShort} — УДАР (${dir})!!!`;
+      moveBall(goalX, attackTop?12:88);
+    }, spd(3000));
+
+    // ── КРОК 3: результат ──
+    setTimeout(()=>{
+      if(!LS||LS.done) return;
+      const outcome=ev.outcome;
+      if(outcome==='goal'){
+        moveBall(goalX, goalLineY);
+        if(ev.team==='home'){LS.score.h++;}else{LS.score.a++;}
+        LS.hg=LS.score.h; LS.ag=LS.score.a;
+        document.getElementById('lScore1').textContent=LS.score.h;
+        document.getElementById('lScore2').textContent=LS.score.a;
+        bumpScore(ev.team==='home'?'lScore1':'lScore2');
+        const flash=document.createElement('div');
+        flash.className='goal-flash';
+        flash.style.background=isMyFK?'rgba(16,185,129,.35)':'rgba(239,68,68,.3)';
+        document.body.appendChild(flash);
+        setTimeout(()=>flash.remove(), spd(700));
+        document.getElementById('fieldAction').textContent=isMyFK?`🎉 ГОЛ ЗІ ШТРАФНОГО! ${takerShort}!`:`😤 Гол суперника зі штрафного!`;
+        addEvent({type:isMyFK?'goal':'goal_opp',text:`${isMyFK?'⚽':'🔴'} Штрафний! ${esc(ev.scorer)} → ${dir} — ГОЛ!`, min:ev.min});
+        isMyFK?SFX.goal():SFX.goalOpp();
+        isMyFK?VIB.goal():VIB.goalOpp();
+        ev.type='goal'; ev.assist=null;
+        if(isMyFK){
+          const idx=LS.onField.findIndex(p=>!p.subbed&&p.n===ev.scorer);
+          if(idx>=0&&playerStats[idx]) playerStats[idx].goals++;
+          renderStaticField();
+        } else {
+          const idx=LS.oppOnField?.findIndex(p=>p&&!p.subbed&&p.n===ev.scorer);
+          if(idx>=0&&LS.oppStats[idx]) LS.oppStats[idx].goals++;
+          refreshOppIfOpen();
+        }
+      } else if(outcome==='wall'){
+        moveBall(goalX, wallY);
+        document.getElementById('fieldAction').textContent=`🧱 Стінка заблокувала удар!`;
+        addEvent({type:'penalty-miss',text:`🧱 Стінка врятувала! ${esc(ev.scorer)} — заблоковано!`, min:ev.min});
+        SFX.red?.();
+      } else if(outcome==='save'){
+        if(keeperIdx>=0){
+          const saveX=dir.includes('лів')?36:dir.includes('прав')?64:50;
+          setLiveDotPosition(!isMyFK,keeperIdx,saveX,attackTop?7:93,{active:true,dur:300,allowLong:true});
+        }
+        moveBall(goalX, attackTop?12:88);
+        document.getElementById('fieldAction').textContent=`🧤 ${keeperShort} ВІДБИВ ШТРАФНИЙ!`;
+        addEvent({type:'penalty-save',text:`🧤 Сейв! ${esc(keeper)} відбив штрафний ${esc(ev.scorer)}!`, min:ev.min});
+        SFX.yellow?.();
+      } else {
+        moveBall(goalX, attackTop?2:98);
+        document.getElementById('fieldAction').textContent=`😲 ${takerShort} — МИМО!`;
+        addEvent({type:'penalty-miss',text:`❌ Мимо! ${esc(ev.scorer)} — штрафний повз ворота!`, min:ev.min});
+        SFX.red?.();
+      }
+
+      // ── КРОК 4: гра відновлюється ──
+      setTimeout(()=>{
+        if(!LS||LS.done) return;
+        document.getElementById('pen32MatchCine')?.remove();
+        document.getElementById('fieldAction').textContent='▶ Гра продовжується';
+        if(outcome==='goal') resetTeamsForKickoff(isMyFK?'opp':'my');
+        else moveBall(50,50);
+        setTimeout(()=>{
+          fieldActionLocked=false;
+          if(!liveTimer&&!matchPaused){
+            liveTimer=setInterval(()=>{
+              if(halftimePause||matchPaused) return;
+              LS.curMin++;tick(LS.curMin);
+              if(LS.curMin>=90){clearInterval(liveTimer);liveTimer=null;finishMatch();}
+            },getTickMs());
+          }
+        }, spd(400));
+      }, spd(2000));
+    }, spd(4700));
 
   } else if(ev.type==='corner'||ev.type==='free_kick'){
     SFX.yellow?.();
