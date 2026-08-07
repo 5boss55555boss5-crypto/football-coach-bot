@@ -29820,6 +29820,12 @@ function admSimRound(silent=false){
 
   const newlySimmedUCL = [];
   const newlySimmedUEL = [];
+  // FIX: admin sim never ran coach rating updates / firing evaluation —
+  // that only happened via a wrapped finishMatch() hook that admin sim
+  // bypasses entirely, so coaches never got fired or re-rated while
+  // skipping rounds through the admin panel. Track who played and mirror
+  // that same per-round coach bookkeeping below.
+  const _admPlayedClubs = [];
 
   rd.matches.forEach(m => {
     if(m.result) return;
@@ -29828,6 +29834,11 @@ function admSimRound(silent=false){
     const neutral = !!rd.uefaSuperCup;
     const s = simScore(hs + (neutral?0:2.2) + (Math.random()*6-3), as_ + (Math.random()*6-3));
     m.result = { hg: s.hg, ag: s.ag };
+    _admPlayedClubs.push(m.home, m.away);
+    if(typeof updateCoach==='function'){
+      updateCoach(m.home, s.hg>s.ag?'win':s.hg===s.ag?'draw':'loss', m.away);
+      updateCoach(m.away, s.ag>s.hg?'win':s.ag===s.hg?'draw':'loss', m.home);
+    }
     if(rd.uefaSuperCup && s.hg===s.ag){
       const pen=simulateClubPenaltyShootout(m.home,m.away);
       m.penWinner=pen.winnerId;
@@ -29968,6 +29979,8 @@ function admSimRound(silent=false){
   const _admSalaryResult=checkAndPaySalary();
   if(_admSalaryResult) G.salary.salaryBlocked=!_admSalaryResult.paid||(Number(G.salary.debt)||0)>0;
   if(typeof tickSuspensions==='function') tickSuspensions();
+  if(typeof simulateCoachWorldRound==='function') simulateCoachWorldRound(_admPlayedClubs);
+  if(typeof evaluateAICoaches==='function') evaluateAICoaches();
   advanceRound('admin-sim-round',{processUCL:false,save:false,skipAcademy:false});
   if(typeof tickInjuries==='function') tickInjuries();
   // Академія під час симуляції: перевіряємо синхронно (без setTimeout)
