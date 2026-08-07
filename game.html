@@ -16805,10 +16805,15 @@ function processEvent(ev){
     }
 
     if(LS.subsLeft>0){
-      // Auto-find best available sub: same position first, then any non-GK
+      // Auto-find best available sub: exact position first, then same
+      // broad group (normPos only distinguishes ЗАХ/НАП/mid, so e.g. a
+      // striker and a winger both count as "НАП" — matching the exact
+      // position first stops a ЦН injury being replaced with a ЛВ), then
+      // any non-GK
       const injured=LS.onField[fieldIdx];
       const available=LS.bench.filter(p=>p&&p.n&&!p.subbed);
-      const sub=available.find(p=>normPos(p.p)===normPos(injured.p))
+      const sub=available.find(p=>p.p===injured.p)
+             || available.find(p=>normPos(p.p)===normPos(injured.p))
              || available.find(p=>p.p!=='ВРТ')
              || available[0];
 
@@ -17899,6 +17904,18 @@ function _finalizeUCLMatch(rd, hg, ag, res, penNote, penDetail){
     const userMatch=rd.matches?.find(m=>m.home===G.club.id||m.away===G.club.id);
     const isLeg2=(userMatch?.leg??2)===2;
     const legs=isLeg2?getUCLTieLegsForMatch(userMatch,rd):null;
+    // FIX: G.ucl.playoff[stage] can hold a *separate* copy of this fixture
+    // from the one in rd.matches (they're built at different times and
+    // aren't kept as the same object). userMatch.result/penWinner were just
+    // set above from the real live shootout the user played — sync that
+    // onto whichever leg entry getUCLTieLegsForMatch actually returned,
+    // otherwise getUCLTwoLegWinner reads a stale copy with no penWinner,
+    // silently re-simulates its own random shootout, and that random result
+    // (not the one the user just won) decides who advances.
+    if(legs && userMatch){
+      const legEntry=legs.find(l=>l===userMatch || (l&&l.leg===userMatch.leg&&l.home===userMatch.home&&l.away===userMatch.away));
+      if(legEntry && legEntry!==userMatch) Object.assign(legEntry, userMatch);
+    }
     advanced=!!(isLeg2 && getUCLTwoLegWinner(legs)===G.club.id);
   }
 
