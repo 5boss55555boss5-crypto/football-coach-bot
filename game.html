@@ -22152,7 +22152,7 @@ function renderAcademyHomePanel(){
   const acadRows = acadPlayers.length
     ? acadPlayers.map(p=>{
         const rCol = p.r>=75?'#4ade80':p.r>=68?'#60a5fa':p.r>=62?'#fbbf24':'rgba(148,163,184,.8)';
-        const starBadge = p._isStar?`<span style="font-size:8px;font-weight:800;padding:1px 5px;border-radius:10px;background:rgba(245,166,35,.2);color:#f5a623;border:1px solid rgba(245,166,35,.3)">⭐ ЗІРКА</span>`:'';
+        const starBadge = p._isStar?`<span style="font-size:8px;font-weight:800;padding:1px 5px;border-radius:10px;background:rgba(246,187,75,.2);color:#f6bb4b;border:1px solid rgba(246,187,75,.35)">⭐ ЗІРКА</span>`:'';
         return `<div class="prow" onclick="openPlayerSheet('${p.n.replace(/'/g,"&#39;")}')">
           ${playerAvatar(p.n,p.p)}
           <div class="pname">
@@ -22165,7 +22165,7 @@ function renderAcademyHomePanel(){
             </div>
           </div>
           <div style="text-align:right">
-            <div style="font-size:15px;font-weight:800;color:${rCol}">${p.r}</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.3px;color:${rCol}">${p.r}</div>
             <div style="font-size:9px;color:var(--mut);font-weight:600">${fmt(playerValue(p,G.club?.name))}</div>
           </div>
         </div>`;
@@ -22174,8 +22174,8 @@ function renderAcademyHomePanel(){
 
   // Next tier benefits preview
   const nextBenefits = next ? `
-    <div style="background:rgba(255,255,255,.03);border:1px solid var(--brd);border-radius:12px;padding:12px;margin-bottom:10px">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--mut);margin-bottom:8px">📈 Після апгрейду до рів. ${next.level}</div>
+    <div style="background:#0b1524;border:1px solid rgba(246,187,75,.18);border-radius:12px;padding:12px;margin-bottom:10px">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#f6bb4b;margin-bottom:8px">📈 Після апгрейду до рів. ${next.level}</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
         ${[
           {l:'Рейтинг',     v: next.rMin+'–'+next.rMax},
@@ -22184,7 +22184,7 @@ function renderAcademyHomePanel(){
           {l:'Вартість',    v: fmtPrice(next.cost)},
         ].map(b=>`<div style="background:rgba(255,255,255,.04);border-radius:9px;padding:8px 10px">
           <div style="font-size:9px;color:var(--mut);margin-bottom:2px">${b.l}</div>
-          <div style="font-size:13px;font-weight:700;color:var(--txt)">${b.v}</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.3px;color:var(--txt)">${b.v}</div>
         </div>`).join('')}
       </div>
     </div>` : '';
@@ -22193,36 +22193,37 @@ function renderAcademyHomePanel(){
     ? `<button onclick="upgradeAcademy();switchHomeTab('academy')" style="width:100%;background:${canAfford?`linear-gradient(135deg,${next.colorFrom},${next.colorTo})`:'rgba(255,255,255,.06)'};color:${canAfford?'#fff':'rgba(148,163,184,.5)'};border:1px solid ${canAfford?next.borderColor:'rgba(255,255,255,.08)'};border-radius:14px;padding:13px;font-size:14px;font-weight:700;cursor:${canAfford?'pointer':'not-allowed'};margin-bottom:10px">
         ${upgradedThisSeason?'⏳ Наступне покращення — у новому сезоні':canAfford?`${next.emoji} Покращити до рівня ${next.level} — ${next.name}`:`🔒 Потрібно ${fmtPrice(next.cost)} · не вистачає ${fmtPrice(Math.max(0,next.cost-G.budget))}`}
       </button>`
-    : `<div style="padding:12px;background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.25);border-radius:12px;text-align:center;font-size:13px;font-weight:700;color:#f5a623;margin-bottom:10px">🌟 Максимальний рівень досягнуто!</div>`;
+    : `<div style="padding:12px;background:rgba(246,187,75,.08);border:1px solid rgba(246,187,75,.25);border-radius:12px;text-align:center;font-size:13px;font-weight:700;color:#f6bb4b;margin-bottom:10px">🌟 Максимальний рівень досягнуто!</div>`;
 
   return `
     <!-- Academy hero card -->
-    <div style="background:linear-gradient(135deg,${tier.colorFrom}22,${tier.colorTo}11);border:1px solid ${tier.borderColor};border-radius:18px;padding:16px;margin-bottom:10px">
+    <div style="position:relative;overflow:hidden;background:linear-gradient(135deg,${tier.colorFrom}2e,${tier.colorTo}16),#0b1524;border:1px solid ${tier.borderColor};border-radius:18px;padding:16px;margin-bottom:10px;box-shadow:0 12px 28px rgba(0,0,0,.18)">
+      <div style="position:absolute;left:16px;right:16px;top:0;height:2px;background:linear-gradient(90deg,${tier.colorTo},#25d5e8 70%,transparent)"></div>
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-        <div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,${tier.colorFrom},${tier.colorTo});display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">${tier.emoji}</div>
+        <div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,${tier.colorFrom},${tier.colorTo});display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 14px rgba(0,0,0,.3)">${tier.emoji}</div>
         <div style="flex:1;min-width:0">
           <div style="font-size:15px;font-weight:800">${tier.name}</div>
           <div style="font-size:11px;color:var(--mut);margin-top:1px">${tier.desc}</div>
         </div>
         <div style="text-align:right;flex-shrink:0">
-          <div style="font-size:9px;color:var(--mut)">Рівень</div>
-          <div style="font-size:24px;font-weight:900;color:var(--gold);line-height:1">${tier.level}<span style="font-size:12px;color:var(--mut);font-weight:400">/7</span></div>
+          <div style="font-size:9px;color:var(--mut);text-transform:uppercase;letter-spacing:1px">Рівень</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:.5px;color:#f6bb4b;line-height:1">${tier.level}<span style="font-size:13px;color:var(--mut);font-weight:400;font-family:Inter,sans-serif">/7</span></div>
         </div>
       </div>
       <!-- Progress dots -->
       <div style="display:flex;gap:4px;align-items:center;margin-bottom:12px">${dots}</div>
       <!-- Stats -->
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
-        <div style="background:rgba(0,0,0,.2);border-radius:11px;padding:9px;text-align:center">
-          <div style="font-size:14px;font-weight:800;color:var(--txt)">${tier.rMin}–${tier.rMax}</div>
+        <div style="background:rgba(0,0,0,.24);border-radius:11px;padding:9px;text-align:center">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.3px;color:var(--txt)">${tier.rMin}–${tier.rMax}</div>
           <div style="font-size:9px;color:var(--mut);text-transform:uppercase;margin-top:2px">Рейтинг</div>
         </div>
-        <div style="background:rgba(0,0,0,.2);border-radius:11px;padding:9px;text-align:center">
-          <div style="font-size:14px;font-weight:800;color:var(--gold)">${Math.round(tier.starChance*100)}%</div>
+        <div style="background:rgba(0,0,0,.24);border-radius:11px;padding:9px;text-align:center">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.3px;color:#f6bb4b">${Math.round(tier.starChance*100)}%</div>
           <div style="font-size:9px;color:var(--mut);text-transform:uppercase;margin-top:2px">Зірка</div>
         </div>
-        <div style="background:rgba(0,0,0,.2);border-radius:11px;padding:9px;text-align:center">
-          <div style="font-size:14px;font-weight:800;color:var(--grn)">${acadPlayers.length}</div>
+        <div style="background:rgba(0,0,0,.24);border-radius:11px;padding:9px;text-align:center">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.3px;color:#b8ff35">${acadPlayers.length}</div>
           <div style="font-size:9px;color:var(--mut);text-transform:uppercase;margin-top:2px">Вихованців</div>
         </div>
       </div>
@@ -22233,15 +22234,13 @@ function renderAcademyHomePanel(){
 
     <!-- All tiers collapsible -->
     <details style="margin-bottom:10px">
-      <summary style="font-size:11px;font-weight:700;color:var(--mut);cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:6px;padding:4px 0">
-        <span>▸</span> Всі рівні академії
-      </summary>
-      <div style="margin-top:8px;background:var(--surf);border:1px solid var(--brd);border-radius:14px;padding:10px">${tierRows}</div>
+      <summary style="font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--mut);cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:7px;padding:4px 0"><span style="width:3px;height:11px;border-radius:3px;background:#25d5e8;box-shadow:0 0 8px rgba(37,213,232,.4)"></span>Всі рівні академії</summary>
+      <div style="margin-top:8px;background:#0b1524;border:1px solid var(--brd);border-radius:14px;padding:10px">${tierRows}</div>
     </details>
 
     <!-- Academy graduates in squad -->
-    ${acadPlayers.length ? `<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--mut);margin-bottom:8px">🎓 Вихованці в складі (${acadPlayers.length})</div>
-    <div style="background:var(--surf);border:1px solid rgba(250,204,21,.15);border-radius:14px;overflow:hidden">${acadRows}</div>` : acadRows}
+    ${acadPlayers.length ? `<div style="display:flex;align-items:center;gap:7px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--mut);margin-bottom:8px"><span style="width:3px;height:11px;border-radius:3px;background:#b8ff35;box-shadow:0 0 8px rgba(184,255,53,.45)"></span>🎓 Вихованці в складі (${acadPlayers.length})</div>
+    <div style="background:#0b1524;border:1px solid rgba(246,187,75,.18);border-radius:14px;overflow:hidden">${acadRows}</div>` : acadRows}
   `;
 }
 
