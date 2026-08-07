@@ -28480,20 +28480,29 @@ function renderCupRoundCard(rd){
     const opp=clubById(oppId);
     const hc=clubById(userMatch.home), ac=clubById(userMatch.away);
     if(!hc||!ac) return renderCupBracketCard(rd, label);
-    return`<div style="background:var(--surf);border:2px solid rgba(245,166,35,.4);border-radius:16px;padding:14px;margin-bottom:12px">
-      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gold);margin-bottom:10px">🏆 ${label} · ${rd.date}</div>
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px">
-        <div style="flex:1;display:flex;align-items:center;gap:8px">
-          <div style="width:34px;height:34px;border-radius:50%;background:${hc.bg};padding:3px;overflow:hidden;flex-shrink:0">${hc.logo}</div>
-          <div style="font-size:13px;font-weight:700">${hc.name}</div>
+    return`<div style="position:relative;overflow:hidden;background:#0b1524;border:1px solid rgba(246,187,75,.32);border-radius:18px;padding:16px 14px 14px;margin-bottom:12px;box-shadow:0 12px 28px rgba(0,0,0,.18)">
+      <div style="position:absolute;left:14px;right:14px;top:0;height:2px;background:linear-gradient(90deg,#f6bb4b,#ff5967 60%,#f6bb4b)"></div>
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px">
+        <span style="font-size:15px">🏆</span>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1.5px;color:#f6bb4b;text-transform:uppercase">${label}</span>
+        <span style="font-size:9px;color:#64758c;margin-left:auto">${rd.date}</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px">
+        <div style="flex:1;display:flex;align-items:center;gap:8px;min-width:0">
+          <div style="width:36px;height:36px;border-radius:11px;background:${hc.bg};padding:4px;overflow:hidden;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,.25)">${hc.logo}</div>
+          <div style="font-size:12.5px;font-weight:800;color:#eaf0fb;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(hc.name)}</div>
         </div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--mut)">VS</div>
-        <div style="flex:1;display:flex;align-items:center;gap:8px;flex-direction:row-reverse;text-align:right">
-          <div style="width:34px;height:34px;border-radius:50%;background:${ac.bg};padding:3px;overflow:hidden;flex-shrink:0">${ac.logo}</div>
-          <div style="font-size:13px;font-weight:700">${ac.name}</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:#4a5872;flex-shrink:0">VS</div>
+        <div style="flex:1;display:flex;align-items:center;gap:8px;flex-direction:row-reverse;text-align:right;min-width:0">
+          <div style="width:36px;height:36px;border-radius:11px;background:${ac.bg};padding:4px;overflow:hidden;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,.25)">${ac.logo}</div>
+          <div style="font-size:12.5px;font-weight:800;color:#eaf0fb;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(ac.name)}</div>
         </div>
       </div>
-      <div style="font-size:11px;color:var(--mut);margin-bottom:10px;text-align:center">${isHome?'🏠 Домашній матч':'✈️ Виїзний матч'} · Призові: +${fmt(CUP_PRIZES[stage]||0)}</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;padding:8px 10px;border-radius:11px;background:rgba(246,187,75,.07);border:1px solid rgba(246,187,75,.16)">
+        <span style="font-size:10px;color:#c7cfdb">${isHome?'🏠 Домашній матч':'✈️ Виїзний матч'}</span>
+        <span style="color:#38455c">·</span>
+        <span style="font-size:10px;color:#f6bb4b;font-weight:800">Призові +${fmt(CUP_PRIZES[stage]||0)}</span>
+      </div>
     </div>`;
   }
 
@@ -28506,20 +28515,21 @@ function renderCupBracketCard(rd, label){
   const allDone=matches.every(m=>m.result);
   const winner=allDone&&rd.cupStage==='final'?cup.winner:null;
 
-  let html=`<div style="background:var(--surf);border:1px solid rgba(245,166,35,.25);border-radius:14px;padding:12px 14px;margin-bottom:12px">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-      <span style="font-size:16px">🏆</span>
-      <span style="font-size:12px;font-weight:700;color:var(--gold)">${label}</span>
-      <span style="font-size:10px;color:var(--mut);margin-left:auto">${rd.date}</span>
+  let html=`<div style="position:relative;overflow:hidden;background:#0b1524;border:1px solid rgba(246,187,75,.2);border-radius:16px;padding:13px 14px;margin-bottom:12px;box-shadow:0 10px 24px rgba(0,0,0,.14)">
+    <div style="position:absolute;left:14px;right:14px;top:0;height:2px;background:linear-gradient(90deg,#f6bb4b,transparent 70%)"></div>
+    <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+      <span style="font-size:14px">🏆</span>
+      <span style="font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1.4px;color:#f6bb4b;text-transform:uppercase">${label}</span>
+      <span style="font-size:9px;color:#64758c;margin-left:auto">${rd.date}</span>
     </div>`;
 
   if(winner){
     const wc=clubById(winner);
     if(wc){
     const isMe=winner===G.club.id;
-    html+=`<div style="text-align:center;padding:10px;background:${isMe?'rgba(245,166,35,.1)':'rgba(255,255,255,.03)'};border-radius:10px;margin-bottom:8px">
-      <div style="font-size:24px">🏆</div>
-      <div style="font-size:13px;font-weight:700;color:var(--gold)">${isMe?'🎉 Ваша команда виграла Кубок!':'Переможець: '+wc.name}</div>
+    html+=`<div style="text-align:center;padding:14px 10px;border-radius:13px;margin-bottom:9px;background:${isMe?'radial-gradient(circle at 50% 0%,rgba(246,187,75,.22),transparent 60%),rgba(246,187,75,.06)':'rgba(255,255,255,.03)'};border:1px solid ${isMe?'rgba(246,187,75,.3)':'rgba(120,170,220,.1)'}">
+      <div style="font-size:26px;filter:drop-shadow(0 4px 10px rgba(246,187,75,.3))">🏆</div>
+      <div style="font-size:12.5px;font-weight:800;color:${isMe?'#f6bb4b':'#dbe4f0'};margin-top:4px">${isMe?'🎉 Ваша команда виграла Кубок!':'Переможець: '+esc(wc.name)}</div>
     </div>`;
     }
   }
@@ -28531,21 +28541,21 @@ function renderCupBracketCard(rd, label){
     const played=!!m.result;
     const wId=played?cupMatchWinner(m):null;
     const isMyMatch=m.home===G.club.id||m.away===G.club.id;
-    html+=`<div style="display:flex;align-items:center;padding:7px 10px;background:${isMyMatch?'rgba(79,142,247,.06)':'rgba(255,255,255,.03)'};border:1px solid ${isMyMatch?'rgba(79,142,247,.2)':'var(--brd)'};border-radius:9px;margin-bottom:4px;gap:4px">
-      <div style="flex:1;display:flex;align-items:center;justify-content:flex-end;gap:5px;font-size:11px;font-weight:${!played||wId===m.home?'700':'400'};opacity:${played&&wId!==m.home?.45:1}">
-        ${hc.name}<div style="width:18px;height:18px;border-radius:50%;background:${hc.bg};padding:2px;overflow:hidden;flex-shrink:0">${hc.logo}</div>
+    html+=`<div style="display:flex;align-items:center;padding:8px 10px;background:${isMyMatch?'rgba(52,120,246,.08)':'rgba(255,255,255,.025)'};border:1px solid ${isMyMatch?'rgba(52,120,246,.24)':'rgba(120,170,220,.09)'};border-radius:10px;margin-bottom:5px;gap:4px">
+      <div style="flex:1;display:flex;align-items:center;justify-content:flex-end;gap:5px;font-size:11px;font-weight:${!played||wId===m.home?'800':'500'};color:${played&&wId!==m.home?'#5b6a82':'#dbe4f0'};min-width:0">
+        <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(hc.name)}</span><div style="width:19px;height:19px;border-radius:6px;background:${hc.bg};padding:2px;overflow:hidden;flex-shrink:0">${hc.logo}</div>
       </div>
       ${played
-        ?`<div style="font-family:'Bebas Neue',sans-serif;font-size:15px;min-width:40px;text-align:center;color:var(--acc)">${scoreText(m.result)}${m.penScore?`<small style="display:block;color:var(--gold);font:7px Inter,sans-serif;white-space:nowrap">${m.penScore.home}:${m.penScore.away} пен.</small>`:''}</div>`
-        :`<div style="font-size:10px;color:var(--mut);width:40px;text-align:center">vs</div>`}
-      <div style="flex:1;display:flex;align-items:center;gap:5px;font-size:11px;font-weight:${!played||wId===m.away?'700':'400'};opacity:${played&&wId!==m.away?.45:1}">
-        <div style="width:18px;height:18px;border-radius:50%;background:${ac.bg};padding:2px;overflow:hidden;flex-shrink:0">${ac.logo}</div>${ac.name}
+        ?`<div style="font-family:'Bebas Neue',sans-serif;font-size:16px;min-width:42px;text-align:center;color:#eaf0fb">${scoreText(m.result)}${m.penScore?`<small style="display:block;color:#f6bb4b;font:7px Inter,sans-serif;white-space:nowrap">${m.penScore.home}:${m.penScore.away} пен.</small>`:''}</div>`
+        :`<div style="font-size:10px;color:#5b6a82;width:42px;text-align:center">vs</div>`}
+      <div style="flex:1;display:flex;align-items:center;gap:5px;font-size:11px;font-weight:${!played||wId===m.away?'800':'500'};color:${played&&wId!==m.away?'#5b6a82':'#dbe4f0'};min-width:0">
+        <div style="width:19px;height:19px;border-radius:6px;background:${ac.bg};padding:2px;overflow:hidden;flex-shrink:0">${ac.logo}</div><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(ac.name)}</span>
       </div>
     </div>`;
   });
 
   if(!matches.length||matches[0].home===undefined){
-    html+=`<div style="text-align:center;font-size:12px;color:var(--mut);padding:8px">Жеребкування після попередньої стадії</div>`;
+    html+=`<div style="text-align:center;font-size:11px;color:#5b6a82;padding:10px">Жеребкування після попередньої стадії</div>`;
   }
 
   html+=`</div>`;
