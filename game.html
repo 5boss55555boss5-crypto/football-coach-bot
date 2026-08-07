@@ -21972,27 +21972,29 @@ function renderNextMatch(){
     const _mySt=G.tableStats[G.club.id]||{pts:0,w:0,d:0,l:0,gf:0,ga:0};
     const _posCol=_myP===1?'#f5a623':_myP<=3?'#4ade80':_myP<=Math.ceil(_lcl.length*0.6)?'var(--acc)':'#f87171';
     // Show simple card in match tab
-    el.innerHTML=`<div style="background:linear-gradient(180deg,rgba(30,40,80,.7) 0%,var(--surf) 60%);border:1px solid rgba(96,165,250,.3);border-radius:18px;overflow:hidden;text-align:center;padding:22px 16px 18px">
-      <div style="font-size:44px;margin-bottom:6px">❄️</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:#93c5fd">ЗИМОВА ПАУЗА</div>
-      <div style="font-size:11px;color:rgba(148,163,184,.6);margin-top:4px;margin-bottom:16px">21 грудня – 20 січня · Трансферне вікно відкрито</div>
+    el.innerHTML=`<div style="position:relative;overflow:hidden;background:radial-gradient(circle at 85% 0%,rgba(37,213,232,.16),transparent 45%),linear-gradient(180deg,#0b1a2c 0%,#081321 70%);border:1px solid rgba(140,200,240,.22);border-radius:18px;text-align:center;padding:22px 16px 18px">
+      <div style="position:absolute;left:18px;right:18px;top:0;height:2px;background:linear-gradient(90deg,#25d5e8,#3478f6 55%,#b8ff35)"></div>
+      <div style="font-size:8px;font-weight:900;letter-spacing:2px;color:#8fd9ea;text-transform:uppercase;margin-bottom:8px">SEASON BREAK · WINTER WINDOW</div>
+      <div style="font-size:40px;line-height:1;filter:drop-shadow(0 0 14px rgba(147,220,253,.55));margin-bottom:6px">❄️</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:#eaf6ff">ЗИМОВА ПАУЗА</div>
+      <div style="font-size:11px;color:rgba(190,215,235,.6);margin-top:4px;margin-bottom:16px">21 грудня – 20 січня · Трансферне вікно відкрито</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px">
-        <div style="background:rgba(255,255,255,.04);border:1px solid var(--brd);border-radius:12px;padding:10px 6px">
-          <div style="font-size:20px;font-weight:800;color:${_posCol}">${_myP}</div>
-          <div style="font-size:9px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-top:3px">Місце</div>
+        <div style="background:rgba(255,255,255,.035);border:1px solid rgba(140,195,235,.16);border-radius:12px;padding:10px 6px">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:${_posCol}">${_myP}</div>
+          <div style="font-size:9px;color:rgba(180,205,225,.55);text-transform:uppercase;letter-spacing:.5px;margin-top:3px">Місце</div>
         </div>
-        <div style="background:rgba(255,255,255,.04);border:1px solid var(--brd);border-radius:12px;padding:10px 6px">
-          <div style="font-size:20px;font-weight:800">${_mySt.pts||0}</div>
-          <div style="font-size:9px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-top:3px">Очок</div>
+        <div style="background:rgba(255,255,255,.035);border:1px solid rgba(140,195,235,.16);border-radius:12px;padding:10px 6px">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#eaf6ff">${_mySt.pts||0}</div>
+          <div style="font-size:9px;color:rgba(180,205,225,.55);text-transform:uppercase;letter-spacing:.5px;margin-top:3px">Очок</div>
         </div>
-        <div style="background:rgba(255,255,255,.04);border:1px solid var(--brd);border-radius:12px;padding:10px 6px">
-          <div style="font-size:14px;font-weight:800">${_mySt.w||0}/${_mySt.d||0}/${_mySt.l||0}</div>
-          <div style="font-size:9px;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-top:3px">П/Н/П</div>
+        <div style="background:rgba(255,255,255,.035);border:1px solid rgba(140,195,235,.16);border-radius:12px;padding:10px 6px">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:#eaf6ff">${_mySt.w||0}/${_mySt.d||0}/${_mySt.l||0}</div>
+          <div style="font-size:9px;color:rgba(180,205,225,.55);text-transform:uppercase;letter-spacing:.5px;margin-top:3px">П/Н/П</div>
         </div>
       </div>
       <div style="display:flex;gap:8px">
-        <button onclick="go('transfers')" style="flex:1;background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.3);color:#93c5fd;border-radius:12px;padding:11px 8px;font-size:12px;font-weight:700;cursor:pointer">🔄 Трансфери</button>
-        <button onclick="openWinterBreakModal()" style="flex:2;background:linear-gradient(135deg,#1d4ed8,#3b82f6);color:#fff;border:none;border-radius:12px;padding:11px 8px;font-size:13px;font-weight:700;cursor:pointer">❄️ Переглянути паузу</button>
+        <button onclick="go('transfers')" style="flex:1;background:rgba(37,213,232,.1);border:1px solid rgba(37,213,232,.3);color:#a4e8f4;border-radius:12px;padding:11px 8px;font-size:12px;font-weight:700;cursor:pointer">🔄 Трансфери</button>
+        <button onclick="openWinterBreakModal()" style="flex:2;background:linear-gradient(135deg,#1568c9,#2596e8,#25d5e8);color:#04141c;border:none;border-radius:12px;padding:11px 8px;font-size:13px;font-weight:800;cursor:pointer">❄️ Переглянути паузу</button>
       </div>
     </div>`;
     if(!G._winterBreakNotified){
@@ -23527,43 +23529,52 @@ function openWinterBreakModal(){
 
   const el = document.createElement('div');
   el.id = 'winterBreakModal';
-  el.style.cssText = 'position:fixed;inset:0;z-index:800;background:rgba(4,8,20,.88);backdrop-filter:blur(8px);display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .25s ease';
+  el.style.cssText = 'position:fixed;inset:0;z-index:800;background:rgba(3,7,15,.9);backdrop-filter:blur(8px);display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .25s ease';
   el.innerHTML = `
   <style>
     @keyframes wbSnow{0%{transform:translateY(-10px) rotate(0deg);opacity:0}20%{opacity:.9}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}
     @keyframes wbFadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes wbOrbit{to{transform:rotate(360deg)}}
     .wb-section{animation:wbFadeUp .4s both}
-    .wb-stat-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 8px;text-align:center;transition:background .2s}
-    .wb-section-lbl{font-size:10px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:rgba(148,163,184,.55);margin-bottom:8px;display:flex;align-items:center;gap:6px}
-    .wb-section-lbl::before,.wb-section-lbl::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.06)}
-    .wb-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+    .wb-stat-card{background:rgba(255,255,255,.035);border:1px solid rgba(140,195,235,.16);border-radius:14px;padding:12px 8px;text-align:center;transition:background .2s}
+    .wb-stat-card b{font-family:'Bebas Neue',sans-serif;font-weight:400}
+    .wb-section-lbl{font-size:9px;font-weight:900;letter-spacing:1.6px;text-transform:uppercase;color:#8fb8d4;margin-bottom:8px;display:flex;align-items:center;gap:7px}
+    .wb-section-lbl:before{content:'';width:3px;height:14px;border-radius:3px;background:#b8ff35;box-shadow:0 0 8px rgba(184,255,53,.45);flex-shrink:0}
+    .wb-section-lbl::after{content:'';flex:1;height:1px;background:rgba(140,195,235,.14)}
+    .wb-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(140,195,235,.09)}
     .wb-row:last-child{border-bottom:none}
   </style>
-  <!-- snowflakes -->
+  <!-- snow & frost layer -->
   <div style="position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:799">
-    ${Array.from({length:18},(_,i)=>{
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(37,180,232,.14),transparent 60%)"></div>
+    ${Array.from({length:22},(_,i)=>{
       const left=(Math.random()*100).toFixed(1);
       const dur=(3+Math.random()*4).toFixed(1);
       const delay=(Math.random()*4).toFixed(1);
       const size=8+Math.round(Math.random()*10);
       const flake=['❄','✦','✧','·'][Math.floor(Math.random()*4)];
-      return `<div style="position:absolute;left:${left}%;top:-20px;font-size:${size}px;opacity:.18;animation:wbSnow ${dur}s ${delay}s linear infinite">${flake}</div>`;
+      return `<div style="position:absolute;left:${left}%;top:-20px;font-size:${size}px;color:#cdeeff;opacity:.22;animation:wbSnow ${dur}s ${delay}s linear infinite">${flake}</div>`;
     }).join('')}
   </div>
-  <div style="width:100%;max-width:480px;max-height:92vh;overflow-y:auto;background:linear-gradient(180deg,#0d1829 0%,#0a1120 100%);border-radius:24px 24px 0 0;border-top:2px solid rgba(96,165,250,.35);padding:0 0 env(safe-area-inset-bottom,24px);position:relative;z-index:801">
+  <div style="width:100%;max-width:480px;max-height:92vh;overflow-y:auto;background:radial-gradient(circle at 82% 0%,rgba(37,213,232,.16),transparent 40%),linear-gradient(180deg,#0b1a2c 0%,#081321 46%,#050b16 100%);border-radius:26px 26px 0 0;border:1px solid rgba(140,200,240,.22);border-bottom:0;box-shadow:0 -26px 70px rgba(0,0,0,.5);padding:0 0 env(safe-area-inset-bottom,24px);position:relative;z-index:801">
+    <div style="position:absolute;left:26px;right:26px;top:0;height:3px;background:linear-gradient(90deg,#25d5e8,#3478f6 55%,#b8ff35);box-shadow:0 0 16px rgba(37,213,232,.5)"></div>
 
     <!-- ── HERO HEADER ── -->
-    <div style="position:relative;overflow:hidden;padding:28px 16px 22px;text-align:center;background:linear-gradient(160deg,rgba(29,78,216,.25) 0%,rgba(96,165,250,.08) 50%,transparent 100%)">
+    <div style="position:relative;overflow:hidden;padding:30px 16px 22px;text-align:center">
       <!-- glow blob -->
-      <div style="position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:220px;height:140px;background:radial-gradient(ellipse,rgba(59,130,246,.22),transparent 70%);pointer-events:none"></div>
-      <!-- snowflake icon -->
-      <div style="font-size:52px;line-height:1;filter:drop-shadow(0 0 18px rgba(147,197,253,.5));margin-bottom:8px;position:relative">❄️</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;color:#93c5fd;line-height:1;text-shadow:0 0 24px rgba(96,165,250,.5)">ЗИМОВА ПАУЗА</div>
-      <div style="font-size:12px;color:rgba(148,163,184,.6);margin-top:6px;font-weight:500">21 грудня – 20 січня</div>
+      <div style="position:absolute;top:-50px;left:50%;transform:translateX(-50%);width:260px;height:160px;background:radial-gradient(ellipse,rgba(37,180,232,.28),transparent 70%);pointer-events:none"></div>
+      <div style="position:relative;font-size:8px;font-weight:900;letter-spacing:2.2px;color:#8fd9ea;text-transform:uppercase">SEASON BREAK · WINTER WINDOW</div>
+      <!-- icy badge icon -->
+      <div style="position:relative;width:68px;height:68px;margin:14px auto 10px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.28),rgba(37,213,232,.14) 45%,rgba(4,10,20,.25) 74%);border:1px solid rgba(190,230,255,.35);box-shadow:inset 0 0 20px rgba(120,220,255,.2),0 0 34px rgba(37,150,232,.32)">
+        <div style="position:absolute;inset:-7px;border-radius:50%;border:1px solid transparent;border-top-color:#25d5e8;border-right-color:rgba(184,255,53,.5);animation:wbOrbit 13s linear infinite"></div>
+        <span style="font-size:30px;line-height:1;filter:drop-shadow(0 0 12px rgba(147,220,253,.6))">❄️</span>
+      </div>
+      <div style="position:relative;font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:3px;color:#eaf6ff;line-height:1;text-shadow:0 4px 22px rgba(37,180,232,.4)">ЗИМОВА ПАУЗА</div>
+      <div style="position:relative;font-size:12px;color:rgba(190,215,235,.6);margin-top:7px;font-weight:500">21 грудня – 20 січня</div>
       <!-- transfer window badge -->
-      <div style="display:inline-flex;align-items:center;gap:6px;margin-top:10px;background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.3);border-radius:20px;padding:4px 14px">
-        <div style="width:6px;height:6px;border-radius:50%;background:#4ade80;animation:wbSnow 0s 0s linear;box-shadow:0 0 6px #4ade80"></div>
-        <span style="font-size:10px;font-weight:700;color:#93c5fd;letter-spacing:.5px">ТРАНСФЕРНЕ ВІКНО ВІДКРИТО</span>
+      <div style="position:relative;display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:rgba(37,213,232,.1);border:1px solid rgba(37,213,232,.3);border-radius:20px;padding:5px 14px">
+        <div style="width:6px;height:6px;border-radius:50%;background:#b8ff35;box-shadow:0 0 7px #b8ff35"></div>
+        <span style="font-size:10px;font-weight:800;color:#a4e8f4;letter-spacing:.5px">ТРАНСФЕРНЕ ВІКНО ВІДКРИТО</span>
       </div>
     </div>
 
@@ -23648,12 +23659,12 @@ function openWinterBreakModal(){
     <!-- ── КНОПКИ ── -->
     <div class="wb-section" style="display:flex;flex-direction:column;gap:8px;padding-bottom:8px;animation-delay:.3s">
       <button onclick="go('transfers');document.getElementById('winterBreakModal')?.remove()"
-        style="width:100%;background:rgba(96,165,250,.1);border:2px solid rgba(96,165,250,.3);color:#93c5fd;border-radius:16px;padding:14px;font-size:13px;font-weight:800;cursor:pointer;letter-spacing:.3px;transition:background .2s"
-        onmousedown="this.style.background='rgba(96,165,250,.2)'" onmouseup="this.style.background='rgba(96,165,250,.1)'">
+        style="width:100%;background:rgba(37,213,232,.1);border:1.5px solid rgba(37,213,232,.32);color:#a4e8f4;border-radius:16px;padding:14px;font-size:13px;font-weight:800;cursor:pointer;letter-spacing:.3px;transition:background .2s"
+        onmousedown="this.style.background='rgba(37,213,232,.2)'" onmouseup="this.style.background='rgba(37,213,232,.1)'">
         🔄 Відкрити трансфери
       </button>
       <button onclick="document.getElementById('winterBreakModal')?.remove();skipWinterBreak()"
-        style="width:100%;background:linear-gradient(135deg,#1e40af,#2563eb,#3b82f6);color:#fff;border:none;border-radius:16px;padding:16px;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 6px 28px rgba(37,99,235,.5),0 2px 8px rgba(0,0,0,.4);letter-spacing:.3px;transition:transform .15s"
+        style="width:100%;background:linear-gradient(135deg,#1568c9,#2596e8,#25d5e8);color:#04141c;border:none;border-radius:16px;padding:16px;font-size:15px;font-weight:900;cursor:pointer;box-shadow:0 8px 30px rgba(37,180,232,.42),0 2px 8px rgba(0,0,0,.4);letter-spacing:.3px;transition:transform .15s"
         onmousedown="this.style.transform='scale(.97)'" onmouseup="this.style.transform=''">
         🌸 Почати друге коло
       </button>
