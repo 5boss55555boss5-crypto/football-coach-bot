@@ -14110,6 +14110,58 @@ function onPointerUpGlobal(){
   }
 }
 
+// Injury forces a sub, but instead of silently auto-picking a replacement
+// this shows the bench ranked by position fit and lets the player choose.
+// Falls back to the top-ranked (best-fit) pick if no choice is made in time,
+// so the match never stalls if the player isn't watching.
+function showInjurySubPicker(fieldIdx, ev, injured, available, restartAfterInjury){
+  document.getElementById('injurySubOverlay')?.remove();
+  const scoreOf=p=>p.p===injured.p?2:normPos(p.p)===normPos(injured.p)?1:0;
+  const ranked=[...available].sort((a,b)=>scoreOf(b)-scoreOf(a)||(b.r||0)-(a.r||0));
+  let resolved=false;
+  const finish=(chosen)=>{
+    if(resolved||!chosen) return; resolved=true;
+    clearTimeout(autoTimer);
+    document.getElementById('injurySubOverlay')?.remove();
+    const benchIdx=LS.bench.indexOf(chosen);
+    doSubstitution(benchIdx, fieldIdx, true);
+    addEvent({type:'sub',text:`🔄 Заміна через травму: ${chosen.n} ↑ / ${ev.scorer} ↓`,min:ev.min});
+    document.getElementById('fieldAction').textContent=`🔄 ${chosen.n} виходить замість ${ev.scorer}`;
+    setTimeout(()=>restartAfterInjury(), 800);
+  };
+  const autoTimer=setTimeout(()=>finish(ranked[0]), 10000);
+  const el=document.createElement('div');
+  el.id='injurySubOverlay';
+  el.style.cssText='position:fixed;inset:0;z-index:900;background:rgba(4,8,20,.88);backdrop-filter:blur(6px);display:flex;align-items:flex-end;justify-content:center;opacity:0;transition:opacity .2s ease';
+  el.innerHTML=`
+    <div style="width:100%;max-width:480px;max-height:80vh;overflow-y:auto;background:linear-gradient(180deg,#0d1829,#0a1120);border-radius:22px 22px 0 0;border-top:2px solid rgba(239,68,68,.4);padding:18px 16px calc(env(safe-area-inset-bottom,0px) + 16px)">
+      <div style="text-align:center;margin-bottom:14px">
+        <div style="font-size:34px;margin-bottom:4px">🩹</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#fca5a5">ТРАВМА: ${esc(ev.scorer)}</div>
+        <div style="font-size:11px;color:var(--mut);margin-top:4px">Кого випустити замість нього? (${injured.p})</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        ${ranked.map((p,i)=>{
+          const tier=scoreOf(p);
+          const tierLabel=tier===2?'Та ж позиція':tier===1?'Схожа позиція':'Інша позиція';
+          const tierColor=tier===2?'#4ade80':tier===1?'#fbbf24':'rgba(148,163,184,.6)';
+          return `<button onclick="window._injSubPick(${i})" style="display:flex;align-items:center;gap:10px;padding:11px 12px;background:rgba(255,255,255,.04);border:1px solid ${i===0?'rgba(74,222,128,.35)':'rgba(255,255,255,.08)'};border-radius:14px;cursor:pointer;text-align:left;color:var(--txt)">
+            <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0">${p.p}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;font-weight:700">${esc(p.n)}</div>
+              <div style="font-size:9px;margin-top:2px;color:${tierColor};font-weight:700">${tierLabel}${i===0?' · Рекомендовано':''}</div>
+            </div>
+            <div style="font-size:16px;font-weight:900;color:${(p.r||0)>=80?'#4ade80':(p.r||0)>=70?'#60a5fa':'#9ca3af'}">${p.r||''}</div>
+          </button>`;
+        }).join('')}
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:9px;color:rgba(148,163,184,.4)">Автовибір найкращого через кілька секунд, якщо не оберете</div>
+    </div>`;
+  document.body.appendChild(el);
+  requestAnimationFrame(()=>{ el.style.opacity='1'; });
+  window._injSubPick=(i)=>finish(ranked[i]);
+}
+
 function doSubstitution(benchIdx, fieldIdx, suppressLog=false){
   if(LS.done||LS.subsLeft<=0) return;
   const outPlayer=LS.onField[fieldIdx];
@@ -16856,28 +16908,17 @@ function processEvent(ev){
     }
 
     if(LS.subsLeft>0){
-      // Auto-find best available sub: exact position first, then same
-      // broad group (normPos only distinguishes ЗАХ/НАП/mid, so e.g. a
-      // striker and a winger both count as "НАП" — matching the exact
-      // position first stops a ЦН injury being replaced with a ЛВ), then
-      // any non-GK
       const injured=LS.onField[fieldIdx];
       const available=LS.bench.filter(p=>p&&p.n&&!p.subbed);
-      const sub=available.find(p=>p.p===injured.p)
-             || available.find(p=>normPos(p.p)===normPos(injured.p))
-             || available.find(p=>p.p!=='ВРТ')
-             || available[0];
+      const sub=available[0];
 
       if(sub){
-        const benchIdx=LS.bench.indexOf(sub);
-        // Brief pause to show injury message, then auto-sub
+        // Let the player choose who comes on, instead of always auto-picking
+        // (auto-pick still runs as a fallback if they don't respond in time).
         if(liveTimer){clearInterval(liveTimer);liveTimer=null;}
         fieldActionLocked=true;
         setTimeout(()=>{
-          doSubstitution(benchIdx, fieldIdx, true);
-          addEvent({type:'sub',text:`🔄 Авто-заміна через травму: ${sub.n} ↑ / ${ev.scorer} ↓`,min:ev.min});
-          document.getElementById('fieldAction').textContent=`🔄 ${sub.n} виходить замість ${ev.scorer}`;
-          setTimeout(()=>restartAfterInjury(), 1200);
+          showInjurySubPicker(fieldIdx, ev, injured, available, restartAfterInjury);
         },1200);
       } else {
         // No bench players — mark injured, play shorthanded
