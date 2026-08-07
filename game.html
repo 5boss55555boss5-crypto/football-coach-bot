@@ -2445,6 +2445,9 @@ body.theme-light #cupBracketBody>div{background:#fff!important;border-color:#d8e
 /* Drop zone highlight */
 .stf-player.drop-target .stf-player-dot{border-color:#f59e0b;box-shadow:0 0 12px rgba(245,158,11,.5);transform:scale(1.08);opacity:.5}
 .stf-player.drop-target-same .stf-player-dot{border-color:#10b981;box-shadow:0 0 16px rgba(16,185,129,.9);transform:scale(1.18);opacity:1}
+/* Tap-to-select field slot for swapping two starters' positions */
+.stf-player.stf-selected .stf-player-dot{border-color:#60a5fa;box-shadow:0 0 18px rgba(96,165,250,.9);transform:scale(1.15);animation:stfSelectedPulse 1s ease-in-out infinite}
+@keyframes stfSelectedPulse{0%,100%{opacity:1}50%{opacity:.6}}
 
 /* BENCH ROW */
 .bench-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
@@ -12962,7 +12965,23 @@ function clearPreDrag(){
 }
 
 function onPreFieldPointerUp(e,fieldIdx){
-  if(!preDragState.active) return;
+  if(!preDragState.active){
+    // No bench drag in progress — tap-to-select mode for swapping two
+    // starters' positions with each other (e.g. ЦЗ ↔ ЛЗ), since dragging
+    // only ever supported bench→field before.
+    e.preventDefault();e.stopPropagation();
+    if(preFieldSelectedIdx===null){
+      preFieldSelectedIdx=fieldIdx;
+      highlightFieldForFieldSwap(fieldIdx);
+    } else if(preFieldSelectedIdx===fieldIdx){
+      preFieldSelectedIdx=null;
+      renderPreMatchField();
+    } else {
+      doPreFieldSwap(preFieldSelectedIdx, fieldIdx);
+      preFieldSelectedIdx=null;
+    }
+    return;
+  }
   e.preventDefault();e.stopPropagation();
   if(!_preDragMoved){
     // Tap on field — do swap
@@ -12972,6 +12991,37 @@ function onPreFieldPointerUp(e,fieldIdx){
     clearPreDrag();
   }
   // If dragging, handled in onUp above
+}
+
+function highlightFieldForFieldSwap(selectedIdx){
+  const selPos=PM.xi[selectedIdx]?.p;
+  document.querySelectorAll('#preMatchPlayers .stf-player').forEach((el,i)=>{
+    el.classList.remove('drop-target','drop-target-same','stf-selected');
+    if(i===selectedIdx){ el.classList.add('stf-selected'); return; }
+    const fieldPos=PM.xi[i]?.p;
+    el.classList.add(fieldPos===selPos?'drop-target-same':'drop-target');
+  });
+}
+
+function doPreFieldSwap(idxA, idxB){
+  const a={...PM.xi[idxA]};
+  const b={...PM.xi[idxB]};
+  if(!a.n||!b.n) return;
+  // GK conflict — a keeper can only swap with a keeper (same rule as bench swap)
+  const aIsGK=a.p==='ВРТ', bIsGK=b.p==='ВРТ';
+  if(aIsGK!==bIsGK){
+    const fa=document.getElementById('fieldAction');
+    if(fa){
+      fa.textContent='⚠️ Воротаря можна поміняти лише з воротарем';
+      setTimeout(()=>{if(fa.textContent.startsWith('⚠️')) fa.textContent='';},2200);
+    }
+    renderPreMatchField();
+    return;
+  }
+  PM.xi[idxA]={...b, fx:a.fx, fy:a.fy, slotPos:a.slotPos, fieldIdx:idxA};
+  PM.xi[idxB]={...a, fx:b.fx, fy:b.fy, slotPos:b.slotPos, fieldIdx:idxB};
+  SFX.sub?.();
+  renderPreMatchField();
 }
 
 function onPrePointerUpGlobal(){
@@ -13850,6 +13900,7 @@ function simScore(hs,as,myAttackMod=0,myDefendMod=0){
 let playerStats={};
 
 let preDragState={active:false,benchIdx:null};
+let preFieldSelectedIdx=null; // tap-to-select field slot for swapping two starters' positions
 
 function initPlayerStats(){
   playerStats={};
