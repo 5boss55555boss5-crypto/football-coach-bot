@@ -26775,8 +26775,21 @@ function initUCLSchedule(){
   G.uclParticipants = parts;
   G.uclInUCL = parts.includes(myId);
 
+  // FIX: this used to re-run (wiping every club's group-stage points back to
+  // zero) whenever a mid-season club switch — e.g. accepting a manager offer
+  // during winter break — rebuilt the schedule via initCupSchedule(). Only
+  // reset for an actual new season; same-season re-entry just re-syncs the
+  // participant list without touching progress already made this year.
+  const uclSameSeasonInProgress = G.ucl && G.ucl.seasonYear===G.seasonStartYear
+    && Object.values(G.ucl.groupStats||{}).some(s=>(s&&s.m||0)>0);
+  if(uclSameSeasonInProgress){
+    parts.forEach(id => { if(!G.ucl.groupStats[id]) G.ucl.groupStats[id] = {pts:0,w:0,d:0,l:0,m:0,gf:0,ga:0}; });
+    return;
+  }
+
   // Init group stats for all UCL participants
   G.ucl = G.ucl || {};
+  G.ucl.seasonYear = G.seasonStartYear;
   G.ucl.groupStats = {};
   G.ucl.phase = 'group'; // group → playoff → done
   G.ucl._userUCLStage = 'group';
@@ -27447,7 +27460,17 @@ function initUELSchedule(){
   const parts=getUELParticipants();
   G.uelParticipants=parts;
   G.uelInUEL=parts.includes(G.club?.id);
-  G.uel={groupStats:{},phase:'group',playoff:null,winner:null,userEliminated:false,_userUELStage:'group'};
+
+  // FIX: same mid-season-club-switch wipe bug as initUCLSchedule() — only
+  // reset for an actual new season, not on same-season re-entry.
+  const uelSameSeasonInProgress = G.uel && G.uel.seasonYear===G.seasonStartYear
+    && Object.values(G.uel.groupStats||{}).some(s=>(s&&s.m||0)>0);
+  if(uelSameSeasonInProgress){
+    parts.forEach(id => { if(!G.uel.groupStats[id]) G.uel.groupStats[id] = {pts:0,w:0,d:0,l:0,m:0,gf:0,ga:0}; });
+    return;
+  }
+
+  G.uel={groupStats:{},phase:'group',playoff:null,winner:null,userEliminated:false,_userUELStage:'group',seasonYear:G.seasonStartYear};
   parts.forEach(id=>{G.uel.groupStats[id]={pts:0,w:0,d:0,l:0,m:0,gf:0,ga:0};});
   const uelRounds=buildUELGroupStage(parts);
   const UEL_AFTER_ROUNDS=[4,5,7,9,12,14,16,17];
