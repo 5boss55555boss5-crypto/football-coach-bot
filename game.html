@@ -22290,17 +22290,35 @@ function _applyHomeTab(tab){
 
   const isSquad   = tab !== 'academy';
   const isAcademy = tab === 'academy';
+  const showEl = isSquad ? squadPanel : acadPanel;
+  const hideEl = isSquad ? acadPanel : squadPanel;
 
-  squadPanel.style.display  = isSquad   ? '' : 'none';
-  acadPanel.style.display   = isAcademy ? '' : 'none';
+  if(isAcademy) acadPanel.innerHTML = renderAcademyHomePanel();
+
+  // Fade+slide crossfade instead of an instant display swap
+  if(hideEl.style.display!=='none'){
+    hideEl.style.transition='opacity .15s ease,transform .15s ease';
+    hideEl.style.opacity='0';
+    hideEl.style.transform='translateY(4px)';
+    setTimeout(()=>{ hideEl.style.display='none'; },150);
+  } else {
+    hideEl.style.display='none';
+  }
+  showEl.style.display='';
+  showEl.style.transition='none';
+  showEl.style.opacity='0';
+  showEl.style.transform='translateY(6px)';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    showEl.style.transition='opacity .22s ease,transform .22s cubic-bezier(.22,.68,.32,1)';
+    showEl.style.opacity='1';
+    showEl.style.transform='translateY(0)';
+  }));
 
   const activeStyle   = 'flex:1;padding:7px 0;border-radius:10px;border:none;background:var(--acc);color:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px';
   const inactiveStyle = 'flex:1;padding:7px 0;border-radius:10px;border:none;background:transparent;color:var(--mut);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px';
 
   btnSquad.style.cssText   = isSquad   ? activeStyle : inactiveStyle;
   btnAcademy.style.cssText = isAcademy ? activeStyle : inactiveStyle;
-
-  if(isAcademy) acadPanel.innerHTML = renderAcademyHomePanel();
 }
 
 // ── ACADEMY HOME PANEL ───────────────────────────────────────────────────────
