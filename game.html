@@ -514,6 +514,8 @@ body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;min-he
 .screen{display:none}.screen.active{display:block}
 @keyframes screenIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .screen-anim{animation:screenIn .22s cubic-bezier(.22,.68,0,1.08) forwards}
+@keyframes bannerScaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+.banner-scale-in{animation:bannerScaleIn .35s cubic-bezier(.22,.68,.38,1.1) both}
 .slabel{font-size:10px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--mut);margin-bottom:10px}
 
 /* ── ONBOARDING ── */
@@ -28644,7 +28646,7 @@ function renderCupBracketCard(rd, label){
     const wc=clubById(winner);
     if(wc){
     const isMe=winner===G.club.id;
-    html+=`<div style="text-align:center;padding:14px 10px;border-radius:13px;margin-bottom:9px;background:${isMe?'radial-gradient(circle at 50% 0%,rgba(246,187,75,.22),transparent 60%),rgba(246,187,75,.06)':'rgba(255,255,255,.03)'};border:1px solid ${isMe?'rgba(246,187,75,.3)':'rgba(120,170,220,.1)'}">
+    html+=`<div class="banner-scale-in" style="text-align:center;padding:14px 10px;border-radius:13px;margin-bottom:9px;background:${isMe?'radial-gradient(circle at 50% 0%,rgba(246,187,75,.22),transparent 60%),rgba(246,187,75,.06)':'rgba(255,255,255,.03)'};border:1px solid ${isMe?'rgba(246,187,75,.3)':'rgba(120,170,220,.1)'}">
       <div style="font-size:26px;filter:drop-shadow(0 4px 10px rgba(246,187,75,.3))">🏆</div>
       <div style="font-size:12.5px;font-weight:800;color:${isMe?'#f6bb4b':'#dbe4f0'};margin-top:4px">${isMe?'🎉 Ваша команда виграла Кубок!':'Переможець: '+esc(wc.name)}</div>
     </div>`;
@@ -34341,7 +34343,7 @@ body.light #liveOverlay .match-console .live-bench-head small{color:#7a889c}
         const tieCard=(legs,isFinal=false)=>{const a=Array.isArray(legs)?legs[0]:legs,b=Array.isArray(legs)?legs[1]:null;if(!a)return'';const w=winner(legs,isFinal),c1=clubById(a.home)||{},c2=clubById(a.away)||{},me=a.home===myId||a.away===myId,ag=aggregate(legs),single=a.result?scoreParts(a.result):null;const score1=isFinal?(single?single.hg:'—'):(ag?ag.h:'—'),score2=isFinal?(single?single.ag:'—'):(ag?ag.a:'—');return `<div class="ucl33-tie ${me?'me':''}"><div class="ucl33-team ${w===a.home?'winner':w?'loser':''}"><span class="ucl33-logo">${c1.logo||''}</span><span class="ucl33-team-name">${esc(c1.name||'?')}${a.home===myId?' · ВИ':''}</span><span class="ucl33-team-score">${score1}</span></div><div class="ucl33-team ${w===a.away?'winner':w?'loser':''}"><span class="ucl33-logo">${c2.logo||''}</span><span class="ucl33-team-name">${esc(c2.name||'?')}${a.away===myId?' · ВИ':''}</span><span class="ucl33-team-score">${score2}</span></div>${!isFinal&&a.result?`<div class="ucl33-legline"><span>М1 ${resultText(a.result)}</span>${b?.result?`<span>М2 ${resultText(b.result)}</span>`:''}${ag?`<b>ЗАГ ${ag.h}:${ag.a}</b>`:''}</div>`:a.penScore?`<div class="ucl33-legline"><b>ПЕН. ${a.penScore.home}:${a.penScore.away}</b></div>`:''}</div>`};
         const stage=(label,arr,isFinal=false)=>{if(!arr?.length)return'';return `<div class="ucl33-stage ${isFinal?'final':''}"><span>${label}</span></div>${arr.map(x=>tieCard(x,isFinal)).join('')}`};
         html+=`<section class="ucl33-section"><div class="ucl33-section-head"><div><div class="ucl33-section-kicker">Road to glory</div><div class="ucl33-section-title">Шлях до фіналу</div></div><div class="ucl33-section-note">Кожен матч<br>має значення</div></div>${stage('✦ 1/8 фіналу',po.r16)}${stage('◆ Чвертьфінал',po.qf)}${stage('◈ Півфінал',po.sf)}${stage('★ Фінал',po.final,true)}`;
-        if(G.ucl?.winner){const c=clubById(G.ucl.winner)||{},me=G.ucl.winner===myId;html+=`<div class="ucl33-champion"><div class="ucl33-champion-logo">${c.logo||uclLogoImg('42px')}</div><h3>${esc(c.name||'Чемпіон')}</h3><p>${me?'Ви підкорили Європу':'Переможець UEFA Champions League'}</p></div>`}
+        if(G.ucl?.winner){const c=clubById(G.ucl.winner)||{},me=G.ucl.winner===myId;html+=`<div class="ucl33-champion banner-scale-in"><div class="ucl33-champion-logo">${c.logo||uclLogoImg('42px')}</div><h3>${esc(c.name||'Чемпіон')}</h3><p>${me?'Ви підкорили Європу':'Переможець UEFA Champions League'}</p></div>`}
         html+='</section>';
       }
     }
@@ -34450,7 +34452,7 @@ body.light #liveOverlay .match-console .live-bench-head small{color:#7a889c}
         const tieCard=(legs,isFinal=false)=>{const a=Array.isArray(legs)?legs[0]:legs,b=Array.isArray(legs)?legs[1]:null;if(!a)return'';const w=winner(legs,isFinal),c1=clubById(a.home)||{},c2=clubById(a.away)||{},me=a.home===myId||a.away===myId,ag=aggregate(legs),single=a.result?scoreParts(a.result):null;const score1=isFinal?(single?single.hg:'—'):(ag?ag.h:'—'),score2=isFinal?(single?single.ag:'—'):(ag?ag.a:'—');return `<div class="uel33-tie ${me?'me':''}"><div class="uel33-team ${w===a.home?'winner':w?'loser':''}"><span class="uel33-logo">${c1.logo||''}</span><span class="uel33-team-name">${esc(c1.name||'?')}${a.home===myId?' · ВИ':''}</span><span class="uel33-team-score">${score1}</span></div><div class="uel33-team ${w===a.away?'winner':w?'loser':''}"><span class="uel33-logo">${c2.logo||''}</span><span class="uel33-team-name">${esc(c2.name||'?')}${a.away===myId?' · ВИ':''}</span><span class="uel33-team-score">${score2}</span></div>${!isFinal&&a.result?`<div class="uel33-legline"><span>М1 ${resultText(a.result)}</span>${b?.result?`<span>М2 ${resultText(b.result)}</span>`:''}${ag?`<b>ЗАГ ${ag.h}:${ag.a}</b>`:''}</div>`:a.penScore?`<div class="uel33-legline"><b>ПЕН. ${a.penScore.home}:${a.penScore.away}</b></div>`:''}</div>`};
         const stage=(label,arr,isFinal=false)=>{if(!arr?.length)return'';return `<div class="uel33-stage ${isFinal?'final':''}"><span>${label}</span></div>${arr.map(x=>tieCard(x,isFinal)).join('')}`};
         html+=`<section class="uel33-section"><div class="uel33-section-head"><div><div class="uel33-section-kicker">Road to glory</div><div class="uel33-section-title">Шлях до фіналу</div></div><div class="uel33-section-note">Кожен матч<br>має значення</div></div>${stage('✦ 1/8 фіналу',po.r16)}${stage('◆ Чвертьфінал',po.qf)}${stage('◈ Півфінал',po.sf)}${stage('★ Фінал',po.final,true)}`;
-        if(G.uel?.winner){const c=clubById(G.uel.winner)||{},me=G.uel.winner===myId;html+=`<div class="uel33-champion"><div class="uel33-champion-logo">${c.logo||uelTrophyImg('42px')}</div><h3>${esc(c.name||'Чемпіон')}</h3><p>${me?'Ви підкорили Європу':'Переможець UEFA Europa League'}</p></div>`}
+        if(G.uel?.winner){const c=clubById(G.uel.winner)||{},me=G.uel.winner===myId;html+=`<div class="uel33-champion banner-scale-in"><div class="uel33-champion-logo">${c.logo||uelTrophyImg('42px')}</div><h3>${esc(c.name||'Чемпіон')}</h3><p>${me?'Ви підкорили Європу':'Переможець UEFA Europa League'}</p></div>`}
         html+='</section>';
       }
     }
