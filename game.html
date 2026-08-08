@@ -12900,6 +12900,8 @@ function onPreBenchPointerDown(e,benchIdx){
   preDragState={active:true,benchIdx,dragging:false};
   renderPreMatchBench();
   highlightFieldForBench(benchIdx);
+  const _faHint=document.getElementById('fieldAction');
+  if(_faHint){_faHint.textContent=`🔄 ${PM.bench[benchIdx]?.n||'Гравець'} — торкніться поля, щоб поставити (ще раз по лаві — скасувати)`;_faHint.dataset.subHint='1';}
 
   // Listen for move to start ghost drag
   const bench=document.getElementById(`pre-bench-${benchIdx}`);
@@ -12962,6 +12964,8 @@ function clearPreDrag(){
   if(_gh) _gh.style.display='none';
   document.querySelectorAll('#preMatchPlayers .stf-player').forEach(el=>{el.classList.remove('drop-target','drop-target-same');});
   renderPreMatchBench();
+  const fa=document.getElementById('fieldAction');
+  if(fa&&fa.dataset.subHint){fa.textContent='';delete fa.dataset.subHint;}
 }
 
 function onPreFieldPointerUp(e,fieldIdx){
@@ -12975,6 +12979,8 @@ function onPreFieldPointerUp(e,fieldIdx){
       highlightFieldForFieldSwap(fieldIdx);
     } else if(preFieldSelectedIdx===fieldIdx){
       preFieldSelectedIdx=null;
+      const _faHint=document.getElementById('fieldAction');
+      if(_faHint&&_faHint.dataset.subHint){_faHint.textContent='';delete _faHint.dataset.subHint;}
       renderPreMatchField();
     } else {
       doPreFieldSwap(preFieldSelectedIdx, fieldIdx);
@@ -13001,6 +13007,9 @@ function highlightFieldForFieldSwap(selectedIdx){
     const fieldPos=PM.xi[i]?.p;
     el.classList.add(fieldPos===selPos?'drop-target-same':'drop-target');
   });
+  const p=PM.xi[selectedIdx];
+  const fa=document.getElementById('fieldAction');
+  if(fa){fa.textContent=`↔ ${p?.n||'Гравець'} — оберіть, з ким поміняти місцями (ще раз — скасувати)`;fa.dataset.subHint='1';}
 }
 
 function doPreFieldSwap(idxA, idxB){
@@ -13013,6 +13022,7 @@ function doPreFieldSwap(idxA, idxB){
     const fa=document.getElementById('fieldAction');
     if(fa){
       fa.textContent='⚠️ Воротаря можна поміняти лише з воротарем';
+      delete fa.dataset.subHint;
       setTimeout(()=>{if(fa.textContent.startsWith('⚠️')) fa.textContent='';},2200);
     }
     renderPreMatchField();
@@ -13021,6 +13031,8 @@ function doPreFieldSwap(idxA, idxB){
   PM.xi[idxA]={...b, fx:a.fx, fy:a.fy, slotPos:a.slotPos, fieldIdx:idxA};
   PM.xi[idxB]={...a, fx:b.fx, fy:b.fy, slotPos:b.slotPos, fieldIdx:idxB};
   SFX.sub?.();
+  const fa=document.getElementById('fieldAction');
+  if(fa){fa.textContent=`✅ ${b.n} ↔ ${a.n} помінялись місцями`;delete fa.dataset.subHint;setTimeout(()=>{if(fa.textContent.startsWith('✅'))fa.textContent='';},2200);}
   renderPreMatchField();
 }
 
@@ -13054,6 +13066,8 @@ function doPreDragSwap(benchIdx, fieldIdx){
   PM.xi[fieldIdx]={...benchPlayer, fx:fieldPlayer.fx, fy:fieldPlayer.fy, slotPos:fieldPlayer.slotPos, fieldIdx};
   PM.bench[benchIdx]={...fieldPlayer};
   SFX.sub?.();
+  const fa=document.getElementById('fieldAction');
+  if(fa){fa.textContent=`✅ ${benchPlayer.n} вийшов замість ${fieldPlayer.n}`;delete fa.dataset.subHint;setTimeout(()=>{if(fa.textContent.startsWith('✅'))fa.textContent='';},2200);}
   renderPreMatchField();
 }
 
@@ -14124,19 +14138,47 @@ function setupDragAndDrop(){
   // Uses pointer events for mobile+desktop compatibility
 }
 
+let _liveDragStartX=0,_liveDragStartY=0,_liveDragMoved=false;
+function clearLiveBenchSelection(){
+  document.querySelectorAll('.bench-dot').forEach(el=>el.classList.remove('drag-source'));
+  document.querySelectorAll('.stf-player').forEach(el=>{el.classList.remove('drop-target');el.classList.remove('drop-target-same');});
+  dragState={active:false,fromBench:false,benchIdx:null,fieldIdx:null};
+  _liveDragMoved=false;
+  const fa=document.getElementById('fieldAction');
+  if(fa&&fa.dataset.subHint){fa.textContent='';delete fa.dataset.subHint;}
+}
 function onBenchPointerDown(e,benchIdx){
   if(LS.done||LS.subsLeft<=0) return;
   if(LS.bench[benchIdx]?.subbed) return;
   e.preventDefault();
+  // Tap the already-selected bench player again — cancel (mirrors pre-match UX)
+  if(dragState.active&&dragState.fromBench&&dragState.benchIdx===benchIdx&&!_liveDragMoved){
+    clearLiveBenchSelection(); return;
+  }
+  _liveDragStartX=e.clientX;_liveDragStartY=e.clientY;_liveDragMoved=false;
   dragState={active:true,fromBench:true,benchIdx,fieldIdx:null};
+  document.querySelectorAll('.bench-dot').forEach(el=>el.classList.remove('drag-source'));
   document.querySelectorAll('.bench-player')[benchIdx]?.querySelector('.bench-dot')?.classList.add('drag-source');
   const draggedPos=LS.bench[benchIdx]?.p;
   // Highlight: same position = green, different = dimmed yellow; skip red-carded / subbed
   document.querySelectorAll('#staticPlayers .stf-player').forEach((el,i)=>{
+    el.classList.remove('drop-target','drop-target-same');
     if(LS.onField[i]?.subbed || playerStats[i]?.red) return;
     const fieldPos=LS.onField[i]?.p;
     el.classList.add(fieldPos===draggedPos?'drop-target-same':'drop-target');
   });
+  const fa=document.getElementById('fieldAction');
+  if(fa){fa.textContent=`🔄 ${LS.bench[benchIdx]?.n||'Гравець'} — торкніться поля, щоб випустити (ще раз по лаві — скасувати)`;fa.dataset.subHint='1';}
+  // Track real drag movement so a simple tap-then-tap (no continuous drag)
+  // keeps the selection armed instead of being cancelled by the global
+  // pointerup handler the instant the finger lifts off the bench.
+  function onMove(ev){
+    const dx=ev.clientX-_liveDragStartX, dy=ev.clientY-_liveDragStartY;
+    if(!_liveDragMoved&&(Math.abs(dx)>6||Math.abs(dy)>6)) _liveDragMoved=true;
+  }
+  function onUp(){ document.removeEventListener('pointermove',onMove); }
+  document.addEventListener('pointermove',onMove,{passive:true});
+  document.addEventListener('pointerup',onUp,{once:true});
 }
 
 function onFieldPointerUp(e,fieldIdx){
@@ -14151,6 +14193,8 @@ function onFieldPointerUp(e,fieldIdx){
       highlightFieldForLiveSwap(fieldIdx);
     } else if(liveFieldSelectedIdx===fieldIdx){
       liveFieldSelectedIdx=null;
+      const fa=document.getElementById('fieldAction');
+      if(fa&&fa.dataset.subHint){fa.textContent='';delete fa.dataset.subHint;}
       renderStaticField();
     } else {
       doLiveFieldSwap(liveFieldSelectedIdx, fieldIdx);
@@ -14161,8 +14205,12 @@ function onFieldPointerUp(e,fieldIdx){
   e.preventDefault();
   document.querySelectorAll('.bench-dot').forEach(el=>el.classList.remove('drag-source'));
   document.querySelectorAll('.stf-player').forEach(el=>{el.classList.remove('drop-target');el.classList.remove('drop-target-same');});
+  const subName=LS.bench[dragState.benchIdx]?.n;
   doSubstitution(dragState.benchIdx, fieldIdx);
   dragState={active:false,fromBench:false,benchIdx:null,fieldIdx:null};
+  _liveDragMoved=false;
+  const fa=document.getElementById('fieldAction');
+  if(fa&&fa.dataset.subHint){delete fa.dataset.subHint;}
 }
 
 function highlightFieldForLiveSwap(selectedIdx){
@@ -14174,6 +14222,9 @@ function highlightFieldForLiveSwap(selectedIdx){
     const fieldPos=LS.onField[i]?.p;
     el.classList.add(fieldPos===selPos?'drop-target-same':'drop-target');
   });
+  const p=LS.onField[selectedIdx];
+  const fa=document.getElementById('fieldAction');
+  if(fa){fa.textContent=`↔ ${p?.n||'Гравець'} — оберіть, з ким поміняти місцями (ще раз — скасувати)`;fa.dataset.subHint='1';}
 }
 
 function doLiveFieldSwap(idxA, idxB){
@@ -14181,9 +14232,9 @@ function doLiveFieldSwap(idxA, idxB){
   if(!a?.n||!b?.n||a.subbed||b.subbed) { renderStaticField(); return; }
   const aIsGK=a.p==='ВРТ', bIsGK=b.p==='ВРТ';
   if(aIsGK!==bIsGK){
-    const prev=document.getElementById('fieldAction').textContent;
     document.getElementById('fieldAction').textContent='⚠️ Воротаря можна поміняти лише з воротарем';
-    setTimeout(()=>{document.getElementById('fieldAction').textContent=prev;},2200);
+    delete document.getElementById('fieldAction').dataset.subHint;
+    setTimeout(()=>{const fa=document.getElementById('fieldAction');if(fa&&fa.textContent.startsWith('⚠️'))fa.textContent='';},2200);
     renderStaticField();
     return;
   }
@@ -14192,6 +14243,8 @@ function doLiveFieldSwap(idxA, idxB){
   LS.onField[idxB]={...a, fx:bFx, fy:bFy, slotPos:bSlot, fieldIdx:idxB};
   const tmpStat=playerStats[idxA]; playerStats[idxA]=playerStats[idxB]; playerStats[idxB]=tmpStat;
   SFX.sub?.();
+  const fa=document.getElementById('fieldAction');
+  if(fa){fa.textContent=`✅ ${b.n} ↔ ${a.n} помінялись місцями`;delete fa.dataset.subHint;setTimeout(()=>{if(fa.textContent.startsWith('✅'))fa.textContent='';},2200);}
   renderStaticField();
   initLivePlayerDots();
   if(!LS.done&&LS.curMin<88) resimRemainingGoals();
@@ -14205,10 +14258,18 @@ function onFieldTouchEnd(e,fieldIdx){
 }
 
 function onPointerUpGlobal(){
-  if(dragState.active){
+  // Only cancel on a real drag that didn't land on a field player (this
+  // handler still runs even when onFieldPointerUp already handled the tap,
+  // but by then dragState.active is already false, so it's a no-op there).
+  // A plain tap-then-release on the bench must NOT cancel — the selection
+  // stays armed so a follow-up tap on the field can complete the sub.
+  if(dragState.active&&_liveDragMoved){
     document.querySelectorAll('.bench-dot').forEach(el=>el.classList.remove('drag-source'));
     document.querySelectorAll('.stf-player').forEach(el=>{el.classList.remove('drop-target');el.classList.remove('drop-target-same');});
     dragState={active:false,fromBench:false,benchIdx:null,fieldIdx:null};
+    _liveDragMoved=false;
+    const fa=document.getElementById('fieldAction');
+    if(fa&&fa.dataset.subHint){fa.textContent='';delete fa.dataset.subHint;}
   }
 }
 
