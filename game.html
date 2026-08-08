@@ -23815,7 +23815,7 @@ function showDevelopmentModal(changes, isWinter){
     return `<div style="display:flex;gap:2px;margin-top:3px">${Array.from({length:segs},()=>`<div style="width:10px;height:3px;border-radius:2px;background:${col}"></div>`).join('')}${Array.from({length:5-segs},()=>`<div style="width:10px;height:3px;border-radius:2px;background:rgba(255,255,255,.1)"></div>`).join('')}</div>`;
   }
 
-  const rows=c=>{
+  const rows=(c,idx)=>{
     const nat=getPlayerNat(c.n);
     const age=c.age||'?';
     const isPos=c.delta>0;
@@ -23824,9 +23824,10 @@ function showDevelopmentModal(changes, isWinter){
     const bgColor=isPos?(bigChange?'rgba(14,201,126,.08)':'rgba(14,201,126,.04)'):'rgba(240,76,90,.05)';
     const deltaColor=isPos?'var(--grn)':'var(--red)';
     const ratingColor=c.newR>=85?'#4ade80':c.newR>=75?'var(--acc)':c.newR>=65?'var(--gold)':'rgba(148,163,184,.7)';
+    const popDelay=`${Math.min(idx,10)*60}ms`;
     return`<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--brd);background:${bgColor};border-left:3px solid ${borderColor};position:relative;overflow:hidden">
       ${bigChange&&isPos?`<div style="position:absolute;top:0;right:0;bottom:0;width:40px;background:linear-gradient(to left,rgba(14,201,126,.06),transparent);pointer-events:none"></div>`:''}
-      ${playerAvatar(c.n, c.pos, 36, 10)}
+      <div class="${isPos?'dev-avatar-glow':''}" style="border-radius:10px;flex-shrink:0">${playerAvatar(c.n, c.pos, 36, 10)}</div>
       <div style="flex:1;min-width:0">
         <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${c.n}</div>
         <div style="display:flex;align-items:center;gap:5px;margin-top:2px;flex-wrap:wrap">
@@ -23838,8 +23839,8 @@ function showDevelopmentModal(changes, isWinter){
         ${deltaBar(c.delta)}
       </div>
       <div style="text-align:right;flex-shrink:0">
-        <div style="font-size:11px;color:rgba(148,163,184,.5);margin-bottom:2px">${c.oldR} → <strong style="color:${ratingColor};font-size:13px">${c.newR}</strong></div>
-        <div style="font-size:18px;font-weight:900;color:${deltaColor};line-height:1">${c.delta>0?'+':''}${c.delta}</div>
+        <div style="font-size:11px;color:rgba(148,163,184,.5);margin-bottom:2px">${c.oldR} → <strong class="dev-num-pop" style="display:inline-block;color:${ratingColor};font-size:13px;animation-delay:${popDelay}">${c.newR}</strong></div>
+        <div class="dev-num-pop" style="font-size:18px;font-weight:900;color:${deltaColor};line-height:1;animation-delay:${popDelay}">${c.delta>0?'+':''}${c.delta}</div>
       </div>
     </div>`;
   };
@@ -23852,7 +23853,13 @@ function showDevelopmentModal(changes, isWinter){
   const html=`
   <div style="position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:600;display:flex;align-items:flex-end" id="devModal" onclick="if(event.target===this)this.remove()">
     <div style="background:var(--surf);border-radius:22px 22px 0 0;width:100%;max-height:88vh;overflow-y:auto;border-top:2px solid ${isWinter?'rgba(96,165,250,.4)':'rgba(245,158,11,.3)'};animation:devSlideUp .35s cubic-bezier(.32,1,.5,1)">
-      <style>@keyframes devSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}</style>
+      <style>
+        @keyframes devSlideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+        @keyframes devNumPop{0%{transform:scale(.3);opacity:0}55%{transform:scale(1.28);opacity:1}75%{transform:scale(.92)}100%{transform:scale(1)}}
+        @keyframes devGlowPulse{0%,100%{box-shadow:0 0 0 2px rgba(184,255,53,.45),0 0 10px rgba(184,255,53,.25)}50%{box-shadow:0 0 0 2px rgba(184,255,53,.65),0 0 18px rgba(184,255,53,.4)}}
+        .dev-num-pop{animation:devNumPop .5s cubic-bezier(.34,1.56,.64,1) both}
+        .dev-avatar-glow{animation:devGlowPulse 2.2s ease-in-out infinite}
+      </style>
 
       <!-- Handle -->
       <div style="width:36px;height:4px;border-radius:2px;background:rgba(255,255,255,.15);margin:10px auto 0"></div>
