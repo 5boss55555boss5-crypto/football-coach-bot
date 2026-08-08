@@ -463,7 +463,10 @@ body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;min-he
   border-radius:6px;padding:4px 10px;
   font-size:11px;font-weight:700;color:var(--grn);
   display:none;letter-spacing:.3px;
+  transition:background .5s ease,border-color .5s ease;
 }
+.bchip.flash-up{background:rgba(184,255,53,.28)!important;border-color:rgba(184,255,53,.6)!important}
+.bchip.flash-down{background:rgba(255,89,103,.24)!important;border-color:rgba(255,89,103,.55)!important}
 
 /* ── BOTTOM NAV ── */
 .nav{
@@ -782,6 +785,9 @@ body.theme-light .onboard{background:radial-gradient(circle at 50% -2%,rgba(124,
 .tr-pos{font-family:'Bebas Neue',sans-serif;font-size:15px;font-weight:400;color:rgba(148,163,184,.4);text-align:center}
 .tr-club{display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden}
 .tr-club .tc-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;font-weight:700}
+.tr-delta{flex-shrink:0;font-size:9px;font-weight:900;letter-spacing:.2px}
+.tr-delta.up{color:#b8ff35}
+.tr-delta.down{color:#ff5967}
 .tr-cell{font-size:11px;text-align:center;color:rgba(148,163,184,.5)}
 .tr-pts{font-size:15px;font-weight:900;text-align:center;color:#fff}
 .tr-gd{font-size:11px;text-align:center}
@@ -14734,6 +14740,26 @@ function tickSuspensions(){
 }
 
 // ===== LIVE MATCH ENGINE =====
+function showKickoffBanner(){
+  const overlay=document.getElementById('liveOverlay');
+  if(!overlay) return;
+  document.getElementById('kickoffBanner')?.remove();
+  const el=document.createElement('div');
+  el.id='kickoffBanner';
+  el.style.cssText='position:absolute;left:50%;top:38%;transform:translate(-50%,-50%) scale(.7);z-index:850;pointer-events:none;opacity:0;transition:opacity .25s ease,transform .25s cubic-bezier(.34,1.56,.64,1)';
+  el.innerHTML=`<div style="display:flex;align-items:center;gap:9px;padding:11px 26px;border-radius:50px;background:linear-gradient(135deg,rgba(184,255,53,.95),rgba(37,213,232,.9));box-shadow:0 12px 34px rgba(0,0,0,.45),0 0 30px rgba(184,255,53,.4)">
+    <span style="font-size:20px">⚽</span>
+    <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#07101c">СТАРТ</span>
+  </div>`;
+  overlay.appendChild(el);
+  requestAnimationFrame(()=>{el.style.opacity='1';el.style.transform='translate(-50%,-50%) scale(1)';});
+  setTimeout(()=>{
+    el.style.opacity='0';
+    el.style.transform='translate(-50%,-50%) scale(.85)';
+    setTimeout(()=>el.remove(),300);
+  },700);
+}
+
 function startLiveMatch(){
   if(!G.club||G.currentRound>=G.schedule.length)return;
   const rd=G.schedule[G.currentRound];
@@ -14839,6 +14865,7 @@ function startLiveMatch(){
   addEvent({type:'info',text:(isUCLMatch?'★ Гімн Ліги Чемпіонів. Стадіон завмер. ':'Матч розпочато! ') + '<span style="display:inline-flex;align-items:center;gap:5px"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:'+homeClub.bg+';padding:2px;overflow:hidden;vertical-align:middle">' + homeClub.logo + '</span> — <span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:'+awayClub.bg+';padding:2px;overflow:hidden;vertical-align:middle">' + awayClub.logo + '</span></span>',min:0});
   SFX.kickoff();
   VIB.kickoff();
+  showKickoffBanner();
   // Start looping crowd ambient + fade BGM
   setTimeout(()=>startAmbientCrowd(), 800);
 
@@ -14934,6 +14961,7 @@ function startLiveCupMatch(m){
   addEvent({type:'info',text:'🏆 Кубок! <span style="display:inline-flex;align-items:center;gap:5px"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:'+homeClub.bg+';padding:2px;overflow:hidden;vertical-align:middle">' + homeClub.logo + '</span> — <span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:'+awayClub.bg+';padding:2px;overflow:hidden;vertical-align:middle">' + awayClub.logo + '</span></span>',min:0});
   SFX.kickoff();
   VIB.kickoff();
+  showKickoffBanner();
   stopBGM(1.2);
   const pauseBtn=document.getElementById('pauseBtn');
   if(pauseBtn){pauseBtn.textContent='⏸ Пауза';pauseBtn.style.display='flex';pauseBtn.style.borderColor='var(--brd)';pauseBtn.style.color='var(--txt)';}
@@ -21785,6 +21813,24 @@ function getSeasonLabel(){
   return `Сезон ${y}/${String(y+1).slice(-2)}`;
 }
 
+function animateNumberTo(el, targetValue, formatFn, duration=500){
+  if(!el) return;
+  const prevRaw=Number(el.dataset.rawValue);
+  const from=Number.isFinite(prevRaw)?prevRaw:targetValue;
+  el.dataset.rawValue=targetValue;
+  if(from===targetValue){ el.textContent=formatFn(targetValue); return; }
+  const startTime=performance.now();
+  const ease=t=>1-Math.pow(1-t,3);
+  function step(now){
+    const p=Math.min(1,(now-startTime)/duration);
+    const val=from+(targetValue-from)*ease(p);
+    el.textContent=formatFn(Math.round(val));
+    if(p<1) requestAnimationFrame(step);
+    else el.textContent=formatFn(targetValue);
+  }
+  requestAnimationFrame(step);
+}
+
 function updateHeader(){
   if(!G.club)return;
   // Global invariant: the available club balance is never allowed below zero.
@@ -21803,7 +21849,15 @@ function updateHeader(){
     hLogo.innerHTML=G.club.logo;
   }
   const chip=document.getElementById('bchip');
-  chip.style.display='block';chip.textContent=fmt(G.budget);
+  const _prevBudget=Number(chip.dataset.rawValue);
+  chip.style.display='block';
+  animateNumberTo(chip, G.budget, fmt, 550);
+  if(Number.isFinite(_prevBudget) && _prevBudget!==G.budget){
+    chip.classList.remove('flash-up','flash-down');
+    void chip.offsetWidth; // restart the CSS transition reliably
+    chip.classList.add(G.budget>_prevBudget?'flash-up':'flash-down');
+    setTimeout(()=>chip.classList.remove('flash-up','flash-down'), 650);
+  }
   const jBtn=document.getElementById('journalHeaderBtn');
   if(jBtn) jBtn.style.display='flex';
   document.getElementById('mBudget').textContent=fmt(G.budget);
@@ -25727,6 +25781,7 @@ function renderUELTab(){
 
 }
 
+let _tableRankSnapshot=null; // {round, ranks:{clubId:rank}} — ranks as of before the last observed round transition, used for FLIP + delta badges
 function renderLeagueTable(){
   if(!G.club) return;
   ensureTableStats();
@@ -25737,7 +25792,17 @@ function renderLeagueTable(){
   const uclSpots = lid==='epl'?UCL_EPL_SPOTS : lid==='laliga'?UCL_LALIGA_SPOTS : lid==='upl'?UCL_UPL_SPOTS : lid==='seriea'?UCL_SERIEA_SPOTS : lid==='bundesliga'?UCL_BUNDESLIGA_SPOTS : lid==='other'?UCL_OTHER_SPOTS : 0;
   const uelSpots = lid==='epl'?UEL_EPL_SPOTS : lid==='laliga'?UEL_LALIGA_SPOTS : lid==='upl'?UEL_UPL_SPOTS : lid==='seriea'?UEL_SERIEA_SPOTS : lid==='bundesliga'?UEL_BUNDESLIGA_SPOTS : lid==='other'?UEL_OTHER_SPOTS : 0;
 
-  document.getElementById('tableBody').innerHTML=sorted.map((c,i)=>{
+  const tableBody=document.getElementById('tableBody');
+  // FLIP step 1: capture current row positions before we rebuild the DOM
+  const oldTops={};
+  tableBody.querySelectorAll('.table-row[data-club-id]').forEach(el=>{
+    oldTops[el.dataset.clubId]=el.getBoundingClientRect().top;
+  });
+  const prevRanks = _tableRankSnapshot ? _tableRankSnapshot.ranks : null;
+  const newRanks = {};
+
+  tableBody.innerHTML=sorted.map((c,i)=>{
+    newRanks[c.id]=i+1;
     const isUCLSpot=i<uclSpots, isUELSpot=i>=uclSpots&&i<uclSpots+uelSpots, isLastUCL=i===uclSpots-1, isLastUEL=i===uclSpots+uelSpots-1;
     const zoneColor = isUCLSpot ? 'var(--acc)' : isUELSpot ? '#fb923c' : 'transparent';
     const posColor = i===0 ? '#f5a623' : i<3 ? '#4ade80' : i<uclSpots+uelSpots ? 'rgba(148,163,184,.55)' : 'rgba(148,163,184,.3)';
@@ -25746,7 +25811,10 @@ function renderLeagueTable(){
     const isMe = c.id===G.club.id;
     const wdl = `<span style="color:#4ade80;font-weight:700">${c.w}</span><span style="color:rgba(148,163,184,.25)">·</span><span style="color:#f5a623;font-weight:700">${c.d}</span><span style="color:rgba(148,163,184,.25)">·</span><span style="color:#f87171;font-weight:700">${c.l}</span>`;
     const mb = (isLastUCL||isLastUEL)?'margin-bottom:8px;':'';
-    return `<div class="table-row${isMe?' my-row':''}" style="${mb}">
+    const prevRank = prevRanks ? prevRanks[c.id] : null;
+    const rankDelta = prevRank ? prevRank-(i+1) : 0;
+    const deltaBadge = rankDelta>0 ? `<span class="tr-delta up">▲${rankDelta}</span>` : rankDelta<0 ? `<span class="tr-delta down">▼${Math.abs(rankDelta)}</span>` : '';
+    return `<div class="table-row${isMe?' my-row':''}" data-club-id="${c.id}" style="${mb}">
       <div style="display:flex;align-items:center;gap:0;flex-shrink:0">
         <div style="width:3px;height:26px;border-radius:2px;background:${zoneColor};margin-right:6px;flex-shrink:0"></div>
         <div class="tr-pos" style="color:${posColor};width:14px;text-align:center">${i+1}</div>
@@ -25754,12 +25822,33 @@ function renderLeagueTable(){
       <div class="tr-club">
         <span style="width:22px;height:22px;display:inline-flex;border-radius:6px;background:${c.bg};padding:2px;overflow:hidden;flex-shrink:0">${c.logo}</span>
         <span class="tc-name"${isMe?' style="color:var(--acc);font-weight:800"':''}>${c.name}</span>
+        ${deltaBadge}
       </div>
       <div class="tr-cell" style="font-size:10.5px;letter-spacing:-.2px">${wdl}</div>
       <div class="tr-gd" style="color:${gdColor};font-size:11px;text-align:center;font-weight:${gd!==0?'700':'400'}">${gd>0?'+':''}${gd}</div>
       <div class="tr-pts"${isMe?' style="color:var(--acc)"':''}>${c.pts}</div>
     </div>`; }).join('');
 
+  // FLIP step 2: rows landed in their new DOM position — slide them in from
+  // where they used to be, so a rank change reads as movement, not a teleport.
+  requestAnimationFrame(()=>{
+    tableBody.querySelectorAll('.table-row[data-club-id]').forEach(el=>{
+      const oldTop=oldTops[el.dataset.clubId];
+      if(oldTop==null) return;
+      const dy=oldTop-el.getBoundingClientRect().top;
+      if(Math.abs(dy)<1) return;
+      el.style.transition='none';
+      el.style.transform=`translateY(${dy}px)`;
+      requestAnimationFrame(()=>{
+        el.style.transition='transform .45s cubic-bezier(.22,.68,.32,1)';
+        el.style.transform='translateY(0)';
+      });
+    });
+  });
+
+  if(!_tableRankSnapshot || _tableRankSnapshot.round!==G.currentRound){
+    _tableRankSnapshot={round:G.currentRound, ranks:newRanks};
+  }
 }
 
 function renderScorers(sortBy){
@@ -32734,10 +32823,22 @@ renderAchievementsContent=function(){
     const recent=d.hist.slice().reverse().slice(0,8).map(h=>{const buy=['buy','flash','negotiate','case'].includes(h.type);return row(buy?'↓':'↑',h.name||'Трансфер',`${h.club||''}${h.round!=null?' · тур '+(h.round+1):''}`,`${buy?'−':'+'}${money(h.price||0)}`,buy?'#fb7185':'#34d399');}).join('');
     return`<div class="fin2-metrics"><div class="fin2-metric good"><div class="fin2-label">Усього доходів</div><div class="value">+${money(d.income)}</div><div class="hint">Підтверджені надходження</div></div><div class="fin2-metric bad"><div class="fin2-label">Усього витрат</div><div class="value">−${money(d.out)}</div><div class="hint">Оплачені операції</div></div></div><div class="fin2-panel"><div class="fin2-panel-head"><b>Джерела доходу</b><span>${sources.length} категорії</span></div>${src}</div><div class="fin2-panel"><div class="fin2-panel-head"><b>Структура витрат</b><span>${costs.length} категорії</span></div>${out}</div>${recent?`<div class="fin2-panel"><div class="fin2-panel-head"><b>Останні трансфери</b><span>до 8 операцій</span></div>${recent}</div>`:''}`;
   }
+  let _finWalletLastValue=null;
   renderSalaryScreen=function(){
     if(!G.club)return;finStyles();if(!['overview','salary','income'].includes(G._finTab))G._finTab='overview';const d=finData(),tab=G._finTab,season=G.seasonStartYear||2025;
     const tabs=[['overview','▦','Огляд'],['salary','◫','Зарплати'],['income','↕','Операції']];
-    document.getElementById('s-salary').innerHTML=`<div class="content fin2"><div class="fin2-head"><div><div class="fin2-kicker">Фінансовий штаб</div><div class="fin2-title">${G.club.name}</div><div class="fin2-season">Сезон ${season}/${String(season+1).slice(2)}</div></div><div class="fin2-wallet"><b>${G.budget<0?'−':''}${money(Math.abs(G.budget))}</b><span>на рахунку</span></div></div><div class="fin2-tabs">${tabs.map(t=>`<button class="fin2-tab ${tab===t[0]?'on':''}" onclick="G._finTab='${t[0]}';renderSalaryScreen()">${t[1]}&nbsp; ${t[2]}</button>`).join('')}</div>${tab==='overview'?overview(d):tab==='salary'?salaries(d):operations(d)}</div>`;
+    document.getElementById('s-salary').innerHTML=`<div class="content fin2"><div class="fin2-head"><div><div class="fin2-kicker">Фінансовий штаб</div><div class="fin2-title">${G.club.name}</div><div class="fin2-season">Сезон ${season}/${String(season+1).slice(2)}</div></div><div class="fin2-wallet"><b id="finWalletAmount">${G.budget<0?'−':''}${money(Math.abs(G.budget))}</b><span>на рахунку</span></div></div><div class="fin2-tabs">${tabs.map(t=>`<button class="fin2-tab ${tab===t[0]?'on':''}" onclick="G._finTab='${t[0]}';renderSalaryScreen()">${t[1]}&nbsp; ${t[2]}</button>`).join('')}</div>${tab==='overview'?overview(d):tab==='salary'?salaries(d):operations(d)}</div>`;
+    const walletEl=document.getElementById('finWalletAmount');
+    if(walletEl){
+      const fmtMoney=v=>(v<0?'−':'')+money(Math.abs(v));
+      if(_finWalletLastValue!=null && _finWalletLastValue!==G.budget){
+        walletEl.dataset.rawValue=_finWalletLastValue;
+        animateNumberTo(walletEl, G.budget, fmtMoney, 550);
+      } else {
+        walletEl.dataset.rawValue=G.budget;
+      }
+      _finWalletLastValue=G.budget;
+    }
   };
 })();
 
