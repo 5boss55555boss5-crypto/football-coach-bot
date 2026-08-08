@@ -12658,8 +12658,31 @@ function selectFormation(id){
   if(G.formation===id)return;
   G.formation=id;
   renderFormationPicker();
+
+  // Capture current on-field positions (by player name) so the reformation
+  // reads as players running to their new spots, not a teleport.
+  const oldPos={};
+  document.querySelectorAll('#preMatchPlayers .stf-player[data-player]').forEach(el=>{
+    oldPos[el.dataset.player]={left:el.style.left, top:el.style.top};
+  });
+
   initPreMatchLineup(true); // force — formation changed, slots changed
   renderPreMatchField();
+
+  document.querySelectorAll('#preMatchPlayers .stf-player[data-player]').forEach(el=>{
+    const prev=oldPos[el.dataset.player];
+    if(!prev) return;
+    const newLeft=el.style.left, newTop=el.style.top;
+    if(prev.left===newLeft && prev.top===newTop) return;
+    el.style.transition='none';
+    el.style.left=prev.left;
+    el.style.top=prev.top;
+    void el.offsetWidth; // force reflow so the browser registers the start position
+    el.style.transition='left .55s cubic-bezier(.22,.68,.32,1),top .55s cubic-bezier(.22,.68,.32,1)';
+    el.style.left=newLeft;
+    el.style.top=newTop;
+  });
+
   SFX.click();
 }
 
@@ -12890,7 +12913,7 @@ function renderPreMatchField(){
     const hasPenalty=penalty<=-7;
     const rColor=effR>=85?'#4ade80':effR>=75?'#60a5fa':effR>=65?'#fbbf24':'#9ca3af';
     const dotBorder=hasPenalty?'border:2px solid rgba(239,68,68,.7)!important':'';
-    return`<div class="stf-player" id="pre-field-${i}" data-field-idx="${i}" style="left:${p.fx}%;top:${p.fy}%;cursor:pointer"
+    return`<div class="stf-player" id="pre-field-${i}" data-field-idx="${i}" data-player="${esc(p.n)}" style="left:${p.fx}%;top:${p.fy}%;cursor:pointer"
       onpointerup="onPreFieldPointerUp(event,${i})">
       <div class="stf-player-dot${p.p==='ВРТ'?' gk':''}" style="${isSusp?'background:linear-gradient(160deg,#7f1d1d,#991b1b);border-color:rgba(239,68,68,.6);':isInj?'background:linear-gradient(160deg,#7f1d1d,#991b1b);border-color:rgba(239,68,68,.6);':hasPenalty?'border:2px solid rgba(239,68,68,.6);':''}">
         <span style="font-size:11px;font-weight:900;color:#fff;line-height:1;text-shadow:0 2px 6px rgba(0,0,0,.7);letter-spacing:-.5px">${isInj?'🩹':effR||''}</span>
@@ -25169,6 +25192,7 @@ function switchScorerSource(src){
   _renderScorersPanel();
 }
 
+let _scorerRankSnapshot=null; // {scope, sortBy, round, ranks:{name:rank}} — for your own club's players only
 function _renderScorersPanel(){
   const el=document.getElementById('scorers-body');
   if(!el) return;
@@ -25187,11 +25211,23 @@ function _renderScorersPanel(){
     el.innerHTML=`<div style="text-align:center;padding:24px;color:var(--mut);font-size:12px">Ще не зіграно жодного матчу</div>`;
     return;
   }
-  el.innerHTML=list.map((s,i)=>`
-    <div class="scorer-row${s.club===G.club?.name?' my-row':''}">
+  const sameContext = _scorerRankSnapshot && _scorerRankSnapshot.scope===scope && _scorerRankSnapshot.sortBy===sortBy;
+  const prevRanks = sameContext ? _scorerRankSnapshot.ranks : null;
+  const newRanks={};
+  el.innerHTML=list.map((s,i)=>{
+    newRanks[s.n]=i+1;
+    const isMe=s.club===G.club?.name;
+    let deltaBadge='';
+    if(isMe && prevRanks && prevRanks[s.n]){
+      const d=prevRanks[s.n]-(i+1);
+      if(d>0) deltaBadge=`<span class="tr-delta up" style="margin-left:5px">▲${d}</span>`;
+      else if(d<0) deltaBadge=`<span class="tr-delta down" style="margin-left:5px">▼${Math.abs(d)}</span>`;
+    }
+    return `
+    <div class="scorer-row${isMe?' my-row':''}">
       <div class="scorer-pos${i<3?' top':''}">${i===0?'🥇':i===1?'🥈':i===2?'🥉':i+1}</div>
       <div>
-        <div style="font-size:13px;font-weight:600">${s.nat||''} ${s.n}</div>
+        <div style="font-size:13px;font-weight:600">${s.nat||''} ${s.n}${deltaBadge}</div>
         <div style="font-size:10px;color:var(--mut)">${s.p} · ${s.club}</div>
       </div>
       ${sortBy==='goals'
@@ -25200,7 +25236,12 @@ function _renderScorersPanel(){
         :`<div class="scorer-stat assists">${s.assists}</div>
            <div class="scorer-stat sub">${s.goals}</div>`}
       <div class="scorer-stat sub">${(s.goals||0)+(s.assists||0)}</div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
+
+  if(!sameContext || _scorerRankSnapshot.round!==G.currentRound){
+    _scorerRankSnapshot={scope,sortBy,round:G.currentRound,ranks:newRanks};
+  }
 }
 
 
