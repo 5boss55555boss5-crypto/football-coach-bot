@@ -21476,6 +21476,32 @@ function _retirementQuote(p) {
 function newSeason(){
   showConfirm('Розпочати новий сезон?<br><span style="font-size:12px;color:#64748b;font-weight:400">Склади та бюджет збережуться</span>', _doNewSeason);
 }
+function showSeasonTitleCard(year){
+  document.getElementById('seasonTitleCard')?.remove();
+  const club=G.club||{};
+  const el=document.createElement('div');
+  el.id='seasonTitleCard';
+  el.style.cssText='position:fixed;inset:0;z-index:9500;background:radial-gradient(circle at 50% 35%,rgba(246,187,75,.12),transparent 55%),#07101c;display:flex;align-items:center;justify-content:center;flex-direction:column;opacity:0;transition:opacity .5s ease';
+  el.innerHTML=`
+    <div style="position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,#b8ff35,#25d5e8,#f6bb4b,transparent);opacity:.85"></div>
+    <div id="seasonTitleInner" style="text-align:center;transform:scale(.85);opacity:0;transition:transform .6s cubic-bezier(.17,.67,.38,1.3),opacity .6s ease">
+      <div style="width:66px;height:66px;border-radius:20px;background:${club.bg||'#111'};padding:8px;overflow:hidden;margin:0 auto 16px;box-shadow:0 10px 30px rgba(0,0,0,.5)">${club.logo||''}</div>
+      <div style="font-size:11px;font-weight:800;letter-spacing:4px;color:rgba(184,255,53,.8);text-transform:uppercase;margin-bottom:8px">Новий сезон</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:3px;color:#f8fafc;line-height:1;text-shadow:0 8px 30px rgba(0,0,0,.5)">${year}<span style="color:#f6bb4b">/</span>${String(year+1).slice(2)}</div>
+      <div style="margin-top:14px;font-size:12px;color:rgba(148,163,184,.6)">${esc(club.name||'')}${G.leagueName?' · '+esc(G.leagueName):''}</div>
+    </div>`;
+  document.body.appendChild(el);
+  requestAnimationFrame(()=>{
+    el.style.opacity='1';
+    const inner=document.getElementById('seasonTitleInner');
+    if(inner){inner.style.transform='scale(1)';inner.style.opacity='1';}
+  });
+  setTimeout(()=>{
+    el.style.opacity='0';
+    setTimeout(()=>el.remove(),500);
+  },1700);
+}
+
 function _doNewSeason(){
   processLoanReturns();
   returnRentedInPlayers('summer');
@@ -21485,6 +21511,7 @@ function _doNewSeason(){
   // Keep current squads (G.players and G.clubSquads) as-is
   G.seasonStartYear=(G.seasonStartYear||2025)+1;
   const newYear=G.seasonStartYear;
+  showSeasonTitleCard(newYear);
 
   // Contract expiry — players with contractEnd <= newYear-1 leave the club
   // contractEnd=2027 = сезон 27/28, при newYear=2028 цей сезон вже закінчився
@@ -21664,7 +21691,7 @@ function _doNewSeason(){
   saveGame();
 
   // Черга тостів і модалів — послідовна з затримками
-  let delay = 300;
+  let delay = 2100; // wait out the season title card before the toast/modal queue starts
 
   // 1) Бюджетний тост
   setTimeout(()=>{
