@@ -3,6 +3,7 @@ import html
 import logging
 import os
 import time
+from datetime import datetime, timedelta
 
 from aiohttp import web
 from dotenv import load_dotenv
@@ -14,6 +15,7 @@ from aiogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMar
 from database.models import init_db, get_db
 from database.seeder import seed_database
 from handlers import start, clubs, my_club, tactics, match, transfers, ranking, stats
+from keyboards.keyboards import main_menu_keyboard
 from web_server import create_app
 
 load_dotenv()
@@ -139,6 +141,66 @@ async def cb_mmm(callback: CallbackQuery, bot: Bot) -> None:
     )
 
 
+INACTIVITY_CHECK_INTERVAL = 6 * 3600  # how often to scan for inactive players
+INACTIVITY_MIN_IDLE = timedelta(hours=20)   # don't nudge someone who played today
+INACTIVITY_MAX_IDLE = timedelta(days=14)    # stop nudging long-abandoned accounts
+INACTIVITY_REMINDER_COOLDOWN = timedelta(days=3)  # don't repeat too often
+
+
+async def inactivity_reminder_loop(bot: Bot):
+    """Nudges players who've gone quiet to come back — the only notification
+    the game can send that isn't tied to the in-game clock (which only moves
+    while someone is actually playing), so it's the one case a server-side
+    reminder actually makes sense."""
+    kb = main_menu_keyboard()
+    while True:
+        try:
+            now = datetime.utcnow()
+            async with get_db() as db:
+                async with db.execute(
+                    "SELECT tg_id, MAX(updated_at) FROM game_saves GROUP BY tg_id"
+                ) as cursor:
+                    rows = await cursor.fetchall()
+
+                for tg_id, last_active_raw in rows:
+                    try:
+                        idle_for = now - datetime.fromisoformat(last_active_raw)
+                    except (TypeError, ValueError):
+                        continue
+                    if not (INACTIVITY_MIN_IDLE <= idle_for <= INACTIVITY_MAX_IDLE):
+                        continue
+
+                    async with db.execute(
+                        "SELECT last_reminded_at FROM inactivity_reminders WHERE tg_id = ?", (tg_id,)
+                    ) as cursor2:
+                        row = await cursor2.fetchone()
+                    if row:
+                        try:
+                            if now - datetime.fromisoformat(row[0]) < INACTIVITY_REMINDER_COOLDOWN:
+                                continue
+                        except (TypeError, ValueError):
+                            pass
+
+                    try:
+                        await bot.send_message(
+                            chat_id=tg_id,
+                            text="⚽ Твій клуб сумує без тебе! Матчі, трансфери й новий сезон чекають — час повертатись на лаву тренера.",
+                            reply_markup=kb,
+                        )
+                        await db.execute(
+                            "INSERT INTO inactivity_reminders (tg_id, last_reminded_at) VALUES (?, ?) "
+                            "ON CONFLICT(tg_id) DO UPDATE SET last_reminded_at = excluded.last_reminded_at",
+                            (tg_id, now.isoformat()),
+                        )
+                        await db.commit()
+                    except Exception as e:
+                        logger.info(f"inactivity reminder skipped for {tg_id}: {e}")
+                    await asyncio.sleep(0.05)
+        except Exception as e:
+            logger.warning(f"inactivity_reminder_loop error: {e}")
+        await asyncio.sleep(INACTIVITY_CHECK_INTERVAL)
+
+
 async def run_web_server(bot: Bot):
     port = int(os.getenv("PORT") or os.getenv("WEB_PORT", "8080"))
     app = create_app(bot)
@@ -178,6 +240,8 @@ async def main():
     await seed_database()
 
     await run_web_server(bot)
+
+    asyncio.create_task(inactivity_reminder_loop(bot))
 
     logger.info("🤖 Бот запускається...")
     await dp.start_polling(bot)

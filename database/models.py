@@ -75,5 +75,10 @@ async def init_db():
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY (tg_id, slot)
             );
+
+            CREATE TABLE IF NOT EXISTS inactivity_reminders (
+                tg_id INTEGER PRIMARY KEY,
+                last_reminded_at TIMESTAMP NOT NULL
+            );
         """)
         await db.commit()
