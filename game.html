@@ -28069,22 +28069,39 @@ function getTotalLeagueRounds(){
 }
 
 function _insertUCLRoundsAfter(afterLeagueRounds, newRounds){
-  // afterLeagueRounds: positions by league round number (non-UCL, non-cup rounds only)
-  // We count only league rounds (rd.round > 0, not UCL, not cup)
-  const result=[]; let idx=0;
+  // afterLeagueRounds[i] is the absolute league-round number that newRounds[i]
+  // should be scheduled right after (positional 1:1 pairing — leg 1's anchor
+  // with leg 1's round, leg 2's anchor with leg 2's round).
+  // FIX: previously used a single shared counter to consume both anchors AND
+  // newRounds in lockstep. If an early anchor round had already been played
+  // by the time this ran, its insertion was skipped but the counter never
+  // advanced — so the LATER anchor ended up inserting leg 1 a second time,
+  // while leg 2 got shoved into the "leftover" fallback and spliced in
+  // immediately after the current round with no spacing and out of order
+  // (leg 2 appearing before leg 1, back-to-back with no league rounds
+  // between). Matching anchors to rounds by array index instead of a shared
+  // counter keeps each leg tied to its own anchor regardless of timing.
+  const result=[];
+  const inserted=new Array(newRounds.length).fill(false);
   let leagueRoundCount=0;
   G.schedule.forEach((rd,sourceIndex)=>{
     result.push(rd);
     if(!isWinterBreak(rd)&&!rd.ucl&&!rd.uel&&!rd.isCupRound&&rd.round){
       leagueRoundCount++;
-      if(afterLeagueRounds.includes(leagueRoundCount)&&idx<newRounds.length){
-        if(sourceIndex>=G.currentRound) result.push(newRounds[idx++]);
+      const ai=afterLeagueRounds.indexOf(leagueRoundCount);
+      if(ai!==-1 && !inserted[ai] && sourceIndex>=G.currentRound){
+        result.push(newRounds[ai]);
+        inserted[ai]=true;
       }
     }
   });
-  if(idx<newRounds.length){
+  // Any round whose anchor already passed (or wasn't reached) gets appended
+  // right after the current round, in original order, instead of being
+  // silently dropped or misassigned to a different leg's slot.
+  const leftover=newRounds.filter((_,i)=>!inserted[i]);
+  if(leftover.length){
     const insertAt=Math.min((G.currentRound||0)+1,result.length);
-    result.splice(insertAt,0,...newRounds.slice(idx));
+    result.splice(insertAt,0,...leftover);
   }
   G.schedule=result;
   normalizeUCLScheduleLabels();
