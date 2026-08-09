@@ -2800,6 +2800,7 @@ body.theme-light #cupBracketBody>div{background:#fff!important;border-color:#d8e
     <!-- Squad panel -->
     <div id="homePanel-squad">
       <div class="slabel" id="squadSeasonLabel">Склад — сезон 2026/27</div>
+      <div id="squadChemistryCard"></div>
       <div id="squadList"></div>
     </div>
 
@@ -10915,6 +10916,7 @@ function confirmFlashBuy(idx){
   const newPlayer=assignDefaultContract({n:f.n,p:f.p,r:f.r,mv:f.mv,age:f.age,nat:f.nat,...(f.ballonAwards?{ballonAwards:f.ballonAwards.slice()}:{})}, G.seasonStartYear||2026);
   applyEliteTransferSalary(newPlayer,f);
   newPlayer._boughtRound=G.currentRound; // sell cooldown: 3 rounds
+  newPlayer._joinedSeason=G.seasonStartYear||2025; // squad chemistry tenure tracking
   // FIX P3: prevent duplicate players in squad
   if(!G.players.some(gp=>gp.n===newPlayer.n)){
     G.players.push(newPlayer);
@@ -11074,6 +11076,7 @@ function confirmBuy(idx){
   const newPlayer=assignDefaultContract({n:p.n,p:p.p,r:p.r,mv:p.mv,age:p.age,nat:p.nat,...(p.ballonAwards?{ballonAwards:p.ballonAwards.slice()}:{})}, G.seasonStartYear||2026);
   applyEliteTransferSalary(newPlayer,p);
   newPlayer._boughtRound=G.currentRound; // sell cooldown: 3 rounds
+  newPlayer._joinedSeason=G.seasonStartYear||2025; // squad chemistry tenure tracking
   // FIX P3: prevent duplicate players in squad
   if(!G.players.some(gp=>gp.n===newPlayer.n)){
     G.players.push(newPlayer);
@@ -11327,6 +11330,7 @@ function submitOffer(idx,amount){
       const newPlayer=assignDefaultContract({n:p.n,p:p.p,r:p.r,mv:p.mv,age:p.age,nat:p.nat,...(p.ballonAwards?{ballonAwards:p.ballonAwards.slice()}:{})}, G.seasonStartYear||2026);
       applyEliteTransferSalary(newPlayer,p);
       newPlayer._boughtRound=G.currentRound; // sell cooldown: 3 rounds
+      newPlayer._joinedSeason=G.seasonStartYear||2025; // squad chemistry tenure tracking
       // FIX P3: prevent duplicate players in squad (same as confirmBuy/confirmFlashBuy)
       if(!G.players.some(gp=>gp.n===newPlayer.n)){G.players.push(newPlayer);}
       syncUserSquad();
@@ -11878,6 +11882,7 @@ function confirmRentPlayerIn(mi, window, loanFee){
     },
     contractEnd:(G.seasonStartYear||2025)+(isWinter?1:0), // контракт рівно до повернення
     _rentedInSalary:salary,
+    _joinedSeason:G.seasonStartYear||2025, // squad chemistry tenure tracking
   };
   // Видалити зайві ключі маркету
   delete newP.listed; delete newP.listPrice; delete newP.minAccept;
@@ -13412,6 +13417,35 @@ function setCaptain(name){
   renderHome();
 }
 
+// ── SQUAD CHEMISTRY ──────────────────────────────────────────────────────
+// Reflects how long the starting XI has actually played together: a settled
+// core gets a small strength bonus, an XI stuffed with brand-new signings
+// this season plays a bit below the sum of its individual ratings until
+// they've had time to gel. Bounded and small on purpose — a nudge on top
+// of the rating-driven match engine, not a second engine of its own.
+function calcSquadChemistry(xi){
+  const players=(xi||[]).filter(p=>p&&p.n);
+  if(!players.length) return {pct:70,bonus:0,newSigningsCount:0};
+  const curYear=G.seasonStartYear||2025;
+  const tenureScore=p=>{
+    const joined=Number.isFinite(p._joinedSeason)?p._joinedSeason:curYear;
+    const years=Math.max(0,curYear-joined);
+    if(years<=0) return 0.15; // signed this season
+    if(years===1) return 0.55;
+    if(years===2) return 0.80;
+    if(years===3) return 0.95;
+    return 1.0; // 4+ seasons — fully bedded in
+  };
+  const avgTenure=players.reduce((s,p)=>s+tenureScore(p),0)/players.length;
+  const newSigningsCount=players.filter(p=>(Number.isFinite(p._joinedSeason)?p._joinedSeason:curYear)>=curYear).length;
+  // Extra drag when a large chunk of the XI is brand new — integrating one
+  // or two signings is normal, five+ at once is a squad rebuild.
+  const spreeDrag=newSigningsCount>=6?0.18:newSigningsCount>=4?0.10:newSigningsCount>=3?0.04:0;
+  const pct=Math.round(Math.max(0,Math.min(1,avgTenure-spreeDrag))*100);
+  const bonus=Math.max(-3.5,Math.min(2.5,(pct-60)*0.09));
+  return {pct, bonus, newSigningsCount};
+}
+
 function calibratedUserStr(players, tactic, clubId){
   const rawStr = calcUserTeamStrength(players, tactic);
 
@@ -13422,7 +13456,10 @@ function calibratedUserStr(players, tactic, clubId){
   const rawBase = baseClubStr * 0.597 + 34.65;
 
   const delta = rawStr - rawBase;
-  const scaled = baseClubStr + delta * 0.85;
+  let scaled = baseClubStr + delta * 0.85;
+  // Chemistry only applies to the user's own tactically-managed XI — AI
+  // squads aren't tracked at this granularity.
+  if(clubId===G.club?.id) scaled += calcSquadChemistry(players).bonus;
   return Math.max(15, Math.min(98, Math.round(scaled)));
 }
 
@@ -19808,6 +19845,10 @@ function confirmClub(){
   const _yr=G.seasonStartYear||2025;
   // Призначаємо контракти всім гравцям нового клубу
   G.players.forEach(p=>{ if(!p.contractEnd) assignDefaultContract(p, _yr); });
+  // Squad chemistry: a fresh club takeover inherits an already-established
+  // roster, not a squad of total strangers — spread believable "years at
+  // the club" across the starting group instead of everyone at 0.
+  G.players.forEach(p=>{ p._joinedSeason=_yr-rnd(0,4); });
   addJournalEntry('club_change',{club:pendingClub.name,league:pendingClub.country||'',budget:pendingClub.budget});
   G.sponsor={active:null,signPaid:false,winterPaid:false,endPaid:false,history:[]};
   G.transfers={spent:0,history:[],marketPlayers:[],lastRefresh:-1};
@@ -20804,6 +20845,18 @@ function loadGame(rawData){
         }
       });
     }
+    // FIX: migrate old saves — squad chemistry needs _joinedSeason, a field
+    // that didn't exist before this feature. Without it every player in an
+    // existing save would read as "signed this instant" and show 0%
+    // chemistry regardless of how long they've actually been at the club.
+    // Backfill a believable spread instead of leaving it unset.
+    if(G.club){
+      const _curYr=G.seasonStartYear||2025;
+      if(Array.isArray(G.players)) G.players.forEach(p=>{ if(!Number.isFinite(p._joinedSeason)) p._joinedSeason=_curYr-rnd(0,4); });
+      if(G.clubSquads) Object.values(G.clubSquads).forEach(sq=>{
+        if(Array.isArray(sq)) sq.forEach(p=>{ if(p&&!Number.isFinite(p._joinedSeason)) p._joinedSeason=_curYr-rnd(0,4); });
+      });
+    }
     // FIX: buildMarket() creates each listing by copying a player straight
     // from the CANONICAL squad object in G.clubSquads and calling
     // playerValue() on THAT object — so only fixing the transient market-
@@ -21216,6 +21269,7 @@ function checkAcademyPromotion() {
     const marketSalary = calcPlayerSalary(player);
     player.salary = snapSalary(Math.round(marketSalary * (0.15 + Math.random() * 0.10)));
     player._academyContract = true; // маркер — юнацький контракт (не оновлюється автоматично)
+    player._joinedSeason = curYear; // squad chemistry tenure tracking
     player._academyPromotedSeason = curYear;
     player._academyPromotedRound = G.currentRound;
 
@@ -22439,6 +22493,34 @@ function openPlayerSheet(name){
   document.body.appendChild(sh);
 }
 
+function renderSquadChemistryCard(){
+  const el=document.getElementById('squadChemistryCard');
+  if(!el||!G.club) return;
+  let xi=[];
+  try{ xi=(typeof buildLineup==='function'?buildLineup(G.players).xi:null)||[]; }catch(e){}
+  if(!xi.length) xi=G.players.slice(0,11);
+  const chem=calcSquadChemistry(xi);
+  const color=chem.pct>=75?'#4ade80':chem.pct>=50?'#f5a623':'#f87171';
+  const note=chem.newSigningsCount>=4
+    ?`${chem.newSigningsCount} нових облич в основі ще звикають один до одного`
+    :chem.pct>=75?'Стабільне ядро — команда грає злагоджено'
+    :chem.pct>=50?'Склад потроху зіграється'
+    :'Багато нових облич у старті — потрібен час';
+  el.innerHTML=`<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,.03);border:1px solid var(--brd);border-radius:12px;margin-bottom:10px">
+    <div style="font-size:18px;flex-shrink:0">🤝</div>
+    <div style="flex:1;min-width:0">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--mut)">Хімія складу</span>
+        <span style="font-size:13px;font-weight:900;color:${color}">${chem.pct}%</span>
+      </div>
+      <div style="height:4px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin-bottom:4px">
+        <div style="height:100%;width:${chem.pct}%;background:${color};border-radius:4px;transition:width .4s"></div>
+      </div>
+      <div style="font-size:9.5px;color:var(--mut)">${note}</div>
+    </div>
+  </div>`;
+}
+
 function renderHome(){
   if(!G.club)return;
   document.getElementById('blogo').innerHTML=G.club.logo;
@@ -22579,6 +22661,7 @@ function renderHome(){
     allFwds.length?`${squadSectionHeader('⚡','НАПАДНИКИ',allFwds.length,'#ef4444','НП · ЛВ · ПВ')}${allFwds.map(renderPlayer).join('')}`:''
   ];
   document.getElementById('squadList').innerHTML=groupHTML.join('');
+  renderSquadChemistryCard();
 
 
 
@@ -25236,6 +25319,12 @@ function switchManagerClub(newClub){
       const maxYrs = age >= 33 ? 1 : age >= 30 ? 2 : 3;
       p.contractEnd = _switchYear + 1 + Math.floor(Math.random() * maxYrs);
     }
+    // Squad chemistry: this squad was simulated as an AI club and its
+    // players never went through a tracked acquisition (buy/loan/academy),
+    // so most won't have _joinedSeason set — without this they'd all read
+    // as "signed this instant" the moment you take over. Give them a
+    // believable spread instead, same as a fresh club takeover.
+    if (!Number.isFinite(p._joinedSeason)) p._joinedSeason = _switchYear - rnd(0, 4);
   });
   G.players = [...newSquad];
   syncUserSquad();
