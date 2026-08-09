@@ -777,14 +777,17 @@ body.theme-light .onboard{background:radial-gradient(circle at 50% -2%,rgba(124,
 .cal-day{aspect-ratio:1/1.2;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:3px;display:flex;flex-direction:column;align-items:center;gap:1px;position:relative;overflow:hidden}
 .cal-day.empty{background:transparent;border-color:transparent}
 .cal-daynum{font-size:9px;color:var(--mut);align-self:flex-start;font-weight:700}
-.cal-day.has-match{background:#0b1524;border-color:rgba(246,187,75,.25)}
-.cal-day.has-match.upcoming{border-color:rgba(52,120,246,.35)}
+.cal-day.has-match{background:#0b1524;border-width:1.5px}
+.cal-comp-icon{position:absolute;top:2px;right:3px;font-size:8px;line-height:1}
 .cal-club{width:20px;height:20px;border-radius:5px;padding:2px;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-top:1px}
 .cal-score{font-family:'Bebas Neue',sans-serif;font-size:12px;line-height:1;color:var(--txt);margin-top:auto;padding-bottom:1px}
 .cal-score.win{color:#4ade80}.cal-score.loss{color:#f87171}.cal-score.draw{color:var(--mut)}
 .cal-time{font-size:11px;margin-top:auto;padding-bottom:1px}
+.cal-legend{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px;padding-top:10px;border-top:1px solid var(--brd)}
+.cal-legend-item{display:flex;align-items:center;gap:5px;font-size:9.5px;color:var(--mut);font-weight:600}
+.cal-legend-dot{width:16px;height:16px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-size:8px;color:#07101c;flex-shrink:0}
 body.theme-light .cal-day{background:#fff;border-color:#e5e7eb}
-body.theme-light .cal-day.has-match{background:#fef9ee;border-color:rgba(246,187,75,.4)}
+body.theme-light .cal-day.has-match{background:#fbfbfb}
 
 /* ── TABLE ── */
 .table-wrap{background:transparent;border:none;border-radius:0;overflow:visible;margin-bottom:10px}
@@ -25491,6 +25494,17 @@ function shiftCalMonth(delta){
   renderScheduleCalendarView();
 }
 
+// Same icon/colour language already used for these competitions in the list
+// view above (comp-section-icon: ⭐ cyan for ЛЧ, ◆ orange for ЛЄ) and the
+// gold identity-v2 cup treatment used elsewhere this session.
+function _calCompMeta(rd){
+  if(rd.ucl) return {icon:'⭐', color:'#38bdf8', bg:'rgba(56,189,248,.14)', label:'ЛЧ'};
+  if(rd.uel) return {icon:'◆', color:'#fb923c', bg:'rgba(251,146,60,.14)', label:'ЛЄ'};
+  if(rd.uefaSuperCup) return {icon:'🏆', color:'#a78bfa', bg:'rgba(167,139,250,.14)', label:'Суперкубок'};
+  if(isCupRound(rd)) return {icon:'🏆', color:'#f6bb4b', bg:'rgba(246,187,75,.14)', label:'Кубок'};
+  return {icon:'⚽', color:'#4f8ef7', bg:'rgba(79,142,247,.12)', label:'Ліга'};
+}
+
 function renderScheduleCalendarView(){
   const el=document.getElementById('scheduleCalendar');
   if(!el||!G.club) return;
@@ -25508,12 +25522,15 @@ function renderScheduleCalendarView(){
   const daysInMonth=new Date(_calYear,_calMonth+1,0).getDate();
   const firstDow=(new Date(_calYear,_calMonth,1).getDay()+6)%7; // Mon=0..Sun=6
 
+  const legendSeen={};
   let cells='';
   for(let i=0;i<firstDow;i++) cells+=`<div class="cal-day empty"></div>`;
   for(let d=1;d<=daysInMonth;d++){
     const entry=dayMatches[d];
     if(!entry){ cells+=`<div class="cal-day"><div class="cal-daynum">${d}</div></div>`; continue; }
-    const {m}=entry;
+    const {m,rd}=entry;
+    const meta=_calCompMeta(rd);
+    legendSeen[meta.label]=meta;
     const isHome=m.home===G.club.id;
     const opp=clubById(isHome?m.away:m.home);
     const played=!!m.result;
@@ -25526,12 +25543,17 @@ function renderScheduleCalendarView(){
     } else {
       resultHTML=`<div class="cal-time">${isHome?'🏠':'✈️'}</div>`;
     }
-    cells+=`<div class="cal-day has-match${played?' played':' upcoming'}">
+    cells+=`<div class="cal-day has-match${played?' played':' upcoming'}" style="background:${meta.bg};border-color:${meta.color}66" title="${meta.label}">
       <div class="cal-daynum">${d}</div>
+      <div class="cal-comp-icon" style="color:${meta.color}">${meta.icon}</div>
       <div class="cal-club" style="background:${opp?.bg||'#111'}">${opp?.logo||'⚽'}</div>
       ${resultHTML}
     </div>`;
   }
+
+  const legendHTML=Object.values(legendSeen).map(meta=>
+    `<span class="cal-legend-item"><span class="cal-legend-dot" style="background:${meta.color}">${meta.icon}</span>${meta.label}</span>`
+  ).join('');
 
   el.innerHTML=`
     <div class="cal-nav">
@@ -25541,6 +25563,7 @@ function renderScheduleCalendarView(){
     </div>
     <div class="cal-dow-row">${_UK_DOW.map(d=>`<div class="cal-dow">${d}</div>`).join('')}</div>
     <div class="cal-grid">${cells}</div>
+    ${legendHTML?`<div class="cal-legend">${legendHTML}</div>`:''}
   `;
 }
 
