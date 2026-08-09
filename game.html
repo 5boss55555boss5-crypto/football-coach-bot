@@ -20804,13 +20804,29 @@ function loadGame(rawData){
         }
       });
     }
+    // FIX: buildMarket() creates each listing by copying a player straight
+    // from the CANONICAL squad object in G.clubSquads and calling
+    // playerValue() on THAT object — so only fixing the transient market-
+    // listing snapshots below wasn't enough: every few matches the market
+    // naturally refreshes and re-copies from the still-unfixed canonical
+    // squad player, silently reintroducing the exact same stale baseline.
+    // Walk every club's real squad first so the fix lives at the source and
+    // survives future market refreshes, not just the listings visible now.
+    let _marketPricesRefreshed=false;
+    if(G.clubSquads){
+      Object.entries(G.clubSquads).forEach(([cid,squad])=>{
+        if(!Array.isArray(squad)) return;
+        const clubName=clubById(Number(cid))?.name;
+        squad.forEach(p=>{ if(p&&p.n) playerValue(p, clubName); });
+      });
+      _marketPricesRefreshed=true;
+    }
     // FIX: transfer market listings cache value/listPrice at generation time
     // and only recompute on the next scheduled market refresh (every few
     // rounds) — so a corrected pricing formula (playerValue()) wouldn't
     // actually show up for already-listed players until then, making a fix
     // look like it did nothing. Refresh every listed price on load so what's
     // displayed always matches the current formula.
-    let _marketPricesRefreshed=false;
     if(Array.isArray(G.transfers?.marketPlayers)&&G.transfers.marketPlayers.length){
       G.transfers.marketPlayers.forEach(p=>{
         const val=playerValue(p,p.fromClubName);
