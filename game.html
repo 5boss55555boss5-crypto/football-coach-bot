@@ -21786,6 +21786,11 @@ function showSeasonTitleCard(year){
 }
 
 function _doNewSeason(){
+  // Snapshot the objective that applied to the season now ending — G.boardObjective
+  // gets overwritten with a fresh one for the new season further down, but
+  // updateCareerReputation() (called near the end of this function) needs to
+  // judge this season's result against what was actually asked of THIS club.
+  G._lastSeasonBoardObjective = (G.boardObjective && G.boardObjective.season===G.seasonStartYear) ? G.boardObjective : null;
   sendSeasonEndTelegramSummary(); // must run before G.cup/G.ucl/G.uel reset below
   processLoanReturns();
   returnRentedInPlayers('summer');
@@ -22001,23 +22006,28 @@ function _doNewSeason(){
   const _repDelay = delay;
   setTimeout(()=>{
     if(!_repUpdate) return;
-    const {delta, newRep} = _repUpdate;
-    const repLabel=newRep>=80?'⭐ Топ-тренер':newRep>=60?'🔵 Досвідчений':newRep>=40?'🟡 Перспективний':newRep>=20?'🟠 Початківець':'🔴 Маловідомий';
+    const {delta, newRep, overperform, trophyBonus} = _repUpdate;
+    const repLabel=newRep>=95?'🐐 Легенда тренерства':newRep>=80?'⭐ Топ-тренер':newRep>=60?'🔵 Досвідчений':newRep>=40?'🟡 Перспективний':newRep>=20?'🟠 Початківець':'🔴 Маловідомий';
     const deltaSign=delta>=0?'+':'-';
     const deltaColor=delta>=0?'var(--grn)':'var(--red)';
     const bdrColor=delta>=0?'rgba(14,201,126,.35)':'rgba(240,76,90,.3)';
+    const _repParts=[];
+    if(Math.abs(overperform||0)>=3) _repParts.push(overperform>0?`перевершили очікування правління (+${Math.round(overperform)})`:`не виправдали очікувань правління (${Math.round(overperform)})`);
+    if(trophyBonus>0) _repParts.push(`трофеї сезону (+${trophyBonus})`);
+    const breakdownLine=_repParts.length?`<div style="font-size:9.5px;color:rgba(148,163,184,.55);margin-top:5px;line-height:1.4">${_repParts.join(' · ')}</div>`:'';
     const msg2=document.createElement('div');
     msg2.innerHTML=`
       <div id="repToast" style="position:fixed;bottom:90px;left:50%;transform:translateX(-50%);
         background:var(--surf);border:1px solid ${bdrColor};border-radius:16px;
         padding:14px 20px;z-index:999;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.5);
-        animation:slideUp .4s ease;min-width:240px">
+        animation:slideUp .4s ease;min-width:240px;max-width:88vw">
         <div style="font-size:11px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">📋 Репутація тренера</div>
         <div style="display:flex;align-items:center;justify-content:center;gap:10px">
           <div style="font-size:22px;font-weight:800;color:var(--acc)">${newRep}</div>
           <div style="font-size:18px;font-weight:700;color:${deltaColor}">${deltaSign}${Math.abs(delta)}</div>
         </div>
         <div style="font-size:11px;color:var(--mut);margin-top:4px">${repLabel}</div>
+        ${breakdownLine}
       </div>`;
     document.body.appendChild(msg2);
     setTimeout(()=>msg2.remove(), 3500);
@@ -24599,14 +24609,15 @@ function updateCareerReputation(){
   if(!G.club) return;
   const userClubId=G.club.id;
 
-  // 1) Current league position
-  let leagueIds=EPL_IDS.includes(userClubId)?EPL_IDS:
-    LALIGA_IDS.includes(userClubId)?LALIGA_IDS:
-    UPL_IDS.includes(userClubId)?UPL_IDS:
-    SERIEA_IDS.includes(userClubId)?SERIEA_IDS:OTHER_IDS;
-  const leagueSize=leagueIds.length;
-  const sorted=leagueIds
-    .map(id=>G.tableStats&&G.tableStats[id]?{id,...G.tableStats[id]}:null)
+  // 1) Current league position — via the same league-membership logic used
+  // everywhere else (G.leagueId + LEAGUES filter), not the old hardcoded
+  // EPL/LaLiga/UPL/SerieA list that silently pooled every other league
+  // (Bundesliga, Ligue1, MLS, Saudi...) into one oversized "other" bucket,
+  // making position/expectation meaningless for clubs in those leagues.
+  const leagueClubs=getLeagueClubs();
+  const leagueSize=leagueClubs.length;
+  const sorted=leagueClubs
+    .map(c=>G.tableStats&&G.tableStats[c.id]?{id:c.id,...G.tableStats[c.id]}:null)
     .filter(Boolean)
     .sort((a,b)=>b.pts-a.pts||((b.gf||0)-(b.ga||0))-((a.gf||0)-(a.ga||0))||(b.gf||0)-(a.gf||0)||b.w-a.w);
   const myPos=sorted.findIndex(c=>c.id===userClubId)+1||Math.ceil(leagueSize/2);
@@ -24618,12 +24629,13 @@ function updateCareerReputation(){
     SERIEA_IDS.includes(userClubId)?0.90:
     UPL_IDS.includes(userClubId)?0.55:0.65;
 
-  // 3) Overperformance bonus — how much better did we do vs club strength?
-  const clubStr=STR[userClubId]||G.club.strength||70;
-  // Expected position based on club strength vs league average
-  const leagueAvgStr=leagueIds.reduce((s,id)=>s+(STR[id]||75),0)/leagueIds.length;
-  const expectedRelativePos=1-(clubStr-leagueAvgStr+30)/60; // 0=top, 1=bottom
-  const expectedPos=Math.round(1+expectedRelativePos*(leagueSize-1));
+  // 3) Overperformance bonus — judged against the SAME target the board set
+  // for this club at the start of the season (computeBoardObjective), so a
+  // title won with a favourite and a top-2 finish with a relegation-battler
+  // are weighted by how far each beat what was actually expected of THAT
+  // specific club, not a generic strength-vs-league-average guess.
+  const objective=G._lastSeasonBoardObjective||computeBoardObjective();
+  const expectedPos=objective?objective.targetPos:Math.ceil(leagueSize/2);
   const overperform=Math.max(-30,Math.min(30,(expectedPos-myPos)*2.5)); // +25 if 10 places better than expected
 
   // 4) Trophy bonuses this season
@@ -24681,13 +24693,10 @@ function getClubBaseManagerRep(clubId){
 
 function getManagerReputation(){
   const userClubId=G.club.id;
-  let leagueIds=EPL_IDS.includes(userClubId)?EPL_IDS:
-    LALIGA_IDS.includes(userClubId)?LALIGA_IDS:
-    UPL_IDS.includes(userClubId)?UPL_IDS:
-    SERIEA_IDS.includes(userClubId)?SERIEA_IDS:OTHER_IDS;
-  const leagueSize=leagueIds.length;
-  const sorted=leagueIds
-    .map(id=>G.tableStats&&G.tableStats[id]?{id,...G.tableStats[id]}:null)
+  const leagueClubs=getLeagueClubs();
+  const leagueSize=leagueClubs.length;
+  const sorted=leagueClubs
+    .map(c=>G.tableStats&&G.tableStats[c.id]?{id:c.id,...G.tableStats[c.id]}:null)
     .filter(Boolean)
     .sort((a,b)=>b.pts-a.pts||((b.gf||0)-(b.ga||0))-((a.gf||0)-(a.ga||0))||(b.gf||0)-(a.gf||0)||b.w-a.w);
   const myPos=sorted.findIndex(c=>c.id===userClubId)+1||Math.ceil(leagueSize/2);
@@ -26213,8 +26222,8 @@ function renderSettings(){
   const salaryBlocked = G.salary?.salaryBlocked;
   const rep = typeof getManagerReputation==='function' ? getManagerReputation() : 50;
   const careerRep = G.managerRep||10;
-  const repLabel = careerRep>=80?'Топ-тренер 🔥':careerRep>=60?'Досвідчений':careerRep>=40?'Перспективний':careerRep>=20?'Початківець':'Новачок';
-  const repColor = careerRep>=80?'#f5a623':careerRep>=60?'var(--grn)':careerRep>=40?'var(--acc)':'var(--mut)';
+  const repLabel = careerRep>=95?'Легенда тренерства 🐐':careerRep>=80?'Топ-тренер 🔥':careerRep>=60?'Досвідчений':careerRep>=40?'Перспективний':careerRep>=20?'Початківець':'Новачок';
+  const repColor = careerRep>=95?'#25d5e8':careerRep>=80?'#f5a623':careerRep>=60?'var(--grn)':careerRep>=40?'var(--acc)':'var(--mut)';
   // What tier of clubs can offer this manager a job?
   const offerTier = careerRep>=85?'Реал, Барса, Манч. Сіті':careerRep>=70?'Топ-клуби АПЛ / Ла Ліга':careerRep>=55?'Клуби середньої руки':careerRep>=35?'Малі / середні клуби':'Невідомий тренер';
 
