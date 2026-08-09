@@ -8424,6 +8424,21 @@ function playerValue(p,clubName){
   const ageNow=Math.max(15,Number(p.age)||25),ageBase=Math.max(15,Number(p._marketBaseAge)||ageNow);
   raw*=Math.max(0.38,Math.min(1.28,marketAgeCurve(ageNow)/marketAgeCurve(ageBase)));
 
+  // FIX: the baseline above is captured ONCE, ever (often at academy-graduate
+  // rating ~50-63) and never touched again, while the rating delta feeding
+  // the multiplier is clamped to +-12 / 2.25x. Over a long save a player who
+  // develops from 55 to 85 over a decade was still valued as barely above
+  // that original 55-rated snapshot. Once the real gap exceeds what a single
+  // update can express, roll the baseline forward to the value/rating/age
+  // just computed so further growth keeps compounding instead of maxing out
+  // against a stale anchor — same per-update cap, just no longer stuck
+  // forever against a player's rookie season.
+  if(Math.abs((Number(p.r)||60)-Number(p._marketBaseRating))>12||Math.abs(ageNow-ageBase)>6){
+    p._marketBaseMv=Math.max(0.1,Math.min(300,raw/1_000_000));
+    p._marketBaseRating=Number(p.r)||60;
+    p._marketBaseAge=ageNow;
+  }
+
   // Season form can raise or lower value, but remains secondary to rating and age.
   const statsClub=clubName||p.fromClubName||((G.players||[]).includes(p)?G.club?.name:'');
   const sc=playerSeasonStats(p,statsClub);
