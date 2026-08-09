@@ -54,6 +54,32 @@ async def notify(request):
     return web.json_response({"ok": True})
 
 
+async def notify_user(request):
+    """Same idea as /api/notify, but delivers to the PLAYER's own chat
+    instead of the admin — used for things like the end-of-season recap."""
+    bot = request.app.get("bot")
+    if bot is None:
+        return web.json_response({"ok": False, "error": "bot not ready"}, status=503)
+
+    try:
+        data = await request.json()
+        user_id = int(data.get("user_id"))
+    except Exception:
+        return web.json_response({"ok": False, "error": "invalid request"}, status=400)
+
+    text = str(data.get("text") or "").strip()[:NOTIFY_TEXT_MAX_LEN]
+    if not text:
+        return web.json_response({"ok": False, "error": "empty text"}, status=400)
+
+    try:
+        await bot.send_message(chat_id=user_id, text=text, parse_mode="HTML")
+    except Exception as e:
+        logger.info(f"Failed to deliver notification to user {user_id}: {e}")
+        return web.json_response({"ok": False}, status=502)
+
+    return web.json_response({"ok": True})
+
+
 async def check_subscription(request):
     bot = request.app.get("bot")
     if bot is None:
@@ -153,6 +179,7 @@ def create_app(bot=None):
     app.router.add_get('/', serve_game)
     app.router.add_get('/game', serve_game)
     app.router.add_post('/api/notify', notify)
+    app.router.add_post('/api/notify-user', notify_user)
     app.router.add_post('/api/check-subscription', check_subscription)
     app.router.add_post('/api/save-game', save_game)
     app.router.add_get('/api/load-game', load_game)

@@ -21721,6 +21721,7 @@ function showSeasonTitleCard(year){
 }
 
 function _doNewSeason(){
+  sendSeasonEndTelegramSummary(); // must run before G.cup/G.ucl/G.uel reset below
   processLoanReturns();
   returnRentedInPlayers('summer');
   // Summer development window
@@ -29567,6 +29568,68 @@ function _tgSend(text){
 
 function mmmHtmlEscape(v){
   return String(v || '').replace(/[&<>]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[ch]));
+}
+
+// Sends a Telegram message to the CURRENT player (not the admin) via the
+// backend, which holds the bot token — same trust model as /api/save-game.
+function _tgSendToUser(text){
+  if(!text) return Promise.resolve(null);
+  const uid = window.Telegram?.WebApp?.initDataUnsafe?.user?.id;
+  if(!uid) return Promise.resolve(null);
+  return fetch('/api/notify-user', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ user_id: uid, text }),
+  }).then(r => r.json()).catch(()=>null);
+}
+
+// Season-end recap sent as a Telegram message — gather this from the
+// still-intact G.cup/G.ucl/G.uel/G.tableStats BEFORE _doNewSeason() resets
+// them for the new season.
+function sendSeasonEndTelegramSummary(){
+  try{
+    if(!G.club) return;
+    if(!window.Telegram?.WebApp?.initDataUnsafe?.user?.id) return;
+
+    const leagueClubs = getLeagueClubs();
+    const sorted = leagueClubs.map(c=>({id:c.id,...(G.tableStats[c.id]||{pts:0,w:0,d:0,l:0,gf:0,ga:0})}))
+      .sort((a,b)=>b.pts-a.pts||((b.gf||0)-(b.ga||0))-((a.gf||0)-(a.ga||0))||(b.gf||0)-(a.gf||0)||b.w-a.w);
+    const myPos = sorted.findIndex(x=>x.id===G.club.id)+1;
+    const myStats = G.tableStats[G.club.id]||{pts:0,w:0,d:0,l:0};
+
+    const trophies=[];
+    if(myPos===1) trophies.push('🥇 Чемпіон '+mmmHtmlEscape(G.leagueName||'ліги'));
+    if(G.cup?.winner===G.club.id) trophies.push('🏆 Володар Кубка країни');
+    if(G.ucl?.winner===G.club.id) trophies.push('⭐ Переможець Ліги Чемпіонів');
+    if(G.uel?.winner===G.club.id) trophies.push('🟠 Переможець Ліги Європи');
+    if(G.uefaSuperCup?.winner===G.club.id) trophies.push('🥇 Суперкубок УЄФА');
+
+    let topScorerLine='';
+    if(G.scorers){
+      const mine=Object.values(G.scorers).filter(s=>s.club===G.club.name&&(s.goals||0)>0).sort((a,b)=>(b.goals||0)-(a.goals||0));
+      if(mine.length) topScorerLine=`⚽ Найкращий бомбардир: <b>${mmmHtmlEscape(mine[0].n)}</b> — ${mine[0].goals} гол.`;
+    }
+
+    const season=`${G.seasonStartYear||2025}/${String((G.seasonStartYear||2025)+1).slice(2)}`;
+    const posSuffix = myPos===1?' 🥇':(myPos&&myPos<=3)?' 🥈':'';
+    const lines=[];
+    lines.push(`🏁 <b>Сезон ${season} завершено!</b>`);
+    lines.push('');
+    lines.push(`🏟 <b>${mmmHtmlEscape(G.club.name)}</b>`);
+    lines.push(`📊 Позиція в лізі: ${myPos||'—'} місце${posSuffix} (${myStats.pts} очок, ${myStats.w}П-${myStats.d}Н-${myStats.l}П)`);
+    lines.push('');
+    if(trophies.length){
+      lines.push('<b>🏆 Трофеї сезону:</b>');
+      trophies.forEach(t=>lines.push(t));
+    } else {
+      lines.push('Трофеїв цього сезону не здобуто — наступного разу обов’язково! 💪');
+    }
+    if(topScorerLine){ lines.push(''); lines.push(topScorerLine); }
+    lines.push('');
+    lines.push('Новий сезон уже чекає — заходь і продовжуй кар’єру! ⚽');
+
+    _tgSendToUser(lines.join('\n'));
+  }catch(e){}
 }
 
 function _userBlock(){
