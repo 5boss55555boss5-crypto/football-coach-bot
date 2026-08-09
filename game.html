@@ -23784,14 +23784,23 @@ function developPlayers(isWinter){
       const isRentedInPlayer = isUser && !!p._rentedIn;
 
       // Age factor: young players grow faster, old ones decline more
+      // FIX: this used to flatline to ~0 right after 23 and go fully flat
+      // for 27-29 — but real players commonly peak around 26-29, not 23.
+      // Combined with AI-controlled squads leaning almost entirely on this
+      // curve (their per-player perfScore signal is far noisier than the
+      // user's own tracked matches), that flat prime-years band meant a
+      // club's academy graduates basically stopped improving the moment
+      // they left their early 20s — which is why AI "big" clubs visibly
+      // eroded toward mid-table strength over a long save. Extends real
+      // growth room into the late 20s instead of stopping cold at 23.
       let growBias=0;
       if(age<=17)      growBias=+4.5;  // талант-підліток: вибухове зростання
       else if(age<=19) growBias=+3.5;  // юні таланти
       else if(age<=21) growBias=+2.5;  // молодь: сильне зростання
-      else if(age<=23) growBias=+1.5;
-      else if(age<=26) growBias=+0.5;
-      else if(age<=29) growBias= 0;
-      else if(age<=32) growBias=-0.8;
+      else if(age<=23) growBias=+1.8;
+      else if(age<=26) growBias=+1.0;  // ще прайм — має сенс рости далі
+      else if(age<=29) growBias=+0.3;  // пізній прайм, а не повна зупинка
+      else if(age<=32) growBias=-0.6;
       else if(age<=35) growBias=-1.8;
       else             growBias=-2.8;  // ветерани різко падають
 
