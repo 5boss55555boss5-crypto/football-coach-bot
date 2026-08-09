@@ -8414,30 +8414,45 @@ function ensureMarketValueBaseline(p){
 }
 function playerValue(p,clubName){
   if(!p)return 100_000;
-  let raw=ensureMarketValueBaseline(p);
+  ensureMarketValueBaseline(p);
+
+  // FIX: the baseline is captured ONCE, ever (often at academy-graduate
+  // rating ~50-63), and each update is only allowed to move value by a
+  // capped step (+-12 rating / 2.25x) — deliberately, so a single season's
+  // growth can't cause an absurd instant jump. But playerValue() isn't
+  // necessarily called every season for every player (an AI academy
+  // graduate sitting unlisted for years, say), so a player who developed
+  // from 55 to 90 while nobody priced them in between used to show only ONE
+  // capped step from their rookie baseline the first time anyone finally
+  // looked — a fraction of what they should be worth. Walk the baseline
+  // forward in season-sized hops (the same cap a single season would have
+  // applied) until it's within one hop of the player's real current
+  // rating/age, so the price reflects what it would be had it been
+  // recalculated every season along the way, not just once.
+  const rNow=Number(p.r)||60, ageNow=Math.max(15,Number(p.age)||25);
+  let hops=0;
+  while(hops++<40){
+    const rGap=rNow-Number(p._marketBaseRating), aGap=ageNow-Number(p._marketBaseAge);
+    if(Math.abs(rGap)<=12 && Math.abs(aGap)<=6) break;
+    const stepR=Math.max(-12,Math.min(12,rGap)), stepA=Math.max(-6,Math.min(6,aGap));
+    const nextBaseAge=Number(p._marketBaseAge)+stepA;
+    let stepped=Number(p._marketBaseMv)*1_000_000;
+    stepped*=Math.max(0.45,Math.min(2.25,Math.pow(1.09,stepR)));
+    stepped*=Math.max(0.38,Math.min(1.28,marketAgeCurve(nextBaseAge)/marketAgeCurve(Number(p._marketBaseAge))));
+    p._marketBaseMv=Math.max(0.1,Math.min(300,stepped/1_000_000));
+    p._marketBaseRating=Number(p._marketBaseRating)+stepR;
+    p._marketBaseAge=nextBaseAge;
+  }
+
+  let raw=Number(p._marketBaseMv)*1_000_000;
 
   // Rating is applied exactly once: about 9% per point with safe cumulative bounds.
-  const ratingDelta=Math.max(-12,Math.min(12,(Number(p.r)||60)-Number(p._marketBaseRating)));
+  const ratingDelta=Math.max(-12,Math.min(12,rNow-Number(p._marketBaseRating)));
   raw*=Math.max(0.45,Math.min(2.25,Math.pow(1.09,ratingDelta)));
 
   // The starting Transfermarkt value already includes age; apply only aging after the baseline date.
-  const ageNow=Math.max(15,Number(p.age)||25),ageBase=Math.max(15,Number(p._marketBaseAge)||ageNow);
+  const ageBase=Math.max(15,Number(p._marketBaseAge)||ageNow);
   raw*=Math.max(0.38,Math.min(1.28,marketAgeCurve(ageNow)/marketAgeCurve(ageBase)));
-
-  // FIX: the baseline above is captured ONCE, ever (often at academy-graduate
-  // rating ~50-63) and never touched again, while the rating delta feeding
-  // the multiplier is clamped to +-12 / 2.25x. Over a long save a player who
-  // develops from 55 to 85 over a decade was still valued as barely above
-  // that original 55-rated snapshot. Once the real gap exceeds what a single
-  // update can express, roll the baseline forward to the value/rating/age
-  // just computed so further growth keeps compounding instead of maxing out
-  // against a stale anchor — same per-update cap, just no longer stuck
-  // forever against a player's rookie season.
-  if(Math.abs((Number(p.r)||60)-Number(p._marketBaseRating))>12||Math.abs(ageNow-ageBase)>6){
-    p._marketBaseMv=Math.max(0.1,Math.min(300,raw/1_000_000));
-    p._marketBaseRating=Number(p.r)||60;
-    p._marketBaseAge=ageNow;
-  }
 
   // Season form can raise or lower value, but remains secondary to rating and age.
   const statsClub=clubName||p.fromClubName||((G.players||[]).includes(p)?G.club?.name:'');
