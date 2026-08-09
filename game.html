@@ -767,6 +767,25 @@ body.theme-light .onboard{background:radial-gradient(circle at 50% -2%,rgba(124,
 /* Winter break card */
 .winter-break-card{margin:14px 0;padding:13px 14px;background:rgba(96,165,250,.06);border:1px solid rgba(96,165,250,.18);border-radius:14px;display:flex;align-items:center;gap:10px}
 
+/* ── SCHEDULE CALENDAR VIEW ── */
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cal-nav-btn{width:34px;height:34px;border-radius:10px;border:1px solid var(--brd);background:var(--surf);color:var(--txt);font-size:18px;line-height:1;cursor:pointer}
+.cal-month-label{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;color:var(--txt)}
+.cal-dow-row{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:4px}
+.cal-dow{text-align:center;font-size:9px;font-weight:800;color:var(--mut);text-transform:uppercase;padding:4px 0}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal-day{aspect-ratio:1/1.2;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:3px;display:flex;flex-direction:column;align-items:center;gap:1px;position:relative;overflow:hidden}
+.cal-day.empty{background:transparent;border-color:transparent}
+.cal-daynum{font-size:9px;color:var(--mut);align-self:flex-start;font-weight:700}
+.cal-day.has-match{background:#0b1524;border-color:rgba(246,187,75,.25)}
+.cal-day.has-match.upcoming{border-color:rgba(52,120,246,.35)}
+.cal-club{width:20px;height:20px;border-radius:5px;padding:2px;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.cal-score{font-family:'Bebas Neue',sans-serif;font-size:12px;line-height:1;color:var(--txt);margin-top:auto;padding-bottom:1px}
+.cal-score.win{color:#4ade80}.cal-score.loss{color:#f87171}.cal-score.draw{color:var(--mut)}
+.cal-time{font-size:11px;margin-top:auto;padding-bottom:1px}
+body.theme-light .cal-day{background:#fff;border-color:#e5e7eb}
+body.theme-light .cal-day.has-match{background:#fef9ee;border-color:rgba(246,187,75,.4)}
+
 /* ── TABLE ── */
 .table-wrap{background:transparent;border:none;border-radius:0;overflow:visible;margin-bottom:10px}
 .table-head{display:grid;grid-template-columns:28px 1fr 58px 36px 38px;gap:0;padding:4px 10px 6px;font-size:8px;font-weight:800;color:rgba(148,163,184,.3);text-transform:uppercase;letter-spacing:1.2px}
@@ -2890,11 +2909,16 @@ body.theme-light #cupBracketBody>div{background:#fff!important;border-color:#d8e
     </div>
 
     <div id="tab-content-schedule" style="display:none">
-      <div style="display:flex;gap:6px;margin-bottom:14px">
+      <div style="display:flex;gap:6px;margin-bottom:8px">
+        <button id="sched-view-list" onclick="setSchedViewMode('list')" style="flex:1;padding:8px;border-radius:11px;font-size:11px;font-weight:800;cursor:pointer;border:1px solid rgba(79,142,247,.35);background:rgba(79,142,247,.12);color:var(--acc);transition:all .2s">📋 Список</button>
+        <button id="sched-view-calendar" onclick="setSchedViewMode('calendar')" style="flex:1;padding:8px;border-radius:11px;font-size:11px;font-weight:800;cursor:pointer;border:1px solid var(--brd);background:var(--surf);color:var(--mut);transition:all .2s">📅 Календар</button>
+      </div>
+      <div id="sched-filter-row" style="display:flex;gap:6px;margin-bottom:14px">
         <button id="sched-filter-my" onclick="setSchedFilter('my')" style="flex:1;padding:9px;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid rgba(79,142,247,.35);background:rgba(79,142,247,.12);color:var(--acc);transition:all .2s"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:5px;flex-shrink:0"><path d="M6 9H4a2 2 0 0 1-2-2V5h4"/><path d="M18 9h2a2 2 0 0 0 2-2V5h-4"/><path d="M6 9a6 6 0 0 0 12 0"/><path d="M12 15v4"/><path d="M8 19h8"/></svg> Мої матчі</button>
         <button id="sched-filter-all" onclick="setSchedFilter('all')" style="flex:1;padding:9px;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--brd);background:var(--surf);color:var(--mut);transition:all .2s"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:5px;flex-shrink:0"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg> Всі матчі</button>
       </div>
       <div id="scheduleList"></div>
+      <div id="scheduleCalendar" style="display:none"></div>
     </div>
   </div>
 
@@ -7856,6 +7880,10 @@ function finalizeScheduleDates(){
       }
       rd.date = fmtDate(cur) + (rd.ucl ? ' (ЛЧ)' : rd.uel ? ' (ЛЄ)' : '');
       rd._dateObj = new Date(cur);
+      // Kept (unlike _dateObj below) — the calendar schedule view needs real,
+      // parseable date parts rather than re-parsing the Ukrainian "3 серп."
+      // display string back into numbers.
+      rd._y = cur.getFullYear(); rd._m = cur.getMonth(); rd._d = cur.getDate();
 
       // Advance cursor:
       // League round → next event in 7 days (or compressed secondHalfGap after winter break)
@@ -20845,6 +20873,16 @@ function loadGame(rawData){
         }
       });
     }
+    // FIX: migrate old saves — the calendar schedule view needs each round's
+    // real numeric date parts (rd._y/_m/_d), a field that didn't exist
+    // before this feature and is only populated by finalizeScheduleDates(),
+    // which doesn't re-run on every load. Backfill it once so the calendar
+    // isn't empty for saves that won't naturally trigger a recompute (e.g.
+    // mid-season) until the next new season.
+    if(Array.isArray(G.schedule) && G.schedule.length && G.schedule.some(r=>!isWinterBreak(r)) &&
+       !G.schedule.some(r=>Number.isFinite(r._y))){
+      finalizeScheduleDates();
+    }
     // FIX: migrate old saves — squad chemistry needs _joinedSeason, a field
     // that didn't exist before this feature. Without it every player in an
     // existing save would read as "signed this instant" and show 0%
@@ -25406,6 +25444,95 @@ function setSchedFilter(f){
   renderSchedule();
 }
 
+// ── SCHEDULE — CALENDAR VIEW (month grid, user's own matches only) ─────────
+let schedViewMode='list'; // 'list' | 'calendar'
+let _calYear=null, _calMonth=null;
+const _UK_MONTHS=['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'];
+const _UK_DOW=['ПН','ВТ','СР','ЧТ','ПТ','СБ','НД'];
+
+function setSchedViewMode(mode){
+  schedViewMode=mode;
+  const listBtn=document.getElementById('sched-view-list');
+  const calBtn=document.getElementById('sched-view-calendar');
+  const filterRow=document.getElementById('sched-filter-row');
+  const listEl=document.getElementById('scheduleList');
+  const calEl=document.getElementById('scheduleCalendar');
+  const on='rgba(59,130,246,.15)', onColor='var(--acc)', onBorder='rgba(59,130,246,.3)';
+  if(listBtn){listBtn.style.background=mode==='list'?on:'var(--surf)';listBtn.style.color=mode==='list'?onColor:'var(--mut)';listBtn.style.borderColor=mode==='list'?onBorder:'var(--brd)';}
+  if(calBtn){calBtn.style.background=mode==='calendar'?on:'var(--surf)';calBtn.style.color=mode==='calendar'?onColor:'var(--mut)';calBtn.style.borderColor=mode==='calendar'?onBorder:'var(--brd)';}
+  if(filterRow) filterRow.style.display=mode==='list'?'flex':'none';
+  if(listEl) listEl.style.display=mode==='list'?'':'none';
+  if(calEl) calEl.style.display=mode==='calendar'?'':'none';
+  if(mode==='calendar') renderScheduleCalendarView();
+}
+
+function _calDefaultMonth(){
+  const upcoming=(G.schedule||[]).find(r=>!isWinterBreak(r) && Number.isFinite(r._y) && (r.matches||[]).some(m=>m && !m.result && (m.home===G.club?.id||m.away===G.club?.id)));
+  const anchor=upcoming || (G.schedule||[]).find(r=>Number.isFinite(r._y));
+  return anchor ? {y:anchor._y, m:anchor._m} : {y:G.seasonStartYear||2025, m:7};
+}
+
+function shiftCalMonth(delta){
+  if(_calYear==null){ const d=_calDefaultMonth(); _calYear=d.y; _calMonth=d.m; }
+  _calMonth+=delta;
+  if(_calMonth<0){_calMonth=11;_calYear--;}
+  if(_calMonth>11){_calMonth=0;_calYear++;}
+  renderScheduleCalendarView();
+}
+
+function renderScheduleCalendarView(){
+  const el=document.getElementById('scheduleCalendar');
+  if(!el||!G.club) return;
+  if(_calYear==null){ const d=_calDefaultMonth(); _calYear=d.y; _calMonth=d.m; }
+
+  // Map day-of-month -> the user's own match that day (winter break has no
+  // matches; other rounds may or may not involve the user's club that day).
+  const dayMatches={};
+  (G.schedule||[]).forEach(rd=>{
+    if(isWinterBreak(rd) || !Number.isFinite(rd._y) || rd._y!==_calYear || rd._m!==_calMonth) return;
+    const m=(rd.matches||[]).find(x=>x && (x.home===G.club.id||x.away===G.club.id));
+    if(m) dayMatches[rd._d]={m, rd};
+  });
+
+  const daysInMonth=new Date(_calYear,_calMonth+1,0).getDate();
+  const firstDow=(new Date(_calYear,_calMonth,1).getDay()+6)%7; // Mon=0..Sun=6
+
+  let cells='';
+  for(let i=0;i<firstDow;i++) cells+=`<div class="cal-day empty"></div>`;
+  for(let d=1;d<=daysInMonth;d++){
+    const entry=dayMatches[d];
+    if(!entry){ cells+=`<div class="cal-day"><div class="cal-daynum">${d}</div></div>`; continue; }
+    const {m}=entry;
+    const isHome=m.home===G.club.id;
+    const opp=clubById(isHome?m.away:m.home);
+    const played=!!m.result;
+    let resultHTML;
+    if(played){
+      const s=scoreParts(m.result);
+      const ug=isHome?s.hg:s.ag, og=isHome?s.ag:s.hg;
+      const wl=ug>og?'win':ug<og?'loss':'draw';
+      resultHTML=`<div class="cal-score ${wl}">${scoreText(m.result)}</div>`;
+    } else {
+      resultHTML=`<div class="cal-time">${isHome?'🏠':'✈️'}</div>`;
+    }
+    cells+=`<div class="cal-day has-match${played?' played':' upcoming'}">
+      <div class="cal-daynum">${d}</div>
+      <div class="cal-club" style="background:${opp?.bg||'#111'}">${opp?.logo||'⚽'}</div>
+      ${resultHTML}
+    </div>`;
+  }
+
+  el.innerHTML=`
+    <div class="cal-nav">
+      <button onclick="shiftCalMonth(-1)" class="cal-nav-btn">‹</button>
+      <div class="cal-month-label">${_UK_MONTHS[_calMonth]} ${_calYear}</div>
+      <button onclick="shiftCalMonth(1)" class="cal-nav-btn">›</button>
+    </div>
+    <div class="cal-dow-row">${_UK_DOW.map(d=>`<div class="cal-dow">${d}</div>`).join('')}</div>
+    <div class="cal-grid">${cells}</div>
+  `;
+}
+
 function renderSchedule(){
   if(!G.club) return;
   normalizeUCLScheduleLabels();
@@ -25567,6 +25694,7 @@ function renderSchedule(){
     const targetY=scrollTop+rect.top-110; // 110px offset: header + filter bar
     window.scrollTo({top:Math.max(0,targetY), behavior:'smooth'});
   }, 80);
+  if(schedViewMode==='calendar') renderScheduleCalendarView();
 }
 
 let tableTab='table';
