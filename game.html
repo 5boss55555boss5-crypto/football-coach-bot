@@ -7860,14 +7860,19 @@ function finalizeScheduleDates(){
 
   function assignWithGap(secondHalfGap){
     // Walk through schedule in order. Keep a running "current date" pointer.
-    // First half starts Aug 2 2025. After winter break restarts Feb 1 2026.
-    let cur = new Date(2025, 7, 2); // Aug 2 2025
+    // FIX: this used to hardcode Aug 2 2025 / Feb 1 2026 regardless of which
+    // season it actually is, so the calendar always showed "2025" and the
+    // year never advanced from one season to the next. Anchor to the real
+    // G.seasonStartYear instead — same day-of-month/gap pattern every
+    // season, just the correct (and correctly incrementing) year.
+    const _sy = G.seasonStartYear || 2025;
+    let cur = new Date(_sy, 7, 2); // Aug 2 of the season's start year
     let inSecondHalf = false;
 
     G.schedule.forEach(rd => {
       if(isWinterBreak(rd)){
         // Reset cursor to Feb 1 after break
-        cur = new Date(2026, 1, 1);
+        cur = new Date(_sy+1, 1, 1);
         inSecondHalf = true;
         return;
       }
@@ -20879,9 +20884,15 @@ function loadGame(rawData){
     // which doesn't re-run on every load. Backfill it once so the calendar
     // isn't empty for saves that won't naturally trigger a recompute (e.g.
     // mid-season) until the next new season.
-    if(Array.isArray(G.schedule) && G.schedule.length && G.schedule.some(r=>!isWinterBreak(r)) &&
-       !G.schedule.some(r=>Number.isFinite(r._y))){
-      finalizeScheduleDates();
+    // Also re-run it if the year is just plain wrong: finalizeScheduleDates()
+    // used to hardcode calendar year 2025/2026 instead of reading
+    // G.seasonStartYear, so saves that already got dates computed under that
+    // bug need a forced recompute too, not just saves missing dates entirely.
+    if(Array.isArray(G.schedule) && G.schedule.length && G.schedule.some(r=>!isWinterBreak(r))){
+      const _firstPlayable=G.schedule.find(r=>!isWinterBreak(r)&&Number.isFinite(r._y));
+      if(!_firstPlayable || _firstPlayable._y!==(G.seasonStartYear||2025)){
+        finalizeScheduleDates();
+      }
     }
     // FIX: migrate old saves — squad chemistry needs _joinedSeason, a field
     // that didn't exist before this feature. Without it every player in an
