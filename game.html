@@ -774,16 +774,18 @@ body.theme-light .onboard{background:radial-gradient(circle at 50% -2%,rgba(124,
 .cal-dow-row{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:4px}
 .cal-dow{text-align:center;font-size:9px;font-weight:800;color:var(--mut);text-transform:uppercase;padding:4px 0}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
-.cal-day{aspect-ratio:1/1.32;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:3px;display:flex;flex-direction:column;align-items:center;gap:1px;position:relative;overflow:hidden}
+.cal-day{aspect-ratio:1/1.42;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:3px;display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;overflow:hidden}
 .cal-day.empty{background:transparent;border-color:transparent}
 .cal-daynum{font-size:9px;color:var(--mut);align-self:flex-start;font-weight:700}
 .cal-day.has-match{background:#0b1524;border-width:1.5px}
 .cal-comp-icon{position:absolute;top:2px;right:3px;width:13px;height:13px;line-height:1;display:flex;align-items:center;justify-content:center;font-size:9px}
 .cal-comp-icon img,.cal-comp-icon svg{width:100%!important;height:100%!important;object-fit:contain;display:block}
-.cal-club{width:25px;height:25px;border-radius:6px;padding:2px;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.cal-club{width:34px;height:34px;border-radius:7px;padding:2px;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.cal-club img,.cal-club svg{width:100%!important;height:100%!important}
 .cal-score{font-family:'Bebas Neue',sans-serif;font-size:12px;line-height:1;color:var(--txt);margin-top:auto;padding-bottom:1px}
 .cal-score.win{color:#4ade80}.cal-score.loss{color:#f87171}.cal-score.draw{color:var(--mut)}
-.cal-time{font-size:11px;margin-top:auto;padding-bottom:1px}
+.cal-time{width:11px;height:11px;margin-top:auto;padding-bottom:1px;color:var(--mut);display:flex;align-items:center;justify-content:center}
+.cal-time svg{width:100%!important;height:100%!important}
 .cal-legend{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px;padding-top:10px;border-top:1px solid var(--brd)}
 .cal-legend-item{display:flex;align-items:center;gap:5px;font-size:9.5px;color:var(--mut);font-weight:600}
 .cal-legend-dot{width:18px;height:18px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
@@ -2915,16 +2917,12 @@ body.theme-light #cupBracketBody>div{background:#fff!important;border-color:#d8e
     </div>
 
     <div id="tab-content-schedule" style="display:none">
-      <div style="display:flex;gap:6px;margin-bottom:8px">
-        <button id="sched-view-list" onclick="setSchedViewMode('list')" style="flex:1;padding:8px;border-radius:11px;font-size:11px;font-weight:800;cursor:pointer;border:1px solid rgba(79,142,247,.35);background:rgba(79,142,247,.12);color:var(--acc);transition:all .2s">📋 Список</button>
-        <button id="sched-view-calendar" onclick="setSchedViewMode('calendar')" style="flex:1;padding:8px;border-radius:11px;font-size:11px;font-weight:800;cursor:pointer;border:1px solid var(--brd);background:var(--surf);color:var(--mut);transition:all .2s">📅 Календар</button>
-      </div>
+      <div id="scheduleCalendar" style="margin-bottom:16px"></div>
       <div id="sched-filter-row" style="display:flex;gap:6px;margin-bottom:14px">
         <button id="sched-filter-my" onclick="setSchedFilter('my')" style="flex:1;padding:9px;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid rgba(79,142,247,.35);background:rgba(79,142,247,.12);color:var(--acc);transition:all .2s"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:5px;flex-shrink:0"><path d="M6 9H4a2 2 0 0 1-2-2V5h4"/><path d="M18 9h2a2 2 0 0 0 2-2V5h-4"/><path d="M6 9a6 6 0 0 0 12 0"/><path d="M12 15v4"/><path d="M8 19h8"/></svg> Мої матчі</button>
         <button id="sched-filter-all" onclick="setSchedFilter('all')" style="flex:1;padding:9px;border-radius:12px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--brd);background:var(--surf);color:var(--mut);transition:all .2s"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle;margin-right:5px;flex-shrink:0"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg> Всі матчі</button>
       </div>
       <div id="scheduleList"></div>
-      <div id="scheduleCalendar" style="display:none"></div>
     </div>
   </div>
 
@@ -25462,26 +25460,15 @@ function setSchedFilter(f){
 }
 
 // ── SCHEDULE — CALENDAR VIEW (month grid, user's own matches only) ─────────
-let schedViewMode='list'; // 'list' | 'calendar'
 let _calYear=null, _calMonth=null;
 const _UK_MONTHS=['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'];
 const _UK_DOW=['ПН','ВТ','СР','ЧТ','ПТ','СБ','НД'];
 
-function setSchedViewMode(mode){
-  schedViewMode=mode;
-  const listBtn=document.getElementById('sched-view-list');
-  const calBtn=document.getElementById('sched-view-calendar');
-  const filterRow=document.getElementById('sched-filter-row');
-  const listEl=document.getElementById('scheduleList');
-  const calEl=document.getElementById('scheduleCalendar');
-  const on='rgba(59,130,246,.15)', onColor='var(--acc)', onBorder='rgba(59,130,246,.3)';
-  if(listBtn){listBtn.style.background=mode==='list'?on:'var(--surf)';listBtn.style.color=mode==='list'?onColor:'var(--mut)';listBtn.style.borderColor=mode==='list'?onBorder:'var(--brd)';}
-  if(calBtn){calBtn.style.background=mode==='calendar'?on:'var(--surf)';calBtn.style.color=mode==='calendar'?onColor:'var(--mut)';calBtn.style.borderColor=mode==='calendar'?onBorder:'var(--brd)';}
-  if(filterRow) filterRow.style.display=mode==='list'?'flex':'none';
-  if(listEl) listEl.style.display=mode==='list'?'':'none';
-  if(calEl) calEl.style.display=mode==='calendar'?'':'none';
-  if(mode==='calendar') renderScheduleCalendarView();
-}
+// Small line-icon markers for an upcoming match: a pitch icon for home
+// fixtures, a bus icon for away trips — swapped in for the old 🏠/✈️ emoji
+// stickers so they read as compact icons next to the (now bigger) club badge.
+const _homeFixtureIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><line x1="12" y1="6" x2="12" y2="18"/><circle cx="12" cy="12" r="3"/></svg>';
+const _awayFixtureIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/><circle cx="7" cy="18" r="2"/><path d="M9 18h5"/><circle cx="16" cy="18" r="2"/></svg>';
 
 function _calDefaultMonth(){
   const upcoming=(G.schedule||[]).find(r=>!isWinterBreak(r) && Number.isFinite(r._y) && (r.matches||[]).some(m=>m && !m.result && (m.home===G.club?.id||m.away===G.club?.id)));
@@ -25546,7 +25533,7 @@ function renderScheduleCalendarView(){
       const wl=ug>og?'win':ug<og?'loss':'draw';
       resultHTML=`<div class="cal-score ${wl}">${scoreText(m.result)}</div>`;
     } else {
-      resultHTML=`<div class="cal-time">${isHome?'🏠':'✈️'}</div>`;
+      resultHTML=`<div class="cal-time">${isHome?_homeFixtureIcon:_awayFixtureIcon}</div>`;
     }
     cells+=`<div class="cal-day has-match${played?' played':' upcoming'}" style="background:${meta.bg};border-color:${meta.color}66" title="${meta.label}">
       <div class="cal-daynum">${d}</div>
@@ -25602,9 +25589,6 @@ function renderSchedule(){
 
     const logoStyle=(c)=>`<div class="mr-club-logo" style="background:${c.bg};padding:2px">${c.logo}</div>`;
 
-    // Away indicator: show ✈️ on user's team side
-    const homeExtra = isMy&&!played&&isHome ? '🏠 ' : '';
-    const awayExtra = isMy&&!played&&!isHome ? '✈️ ' : '';
 
     return`<div class="match-row${isMy?` my-match${winLoss?' '+winLoss:''}`:''} ${played?'played':''}">
       <div class="mr-club">
@@ -25733,7 +25717,7 @@ function renderSchedule(){
     const targetY=scrollTop+rect.top-110; // 110px offset: header + filter bar
     window.scrollTo({top:Math.max(0,targetY), behavior:'smooth'});
   }, 80);
-  if(schedViewMode==='calendar') renderScheduleCalendarView();
+  renderScheduleCalendarView();
 }
 
 let tableTab='table';
