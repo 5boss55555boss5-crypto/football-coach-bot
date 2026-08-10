@@ -31259,6 +31259,14 @@ function admSimRound(silent=false){
     if(typeof isWinterBreak==='function' && isWinterBreak(rd) && typeof checkSponsorPayment==='function'){
       checkSponsorPayment(true);
     }
+    // Same empty-matches trap for the UCL/UEL group-draw marker — admin sim
+    // is a non-interactive shortcut, so just reveal the group opponents
+    // immediately instead of leaving _drawPending stuck true forever (the
+    // player-facing flow only clears it via closeEuroDrawCeremony()).
+    if(rd.phase==='ucl_draw'||rd.phase==='uel_draw'){
+      const groupPhase=rd.phase==='ucl_draw'?'ucl_group':'uel_group';
+      (G.schedule||[]).forEach(r=>{ if(r.phase===groupPhase) r._drawPending=false; });
+    }
     advanceRound('admin-sim-done',{processUCL:false,save:false});
     saveGame();
     return true;
@@ -31440,7 +31448,7 @@ function admSimNextRound(){
   const done = admSimRound();
   if(done){
     admLog(`Симульовано тур ${G.currentRound}`);
-    renderAdmin(); renderTable(); renderHome();
+    renderAdmin(); renderTable(); renderHome(); renderNextMatch();
     showToast('⏭ Тур ' + G.currentRound + ' симульовано','rgba(245,166,35,.3)',2000);
   } else {
     showToast('✅ Сезон вже завершено');
@@ -31456,7 +31464,7 @@ function admSim5Rounds(){
     done++;
   }
   admLog(`Симульовано ${done} турів`);
-  renderAdmin(); renderTable(); renderHome();
+  renderAdmin(); renderTable(); renderHome(); renderNextMatch();
   const newPlayers = G.players.slice(beforeCount);
   if(newPlayers.length){
     setTimeout(()=>showAcademyModal(newPlayers), 400);
@@ -31476,10 +31484,8 @@ function admSimAllRounds(){
   ADM.simLog.unshift(`🏁 Весь сезон симульовано: ${done} турів`);
   // Якщо сезон завершено — запускаємо renderNextMatch щоб підрахувати
   // чемпіона, Золотий М'яч, трофеї, AI scorers тощо
-  if(G.currentRound >= (G.schedule||[]).length){
-    try{ renderNextMatch(); }catch(e){ console.warn('season end render err',e); }
-  }
   renderAdmin(); renderTable(); renderHome();
+  try{ renderNextMatch(); }catch(e){ console.warn('season end render err',e); }
   const newPlayers = G.players.slice(beforeCount);
   if(newPlayers.length){
     setTimeout(()=>showAcademyModal(newPlayers), 600);
@@ -31517,7 +31523,7 @@ function admSim10Rounds(){
     done++;
   }
   admLog(`Симульовано ${done} турів`);
-  renderAdmin(); renderTable(); renderHome();
+  renderAdmin(); renderTable(); renderHome(); renderNextMatch();
   const newP = G.players.slice(beforeCount);
   if(newP.length) setTimeout(()=>showAcademyModal(newP), 400);
   showToast(`⚡ ${done} турів симульовано`,'rgba(245,166,35,.3)',2000);
@@ -31545,6 +31551,7 @@ function admSimFullCareer(){
   admLog(`Симульовано ${seasons} сезони (${totalRounds} турів)`);
   ADM.simLog.unshift(`🚀 ${seasons} сезони симульовано`);
   renderAdmin(); renderTable(); renderHome();
+  try{ renderNextMatch(); }catch(e){ console.warn('full career render err',e); }
   showToast(`🚀 ${seasons} сезони завершено!`,'rgba(16,185,129,.3)',3000);
 }
 
