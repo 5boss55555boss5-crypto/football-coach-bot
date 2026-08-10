@@ -777,7 +777,9 @@ body.theme-light .onboard{background:radial-gradient(circle at 50% -2%,rgba(124,
 .cal-day{aspect-ratio:1/1.42;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.05);padding:3px;display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;overflow:hidden}
 .cal-day.empty{background:transparent;border-color:transparent}
 .cal-daynum{font-size:9px;color:var(--mut);align-self:flex-start;font-weight:700}
-.cal-day.has-match{background:#0b1524;border-width:1.5px}
+.cal-day.has-match{background:#0b1524;border-width:1.5px;cursor:pointer}
+.sched-flash{animation:schedFlash 1.5s ease}
+@keyframes schedFlash{0%,65%{box-shadow:0 0 0 2px var(--acc);border-radius:12px}100%{box-shadow:0 0 0 0 transparent;border-radius:12px}}
 .cal-comp-icon{position:absolute;top:2px;right:3px;width:13px;height:13px;line-height:1;display:flex;align-items:center;justify-content:center;font-size:9px}
 .cal-comp-icon img,.cal-comp-icon svg{width:100%!important;height:100%!important;object-fit:contain;display:block}
 .cal-club{width:34px;height:34px;border-radius:7px;padding:2px;overflow:hidden;display:flex;align-items:center;justify-content:center;margin-top:2px}
@@ -25505,10 +25507,11 @@ function renderScheduleCalendarView(){
   // Map day-of-month -> the user's own match that day (winter break has no
   // matches; other rounds may or may not involve the user's club that day).
   const dayMatches={};
-  (G.schedule||[]).forEach(rd=>{
+  (G.schedule||[]).forEach((rd,rIdx)=>{
     if(isWinterBreak(rd) || !Number.isFinite(rd._y) || rd._y!==_calYear || rd._m!==_calMonth) return;
-    const m=(rd.matches||[]).find(x=>x && (x.home===G.club.id||x.away===G.club.id));
-    if(m) dayMatches[rd._d]={m, rd};
+    const matches=rd.matches||[];
+    const m=matches.find(x=>x && (x.home===G.club.id||x.away===G.club.id));
+    if(m) dayMatches[rd._d]={m, rd, schedKey:`${rIdx}-${matches.indexOf(m)}`};
   });
 
   const daysInMonth=new Date(_calYear,_calMonth+1,0).getDate();
@@ -25520,7 +25523,7 @@ function renderScheduleCalendarView(){
   for(let d=1;d<=daysInMonth;d++){
     const entry=dayMatches[d];
     if(!entry){ cells+=`<div class="cal-day"><div class="cal-daynum">${d}</div></div>`; continue; }
-    const {m,rd}=entry;
+    const {m,rd,schedKey}=entry;
     const meta=_calCompMeta(rd);
     legendSeen[meta.label]=meta;
     const isHome=m.home===G.club.id;
@@ -25535,7 +25538,7 @@ function renderScheduleCalendarView(){
     } else {
       resultHTML=`<div class="cal-time">${isHome?_homeFixtureIcon:_awayFixtureIcon}</div>`;
     }
-    cells+=`<div class="cal-day has-match${played?' played':' upcoming'}" style="background:${meta.bg};border-color:${meta.color}66" title="${meta.label}">
+    cells+=`<div class="cal-day has-match${played?' played':' upcoming'}" style="background:${meta.bg};border-color:${meta.color}66" title="${meta.label}" onclick="scrollToScheduledMatch('${schedKey}')">
       <div class="cal-daynum">${d}</div>
       <div class="cal-comp-icon">${meta.img}</div>
       <div class="cal-club" style="background:${opp?.bg||'#111'}">${opp?.logo||'⚽'}</div>
@@ -25563,7 +25566,7 @@ function renderSchedule(){
   if(!G.club) return;
   normalizeUCLScheduleLabels();
 
-  function matchRowHTML(m, isCup=false){
+  function matchRowHTML(m, isCup=false, schedKey=''){
     if(m.home==null||m.away==null) return '';
     const hc=clubById(m.home), ac=clubById(m.away);
     if(!hc||!ac) return '';
@@ -25590,7 +25593,7 @@ function renderSchedule(){
     const logoStyle=(c)=>`<div class="mr-club-logo" style="background:${c.bg};padding:2px">${c.logo}</div>`;
 
 
-    return`<div class="match-row${isMy?` my-match${winLoss?' '+winLoss:''}`:''} ${played?'played':''}">
+    return`<div class="match-row${isMy?` my-match${winLoss?' '+winLoss:''}`:''} ${played?'played':''}" data-sched-key="${schedKey}">
       <div class="mr-club">
         ${logoStyle(hc)}
         <span class="mr-club-name" style="${homeNameColor}">${hc.name}</span>
@@ -25606,7 +25609,7 @@ function renderSchedule(){
   }
 
   let lastPhase='';
-  document.getElementById('scheduleList').innerHTML=G.schedule.map(rd=>{
+  document.getElementById('scheduleList').innerHTML=G.schedule.map((rd,rIdx)=>{
 
     // ── Winter break ──
     if(isWinterBreak(rd)){
@@ -25626,7 +25629,7 @@ function renderSchedule(){
       const matches=rd.matches||[];
       const filtMatches=schedFilter==='my'?matches.filter(m=>m.home===G.club.id||m.away===G.club.id):matches;
       if(!filtMatches.length) return '';
-      const mHTML=filtMatches.map(m=>matchRowHTML(m,true)).join('');
+      const mHTML=filtMatches.map(m=>matchRowHTML(m,true,`${rIdx}-${matches.indexOf(m)}`)).join('');
       return`<div style="margin-bottom:16px">
         <div class="comp-section-header">
           <div class="comp-section-icon" style="background:rgba(245,166,35,.13);color:var(--gold)">🏆</div>
@@ -25652,7 +25655,7 @@ function renderSchedule(){
     // ── UCL round — special header like cup ──
     if(isUCLRd){
       const uclLabel = rd.label || `ЛЧ Тур ${rd.round}`;
-      const mHTML = matches.map(m=>matchRowHTML(m,true)).join('');
+      const mHTML = matches.map(m=>matchRowHTML(m,true,`${rIdx}-${(rd.matches||[]).indexOf(m)}`)).join('');
       if(!mHTML.trim()) return '';
       return`<div style="margin-bottom:16px">
         <div class="comp-section-header">
@@ -25667,7 +25670,7 @@ function renderSchedule(){
     const isUELRd = rd.uel === true;
     if(isUELRd){
       const uelLabel = rd.label || `ЛЄ Тур ${rd.round}`;
-      const mHTML = matches.map(m=>matchRowHTML(m,true)).join('');
+      const mHTML = matches.map(m=>matchRowHTML(m,true,`${rIdx}-${(rd.matches||[]).indexOf(m)}`)).join('');
       if(!mHTML.trim()) return '';
       return`<div style="margin-bottom:16px">
         <div class="comp-section-header">
@@ -25691,7 +25694,7 @@ function renderSchedule(){
       </div>`;
     }
 
-    const mHTML=matches.map(m=>matchRowHTML(m)).join('');
+    const mHTML=matches.map(m=>matchRowHTML(m,false,`${rIdx}-${(rd.matches||[]).indexOf(m)}`)).join('');
 
     // Skip if no renderable matches (e.g. clubById returned null for all)
     if(!mHTML.trim()) return '';
@@ -25707,17 +25710,19 @@ function renderSchedule(){
     </div>`;
   }).join('');
 
-  // Auto-scroll to current round so user lands on the right position
-  setTimeout(()=>{
-    const cur=document.querySelector('.current-round-block');
-    if(!cur) return;
-    // Get position relative to document
-    const rect=cur.getBoundingClientRect();
-    const scrollTop=window.pageYOffset||document.documentElement.scrollTop;
-    const targetY=scrollTop+rect.top-110; // 110px offset: header + filter bar
-    window.scrollTo({top:Math.max(0,targetY), behavior:'smooth'});
-  }, 80);
   renderScheduleCalendarView();
+}
+
+// Scrolls the schedule list to the match tapped in the calendar above it.
+function scrollToScheduledMatch(schedKey){
+  const el=document.querySelector(`.match-row[data-sched-key="${schedKey}"]`);
+  if(!el) return;
+  const rect=el.getBoundingClientRect();
+  const scrollTop=window.pageYOffset||document.documentElement.scrollTop;
+  const targetY=scrollTop+rect.top-110;
+  window.scrollTo({top:Math.max(0,targetY), behavior:'smooth'});
+  el.classList.add('sched-flash');
+  setTimeout(()=>el.classList.remove('sched-flash'), 1500);
 }
 
 let tableTab='table';
