@@ -19543,7 +19543,16 @@ function finishMatch(){
           <div class="final-score">${ug} : ${og}</div>
         </div>
         ${scorersBlock}
-          <div><div style="font-size:11px;color:var(--mut);margin-bottom:3px">Гравець матчу</div><div style="font-size:13px;font-weight:600">⭐ ${mom?.n||'—'} <span style="font-size:11px;color:var(--gold)">${momStat}</span></div></div>
+          <div id="motmReveal" style="display:flex;align-items:center;gap:8px;opacity:0;transform:scale(.8) translateY(6px);transition:opacity .45s ease,transform .45s cubic-bezier(.34,1.56,.64,1)">
+            ${mom?playerAvatar(mom.n,mom.p,36,11):''}
+            <div style="min-width:0">
+              <div style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--gold);display:flex;align-items:center;gap:3px;margin-bottom:1px">
+                <span id="motmStar" style="display:inline-block;font-size:11px;transform:scale(0) rotate(-25deg);transition:transform .4s cubic-bezier(.34,1.56,.64,1)">⭐</span>Гравець матчу
+              </div>
+              <div style="font-size:12.5px;font-weight:700;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px">${esc(mom?.n||'—')}</div>
+              <div style="font-size:10.5px;color:var(--gold);font-weight:600">${momStat}</div>
+            </div>
+          </div>
           <div style="text-align:right">
             <div style="font-size:11px;color:var(--mut);margin-bottom:3px">Доходи матчу</div>
             <div class="prize">+${fmt(prize+ticketRevenue+(tvAmount||0))}</div>
@@ -19562,6 +19571,15 @@ function finishMatch(){
       </div>
     </div>`;
   document.getElementById('eventsList').prepend(summary);
+  requestAnimationFrame(()=>{
+    const motm=document.getElementById('motmReveal');
+    if(motm){
+      motm.style.opacity='1';
+      motm.style.transform='scale(1) translateY(0)';
+      const star=document.getElementById('motmStar');
+      if(star) setTimeout(()=>{star.style.transform='scale(1) rotate(0deg)';},260);
+    }
+  });
   // Scroll to top to show result
   const scr=document.querySelector('.live-scroll');
   if(scr) setTimeout(()=>scr.scrollTo({top:0,behavior:'smooth'}),100);
