@@ -11101,6 +11101,52 @@ function showSignedCelebration(playerName,playerPos,price,fromClubName){
   setTimeout(dismiss,2600);
 }
 
+function showSoldCelebration(playerName,playerPos,price,toClubName,toClubObj){
+  document.getElementById('soldCelebration')?.remove();
+  const reduced=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const club=G.club||{};
+  const el=document.createElement('div');
+  el.id='soldCelebration';
+  el.style.cssText='position:fixed;inset:0;z-index:9200;background:rgba(4,8,16,.92);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden;opacity:0;transition:opacity .25s ease;cursor:pointer';
+  el.innerHTML=`
+    <div id="soldConfWrap" style="position:absolute;inset:0;pointer-events:none"></div>
+    <div id="soldCard" style="position:relative;z-index:1;width:100%;max-width:340px;text-align:center;transform:scale(.85);opacity:0;transition:transform .5s cubic-bezier(.17,.67,.38,1.3),opacity .5s ease">
+      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:16px">
+        <div style="width:68px;height:68px;border-radius:20px;background:${club.bg||'#111'};padding:8px;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.4);opacity:.55">${club.logo||''}</div>
+        <div style="font-size:26px;color:rgba(255,89,103,.7)">→</div>
+        ${toClubObj?`<div style="width:68px;height:68px;border-radius:20px;background:${toClubObj.bg||'#111'};padding:8px;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.4)">${toClubObj.logo||''}</div>`:playerAvatar(playerName,playerPos,68,18)}
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:27px;letter-spacing:1px;color:#f8fafc;line-height:1.15;margin-bottom:4px">${esc(playerName)}</div>
+      <div style="font-size:11px;color:rgba(148,163,184,.6);margin-bottom:18px">${esc(club.name||'')}${toClubName?' → '+esc(toClubName):' → Вільний агент'}</div>
+      <div id="soldStamp" style="display:inline-block;padding:9px 24px;border-radius:12px;background:linear-gradient(135deg,rgba(255,89,103,.16),rgba(255,89,103,.05));border:2px solid rgba(255,89,103,.55);font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#ff5967;transform:scale(0) rotate(-8deg);box-shadow:0 0 24px rgba(255,89,103,.25)">ПРОДАНО ✓</div>
+      ${price?`<div style="margin-top:16px;font-size:14px;color:#4ade80;font-weight:800">+${fmtPrice(price)}</div>`:''}
+    </div>`;
+  document.body.appendChild(el);
+  const dismiss=()=>{el.style.opacity='0';setTimeout(()=>el.remove(),300);};
+  el.addEventListener('click',dismiss);
+  requestAnimationFrame(()=>{
+    el.style.opacity='1';
+    const card=document.getElementById('soldCard');
+    if(card){card.style.transform='scale(1)';card.style.opacity='1';}
+  });
+  const stamp=document.getElementById('soldStamp');
+  if(stamp) setTimeout(()=>{stamp.style.transition='transform .45s cubic-bezier(.34,1.56,.64,1)';stamp.style.transform='scale(1) rotate(-4deg)';},380);
+  if(!reduced){
+    const wrap=document.getElementById('soldConfWrap');
+    const colors=['#ff5967','#f6bb4b','#94a3b8','#3478f6','#ffffff'];
+    for(let i=0;i<44;i++){
+      const piece=document.createElement('div');
+      piece.style.cssText=`position:absolute;left:${Math.random()*100}%;top:-10px;background:${colors[i%colors.length]};
+        width:${5+Math.random()*7}px;height:${5+Math.random()*7}px;border-radius:${Math.random()>.5?'50%':'2px'};
+        animation:confettiRain ${1.8+Math.random()*2.2}s linear ${Math.random()*.6}s 1 forwards;
+        opacity:${0.7+Math.random()*0.3};`;
+      wrap.appendChild(piece);
+    }
+  }
+  try{VIB.tap();}catch(e){}
+  setTimeout(dismiss,2600);
+}
+
 function confirmBuy(idx){
   const p=G.transfers.marketPlayers[idx];
   // Re-check budget at moment of confirmation (prevents race condition)
@@ -11592,6 +11638,7 @@ function confirmSell(name,price,buyerClubId){
   renderHome();
   SFX.loss();
   if(document.getElementById('s-salary')?.classList.contains('active'))renderSalaryScreen();
+  showSoldCelebration(p.n,p.p,price,buyer?.name,buyer);
   showTrMsg(`✅ ${p.n} проданий до ${buyer?`<span style="display:inline-flex;align-items:center;gap:5px"><span style="display:inline-flex;width:20px;height:20px;border-radius:5px;background:${buyer.bg};padding:2px;overflow:hidden;flex-shrink:0;vertical-align:middle">${buyer.logo}</span>${buyer.name}</span>`:''}!`);
   saveGame();
 }
