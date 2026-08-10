@@ -15487,6 +15487,56 @@ function showUELWinnerCeremony(myClub, oppClub, myScore, oppScore, isWin, prize)
   }
 }
 
+// Mirror of showCupWinnerCeremony/showUCLWinnerCeremony/showUELWinnerCeremony
+// for the losing side of a knockout exit — same full-screen "moment" layout,
+// but muted (gray/red, grayscaled trophy, drifting gray specks instead of
+// confetti) since there's nothing to celebrate. compKey: 'cup'|'ucl'|'uel'.
+function showEliminationCeremony(compKey, opp, scoreText, stageLabel){
+  if(!opp) return;
+  try{ VIB.loss(); }catch(e){}
+  const modalId='elimCeremonyModal';
+  document.getElementById(modalId)?.remove();
+  const trophyStyle='display:block;margin:0 auto;filter:grayscale(.6) opacity(.78)';
+  const trophy = compKey==='ucl'?uclCupImg('100px',trophyStyle)
+    :compKey==='uel'?uelTrophyImg('100px',trophyStyle)
+    :cupTrophyImg(G.leagueId,'100px',trophyStyle);
+  const compLabel = compKey==='ucl'?'Ліга Чемпіонів':compKey==='uel'?'Ліга Європи':'Кубок';
+  const club=G.club||{};
+  const html=`
+  <style>
+    @keyframes elimFade{from{opacity:0}to{opacity:1}}
+    @keyframes elimCard{0%{opacity:0;transform:translateY(24px) scale(.94)}100%{opacity:1;transform:translateY(0) scale(1)}}
+    @keyframes elimDrift{0%{transform:translateY(-16px) rotate(0deg);opacity:.65}100%{transform:translateY(105vh) rotate(220deg);opacity:0}}
+    .elim-piece{position:absolute;top:-16px;border-radius:2px;animation:elimDrift linear infinite}
+  </style>
+  <div id="${modalId}" style="position:fixed;inset:0;background:radial-gradient(circle at 50% 22%,rgba(148,163,184,.10),rgba(3,7,18,.97) 62%);z-index:760;display:flex;align-items:center;justify-content:center;padding:18px;overflow:hidden;animation:elimFade .28s ease">
+    <div id="elimConfWrap" style="position:absolute;inset:0;pointer-events:none"></div>
+    <div style="width:100%;max-width:360px;background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.01)),#0b1524;border:1px solid rgba(148,163,184,.22);border-radius:24px;padding:24px 18px 18px;text-align:center;position:relative;z-index:1;box-shadow:0 24px 90px rgba(0,0,0,.55);animation:elimCard .5s ease">
+      <div style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1.8px;color:#94a3b8;margin-bottom:10px">${esc(compLabel)}${stageLabel?' · '+esc(stageLabel):''}</div>
+      <div style="margin-bottom:10px">${trophy}</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:1.4px;line-height:1;color:#f87171;margin-bottom:8px">ВИБУЛИ</div>
+      <div style="font-size:13px;color:#8a97ab;margin-bottom:16px">${esc(opp.name)} завершує ваш шлях у турнірі</div>
+      <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:14px;padding:10px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:14px">
+        <div style="width:36px;height:36px;border-radius:50%;background:${club.bg||'#111'};padding:3px;overflow:hidden">${club.logo||''}</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:#cbd5e1">${scoreText}</div>
+        <div style="width:36px;height:36px;border-radius:50%;background:${opp.bg||'#111'};padding:3px;overflow:hidden">${opp.logo||''}</div>
+      </div>
+      <button onclick="document.getElementById('${modalId}')?.remove()" style="width:100%;background:linear-gradient(135deg,#374151,#1f2937);color:#e5e7eb;border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:13px;font-size:14px;font-weight:800;cursor:pointer">Продовжити</button>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend', html);
+  const wrap=document.getElementById('elimConfWrap');
+  if(wrap){
+    const colors=['#64748b','#475569','#94a3b8'];
+    for(let i=0;i<26;i++){
+      const el=document.createElement('div');
+      el.className='elim-piece';
+      el.style.cssText=`left:${Math.random()*100}%;background:${colors[i%colors.length]};animation-duration:${2.6+Math.random()*3}s;animation-delay:${Math.random()*1.6}s;opacity:${.35+Math.random()*.3};width:${4+Math.random()*5}px;height:${4+Math.random()*5}px;border-radius:${Math.random()>.5?'50%':'2px'};`;
+      wrap.appendChild(el);
+    }
+  }
+}
+
 function showUefaSuperCupCeremony(res){
   if(!res) return;
   const winner=clubById(res.winnerId);
@@ -16100,6 +16150,7 @@ function _finalizeCupMatch(m, finalHg, finalAg, penNote, penDetail, penWon){
   }
   if(!won){
     addJournalEntry('cup_loss',{stage:CUP_STAGE_LABELS[stage]||stage, score:`${ug}:${og}${penNote}`, opp:opp?.name||'Суперник', penDetail});
+    setTimeout(()=>showEliminationCeremony('cup',opp,`${ug}:${og}`,CUP_STAGE_LABELS[stage]||stage),2200);
   }
 
   const summary=document.createElement('div');
@@ -18809,6 +18860,7 @@ function _finalizeUCLMatch(rd, hg, ag, res, penNote, penDetail){
   const ug=isHome?hg:ag, og=isHome?ag:hg;
   const isFinal = rd?.ucl_po==='final';
   const isPlayoff = rd?.phase==='ucl_playoff';
+  const _wasUclElimBefore = !!G.ucl?.userEliminated;
   let advanced = res==='win' || (res==='draw' && !isFinal);
   // A two-leg tie is decided only after leg two and by aggregate, not by the
   // result of this single match. This also prevents premature advancement prizes.
@@ -18877,6 +18929,8 @@ function _finalizeUCLMatch(rd, hg, ag, res, penNote, penDetail){
   const opp=clubById(oppId)||{name:'Суперник',bg:'#111',logo:'⚽'};
   if(isFinal){
     setTimeout(()=>showUCLWinnerCeremony(G.club,opp,ug,og,res==='win',prize),600);
+  } else if(!_wasUclElimBefore && G.ucl?.userEliminated){
+    setTimeout(()=>showEliminationCeremony('ucl',opp,`${ug}:${og}`,rd.label||''),600);
   }
   const penBadge=penNote?`<div style="font-size:11px;color:var(--gold);text-align:center;font-weight:700;margin-top:4px">⚽ Серія пенальті ${penNote}</div>${penDetail?`<div style="font-size:10px;color:var(--mut);text-align:center">${penDetail}</div>`:''}`:'';
   const prizeBadge=prize>0?`<div style="font-size:11px;color:var(--grn);text-align:center;margin-top:4px">💰 +${fmt(prize)}</div>`:'';
@@ -18949,6 +19003,7 @@ function _finalizeUELMatch(rd, hg, ag, res, penNote='', penDetail=''){
   const ug=isHome?hg:ag, og=isHome?ag:hg;
   const isFinal=rd?.uel_po==='final';
   const isPlayoff=rd?.phase==='uel_playoff';
+  const _wasUelElimBefore=!!G.uel?.userEliminated;
   const prevHasSF=!!G.uel?.playoff?.sf;
   const prevHasFinal=!!G.uel?.playoff?.final;
   const prevWinner=G.uel?.winner||null;
@@ -18974,6 +19029,9 @@ function _finalizeUELMatch(rd, hg, ag, res, penNote='', penDetail=''){
   if(isFinal){
     const _opp=clubById(oppId)||{name:'Суперник',bg:'#111',logo:'⚽'};
     setTimeout(()=>showUELWinnerCeremony(G.club,_opp,ug,og,res==='win',prize),600);
+  } else if(!_wasUelElimBefore && G.uel?.userEliminated){
+    const _opp=clubById(oppId)||{name:'Суперник',bg:'#111',logo:'⚽'};
+    setTimeout(()=>showEliminationCeremony('uel',_opp,`${ug}:${og}`,rd.label||''),600);
   }
   addJournalEntry('match_'+res,{opp:clubById(oppId)?.name||'Суперник',score:isHome?ug+':'+og:og+':'+ug,isHome,tournament:'uel'});
   advanceRound('uel-finish',{processUCL:false,save:false});
