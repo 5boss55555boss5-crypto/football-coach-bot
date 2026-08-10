@@ -12370,33 +12370,52 @@ function selectContractOption(name, newEnd, bonus, yrs, newSalary){
   saveGame();
 }
 
-// Lighter-weight cousin of showSignedCelebration()/showSoldCelebration() —
-// a contract renewal isn't a transfer, so it gets a small slide-up card
-// (no full-screen backdrop, no confetti) instead of the big signing moment.
+// Same full-screen signing-moment layout as showSignedCelebration()/
+// showSoldCelebration() — player avatar, a pen instead of a transfer arrow
+// (the player is staying, not moving clubs), and a gold "КОНТРАКТ
+// ПРОДОВЖЕНО" stamp with confetti.
 function showContractSignedCard(playerName,playerPos,yrs,salary,bonus){
-  document.getElementById('contractSignedCard')?.remove();
+  document.getElementById('contractCelebration')?.remove();
+  const reduced=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const club=G.club||{};
   const el=document.createElement('div');
-  el.id='contractSignedCard';
-  el.style.cssText='position:fixed;left:50%;bottom:90px;transform:translate(-50%,16px);opacity:0;z-index:9200;width:min(320px,calc(100% - 32px));background:linear-gradient(135deg,rgba(52,211,153,.14),rgba(11,21,36,.97));border:1px solid rgba(52,211,153,.35);border-radius:16px;padding:12px 14px;box-shadow:0 10px 28px rgba(0,0,0,.4);display:flex;align-items:center;gap:11px;transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .35s ease;cursor:pointer';
+  el.id='contractCelebration';
+  el.style.cssText='position:fixed;inset:0;z-index:9200;background:rgba(4,8,16,.92);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden;opacity:0;transition:opacity .25s ease;cursor:pointer';
   el.innerHTML=`
-    ${playerAvatar(playerName,playerPos,42,13)}
-    <div style="flex:1;min-width:0">
-      <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px">
-        <span id="contractSignedIcon" style="font-size:13px;display:inline-block;transform:scale(0) rotate(-20deg);transition:transform .4s cubic-bezier(.34,1.56,.64,1)">✍️</span>
-        <span style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#34d399">Новий контракт</span>
+    <div id="contractConfWrap" style="position:absolute;inset:0;pointer-events:none"></div>
+    <div id="contractCard" style="position:relative;z-index:1;width:100%;max-width:340px;text-align:center;transform:scale(.85);opacity:0;transition:transform .5s cubic-bezier(.17,.67,.38,1.3),opacity .5s ease">
+      <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:16px">
+        ${playerAvatar(playerName,playerPos,68,18)}
+        <div style="font-size:26px;color:rgba(246,187,75,.7)">✍️</div>
+        <div style="width:68px;height:68px;border-radius:20px;background:${club.bg||'#111'};padding:8px;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.4)">${club.logo||''}</div>
       </div>
-      <div style="font-size:14px;font-weight:800;color:#f8fafc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(playerName)}</div>
-      <div style="font-size:11px;color:rgba(148,163,184,.75);margin-top:1px">${yrs} ${yrs===1?'рік':yrs<5?'роки':'років'} · ${fmtPrice(salary)}/рік${bonus?` · бонус ${fmtPrice(bonus)}`:''}</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:27px;letter-spacing:1px;color:#f8fafc;line-height:1.15;margin-bottom:4px">${esc(playerName)}</div>
+      <div style="font-size:11px;color:rgba(148,163,184,.6);margin-bottom:18px">${yrs} ${yrs===1?'рік':yrs<5?'роки':'років'} з ${esc(club.name||'')}</div>
+      <div id="contractStamp" style="display:inline-block;padding:9px 24px;border-radius:12px;background:linear-gradient(135deg,rgba(246,187,75,.16),rgba(246,187,75,.05));border:2px solid rgba(246,187,75,.55);font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#f6bb4b;transform:scale(0) rotate(-8deg);box-shadow:0 0 24px rgba(246,187,75,.25)">КОНТРАКТ ПРОДОВЖЕНО ✓</div>
+      <div style="margin-top:16px;font-size:14px;color:#4ade80;font-weight:800">${fmtPrice(salary)}/рік${bonus?` · бонус ${fmtPrice(bonus)}`:''}</div>
     </div>`;
   document.body.appendChild(el);
-  const dismiss=()=>{el.style.opacity='0';el.style.transform='translate(-50%,12px)';setTimeout(()=>el.remove(),350);};
+  const dismiss=()=>{el.style.opacity='0';setTimeout(()=>el.remove(),300);};
   el.addEventListener('click',dismiss);
   requestAnimationFrame(()=>{
     el.style.opacity='1';
-    el.style.transform='translate(-50%,0)';
-    const icon=document.getElementById('contractSignedIcon');
-    if(icon) setTimeout(()=>{icon.style.transform='scale(1) rotate(0deg)';},150);
+    const card=document.getElementById('contractCard');
+    if(card){card.style.transform='scale(1)';card.style.opacity='1';}
   });
+  const stamp=document.getElementById('contractStamp');
+  if(stamp) setTimeout(()=>{stamp.style.transition='transform .45s cubic-bezier(.34,1.56,.64,1)';stamp.style.transform='scale(1) rotate(-4deg)';},380);
+  if(!reduced){
+    const wrap=document.getElementById('contractConfWrap');
+    const colors=['#f6bb4b','#fcd34d','#25d5e8','#94a3b8','#ffffff'];
+    for(let i=0;i<44;i++){
+      const piece=document.createElement('div');
+      piece.style.cssText=`position:absolute;left:${Math.random()*100}%;top:-10px;background:${colors[i%colors.length]};
+        width:${5+Math.random()*7}px;height:${5+Math.random()*7}px;border-radius:${Math.random()>.5?'50%':'2px'};
+        animation:confettiRain ${1.8+Math.random()*2.2}s linear ${Math.random()*.6}s 1 forwards;
+        opacity:${0.7+Math.random()*0.3};`;
+      wrap.appendChild(piece);
+    }
+  }
   try{VIB.tap();}catch(e){}
   setTimeout(dismiss,2600);
 }
