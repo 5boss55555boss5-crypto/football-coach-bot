@@ -744,11 +744,12 @@ body.theme-light .onboard{background:radial-gradient(circle at 50% -2%,rgba(124,
 .mr-score{font-family:'Bebas Neue',sans-serif;font-size:18px;width:48px;text-align:center;flex-shrink:0;letter-spacing:1px}
 .mr-score.win{color:var(--grn)}.mr-score.loss{color:var(--red)}.mr-score.draw{color:var(--gold)}
 .mr-score.pending{
-  font-size:10px;color:rgba(148,163,184,.45);font-family:'Inter',sans-serif;font-weight:700;letter-spacing:.3px;
+  font-size:10px;color:rgba(203,213,225,.75);font-family:'Inter',sans-serif;font-weight:700;letter-spacing:.3px;
   display:inline-flex;align-items:center;justify-content:center;
   width:28px;height:20px;border-radius:7px;margin:0 auto;
   background:rgba(255,255,255,.03);
 }
+.mr-score.pending svg{width:16px;height:16px}
 
 /* Competition section headers (cup / UCL / UEL / winter break) */
 .comp-section-header{display:flex;align-items:center;gap:8px;padding:6px 2px;margin-bottom:8px}
@@ -786,7 +787,7 @@ body.theme-light .onboard{background:radial-gradient(circle at 50% -2%,rgba(124,
 .cal-club img,.cal-club svg{width:100%!important;height:100%!important}
 .cal-score{font-family:'Bebas Neue',sans-serif;font-size:12px;line-height:1;color:var(--txt);margin-top:auto;padding-bottom:1px}
 .cal-score.win{color:#4ade80}.cal-score.loss{color:#f87171}.cal-score.draw{color:var(--mut)}
-.cal-time{width:11px;height:11px;margin-top:auto;padding-bottom:1px;color:var(--mut);display:flex;align-items:center;justify-content:center}
+.cal-time{width:15px;height:15px;margin-top:auto;padding-bottom:1px;color:#cbd5e1;display:flex;align-items:center;justify-content:center}
 .cal-time svg{width:100%!important;height:100%!important}
 .cal-legend{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px;padding-top:10px;border-top:1px solid var(--brd)}
 .cal-legend-item{display:flex;align-items:center;gap:5px;font-size:9.5px;color:var(--mut);font-weight:600}
@@ -25466,11 +25467,12 @@ let _calYear=null, _calMonth=null;
 const _UK_MONTHS=['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'];
 const _UK_DOW=['ПН','ВТ','СР','ЧТ','ПТ','СБ','НД'];
 
-// Small line-icon markers for an upcoming match: a pitch icon for home
-// fixtures, a bus icon for away trips — swapped in for the old 🏠/✈️ emoji
-// stickers so they read as compact icons next to the (now bigger) club badge.
-const _homeFixtureIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><line x1="12" y1="6" x2="12" y2="18"/><circle cx="12" cy="12" r="3"/></svg>';
-const _awayFixtureIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6v6"/><path d="M15 6v6"/><path d="M2 12h19.6"/><path d="M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3"/><circle cx="7" cy="18" r="2"/><path d="M9 18h5"/><circle cx="16" cy="18" r="2"/></svg>';
+// Small icon markers for an upcoming match: a house for home fixtures, a bus
+// for away trips — swapped in for the old 🏠/✈️ emoji stickers. Bold strokes
+// (and a filled wheel/roof accent) so they stay crisp at the tiny sizes they
+// render at, both in the calendar grid and the schedule list.
+const _homeFixtureIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9"/><path d="M10 20v-5.5h4V20"/></svg>';
+const _awayFixtureIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.3" y="5" width="19.4" height="11" rx="2.6"/><path d="M2.3 11h19.4"/><circle cx="7.3" cy="18.3" r="1.7" fill="currentColor" stroke="none"/><circle cx="16.7" cy="18.3" r="1.7" fill="currentColor" stroke="none"/></svg>';
 
 function _calDefaultMonth(){
   const upcoming=(G.schedule||[]).find(r=>!isWinterBreak(r) && Number.isFinite(r._y) && (r.matches||[]).some(m=>m && !m.result && (m.home===G.club?.id||m.away===G.club?.id)));
@@ -25600,7 +25602,7 @@ function renderSchedule(){
       </div>
       ${played
         ?`<div class="mr-score ${scoreClass}">${scoreText(m.result)}</div>`
-        :`<div class="mr-score pending">${isMy?(isHome?'🏠':'✈️'):isCup?'🏆':'vs'}</div>`}
+        :`<div class="mr-score pending">${isMy?(isHome?_homeFixtureIcon:_awayFixtureIcon):isCup?'🏆':'vs'}</div>`}
       <div class="mr-club right">
         <span class="mr-club-name" style="${awayNameColor}">${ac.name}</span>
         ${logoStyle(ac)}
