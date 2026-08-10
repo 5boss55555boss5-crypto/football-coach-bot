@@ -15662,6 +15662,82 @@ function showCupDraw(stage, nextStage, nextMatches){
 // ══════════════════════════════════════════════════════════
 //  ⚽ INTERACTIVE PENALTY SHOOTOUT v4
 // ══════════════════════════════════════════════════════════
+// ── UCL/UEL group-stage draw ceremony ─────────────────────────────────────
+// The 8 group fixtures already exist in G.schedule (generated at season
+// start, so results/standings work normally) but are flagged _drawPending —
+// this just reveals them to the player with a staggered ~10s animation
+// mirroring showCupDraw()'s bounce-in balls, then clears the flag so the
+// calendar/schedule list show the real opponents from then on.
+function openEuroDrawCeremony(comp){
+  const isUcl = comp==='ucl';
+  const groupPhase = isUcl?'ucl_group':'uel_group';
+  const myId = G.club?.id;
+  const rounds = (G.schedule||[]).filter(rd=>rd.phase===groupPhase);
+  const fixtures = rounds.map(rd=>{
+    const m=(rd.matches||[]).find(x=>x&&(x.home===myId||x.away===myId));
+    if(!m) return null;
+    const isHome=m.home===myId;
+    const opp=clubById(isHome?m.away:m.home);
+    return opp ? {opp, isHome} : null;
+  }).filter(Boolean);
+  if(!fixtures.length) return;
+
+  document.getElementById('euroDrawModal')?.remove();
+  const compLabel = isUcl?'Ліги Чемпіонів':'Ліги Європи';
+  const accent = isUcl?'#38bdf8':'#fb923c';
+  const accentRgb = isUcl?'56,189,248':'251,146,60';
+  const club = G.club||{};
+  const totalMs = 9600;
+  const stepDelay = totalMs/fixtures.length;
+
+  const html=`
+  <style>
+    @keyframes euroDrawFade{from{opacity:0}to{opacity:1}}
+    @keyframes euroDrawRow{0%{transform:scale(0) rotate(-12deg);opacity:0}55%{transform:scale(1.08) rotate(3deg)}100%{transform:scale(1) rotate(0deg);opacity:1}}
+    @keyframes euroDrawBtn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .euro-draw-row{opacity:0;animation:euroDrawRow .5s cubic-bezier(.17,.67,.38,1.3) forwards}
+  </style>
+  <div id="euroDrawModal" style="position:fixed;inset:0;background:radial-gradient(circle at 50% 15%,rgba(${accentRgb},.16),rgba(3,7,18,.97) 60%);z-index:700;display:flex;align-items:center;justify-content:center;padding:18px;animation:euroDrawFade .3s ease">
+    <div style="width:100%;max-width:380px;background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.01)),#0b1524;border:1px solid rgba(${accentRgb},.35);border-radius:24px;padding:22px 18px 18px;text-align:center;max-height:88vh;overflow-y:auto">
+      <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:6px">
+        <div style="width:26px;height:26px;border-radius:7px;background:${club.bg||'#111'};padding:3px;overflow:hidden">${club.logo||''}</div>
+        <div style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1.6px;color:${accent}">31 серпня · Жеребкування</div>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1.2px;color:#eaf6ff;margin-bottom:2px">${compLabel.toUpperCase()}</div>
+      <div style="font-size:11px;color:rgba(148,163,184,.6);margin-bottom:18px">Груповий етап · ${fixtures.length} суперників</div>
+
+      <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:18px">
+        ${fixtures.map((f,i)=>`<div class="euro-draw-row" style="animation-delay:${(i*stepDelay/1000).toFixed(2)}s;display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:12px">
+          <div style="width:30px;height:30px;border-radius:8px;background:${f.opp.bg||'#111'};padding:3px;overflow:hidden;flex-shrink:0">${f.opp.logo||''}</div>
+          <span style="font-size:12.5px;font-weight:700;flex:1;text-align:left">${esc(f.opp.name)}</span>
+          <span style="font-size:9px;font-weight:800;padding:3px 8px;border-radius:8px;background:${f.isHome?'rgba(74,222,128,.12)':'rgba(96,165,250,.12)'};color:${f.isHome?'#4ade80':'#60a5fa'}">${f.isHome?'🏠 ВДОМА':'✈️ У ГОСТЯХ'}</span>
+        </div>`).join('')}
+      </div>
+
+      <button id="euroDrawCloseBtn" onclick="closeEuroDrawCeremony('${comp}')" disabled style="opacity:0;width:100%;background:linear-gradient(135deg,${isUcl?'#1568c9,#2596e8,#25d5e8':'#c2410c,#ea580c,#fb923c'});color:${isUcl?'#04141c':'#2b0a00'};border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:800;cursor:pointer;transition:opacity .3s">Продовжити</button>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend', html);
+  try{VIB.tap();}catch(e){}
+
+  setTimeout(()=>{
+    const btn=document.getElementById('euroDrawCloseBtn');
+    if(btn){ btn.disabled=false; btn.style.animation='euroDrawBtn .3s ease forwards'; }
+  }, totalMs+300);
+}
+
+function closeEuroDrawCeremony(comp){
+  const isUcl = comp==='ucl';
+  const groupPhase = isUcl?'ucl_group':'uel_group';
+  const drawPhase = isUcl?'ucl_draw':'uel_draw';
+  (G.schedule||[]).forEach(rd=>{ if(rd.phase===groupPhase) rd._drawPending=false; });
+  document.getElementById('euroDrawModal')?.remove();
+  if(G.schedule[G.currentRound]?.phase===drawPhase) G.currentRound++;
+  renderNextMatch();
+  renderSchedule();
+  saveGame();
+}
+
 function startPenaltyShootout(onComplete){
   // Gather squads
   const myPlayers  = (LS.onField||[]).filter((p,i)=>p&&p.n&&!p.subbed&&!p.injured&&!isSentOffLive(true,i));
@@ -18731,6 +18807,7 @@ function _processUpcomingUCLRounds(){
     const rd = G.schedule[i];
     if(!rd) break;
     if(isWinterBreak(rd)){ break; } // FIX: stop at winter break — don't auto-skip it
+    if(rd.phase==='ucl_draw'||rd.phase==='uel_draw'){ break; } // stop at the group draw — user must watch it
     if(rd.uefaSuperCup){
       const userMatch = rd.matches?.find(m=>m.home===G.club?.id||m.away===G.club?.id);
       if(userMatch && !userMatch.result) break;
@@ -23287,6 +23364,26 @@ function renderNextMatch(){
     return;
   }
 
+  // Handle UCL/UEL group draw day
+  if(G.currentRound<G.schedule.length && (G.schedule[G.currentRound]?.phase==='ucl_draw' || G.schedule[G.currentRound]?.phase==='uel_draw')){
+    const rd=G.schedule[G.currentRound];
+    const isUcl=rd.phase==='ucl_draw';
+    const compLabel=isUcl?'Ліги Чемпіонів':'Ліги Європи';
+    const accent=isUcl?'#38bdf8':'#fb923c';
+    const compImg=isUcl?uclLogoImg('40px'):uelTrophyImg('40px');
+    el.innerHTML=`<div style="position:relative;overflow:hidden;background:radial-gradient(circle at 85% 0%,${isUcl?'rgba(56,189,248,.18)':'rgba(251,146,60,.18)'},transparent 45%),linear-gradient(180deg,#0b1a2c 0%,#081321 70%);border:1px solid ${accent}55;border-radius:18px;text-align:center;padding:22px 16px 18px">
+      <div style="position:absolute;left:18px;right:18px;top:0;height:2px;background:linear-gradient(90deg,${accent},#3478f6 55%,#b8ff35)"></div>
+      <div style="font-size:8px;font-weight:900;letter-spacing:2px;color:${accent};text-transform:uppercase;margin-bottom:8px">${rd.date||'31 серп.'} · ЖЕРЕБКУВАННЯ</div>
+      <div style="margin-bottom:6px">${compImg}</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1.5px;color:#eaf6ff">${compLabel.toUpperCase()}</div>
+      <div style="font-size:11px;color:rgba(190,215,235,.6);margin-top:4px;margin-bottom:6px">Дізнайся своїх 8 суперників у груповому етапі</div>
+    </div>`;
+    btn.disabled=false;
+    btn.textContent='🎬 Дивитися жеребкування';
+    btn.onclick=()=>openEuroDrawCeremony(isUcl?'ucl':'uel');
+    return;
+  }
+
   // Handle UEFA Super Cup round
   if(G.currentRound<G.schedule.length && G.schedule[G.currentRound]?.uefaSuperCup){
     const rd=G.schedule[G.currentRound];
@@ -25752,8 +25849,11 @@ function renderScheduleCalendarView(){
   // Map day-of-month -> the user's own match that day (winter break has no
   // matches; other rounds may or may not involve the user's club that day).
   const dayMatches={};
+  const drawDays={};
   (G.schedule||[]).forEach((rd,rIdx)=>{
-    if(isWinterBreak(rd) || !Number.isFinite(rd._y) || rd._y!==_calYear || rd._m!==_calMonth) return;
+    if(!Number.isFinite(rd._y) || rd._y!==_calYear || rd._m!==_calMonth) return;
+    if(rd.phase==='ucl_draw'||rd.phase==='uel_draw'){ drawDays[rd._d]={comp: rd.phase==='ucl_draw'?'ucl':'uel'}; return; }
+    if(isWinterBreak(rd)) return;
     const matches=rd.matches||[];
     const m=matches.find(x=>x && (x.home===G.club.id||x.away===G.club.id));
     if(m) dayMatches[rd._d]={m, rd, schedKey:`${rIdx}-${matches.indexOf(m)}`};
@@ -25767,10 +25867,33 @@ function renderScheduleCalendarView(){
   for(let i=0;i<firstDow;i++) cells+=`<div class="cal-day empty"></div>`;
   for(let d=1;d<=daysInMonth;d++){
     const entry=dayMatches[d];
-    if(!entry){ cells+=`<div class="cal-day"><div class="cal-daynum">${d}</div></div>`; continue; }
+    const drawEntry=drawDays[d];
+    if(!entry){
+      if(drawEntry){
+        const isUcl=drawEntry.comp==='ucl';
+        const drawColor=isUcl?'#38bdf8':'#fb923c';
+        const drawImg=isUcl?uclLogoImg('14px'):uelTrophyImg('14px');
+        legendSeen['Жеребкування']={img:'🎟️',color:drawColor,label:'Жеребкування'};
+        cells+=`<div class="cal-day has-match" style="background:${drawColor}22;border-color:${drawColor}66" title="Жеребкування ${isUcl?'ЛЧ':'ЛЄ'}">
+          <div class="cal-daynum">${d}</div>
+          <div class="cal-comp-icon">${drawImg}</div>
+          <div style="margin-top:auto;padding-bottom:1px;font-size:15px">🎟️</div>
+        </div>`;
+        continue;
+      }
+      cells+=`<div class="cal-day"><div class="cal-daynum">${d}</div></div>`; continue;
+    }
     const {m,rd,schedKey}=entry;
     const meta=_calCompMeta(rd);
     legendSeen[meta.label]=meta;
+    if(rd._drawPending){
+      cells+=`<div class="cal-day has-match" style="background:rgba(148,163,184,.09);border-color:rgba(148,163,184,.28)" title="Очікує жеребкування">
+        <div class="cal-daynum">${d}</div>
+        <div class="cal-comp-icon">${meta.img}</div>
+        <div class="cal-club" style="background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:rgba(148,163,184,.55);font-size:15px;font-weight:800">?</div>
+      </div>`;
+      continue;
+    }
     const isHome=m.home===G.club.id;
     const opp=clubById(isHome?m.away:m.home);
     const played=!!m.result;
@@ -25811,13 +25934,14 @@ function renderSchedule(){
   if(!G.club) return;
   normalizeUCLScheduleLabels();
 
-  function matchRowHTML(m, compImg=null, schedKey=''){
+  function matchRowHTML(m, compImg=null, schedKey='', pending=false){
     if(m.home==null||m.away==null) return '';
     const hc=clubById(m.home), ac=clubById(m.away);
     if(!hc||!ac) return '';
     const isMy=m.home===G.club.id||m.away===G.club.id;
     const played=!!m.result;
     const isHome=m.home===G.club.id;
+    const isAway=m.away===G.club.id;
 
     // Score classes
     let scoreClass='', winLoss='';
@@ -25836,19 +25960,21 @@ function renderSchedule(){
     const awayNameColor = played&&isMy ? (!isHome&&winLoss==='win'?'color:var(--grn)' : !isHome&&winLoss==='loss'?'color:var(--red)' : isHome&&winLoss==='loss'?'color:var(--grn)' : isHome&&winLoss==='win'?'color:var(--red)' : '') : '';
 
     const logoStyle=(c)=>`<div class="mr-club-logo" style="background:${c.bg};padding:2px">${c.logo}</div>`;
-
+    const tbdLogo=`<div class="mr-club-logo" style="background:rgba(255,255,255,.05);display:flex;align-items:center;justify-content:center;color:rgba(148,163,184,.55);font-weight:800">?</div>`;
+    const homeHidden = pending && !isHome;
+    const awayHidden = pending && !isAway;
 
     return`<div class="match-row${isMy?` my-match${winLoss?' '+winLoss:''}`:''} ${played?'played':''}" data-sched-key="${schedKey}">
       <div class="mr-club">
-        ${logoStyle(hc)}
-        <span class="mr-club-name" style="${homeNameColor}">${hc.name}</span>
+        ${homeHidden?tbdLogo:logoStyle(hc)}
+        <span class="mr-club-name" style="${homeNameColor}">${homeHidden?'Суперник TBD':hc.name}</span>
       </div>
       ${played
         ?`<div class="mr-score ${scoreClass}">${scoreText(m.result)}</div>`
-        :`<div class="mr-score pending">${isMy?(isHome?_homeFixtureIcon:_awayFixtureIcon):compImg?compImg:'vs'}</div>`}
+        :`<div class="mr-score pending">${pending?'❓':isMy?(isHome?_homeFixtureIcon:_awayFixtureIcon):compImg?compImg:'vs'}</div>`}
       <div class="mr-club right">
-        <span class="mr-club-name" style="${awayNameColor}">${ac.name}</span>
-        ${logoStyle(ac)}
+        <span class="mr-club-name" style="${awayNameColor}">${awayHidden?'Суперник TBD':ac.name}</span>
+        ${awayHidden?tbdLogo:logoStyle(ac)}
       </div>
     </div>`;
   }
@@ -25863,6 +25989,18 @@ function renderSchedule(){
         <div>
           <div style="font-size:13px;font-weight:700;color:var(--acc)">Зимова пауза</div>
           <div style="font-size:11px;color:var(--mut);margin-top:2px">${rd.date} · Трансферне вікно відкрито</div>
+        </div>
+      </div>`;
+    }
+
+    // ── UCL/UEL group draw day ──
+    if(rd.phase==='ucl_draw'||rd.phase==='uel_draw'){
+      const isUcl=rd.phase==='ucl_draw';
+      return`<div class="winter-break-card" style="border-color:${isUcl?'rgba(56,189,248,.3)':'rgba(251,146,60,.3)'}">
+        <div style="font-size:22px">🎟️</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:${isUcl?'#38bdf8':'#fb923c'}">Жеребкування ${isUcl?'Ліги Чемпіонів':'Ліги Європи'}</div>
+          <div style="font-size:11px;color:var(--mut);margin-top:2px">${rd.date||'31 серп.'} · Дізнайся своїх суперників у вкладці "Матч"</div>
         </div>
       </div>`;
     }
@@ -25900,7 +26038,7 @@ function renderSchedule(){
     // ── UCL round — special header like cup ──
     if(isUCLRd){
       const uclLabel = rd.label || `ЛЧ Тур ${rd.round}`;
-      const mHTML = matches.map(m=>matchRowHTML(m,uclLogoImg('15px'),`${rIdx}-${(rd.matches||[]).indexOf(m)}`)).join('');
+      const mHTML = matches.map(m=>matchRowHTML(m,uclLogoImg('15px'),`${rIdx}-${(rd.matches||[]).indexOf(m)}`,!!rd._drawPending)).join('');
       if(!mHTML.trim()) return '';
       return`<div style="margin-bottom:16px">
         <div class="comp-section-header">
@@ -25915,7 +26053,7 @@ function renderSchedule(){
     const isUELRd = rd.uel === true;
     if(isUELRd){
       const uelLabel = rd.label || `ЛЄ Тур ${rd.round}`;
-      const mHTML = matches.map(m=>matchRowHTML(m,uelTrophyImg('15px'),`${rIdx}-${(rd.matches||[]).indexOf(m)}`)).join('');
+      const mHTML = matches.map(m=>matchRowHTML(m,uelTrophyImg('15px'),`${rIdx}-${(rd.matches||[]).indexOf(m)}`,!!rd._drawPending)).join('');
       if(!mHTML.trim()) return '';
       return`<div style="margin-bottom:16px">
         <div class="comp-section-header">
@@ -28313,6 +28451,10 @@ function initUCLSchedule(){
 
   // Build 8 UCL group rounds
   const uclRounds = buildUCLGroupStage(parts, myId);
+  // Opponents aren't revealed to the user until the group draw ceremony —
+  // see openEuroDrawCeremony(). Rendering (calendar/schedule list) checks
+  // this flag and shows a "?" placeholder instead of the real opponent.
+  if(G.uclInUCL) uclRounds.forEach(rd => { rd._drawPending = true; });
 
   // Insert UCL rounds after specific league rounds — organic pattern:
   // 1st UCL after round 4, then gaps of 2, 2, 3, 2, 3, 2, 1
@@ -28325,6 +28467,13 @@ function initUCLSchedule(){
     result.push(rd);
     if(!isWinterBreak(rd) && !rd.isCupRound && !rd.ucl && !rd.uel){
       if(UCL_AFTER_ROUNDS.includes(rd.round) && uclIdx < uclRounds.length){
+        // Draw day marker — sits right before the first group round so the
+        // schedule/calendar show "Жеребкування" on 31 серпня, and reaching
+        // this point pauses G.currentRound here until the user watches it
+        // (see renderNextMatch()/openEuroDrawCeremony()).
+        if(uclIdx===0 && G.uclInUCL){
+          result.push({ucl:true, phase:'ucl_draw', round:'DRAW', matches:[], label:'Жеребкування Ліги Чемпіонів', fixedDate:'08-31', fixedDateYear:'start'});
+        }
         uclRounds[uclIdx].date = ''; // will be set by finalizeScheduleDates
         result.push(uclRounds[uclIdx]);
         uclIdx++;
@@ -28953,7 +29102,7 @@ function calcUELPrize(phase, result, isPlayoff, advanced){
   return 0;
 }
 
-function buildUELGroupStage(participantIds){
+function buildUELGroupStage(participantIds, userClubId){
   const n=participantIds.length;
   const t=[...participantIds], fixed=t[0], rotating=t.slice(1), rounds=[];
   for(let r=0;r<8;r++){
@@ -28961,6 +29110,17 @@ function buildUELGroupStage(participantIds){
     for(let i=0;i<n/2;i++) matches.push({home:circle[i],away:circle[n-1-i],result:null,uel:true});
     rounds.push({uel:true,round:r+1,matches,phase:'uel_group',label:`ЛЄ Тур ${r+1}`});
     rotating.unshift(rotating.pop());
+  }
+  // Balance home/away for the user club — same rebalance as buildUCLGroupStage.
+  if(userClubId != null){
+    let homeCount = 0;
+    rounds.forEach(rd => { rd.matches.forEach(m => { if(m.home === userClubId) homeCount++; }); });
+    rounds.forEach(rd => {
+      rd.matches.forEach(m => {
+        if(m.home === userClubId && homeCount > 4){ [m.home,m.away]=[m.away,m.home]; homeCount--; }
+        else if(m.away === userClubId && homeCount < 4){ [m.home,m.away]=[m.away,m.home]; homeCount++; }
+      });
+    });
   }
   return rounds;
 }
@@ -29003,12 +29163,16 @@ function initUELSchedule(){
 
   G.uel={groupStats:{},phase:'group',playoff:null,winner:null,userEliminated:false,_userUELStage:'group',seasonYear:G.seasonStartYear};
   parts.forEach(id=>{G.uel.groupStats[id]={pts:0,w:0,d:0,l:0,m:0,gf:0,ga:0};});
-  const uelRounds=buildUELGroupStage(parts);
+  const uelRounds=buildUELGroupStage(parts, G.club?.id);
+  if(G.uelInUEL) uelRounds.forEach(rd => { rd._drawPending = true; });
   const UEL_AFTER_ROUNDS=[4,5,7,9,12,14,16,17];
   const result=[]; let idx=0;
   G.schedule.forEach(rd=>{
     result.push(rd);
     if(!isWinterBreak(rd)&&!rd.isCupRound&&!rd.ucl&&!rd.uel&&UEL_AFTER_ROUNDS.includes(rd.round)&&idx<uelRounds.length){
+      if(idx===0 && G.uelInUEL){
+        result.push({uel:true, phase:'uel_draw', round:'DRAW', matches:[], label:'Жеребкування Ліги Європи', fixedDate:'08-31', fixedDateYear:'start'});
+      }
       result.push(uelRounds[idx++]);
     }
   });
