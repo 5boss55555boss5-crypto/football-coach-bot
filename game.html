@@ -2824,7 +2824,6 @@ body.theme-light #cupBracketBody>div{background:#fff!important;border-color:#d8e
     <!-- Squad panel -->
     <div id="homePanel-squad">
       <div class="slabel" id="squadSeasonLabel">Склад — сезон 2026/27</div>
-      <div id="squadChemistryCard"></div>
       <div id="squadList"></div>
     </div>
 
@@ -2909,6 +2908,8 @@ body.theme-light #cupBracketBody>div{background:#fff!important;border-color:#d8e
           <div id="formationPicker" style="display:none"></div>
         </div>
       </div>
+
+      <div id="matchChemistryCard"></div>
 
       <div id="postMatchResult"></div>
     </div>
@@ -12870,6 +12871,8 @@ function renderPreMatchField(){
     xiAgeEl.innerHTML=avgXi?`<span style="color:${rColor};font-weight:800">⭐ ${avgR}</span> <span style="color:var(--mut);font-size:10px">· ⌀ ${avgXi} р.</span>`:'';
   }
 
+  try{ renderSquadChemistryCard(); }catch(e){}
+
   // Position mismatch warning
   const xi=PM.xi;
   const gkSlot=xi[0];
@@ -22548,11 +22551,10 @@ function openPlayerSheet(name){
 }
 
 function renderSquadChemistryCard(){
-  const el=document.getElementById('squadChemistryCard');
+  const el=document.getElementById('matchChemistryCard');
   if(!el||!G.club) return;
-  let xi=[];
-  try{ xi=(typeof buildLineup==='function'?buildLineup(G.players).xi:null)||[]; }catch(e){}
-  if(!xi.length) xi=G.players.slice(0,11);
+  let xi=(Array.isArray(PM.xi)?PM.xi.filter(Boolean):[])||[];
+  if(!xi.length){ el.innerHTML=''; return; }
   const chem=calcSquadChemistry(xi);
   const color=chem.pct>=75?'#4ade80':chem.pct>=50?'#f5a623':'#f87171';
   const note=chem.newSigningsCount>=4
@@ -22715,7 +22717,6 @@ function renderHome(){
     allFwds.length?`${squadSectionHeader('⚡','НАПАДНИКИ',allFwds.length,'#ef4444','НП · ЛВ · ПВ')}${allFwds.map(renderPlayer).join('')}`:''
   ];
   document.getElementById('squadList').innerHTML=groupHTML.join('');
-  renderSquadChemistryCard();
 
 
 
