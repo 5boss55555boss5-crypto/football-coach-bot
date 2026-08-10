@@ -25468,12 +25468,12 @@ const _UK_MONTHS=['Січень','Лютий','Березень','Квітень
 const _UK_DOW=['ПН','ВТ','СР','ЧТ','ПТ','СБ','НД'];
 
 // Small icon markers for an upcoming match: a house for home fixtures, a
-// front-facing bus (windshield + wheels, matching the house's front-on
-// framing) for away trips — swapped in for the old 🏠/✈️ emoji stickers.
-// Bold strokes so they stay crisp at the tiny sizes they render at, both in
-// the calendar grid and the schedule list.
+// front-facing bus for away trips — swapped in for the old 🏠/✈️ emoji
+// stickers. The bus is a solid silhouette (mirror-nubs, windshield, roof
+// vent and wheels punched out as holes via an evenodd path) rather than an
+// outline, so it stays legible at the tiny sizes it renders at.
 const _homeFixtureIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7"/><path d="M6 10v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-9"/><path d="M10 20v-5.5h4V20"/></svg>';
-const _awayFixtureIcon='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V8a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v12"/><rect x="7" y="7.3" width="10" height="4.7" rx="1"/><circle cx="7.3" cy="20" r="1.7" fill="currentColor" stroke="none"/><circle cx="16.7" cy="20" r="1.7" fill="currentColor" stroke="none"/></svg>';
+const _awayFixtureIcon='<svg viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M4,3 H20 V21 H4 Z M1,9 H4 V15 H1 Z M20,9 H23 V15 H20 Z M9.5,4.4 H14.5 V6.2 H9.5 Z M5.6,7.6 H18.4 V16 H5.6 Z M6.4,16.6 H10.4 V20.2 H6.4 Z M13.6,16.6 H17.6 V20.2 H13.6 Z"/></svg>';
 
 function _calDefaultMonth(){
   const upcoming=(G.schedule||[]).find(r=>!isWinterBreak(r) && Number.isFinite(r._y) && (r.matches||[]).some(m=>m && !m.result && (m.home===G.club?.id||m.away===G.club?.id)));
@@ -25569,7 +25569,7 @@ function renderSchedule(){
   if(!G.club) return;
   normalizeUCLScheduleLabels();
 
-  function matchRowHTML(m, isCup=false, schedKey=''){
+  function matchRowHTML(m, compImg=null, schedKey=''){
     if(m.home==null||m.away==null) return '';
     const hc=clubById(m.home), ac=clubById(m.away);
     if(!hc||!ac) return '';
@@ -25603,7 +25603,7 @@ function renderSchedule(){
       </div>
       ${played
         ?`<div class="mr-score ${scoreClass}">${scoreText(m.result)}</div>`
-        :`<div class="mr-score pending">${isMy?(isHome?_homeFixtureIcon:_awayFixtureIcon):isCup?'🏆':'vs'}</div>`}
+        :`<div class="mr-score pending">${isMy?(isHome?_homeFixtureIcon:_awayFixtureIcon):compImg?compImg:'vs'}</div>`}
       <div class="mr-club right">
         <span class="mr-club-name" style="${awayNameColor}">${ac.name}</span>
         ${logoStyle(ac)}
@@ -25632,7 +25632,7 @@ function renderSchedule(){
       const matches=rd.matches||[];
       const filtMatches=schedFilter==='my'?matches.filter(m=>m.home===G.club.id||m.away===G.club.id):matches;
       if(!filtMatches.length) return '';
-      const mHTML=filtMatches.map(m=>matchRowHTML(m,true,`${rIdx}-${matches.indexOf(m)}`)).join('');
+      const mHTML=filtMatches.map(m=>matchRowHTML(m,cupTrophyImg(G.leagueId,'15px'),`${rIdx}-${matches.indexOf(m)}`)).join('');
       return`<div style="margin-bottom:16px">
         <div class="comp-section-header">
           <div class="comp-section-icon" style="background:rgba(245,166,35,.13);color:var(--gold)">🏆</div>
@@ -25658,7 +25658,7 @@ function renderSchedule(){
     // ── UCL round — special header like cup ──
     if(isUCLRd){
       const uclLabel = rd.label || `ЛЧ Тур ${rd.round}`;
-      const mHTML = matches.map(m=>matchRowHTML(m,true,`${rIdx}-${(rd.matches||[]).indexOf(m)}`)).join('');
+      const mHTML = matches.map(m=>matchRowHTML(m,uclLogoImg('15px'),`${rIdx}-${(rd.matches||[]).indexOf(m)}`)).join('');
       if(!mHTML.trim()) return '';
       return`<div style="margin-bottom:16px">
         <div class="comp-section-header">
@@ -25673,7 +25673,7 @@ function renderSchedule(){
     const isUELRd = rd.uel === true;
     if(isUELRd){
       const uelLabel = rd.label || `ЛЄ Тур ${rd.round}`;
-      const mHTML = matches.map(m=>matchRowHTML(m,true,`${rIdx}-${(rd.matches||[]).indexOf(m)}`)).join('');
+      const mHTML = matches.map(m=>matchRowHTML(m,uelTrophyImg('15px'),`${rIdx}-${(rd.matches||[]).indexOf(m)}`)).join('');
       if(!mHTML.trim()) return '';
       return`<div style="margin-bottom:16px">
         <div class="comp-section-header">
