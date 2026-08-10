@@ -12365,8 +12365,40 @@ function selectContractOption(name, newEnd, bonus, yrs, newSalary){
   renderHome();
   updateHeader();
   const newEnd2=(newEnd+1).toString().slice(2);
+  showContractSignedCard(p.n,p.p,yrs,newSalary,bonus);
   showTrMsg(`✅ ${esc(p.n)} підписав контракт на ${yrs} ${yrs===1?'рік':'роки'} · ЗП ${fmtPrice(newSalary)}/рік`);
   saveGame();
+}
+
+// Lighter-weight cousin of showSignedCelebration()/showSoldCelebration() —
+// a contract renewal isn't a transfer, so it gets a small slide-up card
+// (no full-screen backdrop, no confetti) instead of the big signing moment.
+function showContractSignedCard(playerName,playerPos,yrs,salary,bonus){
+  document.getElementById('contractSignedCard')?.remove();
+  const el=document.createElement('div');
+  el.id='contractSignedCard';
+  el.style.cssText='position:fixed;left:50%;bottom:90px;transform:translate(-50%,16px);opacity:0;z-index:9200;width:min(320px,calc(100% - 32px));background:linear-gradient(135deg,rgba(52,211,153,.14),rgba(11,21,36,.97));border:1px solid rgba(52,211,153,.35);border-radius:16px;padding:12px 14px;box-shadow:0 10px 28px rgba(0,0,0,.4);display:flex;align-items:center;gap:11px;transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .35s ease;cursor:pointer';
+  el.innerHTML=`
+    ${playerAvatar(playerName,playerPos,42,13)}
+    <div style="flex:1;min-width:0">
+      <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px">
+        <span id="contractSignedIcon" style="font-size:13px;display:inline-block;transform:scale(0) rotate(-20deg);transition:transform .4s cubic-bezier(.34,1.56,.64,1)">✍️</span>
+        <span style="font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#34d399">Новий контракт</span>
+      </div>
+      <div style="font-size:14px;font-weight:800;color:#f8fafc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(playerName)}</div>
+      <div style="font-size:11px;color:rgba(148,163,184,.75);margin-top:1px">${yrs} ${yrs===1?'рік':yrs<5?'роки':'років'} · ${fmtPrice(salary)}/рік${bonus?` · бонус ${fmtPrice(bonus)}`:''}</div>
+    </div>`;
+  document.body.appendChild(el);
+  const dismiss=()=>{el.style.opacity='0';el.style.transform='translate(-50%,12px)';setTimeout(()=>el.remove(),350);};
+  el.addEventListener('click',dismiss);
+  requestAnimationFrame(()=>{
+    el.style.opacity='1';
+    el.style.transform='translate(-50%,0)';
+    const icon=document.getElementById('contractSignedIcon');
+    if(icon) setTimeout(()=>{icon.style.transform='scale(1) rotate(0deg)';},150);
+  });
+  try{VIB.tap();}catch(e){}
+  setTimeout(dismiss,2600);
 }
 
 function confirmRenewContract(name, newEnd, cost){
