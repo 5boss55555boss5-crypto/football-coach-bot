@@ -15682,20 +15682,39 @@ function openEuroDrawCeremony(comp){
   }).filter(Boolean);
   if(!fixtures.length) return;
 
+  // Interleave away/home (away first) instead of the draw order — reads as
+  // more of a "pot pull" than a flat list grouped by venue.
+  const homeFx=fixtures.filter(f=>f.isHome), awayFx=fixtures.filter(f=>!f.isHome);
+  const ordered=[]; let hi=0, ai=0;
+  while(hi<homeFx.length || ai<awayFx.length){
+    if(ai<awayFx.length) ordered.push(awayFx[ai++]);
+    if(hi<homeFx.length) ordered.push(homeFx[hi++]);
+  }
+
   document.getElementById('euroDrawModal')?.remove();
   const compLabel = isUcl?'Ліги Чемпіонів':'Ліги Європи';
   const accent = isUcl?'#38bdf8':'#fb923c';
   const accentRgb = isUcl?'56,189,248':'251,146,60';
   const club = G.club||{};
-  const totalMs = 9600;
-  const stepDelay = totalMs/fixtures.length;
+  // Each row: fades in as a "?" placeholder, sits for a beat, then flips to
+  // reveal the drawn opponent — more of a "ball's been pulled" pause than an
+  // instant reveal. stepDelay paces the pulls; flipPause is the suspense
+  // beat before each one flips.
+  const stepDelay=1600, flipPause=850, flipDur=650;
+  const revealAt=(i)=> i*stepDelay + flipPause; // ms until this row's flip starts
+  const lastRevealEnd = ordered.length ? revealAt(ordered.length-1)+flipDur : 0;
 
   const html=`
   <style>
     @keyframes euroDrawFade{from{opacity:0}to{opacity:1}}
-    @keyframes euroDrawRow{0%{transform:scale(0) rotate(-12deg);opacity:0}55%{transform:scale(1.08) rotate(3deg)}100%{transform:scale(1) rotate(0deg);opacity:1}}
+    @keyframes euroDrawRowIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes euroDrawFlip{from{transform:rotateY(0deg)}to{transform:rotateY(180deg)}}
     @keyframes euroDrawBtn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    .euro-draw-row{opacity:0;animation:euroDrawRow .5s cubic-bezier(.17,.67,.38,1.3) forwards}
+    .euro-draw-row{opacity:0;animation:euroDrawRowIn .35s ease forwards;perspective:600px}
+    .edr-flip{position:relative;height:42px;transform-style:preserve-3d;animation:euroDrawFlip ${flipDur}ms cubic-bezier(.45,.05,.15,1) forwards}
+    .edr-face{position:absolute;inset:0;backface-visibility:hidden;display:flex;align-items:center;border-radius:12px}
+    .edr-front{justify-content:center;background:rgba(255,255,255,.035);border:1px dashed rgba(148,163,184,.28);font-size:17px;font-weight:900;color:rgba(148,163,184,.45);letter-spacing:2px}
+    .edr-back{gap:10px;padding:0 12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);transform:rotateY(180deg)}
   </style>
   <div id="euroDrawModal" style="position:fixed;inset:0;background:radial-gradient(circle at 50% 15%,rgba(${accentRgb},.16),rgba(3,7,18,.97) 60%);z-index:700;display:flex;align-items:center;justify-content:center;padding:18px;animation:euroDrawFade .3s ease">
     <div style="width:100%;max-width:380px;background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.01)),#0b1524;border:1px solid rgba(${accentRgb},.35);border-radius:24px;padding:22px 18px 18px;text-align:center;max-height:88vh;overflow-y:auto">
@@ -15704,13 +15723,18 @@ function openEuroDrawCeremony(comp){
         <div style="font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:1.6px;color:${accent}">31 серпня · Жеребкування</div>
       </div>
       <div style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1.2px;color:#eaf6ff;margin-bottom:2px">${compLabel.toUpperCase()}</div>
-      <div style="font-size:11px;color:rgba(148,163,184,.6);margin-bottom:18px">Груповий етап · ${fixtures.length} суперників</div>
+      <div style="font-size:11px;color:rgba(148,163,184,.6);margin-bottom:18px">Груповий етап · ${ordered.length} суперників</div>
 
       <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:18px">
-        ${fixtures.map((f,i)=>`<div class="euro-draw-row" style="animation-delay:${(i*stepDelay/1000).toFixed(2)}s;display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:12px">
-          <div style="width:30px;height:30px;border-radius:8px;background:${f.opp.bg||'#111'};padding:3px;overflow:hidden;flex-shrink:0">${f.opp.logo||''}</div>
-          <span style="font-size:12.5px;font-weight:700;flex:1;text-align:left">${esc(f.opp.name)}</span>
-          <span style="font-size:9px;font-weight:800;padding:3px 8px;border-radius:8px;background:${f.isHome?'rgba(74,222,128,.12)':'rgba(96,165,250,.12)'};color:${f.isHome?'#4ade80':'#60a5fa'}">${f.isHome?'🏠 ВДОМА':'✈️ У ГОСТЯХ'}</span>
+        ${ordered.map((f,i)=>`<div class="euro-draw-row" style="animation-delay:${(i*stepDelay/1000).toFixed(2)}s">
+          <div class="edr-flip" style="animation-delay:${(revealAt(i)/1000).toFixed(2)}s">
+            <div class="edr-face edr-front">?</div>
+            <div class="edr-face edr-back">
+              <div style="width:30px;height:30px;border-radius:8px;background:${f.opp.bg||'#111'};padding:3px;overflow:hidden;flex-shrink:0">${f.opp.logo||''}</div>
+              <span style="font-size:12.5px;font-weight:700;flex:1;text-align:left">${esc(f.opp.name)}</span>
+              <span style="font-size:9px;font-weight:800;padding:3px 8px;border-radius:8px;background:${f.isHome?'rgba(74,222,128,.12)':'rgba(96,165,250,.12)'};color:${f.isHome?'#4ade80':'#60a5fa'}">${f.isHome?'🏠 ВДОМА':'✈️ У ГОСТЯХ'}</span>
+            </div>
+          </div>
         </div>`).join('')}
       </div>
 
@@ -15719,11 +15743,12 @@ function openEuroDrawCeremony(comp){
   </div>`;
   document.body.insertAdjacentHTML('beforeend', html);
   try{VIB.tap();}catch(e){}
+  ordered.forEach((f,i)=>{ setTimeout(()=>{ try{VIB.tap();}catch(e){} }, revealAt(i)); });
 
   setTimeout(()=>{
     const btn=document.getElementById('euroDrawCloseBtn');
     if(btn){ btn.disabled=false; btn.style.animation='euroDrawBtn .3s ease forwards'; }
-  }, totalMs+300);
+  }, lastRevealEnd+300);
 }
 
 function closeEuroDrawCeremony(comp){
