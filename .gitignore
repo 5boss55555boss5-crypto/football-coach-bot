@@ -7,3 +7,11 @@ __pycache__/
 run_bot.bat
 run.py
 ЗАПУСТИ_БОТА.bat
+
+# --- секрети й дані: додано 29.08.2026 після того, як помилковий
+# `railway up` із кореня ai/ залив на Railway сесії, .env і бази ---
+token.json
+sa_key.json
+credentials.json
+*.session
+*.session-journal
