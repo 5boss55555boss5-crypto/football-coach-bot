@@ -189,4 +189,9 @@ def create_app(bot=None):
         path=os.path.join(os.path.dirname(__file__), 'identity_v2_assets'),
         show_index=False,
     )
+    app.router.add_static(
+        '/club_logos/',
+        path=os.path.join(os.path.dirname(__file__), 'club_logos'),
+        show_index=False,
+    )
     return app
